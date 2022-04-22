@@ -17,10 +17,11 @@ namespace HospitalProject.FileHandler
 
         private readonly string _datetimeFormat;
 
-        public AppointmentFileHandler(string path, string delimiter)
+        public AppointmentFileHandler(string path, string delimiter, string dateTimeFormat)
         {
             _path=path;
             _delimiter=delimiter;
+            _datetimeFormat=dateTimeFormat;
         }
         
         public IEnumerable<Appointment> ReadAll()
@@ -62,7 +63,7 @@ namespace HospitalProject.FileHandler
             {
                 foreach (Appointment appointment in _appointments)
                 {
-                    file.WriteLine(ConvertAppointmentToCSVFormat(appointment);
+                    file.WriteLine(ConvertAppointmentToCSVFormat(appointment));
                 }
             }
         }

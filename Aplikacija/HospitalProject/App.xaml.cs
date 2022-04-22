@@ -11,6 +11,7 @@ using Repository;
 using Model;
 using Service;
 using HospitalProject.Service;
+using HospitalProject.FileHandler;
 
 namespace HospitalProject
 {
@@ -41,13 +42,15 @@ namespace HospitalProject
 
         public App()
         {
+            var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
+            var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
 
-            var _appointmentRepository = new AppointmentRepository(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
-            var _appointmentRepository_patient = new AppointmentRepository(APPOINTMENTS_PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
-            var _doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
+            var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
@@ -62,7 +65,9 @@ namespace HospitalProject
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService);
 
             var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService);
+
             AppointmentController = new AppointmentController(_appointmentService);
+
             DoctorController = new DoctorController(_doctorService);
 
             AppointmentControllerPatient = new AppointmentController(_appointment_patient_Service);
