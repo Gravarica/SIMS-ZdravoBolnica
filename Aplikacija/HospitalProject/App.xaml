@@ -2,12 +2,24 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:HospitalProject"
+             xmlns:Model="clr-namespace:HospitalProject.View.Model"
+             xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
+             xmlns:view="clr-namespace:HospitalProject.View.DoctorView.Views"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/probni.xaml"/>
+                <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:MainDoctorViewModel}">
+                <view:AppointmentsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
+                <view:PatientsView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

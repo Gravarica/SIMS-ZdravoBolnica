@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace HospitalProject.View.Model
+namespace HospitalProject.View.DoctorView.Model
 {
     public class MainDoctorViewModel
     {
