@@ -1,0 +1,112 @@
+﻿<Window x:Class="HospitalProject.View.Model.MainDoctorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.Model"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        mc:Ignorable="d" Background="Azure"
+        Title="DoctorView" Height="600" Width="950">
+    <Window.Resources>
+        <converters:NameConverter x:Key="NameConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" FontWeight="Bold" FontSize ="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="DOCTOR VIEW - APPOINTMENTS" />
+        <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False" Name ="Appointments" IsReadOnly="True"  ItemsSource="{Binding Path=AppointmentItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Appointment ID" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Appointment Date" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Appointment Duration" Binding="{Binding Duration}" Width="*"/>
+                <DataGridTextColumn Header="Patient Id" Binding="{Binding Patient.Id}" Width="*"/>
+                <DataGridTextColumn Header="Patient Name" Binding="{Binding Patient, Converter={StaticResource NameConverter}}" Width="*"/>
+                <DataGridTextColumn Header="Doctor Id" Binding="{Binding Doctor.Id}" Width="*"/>
+                <DataGridTextColumn Header="Doctor Name" Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Create new appointment" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Margin="5,20,5,5" Name ="NewAppointmentGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Patient"/>
+                        <ComboBox Name ="PatientID" Grid.Row="0" Grid.Column="1" DisplayMemberPath ="Name" SelectedValuePath="Value" ItemsSource="{Binding Path = PatientComboBox}" SelectedValue = "{Binding Path = PatientData}"></ComboBox>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="DoctorId"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text ="3" IsReadOnly="True"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Date"/>
+                        <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path = Date, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Time"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Time}"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
+
+                        <Button Grid.Row ="5" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
+                        <Button Grid.Row="5" Grid.Column="1" Content="Anamnesis" Command="{Binding CreateAnamnesisCommand}" />
+
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Appointment Information" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid Margin="5,20,5,5" Name ="InfoAppointmentGrid" DataContext="{Binding ElementName=Appointments,Path=SelectedItem}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Patient"/>
+                        <TextBox Name ="PatientIDEdit" Grid.Row="0" Grid.Column="1" Text ="{Binding Path = PatientId}" IsReadOnly="True"></TextBox>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="DoctorId"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text ="3" IsReadOnly="True"/>
+
+                        <!--<Label Grid.Row="2" Grid.Column="0" Content="Date"/>
+                        <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path = Date}" />-->
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Time"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path = Date}"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path = Duration}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
