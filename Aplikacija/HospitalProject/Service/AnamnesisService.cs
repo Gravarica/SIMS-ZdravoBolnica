@@ -28,6 +28,11 @@ namespace HospitalProject.Service
             return _anamnesisRepository.GetById(id);
         }
 
+        public void Create(Anamnesis anamnesis)
+        {
+            _anamnesisRepository.Insert(anamnesis);
+        }
+
         public void Delete(int id)
         {
             _anamnesisRepository.Delete(id);

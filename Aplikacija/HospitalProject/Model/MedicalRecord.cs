@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.Model
 {
-    public class MedicalCard : ViewModelBase
+    public class MedicalRecord : ViewModelBase
     {
 
         private int _id;
         private Patient _patient;
         private List<Anamnesis> _anamneses;
 
-        public MedicalCard(int id, int patientId)
+        public MedicalRecord(int id, int patientId)
         {
             _id = id;
            _patient = new Patient(patientId);

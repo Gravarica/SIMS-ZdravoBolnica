@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.View.DoctorView.Model
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BaseViewModel
     {
 
         public RelayCommand AppointmentsViewCommand { get; set; }

@@ -12,6 +12,7 @@ using Model;
 using Service;
 using HospitalProject.Service;
 using HospitalProject.FileHandler;
+using HospitalProject.Repository;
 
 namespace HospitalProject
 {
@@ -26,7 +27,9 @@ namespace HospitalProject
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
         private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
-        private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";private const string CSV_DELIMITER = "|";
+        private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
+        private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
+        private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
 
         public DoctorController DoctorController { get; set; }
@@ -39,12 +42,16 @@ namespace HospitalProject
 
         public AppointmentController AppointmentControllerPatient { get; set; }
 
+        public AnamnesisController AnamnesisController { get; set; }
+
 
         public App()
         {
             var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
             var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
+
+            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
@@ -56,11 +63,15 @@ namespace HospitalProject
 
             var _patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
 
+            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
+
             var _doctorService = new DoctorService(_doctorRepository);
             
             var _roomService = new RoomService(_roomRepository);
 
             var _patientService = new PatientService(_patientRepository);
+
+            var _anamnesisService = new AnamnesisService(_anamnesisRepository);
 
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService);
 
@@ -75,6 +86,8 @@ namespace HospitalProject
             PatientController = new PatientController(_patientService);
 
             RoomController = new RoomControoler(_roomService);
+
+            AnamnesisController = new AnamnesisController(_anamnesisService);
 
         }
 

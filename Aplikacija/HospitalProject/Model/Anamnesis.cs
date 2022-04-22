@@ -32,6 +32,13 @@ namespace HospitalProject.Model
             _description = description;
         }
 
+        public Anamnesis(Appointment appointment, string description)
+        {
+            _app = appointment;
+            _date = appointment.Date;
+            _description= description;
+        }
+
         public Appointment App
         {
             get

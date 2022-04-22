@@ -5,7 +5,7 @@ using HospitalProject.View.Model;
 
 namespace HospitalProject.View.WardenForms
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BaseViewModel
     {
         private object _momentalView { get; set; }
         public WardenRoomControl WardenRoomControl { get; set; }
