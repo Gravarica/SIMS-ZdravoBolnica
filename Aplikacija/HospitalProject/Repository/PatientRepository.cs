@@ -40,6 +40,11 @@ namespace Repository
                 .ToList();
         }
 
+        public Patient GetById(int id)
+        {
+            return _patients.FirstOrDefault(p => p.Id == id);
+        }
+
         public Patient Add(Patient patient)
         {
             patient.Id = ++_patientMaxId;

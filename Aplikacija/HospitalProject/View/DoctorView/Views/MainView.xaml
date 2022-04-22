@@ -8,17 +8,15 @@
         xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Title="MainView" Height="720" Width="1080"
-        WindowStyle="None"
         ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True">
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
     
     <Border Background="#272537"
-            CornerRadius="20">
+            >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>

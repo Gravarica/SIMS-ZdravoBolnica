@@ -62,5 +62,20 @@ namespace HospitalProject.Repository
                 anamnesis.App = _appointmentRepository.Get(id);
             }
         }
+
+        public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
+        {
+            List<Anamnesis> anamnesisReturnList = new List<Anamnesis>();
+
+            foreach(Anamnesis anamnesis in _anamneses)
+            {
+                if(patientId == anamnesis.App.Patient.Id)
+                {
+                    anamnesisReturnList.Add(anamnesis);
+                }
+            }
+
+            return anamnesisReturnList;
+        }
     }
 }

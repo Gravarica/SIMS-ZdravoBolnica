@@ -49,6 +49,11 @@ namespace Service
             return _patientRepository.Add(patient);
         }
 
+        public Patient GetById(int id)
+        {
+            return _patientRepository.GetById(id);
+        }
+
     }
 
     

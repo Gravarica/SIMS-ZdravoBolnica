@@ -38,5 +38,10 @@ namespace HospitalProject.Service
             _anamnesisRepository.Update(anamnesis);
         }
 
+        public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
+        {
+            return _anamnesisRepository.GetAnamnesesByMedicalRecord(patientId);
+        }
+
     }
 }

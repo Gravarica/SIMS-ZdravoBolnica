@@ -46,9 +46,10 @@ namespace HospitalProject.FileHandler
             anamnesis.Description);
         }
 
-        public void AppendLineToFile(string path, string line)
+        public void AppendLineToFile(Anamnesis anamnesis)
         {
-            File.AppendAllText(path, line + Environment.NewLine);
+            string line = ConvertAnamnesisToCSVFormat(anamnesis);
+            File.AppendAllText(_path, line + Environment.NewLine);
         }
 
         public void Save(IEnumerable<Anamnesis> anamneses)

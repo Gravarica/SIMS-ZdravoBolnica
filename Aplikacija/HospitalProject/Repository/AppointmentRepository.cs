@@ -41,9 +41,10 @@ namespace Repository
                 return appointment;
         }
 
+        // Proveriti null pointer ovde ako ne vrati nista!!!
         public Appointment Get(int id)
         {
-            return _appointments.FirstOrDefault(x => x.Id == id); // Daj mi prvi na koji naletis koji se poklapa ILI daj mi default(null)
+            return _appointments.FirstOrDefault(x => x.Id == id); 
         }
 
         public IEnumerable<Appointment> GetAll()
@@ -76,7 +77,7 @@ namespace Repository
                 updatedAppointment.PatientId = appointment.PatientId;
                 updatedAppointment.RoomID = appointment.RoomID;
 
-                Save();
+                _appointmentFileHandler.Save(_appointments);
 
         }
 
