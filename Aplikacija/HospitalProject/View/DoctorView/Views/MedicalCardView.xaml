@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:Model="clr-namespace:HospitalProject.View.Model"
+             xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
+    <UserControl.DataContext>
+        <viewModel:MedicalCardViewModel/>
+    </UserControl.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

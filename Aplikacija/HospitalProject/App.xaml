@@ -21,6 +21,14 @@
             <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
                 <view:PatientsView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:PatientInformationViewModel}">
+                <view:PatientInformationView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:PreviousExaminationsViewModel}">
+                <view:PreviousExaminationsView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
