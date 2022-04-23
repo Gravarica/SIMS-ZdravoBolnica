@@ -24,5 +24,10 @@ namespace HospitalProject.Controller
         {
             _anamnesisService.Create(anamnesis);
         }
+
+        public void Update(Anamnesis anamnesis)
+        {
+            _anamnesisService.Update(anamnesis);
+        }
     }
 }

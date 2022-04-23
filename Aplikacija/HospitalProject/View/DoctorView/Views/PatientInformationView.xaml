@@ -50,8 +50,8 @@
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
-                           Text="Marko"
-                           Style="{StaticResource TextBlockStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding MedicalRecord.Patient.FirstName}"/>
                 
                 <Label Grid.Row="1"
                        Grid.Column="0"
@@ -59,8 +59,8 @@
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
-                           Text="Markovic"
-                           Style="{StaticResource TextBlockStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding MedicalRecord.Patient.LastName}"/>
                 
                 <Label Grid.Row="2"
                        Grid.Column="0"

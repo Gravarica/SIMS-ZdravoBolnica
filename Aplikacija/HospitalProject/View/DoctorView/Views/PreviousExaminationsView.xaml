@@ -10,27 +10,36 @@
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:NameConverter x:Key="NameConverter"/>
+        <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
     </UserControl.Resources>
     <Grid>
         <DataGrid
                   Margin="15"
                   ScrollViewer.CanContentScroll="True"
                   AutoGenerateColumns="False"
-                  RowHeight="30"
-                  FontSize="25"
-                  ItemsSource="{Binding Path = Anamneses}">
+                  RowHeight="50"
+                  FontSize="20"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Path = Anamneses}"
+                  SelectedItem="{Binding SelectedItem}"
+                  SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date"
                                     Width="200"
-                                    Binding="{Binding App.Date}"/>
+                                    Binding="{Binding App.Date, Converter={StaticResource DateConverter}}"/>
                 <DataGridTextColumn Header="Doctor" 
                                     Width="*"
                                     Binding="{Binding App.Doctor, Converter={StaticResource NameConverter}}"/>
                 <DataGridTextColumn Header="Description"
                                     Width="*"
                                     Binding="{Binding Description}"/>
-                <DataGridTextColumn Header="Details"
-                                    Width="100"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" Command="{Binding DataContext.EditAnamnesisCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

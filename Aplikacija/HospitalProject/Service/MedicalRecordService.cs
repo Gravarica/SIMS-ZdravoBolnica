@@ -106,5 +106,10 @@ namespace HospitalProject.Service
             medicalRecord.Anamneses = _anamnesisService.GetAnamnesesByMedicalRecord(medicalRecord.Patient.Id);
         }
 
+        public void AddNewAnamnesisToMedicalRecord(Anamnesis anamnesis)
+        {
+            _medicalRecordRepostiory.AddNewAnamnesisToMedicalRecord(anamnesis);
+        }
+
     }
 }

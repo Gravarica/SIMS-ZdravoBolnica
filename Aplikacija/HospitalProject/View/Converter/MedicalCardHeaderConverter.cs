@@ -9,18 +9,18 @@ using System.Windows.Data;
 
 namespace HospitalProject.View.Converter
 {
-    public class NameConverter : IValueConverter
+    public class MedicalCardHeaderConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            User user = value as User;
-
-            if (user is null) 
+            Patient patient = value as Patient;
+            
+            if (patient == null)
             {
                 return null;
             }
 
-            return user.FirstName + user.LastName;
+            return "Medical card - " + patient.FirstName + " " + patient.LastName;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -46,7 +46,8 @@
                     Content="Cancel Appointment"
                     VerticalAlignment="Center"
                     Width="115"
-                    Height="25" />
+                    Height="25" 
+                    Command="{Binding DeleteCommand}"/>
             <Border BorderThickness="5"/>
         </Grid>
         
@@ -93,7 +94,13 @@
                         <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path = Date, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label Grid.Row="3" Grid.Column="0" Content="Time"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Time}"/>
+                        <TextBox Grid.Row="3" Grid.Column="1">
+                            <Binding Path="Time" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <doctorvalidation:TimeFormatValidation/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
 
                         <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
                         <TextBox Grid.Row="4" Grid.Column="1">
@@ -105,7 +112,7 @@
                         </TextBox>
 
                         <Button Grid.Row ="5" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
-                        <Button Grid.Row="5" Grid.Column="1" Content="Anamnesis" Command="{Binding CreateAnamnesisCommand}" />
+                        <Button Grid.Row="5" Grid.Column="1" Content="Start Examination" Command="{Binding CreateAnamnesisCommand}" />
                         <Button Content="MedicalRecord" 
                                 Grid.Row="6"
                                 Grid.Column="0"

@@ -23,9 +23,6 @@ namespace HospitalProject.View.DoctorView.Model
 {
     public class MainDoctorViewModel
     {
-        private static readonly Regex _timeRegex = new Regex("[0-9][0-9]:[0-9][0-9]");
-        private const string TIME_FORMAT_ERROR_MESSAGE = "Invalid time format. Valid format is: 15:03. !";
-
         private Appointment selectedItem;
 
         private IList<Patient> _patients;
@@ -38,6 +35,7 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand addCommand;
         private RelayCommand createAnamnesisCommand;
         private RelayCommand medicalRecordCommand;
+        private RelayCommand deleteCommand;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> PatientIds { get; set; }
@@ -78,6 +76,14 @@ namespace HospitalProject.View.DoctorView.Model
 
         }
 
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ?? (deleteCommand = new RelayCommand(param => DeleteCommandExecute(), param => CanDeleteCommandExecute()));
+            }
+        }
+
         public RelayCommand AddCommand
         {
             get
@@ -102,6 +108,17 @@ namespace HospitalProject.View.DoctorView.Model
             {
                 return medicalRecordCommand ?? (medicalRecordCommand = new RelayCommand(param => MedicalRecordCommandExecute(), param => CanMedicalRecordCommandExecute()));
             }
+        }
+
+        private bool CanDeleteCommandExecute()
+        {
+            return SelectedItem != null;
+        }
+
+        private void DeleteCommandExecute()
+        {
+            _appointmentController.Delete(SelectedItem.Id);
+            AppointmentItems.Remove(SelectedItem);
         }
 
         private bool CanMedicalRecordCommandExecute()
@@ -335,7 +352,6 @@ namespace HospitalProject.View.DoctorView.Model
                 CancelAppointment();
         }
 
-        private bool IsTimeCorrect(string input) => !_timeRegex.IsMatch(input);
 
         private void ShowError(string s)
         {

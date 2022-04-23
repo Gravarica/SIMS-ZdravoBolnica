@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:Model="clr-namespace:HospitalProject.View.Model"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
         mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
-
+    <Window.Resources>
+        <converters:MedicalCardHeaderConverter x:Key="HeaderConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,7 +23,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Background="#a4a4e8" Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock Text="Medical Card"
+            <TextBlock Text="{Binding MedicalRecord.Patient, Converter={StaticResource HeaderConverter}}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="left"
                    Foreground="White"

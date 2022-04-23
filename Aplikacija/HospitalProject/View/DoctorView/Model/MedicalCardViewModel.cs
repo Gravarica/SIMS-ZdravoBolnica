@@ -25,8 +25,6 @@ namespace HospitalProject.View.DoctorView.Model
 
         private MedicalRecord _medicalRecord;
 
-        private MedicalRecordController _medicalRecordController;
-
         public object CurrentView
         {
             get 
@@ -37,6 +35,19 @@ namespace HospitalProject.View.DoctorView.Model
             { 
                 _CurrentView = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public MedicalRecord MedicalRecord
+        {
+            get
+            {
+                return _medicalRecord;
+            }
+            set
+            {
+                _medicalRecord = value;
+                OnPropertyChanged(nameof(MedicalRecord));
             }
         }
 

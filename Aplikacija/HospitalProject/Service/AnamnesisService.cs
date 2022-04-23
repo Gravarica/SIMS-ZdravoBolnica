@@ -12,12 +12,13 @@ namespace HospitalProject.Service
     {
 
         private AnamnesisRepository _anamnesisRepository;
+        private MedicalRecordService _medicalRecordService;
 
         public AnamnesisService(AnamnesisRepository anamnesisRepository)
         {
             _anamnesisRepository = anamnesisRepository;
         }
-        
+
         public IEnumerable<Anamnesis> GetAll()
         {
             return _anamnesisRepository.GetAll();
@@ -29,7 +30,8 @@ namespace HospitalProject.Service
         }
 
         public void Create(Anamnesis anamnesis)
-        {
+        {   
+
             _anamnesisRepository.Insert(anamnesis);
         }
 
