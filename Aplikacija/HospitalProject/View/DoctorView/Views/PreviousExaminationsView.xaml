@@ -3,25 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views" xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model" 
+             xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="750"
              Background="AliceBlue">
+    <UserControl.Resources>
+        <converters:NameConverter x:Key="NameConverter"/>
+    </UserControl.Resources>
     <Grid>
         <DataGrid
                   Margin="15"
                   ScrollViewer.CanContentScroll="True"
+                  AutoGenerateColumns="False"
                   RowHeight="30"
-                  FontSize="25">
+                  FontSize="25"
+                  ItemsSource="{Binding Path = Anamneses}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date"
-                                    Width="150"/>
-                <DataGridTextColumn Header="Type of examination" 
-                                    Width="250"/>
-                <DataGridTextColumn Header="Doctor"
-                                    Width="200"/>
+                                    Width="200"
+                                    Binding="{Binding App.Date}"/>
+                <DataGridTextColumn Header="Doctor" 
+                                    Width="*"
+                                    Binding="{Binding App.Doctor, Converter={StaticResource NameConverter}}"/>
+                <DataGridTextColumn Header="Description"
+                                    Width="*"
+                                    Binding="{Binding Description}"/>
                 <DataGridTextColumn Header="Details"
-                                    Width="*"/>
+                                    Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
 

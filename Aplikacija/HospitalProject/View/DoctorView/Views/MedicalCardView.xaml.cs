@@ -18,7 +18,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for MedicalCardView.xaml
     /// </summary>
-    public partial class MedicalCardView : UserControl
+    public partial class MedicalCardView : Window
     {
         public MedicalCardView()
         {

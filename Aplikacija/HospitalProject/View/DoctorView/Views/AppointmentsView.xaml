@@ -80,6 +80,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Patient"/>
@@ -105,7 +106,10 @@
 
                         <Button Grid.Row ="5" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
                         <Button Grid.Row="5" Grid.Column="1" Content="Anamnesis" Command="{Binding CreateAnamnesisCommand}" />
-
+                        <Button Content="MedicalRecord" 
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Command="{Binding MedicalRecordCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -140,6 +144,8 @@
 
                         <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path = Duration}"/>
+
+                        
                     </Grid>
                 </StackPanel>
             </Border>

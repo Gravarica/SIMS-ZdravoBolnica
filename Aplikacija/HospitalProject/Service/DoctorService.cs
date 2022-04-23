@@ -22,9 +22,9 @@ namespace HospitalProject.Service
             return _doctorRepository.GetAll();
         }
 
-        public Doctor get(int id)
+        public Doctor GetById(int id)
         {
-            return _doctorRepository.Get(id);
+            return _doctorRepository.GetById(id);
         }
     }
 }

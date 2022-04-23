@@ -17,9 +17,10 @@ namespace Model
 
         private List<Appointment> appointments;
 
-      public Patient(int id, String username, String password, string lastName) : base(username, password, lastName)
+      public Patient(int id, int medicalRecordId,String username, String password, string lastName) : base(username, password, lastName)
         {
             Id = id;
+            MedicalRecordId = medicalRecordId;
             appointments = new List<Appointment>(); 
         }
 

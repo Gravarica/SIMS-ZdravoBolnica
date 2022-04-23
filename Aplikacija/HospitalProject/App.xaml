@@ -29,6 +29,7 @@
             <DataTemplate DataType="{x:Type viewModel:PreviousExaminationsViewModel}">
                 <view:PreviousExaminationsView/>
             </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

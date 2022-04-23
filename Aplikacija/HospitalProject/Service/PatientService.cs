@@ -54,6 +54,10 @@ namespace Service
             return _patientRepository.GetById(id);
         }
 
+        public void SetPatientMedicalRecord(int patientId, int medicalRecordId)
+        {
+            GetById(patientId).MedicalRecordId = medicalRecordId;
+        }
     }
 
     

@@ -29,6 +29,7 @@ namespace HospitalProject
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
+        private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
 
@@ -44,6 +45,7 @@ namespace HospitalProject
 
         public AnamnesisController AnamnesisController { get; set; }
 
+        public MedicalRecordController MedicalRecordController { get; set; }    
 
         public App()
         {
@@ -52,6 +54,8 @@ namespace HospitalProject
             var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
 
             var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
+
+            var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
@@ -65,6 +69,8 @@ namespace HospitalProject
 
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
+            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
+
             var _doctorService = new DoctorService(_doctorRepository);
             
             var _roomService = new RoomService(_roomRepository);
@@ -76,6 +82,8 @@ namespace HospitalProject
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService);
 
             var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService);
+
+            var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 
             AppointmentController = new AppointmentController(_appointmentService);
 
@@ -89,6 +97,7 @@ namespace HospitalProject
 
             AnamnesisController = new AnamnesisController(_anamnesisService);
 
+            MedicalRecordController = new MedicalRecordController(_medicalRecordService);
         }
 
        

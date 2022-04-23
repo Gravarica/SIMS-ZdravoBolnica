@@ -25,7 +25,7 @@ namespace HospitalProject.Repository
             _medicalRecordMaxId = GetMaxId();
         }
 
-        private int GetMaxId()
+        public int GetMaxId()
         {
             return _medicalRecords.Count() == 0 ? 0 : _medicalRecords.Max(appointment => appointment.Id);
         }
@@ -42,7 +42,7 @@ namespace HospitalProject.Repository
         
         public MedicalRecord Insert(MedicalRecord medicalRecord)
         {
-            medicalRecord.Id = _medicalRecordMaxId++;
+            _medicalRecordMaxId++;
             _medicalRecordFileHandler.AppendLineToFile(medicalRecord);
             return medicalRecord;
         }

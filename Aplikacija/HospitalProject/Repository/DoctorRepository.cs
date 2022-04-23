@@ -43,7 +43,7 @@ namespace Repository
 
 
         // Pokupi samo jedan entitet po njegovom ID-u
-        public Doctor Get(int id)
+        public Doctor GetById(int id)
         {
             try
             {

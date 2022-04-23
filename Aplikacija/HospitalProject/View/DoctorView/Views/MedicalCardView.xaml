@@ -1,18 +1,15 @@
-﻿<UserControl x:Class="HospitalProject.View.DoctorView.Views.MedicalCardView"
+﻿<Window x:Class="HospitalProject.View.DoctorView.Views.MedicalCardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:Model="clr-namespace:HospitalProject.View.Model"
-             xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
-             mc:Ignorable="d" 
+             xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
+        mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
-    <UserControl.DataContext>
-        <viewModel:MedicalCardViewModel/>
-    </UserControl.DataContext>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -40,14 +37,14 @@
                              FontSize="14"
                              Style="{StaticResource MedicalCardButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding AppointmentsViewCommand}"/>
+                             Command="{Binding PatientInformationViewCommand}"/>
 
             <RadioButton Content="Previous Examinations"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MedicalCardButtonTheme}"
-                             Command="{Binding PatientsViewCommand}"/>
+                             Command="{Binding  PreviousExaminationViewCommand}"/>
 
             <RadioButton Content="Prescription History"
                              Height="50"
@@ -58,9 +55,13 @@
         </StackPanel>
 
         <ContentControl Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Column="0"
                             Margin="10"
-                            Content="{Binding CurrentView}"/>
+                            Content="{Binding CurrentView}">
+            <ContentControl.Resources>
+                
+            </ContentControl.Resources>
+        </ContentControl>
 
     </Grid>
-</UserControl>
+</Window>

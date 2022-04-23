@@ -1,4 +1,7 @@
-﻿using HospitalProject.Core;
+﻿using HospitalProject.Controller;
+using HospitalProject.Core;
+using HospitalProject.Model;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +23,10 @@ namespace HospitalProject.View.DoctorView.Model
 
         private object _CurrentView;
 
+        private MedicalRecord _medicalRecord;
+
+        private MedicalRecordController _medicalRecordController;
+
         public object CurrentView
         {
             get 
@@ -33,11 +40,15 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public MedicalCardViewModel()
+        public MedicalCardViewModel(Patient patient)
         {
-            PatientInformationVM = new PatientInformationViewModel();
+            var app = System.Windows.Application.Current as App;
 
-            PreviousExaminationsVM = new PreviousExaminationsViewModel();
+            _medicalRecord = app.MedicalRecordController.GetMedicalRecordByPatient(patient);
+
+            PatientInformationVM = new PatientInformationViewModel(_medicalRecord);           // Ovde prosledim pacijenta kako bih prikazao njegove podatke
+
+            PreviousExaminationsVM = new PreviousExaminationsViewModel(_medicalRecord);       // Ovde prosledim iz medicinskog kartona listu anamneza kako bih prikazao na tom pogledu
 
             PatientInformationViewCommand = new RelayCommand(o =>
             {

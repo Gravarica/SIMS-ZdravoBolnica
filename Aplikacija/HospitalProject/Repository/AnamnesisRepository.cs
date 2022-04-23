@@ -20,10 +20,10 @@ namespace HospitalProject.Repository
         public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler, AppointmentRepository appointmentRepository)
         {
             _fileHandler = anamnesisFileHandler;
-            //_anamneses = _fileHandler.ReadAll();
+            _anamneses = _fileHandler.ReadAll();
             _appointmentRepository = appointmentRepository;
-           // _anamnesesMaxId = GetMaxId();
-            //LinkAnamnesisWithAppointments();
+            _anamnesesMaxId = GetMaxId();
+            LinkAnamnesisWithAppointments();
         }
 
         public int GetMaxId()
@@ -72,7 +72,7 @@ namespace HospitalProject.Repository
             foreach(Anamnesis anamnesis in _anamneses)
             {
                 id = anamnesis.App.Id;
-                anamnesis.App = _appointmentRepository.Get(id);
+                anamnesis.App = _appointmentRepository.GetById(id);
             }
         }
 

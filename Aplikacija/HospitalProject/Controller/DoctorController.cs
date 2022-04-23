@@ -25,7 +25,7 @@ namespace HospitalProject.Controller
 
         public Doctor Get(int id)
         {
-            return _doctorService.get(id);
+            return _doctorService.GetById(id);
         }
 
     }

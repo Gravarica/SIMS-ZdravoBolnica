@@ -37,6 +37,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private RelayCommand addCommand;
         private RelayCommand createAnamnesisCommand;
+        private RelayCommand medicalRecordCommand;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> PatientIds { get; set; }
@@ -93,6 +94,26 @@ namespace HospitalProject.View.DoctorView.Model
                 return createAnamnesisCommand ?? (createAnamnesisCommand = new RelayCommand(param => CreateAnamnesisCommandExecute(),
                                                                                             param => CanCreateAnamnesisCommandExecute()));
             }
+        }
+
+        public RelayCommand MedicalRecordCommand
+        {
+            get
+            {
+                return medicalRecordCommand ?? (medicalRecordCommand = new RelayCommand(param => MedicalRecordCommandExecute(), param => CanMedicalRecordCommandExecute()));
+            }
+        }
+
+        private bool CanMedicalRecordCommandExecute()
+        {
+            return SelectedItem != null;
+        }
+
+        private void MedicalRecordCommandExecute()
+        {
+            MedicalCardView view = new MedicalCardView();
+            view.DataContext = new MedicalCardViewModel(SelectedItem.Patient);
+            view.ShowDialog();
         }
 
         private bool CanCreateAnamnesisCommandExecute()

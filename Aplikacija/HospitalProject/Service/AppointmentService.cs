@@ -25,49 +25,59 @@ namespace Service
               _doctorService = doctorService;
           }
 
+        // Creates a new appointment in the system
         public Appointment Create(Appointment appointment)
         {
            return appointmentRepository.Insert(appointment);
         }
         
+        // Returns all of the appointments in the system
         public IEnumerable<Appointment> getAll()
         {
-           var patients = _patientService.GetAll();
-           var doctors = _doctorService.getAll();
            var appointments = appointmentRepository.GetAll();
-           BindAppointmentsWithDoctors(doctors, appointments); 
-           BindAppointmentsWithPatients(patients, appointments);
+           BindDataForAppointments(appointments);
            return appointments;
         }
         
+        // Updates given appointment to certain parameters
         public void Update(Appointment appointment)
         {
             appointmentRepository.Update(appointment);
         }
         
+        // Deletes(Cancels) an appointment in the system by the given id
         public void Delete(int id)
         {
            appointmentRepository.Delete(id);
         }
-       
-        public void BindAppointmentsWithPatients(IEnumerable<Patient> patients, IEnumerable<Appointment> appointments)
+
+        // Method that calls all binding methods
+        private void BindDataForAppointments(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(patients, appointment.PatientId));
+            BindAppointmentsWithDoctors(appointments);
+            BindAppointmentsWithPatients(appointments);
+        }
+       
+        // For each appointment, sets its patient field to a certain patient by his id given in the file
+        private void BindAppointmentsWithPatients(IEnumerable<Appointment> appointments)
+        {
+            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.PatientId));
         }
 
-        public void BindAppointmentsWithDoctors(IEnumerable<Doctor> doctors, IEnumerable<Appointment> appointments)
+        // For each appointment, sets its doctor field to a certain doctor object by his id written in the file
+        private void BindAppointmentsWithDoctors(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(doctors, appointment.DoctorId));
+            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.DoctorId));
         }
       
-        public Patient FindPatientById(IEnumerable<Patient> patients, int patientId)
+        private Patient FindPatientById(int patientId)
         {
-            return patients.SingleOrDefault(patient => patient.Id == patientId);
+            return _patientService.GetById(patientId);
         }
 
-        public Doctor FindDoctorById(IEnumerable<Doctor> doctors, int doctorId)
+        private Doctor FindDoctorById(int doctorId)
         {
-            return doctors.SingleOrDefault(doctor => doctor.Id == doctorId);
+            return _doctorService.GetById(doctorId);
         }
    
    }
