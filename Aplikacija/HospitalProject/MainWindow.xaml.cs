@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalProject.View;
+using HospitalProject.View.DoctorView.Views;
 using HospitalProject.View.Model;
 using HospitalProject.View.WardenForms;
 
@@ -30,7 +31,7 @@ namespace HospitalProject
 
         private void OpenDoctorView(object sender, RoutedEventArgs e)
         {
-            MainDoctorView dv = new MainDoctorView();
+            MainView dv = new MainView();
             this.Close();
             dv.Show();
         }

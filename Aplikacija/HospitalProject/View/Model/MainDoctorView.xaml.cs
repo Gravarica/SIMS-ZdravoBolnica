@@ -20,6 +20,7 @@ using HospitalProject;
 using HospitalProject.Controller;
 using HospitalProject.Exception;
 using HospitalProject.View.Converter;
+using HospitalProject.View.DoctorView.Model;
 using Model;
 
 namespace HospitalProject.View.Model

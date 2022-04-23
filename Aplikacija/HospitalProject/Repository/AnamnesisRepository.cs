@@ -14,6 +14,7 @@ namespace HospitalProject.Repository
     {
         private AnamnesisFileHandler _fileHandler;
         private IEnumerable<Anamnesis> _anamneses;
+        private int _anamnesesMaxId;
         private AppointmentRepository _appointmentRepository;
 
         public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler, AppointmentRepository appointmentRepository)
@@ -21,7 +22,13 @@ namespace HospitalProject.Repository
             _fileHandler = anamnesisFileHandler;
             _anamneses = _fileHandler.ReadAll();
             _appointmentRepository = appointmentRepository;
+            _anamnesesMaxId = GetMaxId();
             LinkAnamnesisWithAppointments();
+        }
+
+        public int GetMaxId()
+        {
+            return _anamneses.Count() == 0 ? 0 : _anamneses.Max(appointment => appointment.Id);
         }
 
         public IEnumerable<Anamnesis> GetAll()
@@ -32,6 +39,12 @@ namespace HospitalProject.Repository
         public Anamnesis GetById(int id)
         {
             return _anamneses.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Insert(Anamnesis anamnesis)
+        {
+            anamnesis.Id = _anamnesesMaxId++;
+            _fileHandler.AppendLineToFile(anamnesis);
         }
 
         public void Delete(int id)
@@ -59,8 +72,23 @@ namespace HospitalProject.Repository
             foreach(Anamnesis anamnesis in _anamneses)
             {
                 id = anamnesis.App.Id;
-                anamnesis.App = _appointmentRepository.Get(id);
+                anamnesis.App = _appointmentRepository.GetById(id);
             }
+        }
+
+        public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
+        {
+            List<Anamnesis> anamnesisReturnList = new List<Anamnesis>();
+
+            foreach(Anamnesis anamnesis in _anamneses)
+            {
+                if(patientId == anamnesis.App.Patient.Id)
+                {
+                    anamnesisReturnList.Add(anamnesis);
+                }
+            }
+
+            return anamnesisReturnList;
         }
     }
 }

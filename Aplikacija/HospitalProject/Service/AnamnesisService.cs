@@ -12,12 +12,13 @@ namespace HospitalProject.Service
     {
 
         private AnamnesisRepository _anamnesisRepository;
+        private MedicalRecordService _medicalRecordService;
 
         public AnamnesisService(AnamnesisRepository anamnesisRepository)
         {
             _anamnesisRepository = anamnesisRepository;
         }
-        
+
         public IEnumerable<Anamnesis> GetAll()
         {
             return _anamnesisRepository.GetAll();
@@ -28,6 +29,12 @@ namespace HospitalProject.Service
             return _anamnesisRepository.GetById(id);
         }
 
+        public void Create(Anamnesis anamnesis)
+        {   
+
+            _anamnesisRepository.Insert(anamnesis);
+        }
+
         public void Delete(int id)
         {
             _anamnesisRepository.Delete(id);
@@ -36,6 +43,11 @@ namespace HospitalProject.Service
         public void Update(Anamnesis anamnesis)
         {
             _anamnesisRepository.Update(anamnesis);
+        }
+
+        public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
+        {
+            return _anamnesisRepository.GetAnamnesesByMedicalRecord(patientId);
         }
 
     }

@@ -10,27 +10,26 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.View.DoctorView.Model
 {
-    public class AnamnesisViewModel : ViewModelBase
+    public class EditAnamnesisViewModel : BaseViewModel
     {
-        private Appointment showItem;
-        private Anamnesis _anamnesis;
+        private Anamnesis showItem;
         private string _description;
         private AnamnesisController _anamnesisController;
 
-        private RelayCommand addNewAnamnesis;
+        private RelayCommand editAnamnesisCommand;
         private RelayCommand cancelNewAnamnesis;
 
-        public AnamnesisViewModel(Appointment appointment)
+        public EditAnamnesisViewModel(Anamnesis anamnesis)
         {
             var app = System.Windows.Application.Current as App;
 
-            ShowItem = appointment;
+            ShowItem = anamnesis;
 
             _anamnesisController = app.AnamnesisController;
 
         }
 
-        public Appointment ShowItem
+        public Anamnesis ShowItem
         {
             get
             {
@@ -43,7 +42,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public string Description
+        /*public string Description
         {
             get
             {
@@ -54,28 +53,27 @@ namespace HospitalProject.View.DoctorView.Model
                 _description = value;
                 OnPropertyChanged(nameof(Description));
             }
-        }
+        }*/
 
-        public RelayCommand AddNewAnamnesis
+        public RelayCommand EditAnamnesisCommand
         {
             get
             {
-                return addNewAnamnesis ?? (addNewAnamnesis = new RelayCommand(param => AddNewAnamnesisExecute(),
-                                                                               param => CanAddNewAnamnesisExecute()));
+                return editAnamnesisCommand ?? (editAnamnesisCommand = new RelayCommand(param => EditAnamnesisCommandExecute(),
+                                                                               param => CanEditAnamnesisCommandExecute()));
             }
         }
 
-        private bool CanAddNewAnamnesisExecute()
+        private bool CanEditAnamnesisCommandExecute()
         {
-            return Description != null;
+            return true;
         }
 
-        private void AddNewAnamnesisExecute()
+        private void EditAnamnesisCommandExecute()
         {
-            _anamnesis = new Anamnesis(ShowItem, Description);
-            _anamnesisController.Create(_anamnesis);
-            Description = null;
+            _anamnesisController.Update(ShowItem);
         }
-        
+
+
     }
 }

@@ -40,6 +40,11 @@ namespace Repository
                 .ToList();
         }
 
+        public Patient GetById(int id)
+        {
+            return _patients.FirstOrDefault(p => p.Id == id);
+        }
+
         public Patient Add(Patient patient)
         {
             patient.Id = ++_patientMaxId;
@@ -90,12 +95,13 @@ namespace Repository
         private Patient ConvertCSVFormatToAccount(string acountCSVFormat)                   // Ovo prebacuje iz CSV formata i kreira objekat
         {
             var tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
-            return new Patient(int.Parse(tokens[0]), tokens[1], tokens[2], tokens[3]);
+            return new Patient(int.Parse(tokens[0]), int.Parse(tokens[1]),tokens[2], tokens[3], tokens[4]);
         }
         private string ConvertPatientToCSVFormat(Patient patient)
         {
             return string.Join(_delimiter,
                 patient.Id,
+                patient.MedicalRecordId,
                 patient.Username,
                 patient.FirstName,
                 patient.LastName,

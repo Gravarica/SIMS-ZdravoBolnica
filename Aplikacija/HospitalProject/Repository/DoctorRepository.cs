@@ -4,6 +4,7 @@
 // Purpose: Definition of Class DoctorRepository
 
 using HospitalProject.Exception;
+using HospitalProject.FileHandler;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -15,31 +16,34 @@ namespace Repository
    public class DoctorRepository
    {
         private const string NOT_FOUND_ERROR = "Account with {0}:{1} can not be found!";
-        private string _path;       // Putanja do fajla 
-        private string _delimiter;  // Delimiter za CSV format 
+
+        private DoctorFileHandler _doctorFileHandler;
+
         private List<Doctor> _doctors = new List<Doctor>();
 
-        public DoctorRepository(string path, string delimiter)
+        public DoctorRepository(DoctorFileHandler doctorFileHandler)
         {
-            _path = path;
-            _delimiter = delimiter;
-            _doctors = (List<Doctor>)GetAll();
+            _doctorFileHandler = doctorFileHandler;
+            _doctors = _doctorFileHandler.ReadAll().ToList();
         }
 
         public List<Doctor> Doctors 
-            { get { return _doctors; } }
+        { 
+            get 
+            {
+                return _doctors; 
+            } 
+        }
 
         // Vraca listu svih entiteta 
         public IEnumerable<Doctor> GetAll()
         {
-            return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-                .Select(ConvertCSVFormatToAccount)
-                .ToList();
+            return _doctors;
         }
 
 
         // Pokupi samo jedan entitet po njegovom ID-u
-        public Doctor Get(int id)
+        public Doctor GetById(int id)
         {
             try
             {
@@ -55,10 +59,6 @@ namespace Repository
             }
         }
 
-        private Doctor ConvertCSVFormatToAccount(string acountCSVFormat)                   // Ovo prebacuje iz CSV formata i kreira objekat
-        {
-            var tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
-            return new Doctor(int.Parse(tokens[0]), tokens[1], tokens[2], tokens[3]);
-        }
+        
     }
 }

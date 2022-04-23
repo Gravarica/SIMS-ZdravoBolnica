@@ -11,6 +11,8 @@ using Repository;
 using Model;
 using Service;
 using HospitalProject.Service;
+using HospitalProject.FileHandler;
+using HospitalProject.Repository;
 
 namespace HospitalProject
 {
@@ -25,7 +27,10 @@ namespace HospitalProject
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
         private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
-        private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";private const string CSV_DELIMITER = "|";
+        private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
+        private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
+        private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
+        private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
 
         public DoctorController DoctorController { get; set; }
@@ -38,20 +43,33 @@ namespace HospitalProject
 
         public AppointmentController AppointmentControllerPatient { get; set; }
 
+        public AnamnesisController AnamnesisController { get; set; }
+
+        public MedicalRecordController MedicalRecordController { get; set; }    
 
         public App()
         {
+            var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
+            var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
 
-            var _appointmentRepository = new AppointmentRepository(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
 
-            var _appointmentRepository_patient = new AppointmentRepository(APPOINTMENTS_PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
 
-            var _doctorRepository = new DoctorRepository(DOCTOR_FILE, CSV_DELIMITER);
+            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
+
+            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+
+            var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
             var _patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
+
+            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
+
+            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
 
             var _doctorService = new DoctorService(_doctorRepository);
             
@@ -59,10 +77,16 @@ namespace HospitalProject
 
             var _patientService = new PatientService(_patientRepository);
 
+            var _anamnesisService = new AnamnesisService(_anamnesisRepository);
+
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService);
 
             var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService);
+
+            var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
+
             AppointmentController = new AppointmentController(_appointmentService);
+
             DoctorController = new DoctorController(_doctorService);
 
             AppointmentControllerPatient = new AppointmentController(_appointment_patient_Service);
@@ -71,6 +95,9 @@ namespace HospitalProject
 
             RoomController = new RoomControoler(_roomService);
 
+            AnamnesisController = new AnamnesisController(_anamnesisService);
+
+            MedicalRecordController = new MedicalRecordController(_medicalRecordService);
         }
 
        
