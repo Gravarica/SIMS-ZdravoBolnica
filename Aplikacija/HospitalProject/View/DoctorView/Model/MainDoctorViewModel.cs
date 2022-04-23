@@ -21,7 +21,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace HospitalProject.View.DoctorView.Model
 {
-    public class MainDoctorViewModel
+    public class MainDoctorViewModel : BaseViewModel
     {
         private Appointment selectedItem;
 
@@ -61,18 +61,35 @@ namespace HospitalProject.View.DoctorView.Model
 
         public MainDoctorViewModel()
         {
-            
+
+            InstantiateControllers();
+            InstantiateData();
+            FillComboData();
+
+        }
+
+        private void InstantiateControllers()
+        {
             var app = System.Windows.Application.Current as App;
             _appointmentController = app.AppointmentController;
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
+        }
 
+        private void InstantiateData()
+        {
             AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAll().ToList());
             _patients = _patientController.GetAll().ToList();
-            _doctor = _doctorController.Get(3);                         // Ovde sam postavio privremeno na 3 da je id doktora, IZMENITI KAD BUDE LOGIN!!!!!!!
-            FillComboData();
+            _doctor = _doctorController.Get(3);
+        }
 
-            PatientIds = new ObservableCollection<int>(FindPatientIdFromPatients());
+        private void FillComboData()
+        {
+
+            foreach (Patient p in _patients)
+            {
+                patientComboBox.Add(new ComboBoxData<Patient> { Name = p.FirstName + " " + p.LastName, Value = p });
+            }
 
         }
 
@@ -152,7 +169,12 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void AddCommandExecute()
         {
-            
+            if(!CanCreate())
+            {
+                MessageBox.Show("Appointment is already taken");
+                return;
+            }
+
             Appointment appointment = new Appointment(parseTime(), _duration, _doctor, PatientData);
             _appointmentController.Create(appointment);
             AppointmentItems.Add(appointment);
@@ -192,11 +214,8 @@ namespace HospitalProject.View.DoctorView.Model
             }
             set
             {
-                if (value != _date)
-                {
                     _date = value;
                     OnPropertyChanged(nameof(Date));
-                }
             }
         }
 
@@ -208,11 +227,8 @@ namespace HospitalProject.View.DoctorView.Model
             }
             set
             {
-                if (value != _duration)
-                {
                     _duration = value;
                     OnPropertyChanged(nameof(Duration));
-                }
             }
         }
 
@@ -224,24 +240,9 @@ namespace HospitalProject.View.DoctorView.Model
             }
             set
             {
-                if (value != _time)
-                {
                     _time = value;
                     OnPropertyChanged(nameof(Time));
-                }
             }
-        }
-
-        private IList<int> FindPatientIdFromPatients()
-        {
-            return _patients
-                .Select(patient => patient.Id)
-                .ToList();
-        }
-
-        private Patient FindPatientFromPatientId(int id)
-        {
-            return _patientController.Get(id);
         }
 
 
@@ -253,49 +254,7 @@ namespace HospitalProject.View.DoctorView.Model
             return new DateTime(_date.Year, _date.Month, _date.Day, hours, minutes, 0);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void FillComboData() 
-        {
-            
-            foreach(Patient p in _patients)
-            {
-                patientComboBox.Add(new ComboBoxData<Patient> { Name = p.FirstName + " " + p.LastName, Value = p});
-            }
-
-        }
-
-       /* private void AddEvent_Handler(object sender, RoutedEventArgs e)
-        {
-
-            if (!isTimeTextBoxFilled())
-            {
-                ShowError("Please fill out all the fields");
-            }
-            else if (IsTimeCorrect(_time))
-            {
-                ShowError(TIME_FORMAT_ERROR_MESSAGE);
-            }
-            else if (!isDurationTextBoxFilled())
-            {
-                ShowError("Duration must be greater than zero");
-            }
-            else
-            {
-                _date = parseTime();
-                if (!canCreate())
-                {
-                    ShowError("Appointment is already scheduled. Please select another one");
-                    return;
-                }
-                UpdateDataViewAdd(CreateAppointment());
-            }
-
-        }*/
+        
 
         private void EditEvent_Handler(object sender, RoutedEventArgs e)
         {
@@ -314,8 +273,8 @@ namespace HospitalProject.View.DoctorView.Model
         {
             try
             {
-               // AppointmentViewModel updateAVM = (AppointmentViewModel)Appointments.SelectedItem;
-               // _appointmentController.Update(AppointmentConverter.ConvertAppointmentViewToAppointment(updateAVM));
+               // AppointmentViewModel updateappointment = (AppointmentViewModel)Appointments.SelectedItem;
+               // _appointmentController.Update(AppointmentConverter.ConvertAppointmentViewToAppointment(updateappointment));
             }
             catch (InvalidDateException)
             {
@@ -323,74 +282,29 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        private void CancelAppointment()
-        {
-            //AppointmentViewModel avm = (AppointmentViewModel)Appointments.SelectedItem;
-           /// _appointmentController.Delete(avm.AppointmentId);
-            //AppointmentItems.Remove(avm);
-        }
-
-       /* private void UpdateDataViewAdd(Appointment appointment)
-        {
-            AppointmentItems.Add(AppointmentConverter.ConvertAppointmentToAppointmentView(appointment));
-        }*/
-
-       /* private Appointment CreateAppointment()
-        {
-            try
-            {
-                return _appointmentController.Create(new Appointment(_date, _duration, _doctor, FindPatientFromPatientId(int.Parse(PatientID.SelectedItem.ToString()))));
-            }
-            catch (InvalidDateException)
-            {
-                throw;
-            }
-        }*/
-
-        private void DeleteItem(object sender, RoutedEventArgs e)
-        {
-                CancelAppointment();
-        }
-
-
-        private void ShowError(string s)
-        {
-            MessageBox.Show(s, "Warning", MessageBoxButton.OK);
-        }
-
-        private bool isTimeTextBoxFilled()
-        {
-            return _time != null && _date != null;
-        }
-
-        private bool isDurationTextBoxFilled()
-        {
-            return _duration > 0;
-        }
-
-       /* private bool canCreate()
+       private bool CanCreate()
         {
             TimeSpan timeSpan = new TimeSpan(0, _duration, 0); ;
             DateTime newAppEndDate = _date + timeSpan;
             DateTime existingAppointmentEndDate;
-            foreach (AppointmentViewModel avm in AppointmentItems)
+            foreach (Appointment appointment in AppointmentItems)
             {
-                existingAppointmentEndDate = avm.Date + new TimeSpan(0, Duration, 0);
-                if (_date.Year == avm.Date.Year && _date.Month == avm.Date.Month && _date.Day == avm.Date.Day)
+                existingAppointmentEndDate = appointment.Date + new TimeSpan(0, Duration, 0);
+                if (_date.Year == appointment.Date.Year && _date.Month == appointment.Date.Month && _date.Day == appointment.Date.Day)
                 {
-                    if (_date <= avm.Date && newAppEndDate >= existingAppointmentEndDate)
+                    if (_date <= appointment.Date && newAppEndDate >= existingAppointmentEndDate)
                     {
                         return false;
                     }
-                    else if (_date >= avm.Date && newAppEndDate <= existingAppointmentEndDate)
+                    else if (_date >= appointment.Date && newAppEndDate <= existingAppointmentEndDate)
                     {
                         return false;
                     }
-                    else if (_date < avm.Date && newAppEndDate < existingAppointmentEndDate && newAppEndDate > avm.Date)
+                    else if (_date < appointment.Date && newAppEndDate < existingAppointmentEndDate && newAppEndDate > appointment.Date)
                     {
                         return false;
                     }
-                    else if (_date > avm.Date && _date < existingAppointmentEndDate && newAppEndDate > existingAppointmentEndDate)
+                    else if (_date > appointment.Date && _date < existingAppointmentEndDate && newAppEndDate > existingAppointmentEndDate)
                     {
                         return false;
                     }
@@ -399,7 +313,8 @@ namespace HospitalProject.View.DoctorView.Model
                 }
 
             }
+
             return true;
-        }*/
+        }
     }
 }

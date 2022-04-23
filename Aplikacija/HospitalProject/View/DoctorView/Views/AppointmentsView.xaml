@@ -53,9 +53,9 @@
         
         <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False" Name ="Appointments" IsReadOnly="True"  ItemsSource="{Binding Path=AppointmentItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Appointment ID" Binding="{Binding Id}" Width="*"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="*"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="30"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="200"/>
+                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="60"/>
                 <DataGridTextColumn Header="Patient Name" Binding="{Binding Patient, Converter={StaticResource NameConverter}}" Width="*"/>
                 <DataGridTextColumn Header="Doctor Name" Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}" Width="*"/>
             </DataGrid.Columns>

@@ -12,7 +12,7 @@ namespace HospitalProject.ValidationRules.DoctorValidation
     public class TimeFormatValidation : ValidationRule
     {
         private static readonly Regex _timeRegex = new Regex("[0-9][0-9]:[0-9][0-9]");
-        private const string TIME_FORMAT_ERROR_MESSAGE = "Invalid time format. Valid format is: 15:03. !";
+        private const string TIME_FORMAT_ERROR_MESSAGE = "Invalid time format. Valid format is: HH:MM";
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
