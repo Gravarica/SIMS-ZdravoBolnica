@@ -38,6 +38,11 @@ namespace Controller
       {
             _appointmentService.Delete(id);
       }
-   
+
+        public List<Appointment> GenerateAvailableAppointments(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient)
+        {
+            return _appointmentService.GenerateAvailableAppointments(startDate, endDate, doctor, patient);
+        }
+                                                                                                                              
    }
 }

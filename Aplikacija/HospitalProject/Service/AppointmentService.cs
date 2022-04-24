@@ -79,6 +79,86 @@ namespace Service
         {
             return _doctorService.GetById(doctorId);
         }
-   
-   }
+
+        // Method that gets all reserved appointments in the system 
+        private List<Appointment> GetAppointmentsByDoctorAndPatient(Doctor doctor, Patient patient)
+        {
+            List<Appointment> retAppointmentsDoctor = new List<Appointment>();
+            List<Appointment> retAppointmentsPatient = new List<Appointment>();
+            var appointments = appointmentRepository.GetAll();
+            BindDataForAppointments(appointments);
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (doctor.Id == appointment.Doctor.Id)
+                {
+                    retAppointmentsDoctor.Add(appointment);
+                }
+                if (patient.Id == appointment.Patient.Id)
+                {
+                    retAppointmentsPatient.Add(appointment);
+                }
+            }
+
+            return retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+        }
+
+        // Method that generates available appointments, this method is called in controller
+        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        {
+            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient);
+            var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
+
+            return MinusAppointments(allAppointments, existingAppointments);
+        }
+
+        // Method that removes already scheduled appointments
+        private List<Appointment> MinusAppointments(List<Appointment> allAppointments, List<Appointment> existingAppointments)
+        {
+
+            List<Appointment> removeAppointments = new List<Appointment>();
+
+            foreach (Appointment generatedAppointment in allAppointments)
+            {
+                foreach (Appointment existingAppointment in existingAppointments)
+                {
+                    if (generatedAppointment.Equals(existingAppointment))
+                    {
+                        removeAppointments.Add(generatedAppointment);
+                    }
+                }
+            }
+
+            foreach(Appointment appointment in removeAppointments)
+            {
+                allAppointments.Remove(appointment);
+            }
+
+            return allAppointments;
+        }
+
+        // Method that generates empty appointments
+        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        {
+            List<Appointment> retAppointments = new List<Appointment>();
+            TimeOnly shiftStartConst = new TimeOnly(8, 0);
+            TimeOnly shiftStart;
+            TimeOnly shiftEnd = new TimeOnly(15, 0);
+            while(StartDate <= EndDate)
+            {
+                shiftStart = shiftStartConst;
+
+                while(shiftStart <= shiftEnd)
+                { 
+                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient);
+                    retAppointments.Add(appointment);
+                    shiftStart = shiftStart.AddMinutes(30);
+                }
+                StartDate = StartDate.AddDays(1);
+            }
+
+            return retAppointments;
+        }
+
+    }
 }

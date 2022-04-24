@@ -36,7 +36,8 @@
                     Content="New Appointment"
                     VerticalAlignment="Center"
                     Width="115"
-                    Height="25" />
+                    Height="25" 
+                    Command="{Binding NewAppointmentCommand}"/>
             <Button Grid.Column="2"
                     Content="Edit Appointment"
                     VerticalAlignment="Center"

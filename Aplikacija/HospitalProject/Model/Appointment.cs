@@ -100,5 +100,11 @@ namespace Model
             DoctorId = Doctor.Id;
             RoomID = 5;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Appointment appointment &&
+                   Date == appointment.Date;
+        }
     }
 }
