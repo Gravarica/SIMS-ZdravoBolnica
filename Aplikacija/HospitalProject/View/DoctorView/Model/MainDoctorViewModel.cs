@@ -37,6 +37,7 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand medicalRecordCommand;
         private RelayCommand deleteCommand;
         private RelayCommand newAppointmentCommand;
+        private RelayCommand editAppointmentCommand;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> PatientIds { get; set; }
@@ -136,6 +137,27 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public RelayCommand EditAppointmentCommand
+        {
+            get
+            {
+                return editAppointmentCommand ?? (editAppointmentCommand = new RelayCommand(param => EditAppointmentCommandExecute(),
+                                                                                            param => CanEditAppointmentCommandExecute()));
+            }
+        }
+
+        private bool CanEditAppointmentCommandExecute()
+        {
+            return SelectedItem != null;
+        }
+
+        private void EditAppointmentCommandExecute()
+        {
+            EditAppointmentview view = new EditAppointmentview();
+            view.DataContext = new EditAppointmentViewModel(SelectedItem, AppointmentItems);
+            view.ShowDialog();
+        }
+
         private bool CanNewAppointmentCommandExecute()
         {
             return true;
@@ -144,7 +166,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void NewAppointmentCommandExecute()
         {
             NewAppointmentView view = new NewAppointmentView();
-            view.DataContext = new NewAppointmentViewModel();
+            view.DataContext = new NewAppointmentViewModel(AppointmentItems);
             view.ShowDialog();
         }
 

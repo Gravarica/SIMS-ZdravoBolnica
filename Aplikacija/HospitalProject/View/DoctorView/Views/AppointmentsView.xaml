@@ -42,7 +42,8 @@
                     Content="Edit Appointment"
                     VerticalAlignment="Center"
                     Width="115"
-                    Height="25" />
+                    Height="25" 
+                    Command="{Binding EditAppointmentCommand}"/>
             <Button Grid.Column="3"
                     Content="Cancel Appointment"
                     VerticalAlignment="Center"
