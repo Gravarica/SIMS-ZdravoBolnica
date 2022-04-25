@@ -63,7 +63,7 @@
                         <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Duration}"/>
 
-                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content= "Add" Click="AddEvent_Handler"/>
+                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content= "Add"/>
                     </Grid>
                 </StackPanel>
             </Border>

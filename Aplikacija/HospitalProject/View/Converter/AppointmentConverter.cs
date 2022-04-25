@@ -10,7 +10,7 @@ namespace HospitalProject.View.Converter
 {
     public class AppointmentConverter : AbstractConverter
     {
-        public static AppointmentViewModel ConvertAppointmentToAppointmentView(Appointment appointment)
+        /*public static AppointmentViewModel ConvertAppointmentToAppointmentView(Appointment appointment)
             => new AppointmentViewModel
             {
                 AppointmentId = appointment.Id,
@@ -20,9 +20,9 @@ namespace HospitalProject.View.Converter
                 PatientName = appointment.Patient.FirstName + " " + appointment.Patient.LastName,
                 DoctorId = appointment.DoctorId,
                 DoctorName = appointment.Doctor.FirstName + " " + appointment.Doctor.LastName
-            };
+            };*/
 
-        public static Appointment ConvertAppointmentViewToAppointment(AppointmentViewModel avm)
+        /*public static Appointment ConvertAppointmentViewToAppointment(AppointmentViewModel avm)
             => new Appointment
             {
                 Id = avm.AppointmentId,
@@ -30,13 +30,13 @@ namespace HospitalProject.View.Converter
                 Duration = avm.Duration,
                 PatientId = avm.PatientId,
                 DoctorId = avm.DoctorId
-            };
+            };*/
 
 
-        public static IList<AppointmentViewModel> ConvertAppointmentListToAppointmentViewList(IList<Appointment> appointments)
+        /*public static IList<AppointmentViewModel> ConvertAppointmentListToAppointmentViewList(IList<Appointment> appointments)
             => ConvertEntityListToViewList(appointments, ConvertAppointmentToAppointmentView);
 
         public static IList<Appointment> ConvertAppointmentViewListToAppointmentList(IList<AppointmentViewModel> items)
-            => ConvertViewListToEntityList(items, ConvertAppointmentViewToAppointment);
+            => ConvertViewListToEntityList(items, ConvertAppointmentViewToAppointment);*/
     }
 }

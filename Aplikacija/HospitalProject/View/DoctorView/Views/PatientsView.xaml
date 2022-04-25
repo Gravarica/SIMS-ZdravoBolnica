@@ -29,7 +29,13 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="25,0,0,0"
-                           FontWeight="SemiBold"/>
+                           FontWeight="SemiBold">
+                    <TextBlock.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBlock.Resources>
+                </TextBlock>
                 <Border Grid.Column="1"
                         Margin="100,15,100,15"
                         CornerRadius="100">

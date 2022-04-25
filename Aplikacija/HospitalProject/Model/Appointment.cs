@@ -12,12 +12,9 @@ namespace Model
    {
       private DateTime date;
       private int duration;
-      private int doctorID;
-      private int patientID;
-      private int roomID;
       private int id;
-        private bool isDone;
-      
+      private bool isDone;
+      private ExaminationType examinationType;
       private Patient patient;
       private Doctor doctor;
       private Room room;
@@ -47,7 +44,18 @@ namespace Model
          }
       }
 
-        public int Id { get; set; }
+      public int Id 
+      { 
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                OnPropertyChanged(nameof(Id));
+            }
+      }
 
       public DateTime Date 
         { 
@@ -75,10 +83,6 @@ namespace Model
             }
         }
 
-      public int DoctorId { get; set; }
-
-      public int PatientId{ get; set; }
-
       public Patient Patient 
       {
           get { 
@@ -102,14 +106,39 @@ namespace Model
             }
         }
 
-        public int RoomID { get; set; }
+        public bool IsDone
+        {
+            get
+            {
+                return isDone;
+            }
+            set
+            {
+                isDone = value;
+                OnPropertyChanged(nameof(IsDone));
+            }
+        }
+
+        public ExaminationType ExaminationType
+        {
+            get
+            {
+                return examinationType;
+            }
+            set
+            {
+                examinationType = value;
+                OnPropertyChanged(nameof(ExaminationType));
+            }
+        }
 
         public Appointment() { }
 
-        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId, int roomId)
+        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId, int roomId, ExaminationType examinationType, bool isDone)
         {
             Id = id;
             Date = date;
+            IsDone = isDone;
             Patient = new Patient();
             Doctor = new Doctor();
             Room = new Room();
@@ -117,15 +146,18 @@ namespace Model
             Patient.Id = patientId;
             Doctor.Id = doctorId;
             Room.Id = roomId;
+            ExaminationType = examinationType;
         }
 
-        public Appointment(DateTime date, int duration, Doctor doctor, Patient patient)
+        public Appointment(DateTime date, int duration, Doctor doctor, Patient patient, Room room, ExaminationType examinationType)
         {
             Date = date;
             Duration = duration;
             Patient = patient;
             Doctor = doctor;
-            RoomID = 5;
+            Room = room;
+            ExaminationType=examinationType;
+            IsDone=false;
         }
 
         public override bool Equals(object? obj)

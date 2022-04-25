@@ -80,7 +80,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void InstantiateData()
         {
-            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAll().ToList());
+            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAllUnfinishedAppointments().ToList());
             _patients = _patientController.GetAll().ToList();
             _doctor = _doctorController.Get(3);
         }
@@ -103,14 +103,14 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public RelayCommand AddCommand
+        /*public RelayCommand AddCommand
         {
             get
             {
                 return addCommand ?? (addCommand = new RelayCommand(param => AddCommandExecute(), param => CanAddCommandExecute()));
             }
 
-        }
+        }*/
 
         public RelayCommand CreateAnamnesisCommand
         {
@@ -214,7 +214,7 @@ namespace HospitalProject.View.DoctorView.Model
             return true ;
         }
 
-        private void AddCommandExecute()
+        /*private void AddCommandExecute()
         {
             if(!CanCreate())
             {
@@ -222,10 +222,10 @@ namespace HospitalProject.View.DoctorView.Model
                 return;
             }
 
-            Appointment appointment = new Appointment(parseTime(), _duration, _doctor, PatientData);
+            Appointment appointment = new Appointment(parseTime(), _duration, _doctor, PatientData, );
             _appointmentController.Create(appointment);
             AppointmentItems.Add(appointment);
-        }
+        }*/
 
         public Appointment SelectedItem
         {

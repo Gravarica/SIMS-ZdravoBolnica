@@ -51,9 +51,14 @@ namespace Repository
         }
 
         // Method that returns all appointments in the system
+        public IEnumerable<Appointment> GetAllUnfinishedAppointments()
+        {
+                return _appointments.Where(x=> x.IsDone==false);  
+        }
+
         public IEnumerable<Appointment> GetAll()
         {
-                return _appointments;
+            return _appointments;
         }
 
         // Method that deletes an appointment by given id
@@ -71,8 +76,8 @@ namespace Repository
 
                 updatedAppointment.Date = appointment.Date;
                 updatedAppointment.Duration = appointment.Duration;
-                updatedAppointment.PatientId = appointment.PatientId;
-                updatedAppointment.RoomID = appointment.RoomID;
+                updatedAppointment.Patient.Id = appointment.Patient.Id;
+                updatedAppointment.Room.Id = appointment.Room.Id;
 
                 _appointmentFileHandler.Save(_appointments);
         }

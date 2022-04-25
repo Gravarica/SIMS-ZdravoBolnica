@@ -26,7 +26,7 @@ namespace HospitalProject.ValidationRules.DoctorValidation
 
         public static bool IsDateAfterNow(DateTime startDate, DateTime endDate)
         {
-            return startDate >= DateTime.Now && endDate >= DateTime.Now;
+            return startDate > DateTime.Now && endDate > DateTime.Now;
         }
 
         public static bool IsComboBoxChecked(Patient SelectedValue)

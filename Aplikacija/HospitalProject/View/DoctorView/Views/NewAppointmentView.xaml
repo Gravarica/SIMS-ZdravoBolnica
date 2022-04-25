@@ -19,6 +19,17 @@
                 
             </Style.Resources>
         </Style>
+        <Style TargetType="Button" x:Key="RoundButton">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="5,20,5,20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#3e3ece"/>
+        </Style>
         <Style x:Key ="ControlStyle" TargetType="Control">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Margin" Value="5,20,5,20"/>
@@ -54,6 +65,7 @@
                 <Button Grid.Column="2"
                         Content="Save"
                         Command="{Binding SaveCommand}"
+                        Style="{DynamicResource RoundButton}"
                         Margin="20"/>
             </Grid>
         </Border>
@@ -143,9 +155,11 @@
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
                                 Content="Submit"
-                                Command="{Binding SubmitCommand}"/>
+                                Command="{Binding SubmitCommand}"
+                                Style="{DynamicResource RoundButton}"/>
                         <Button Grid.Column="1"
-                                Content="Cancel"/>
+                                Content="Cancel"
+                                Style="{DynamicResource RoundButton}"/>
                     </Grid>
                 </Grid>
             </GroupBox>

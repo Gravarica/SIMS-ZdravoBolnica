@@ -165,7 +165,7 @@ namespace Service
 
                 while(shiftStart <= shiftEnd)
                 { 
-                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient);
+                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient, FindRoomById(2), HospitalProject.Model.ExaminationType.GENERAL);
                     retAppointments.Add(appointment);
                     shiftStart = shiftStart.AddMinutes(30);
                 }
@@ -173,6 +173,15 @@ namespace Service
             }
 
             return retAppointments;
+        }
+
+
+        public IEnumerable<Appointment> GetAllUnfinishedAppointments()
+        {
+
+            var appointments = appointmentRepository.GetAllUnfinishedAppointments();
+            BindDataForAppointments(appointments);
+            return appointments;
         }
 
     }

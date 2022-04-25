@@ -151,9 +151,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate,EndDate) && 
-                   NewAppointmentValidation.IsComboBoxChecked(PatientData) &&
-                   NewAppointmentValidation.IsDateAfterNow(StartDate,EndDate);
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
+                   NewAppointmentValidation.IsComboBoxChecked(PatientData);
         }
 
         private void SubmitCommandExecute()
@@ -182,8 +181,8 @@ namespace HospitalProject.View.DoctorView.Model
         public virtual void SaveCommandExecute()
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
+            _generatedAppointments.Remove(SelectedItem);
         }
-
 
         // INTERNAL PRIVATE METHODS
 
@@ -196,5 +195,6 @@ namespace HospitalProject.View.DoctorView.Model
             }
 
         }
+
     }
 }

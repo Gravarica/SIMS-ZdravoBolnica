@@ -49,7 +49,7 @@ namespace HospitalProject.View.Model
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
 
-            AppointmentItems = new ObservableCollection<AppointmentViewModel>(AppointmentConverter.ConvertAppointmentListToAppointmentViewList(_appointmentController.GetAll().ToList()));
+            //AppointmentItems = new ObservableCollection<AppointmentViewModel>(AppointmentConverter.ConvertAppointmentListToAppointmentViewList(_appointmentController.GetAll().ToList()));
             _patient = _patientController.Get(1);
             _doctors = _doctorController.GetAll().ToList();                         // Ovde sam postavio privremeno na 3 da je id doktora, IZMENITI KAD BUDE LOGIN!!!!!!!
 
@@ -132,12 +132,12 @@ namespace HospitalProject.View.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void AddEvent_Handler(object sender, RoutedEventArgs e)
+        /*private void AddEvent_Handler(object sender, RoutedEventArgs e)
         {
 
             _date = parseTime();
             UpdateDataViewAdd(CreateAppointment());
-        }
+        }*/
 
         /*private void EditEvent_Handler(object sender, RoutedEventArgs e)
         {
@@ -178,26 +178,26 @@ namespace HospitalProject.View.Model
                 }
             }
 
-            editViewAppointment = AppointmentConverter.ConvertAppointmentToAppointmentView(appointment);
+            //editViewAppointment = AppointmentConverter.ConvertAppointmentToAppointmentView(appointment);
         }
 
         private void UpdateDataViewAdd(Appointment appointment)
         {
-            AppointmentItems.Add(AppointmentConverter.ConvertAppointmentToAppointmentView(appointment));
+            //AppointmentItems.Add(AppointmentConverter.ConvertAppointmentToAppointmentView(appointment));
         }
 
-        private Appointment CreateAppointment()
+        /*private Appointment CreateAppointment()
         {
             try
             {
-                return _appointmentController.Create(new Appointment(_date, _duration, FindDoctorFromDoctorId(int.Parse(DoctorID.SelectedItem.ToString())), _patient));
+                //return _appointmentController.Create(new Appointment(_date, _duration, FindDoctorFromDoctorId(int.Parse(DoctorID.SelectedItem.ToString())), _patient));
                 //FindDoctorIdFromDoctors(int.Parse(DoctorIds.SelectedItem.ToString())))            
             }
             catch (InvalidDateException)
             {
                 throw;
             }
-        }
+        }*/
 
         private void DeleteItem(object sender, RoutedEventArgs e)
         {

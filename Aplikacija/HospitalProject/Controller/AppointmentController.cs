@@ -28,6 +28,11 @@ namespace Controller
       {
             return _appointmentService.getAll();
       }
+
+      public IEnumerable<Appointment> GetAllUnfinishedAppointments()
+      {
+            return _appointmentService.GetAllUnfinishedAppointments();
+      }
       
       public void Update(Appointment appointment)
       {

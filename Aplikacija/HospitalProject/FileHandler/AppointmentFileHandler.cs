@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalProject.Model;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +40,9 @@ namespace HospitalProject.FileHandler
                                    int.Parse(tokens[2]),
                                    int.Parse(tokens[3]),
                                    int.Parse(tokens[4]),
-                                   int.Parse(tokens[5]));
+                                   int.Parse(tokens[5]),
+                                   convertToExaminationType(tokens[6]),
+                                   bool.Parse(tokens[7]));
         }
 
         private string ConvertAppointmentToCSVFormat(Appointment appointment)
@@ -50,7 +53,9 @@ namespace HospitalProject.FileHandler
                 appointment.Duration,
                 appointment.Patient.Id,
                 appointment.Doctor.Id,
-                appointment.Room.Id);
+                appointment.Room.Id,
+                appointment.ExaminationType.ToString(),
+                appointment.IsDone.ToString());
         }
 
         public void AppendLineToFile(Appointment appointment)
@@ -68,6 +73,24 @@ namespace HospitalProject.FileHandler
                     file.WriteLine(ConvertAppointmentToCSVFormat(appointment));
                 }
             }
+        }
+
+        private ExaminationType convertToExaminationType(string examinationTypeString)
+        {
+            if(examinationTypeString.Equals("OPERATION"))
+            {
+                return ExaminationType.OPERATION;
+            } 
+            else if (examinationTypeString.Equals("GENERAL"))
+            {
+                return ExaminationType.GENERAL;
+            }
+            else if (examinationTypeString.Equals("IMAGING"))
+            {
+                return ExaminationType.IMAGING;
+            }
+
+            return ExaminationType.GENERAL;
         }
     }
 }
