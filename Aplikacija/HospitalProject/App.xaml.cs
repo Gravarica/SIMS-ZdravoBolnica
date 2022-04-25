@@ -85,6 +85,8 @@ namespace HospitalProject
 
             var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 
+            _anamnesisService.MRService = _medicalRecordService;
+
             AppointmentController = new AppointmentController(_appointmentService);
 
             DoctorController = new DoctorController(_doctorService);

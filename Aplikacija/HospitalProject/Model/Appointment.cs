@@ -3,11 +3,12 @@
 // Created: Sunday, March 27, 2022 18:54:07
 // Purpose: Definition of Class Appointment
 
+using HospitalProject.Model;
 using System;
 
 namespace Model
 {
-   public class Appointment
+   public class Appointment : ViewModelBase
    {
       private DateTime date;
       private int duration;
@@ -15,6 +16,7 @@ namespace Model
       private int patientID;
       private int roomID;
       private int id;
+        private bool isDone;
       
       private Patient patient;
       private Doctor doctor;
@@ -47,9 +49,31 @@ namespace Model
 
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
+      public DateTime Date 
+        { 
+            get
+            {
+                return date;
+            }
+            set
+            {
+                date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
 
-      public int Duration { get; set; }
+      public int Duration 
+        { 
+            get
+            {
+                return duration;
+            }
+            set
+            {
+                duration = value;
+                OnPropertyChanged(nameof(Duration));
+            }
+        }
 
       public int DoctorId { get; set; }
 
@@ -62,6 +86,7 @@ namespace Model
           }
           set {
               patient = value;
+                OnPropertyChanged(nameof(Patient));
           }
       }
 
@@ -73,6 +98,7 @@ namespace Model
             set
             {
                 doctor = value;
+                OnPropertyChanged(nameof(Doctor));
             }
         }
 

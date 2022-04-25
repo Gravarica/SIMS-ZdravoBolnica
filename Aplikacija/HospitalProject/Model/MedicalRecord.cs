@@ -16,6 +16,7 @@ namespace HospitalProject.Model
 
         public MedicalRecord(int id, int patientId)
         {
+            _anamneses = new List<Anamnesis>();
             _id = id;
            _patient = new Patient(patientId);
         }

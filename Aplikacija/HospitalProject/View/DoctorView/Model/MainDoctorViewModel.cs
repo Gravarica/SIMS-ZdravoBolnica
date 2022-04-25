@@ -177,8 +177,12 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void DeleteCommandExecute()
         {
-            _appointmentController.Delete(SelectedItem.Id);
-            AppointmentItems.Remove(SelectedItem);
+            if(MessageBox.Show("Are you sure you want to cancel an appointment?", "Cancel an appointment", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _appointmentController.Delete(SelectedItem.Id);
+                AppointmentItems.Remove(SelectedItem);
+            }
+            
         }
 
         private bool CanMedicalRecordCommandExecute()
@@ -295,34 +299,6 @@ namespace HospitalProject.View.DoctorView.Model
             int hours = int.Parse(hoursAndMinutes[0]);
             int minutes = int.Parse(hoursAndMinutes[1]);
             return new DateTime(_date.Year, _date.Month, _date.Day, hours, minutes, 0);
-        }
-
-        
-
-        private void EditEvent_Handler(object sender, RoutedEventArgs e)
-        {
-
-          /*  if (Appointments.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please select an appointment", "Warning", MessageBoxButton.OK);
-            }
-            else
-            {*/
-                EditAppointment();
-            //}
-        }
-
-        private void EditAppointment()
-        {
-            try
-            {
-               // AppointmentViewModel updateappointment = (AppointmentViewModel)Appointments.SelectedItem;
-               // _appointmentController.Update(AppointmentConverter.ConvertAppointmentViewToAppointment(updateappointment));
-            }
-            catch (InvalidDateException)
-            {
-                throw;
-            }
         }
 
        private bool CanCreate()

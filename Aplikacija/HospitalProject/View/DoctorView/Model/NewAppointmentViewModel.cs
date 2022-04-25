@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.ValidationRules.DoctorValidation;
 using HospitalProject.View.Util;
 using Model;
 using System;
@@ -150,7 +151,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return true;
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate,EndDate) && 
+                   NewAppointmentValidation.IsComboBoxChecked(PatientData) &&
+                   NewAppointmentValidation.IsDateAfterNow(StartDate,EndDate);
         }
 
         private void SubmitCommandExecute()

@@ -9,6 +9,7 @@ using Model;
 using HospitalProject.Service;
 using System.Collections.Generic;
 using System.Linq;
+using HospitalProject.ValidationRules.DoctorValidation;
 
 namespace Service
 {
@@ -106,6 +107,7 @@ namespace Service
         // Method that generates available appointments, this method is called in controller
         public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
         {
+
             List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient);
             var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
 

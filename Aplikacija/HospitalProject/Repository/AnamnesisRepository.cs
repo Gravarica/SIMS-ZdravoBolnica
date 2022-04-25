@@ -43,7 +43,8 @@ namespace HospitalProject.Repository
 
         public void Insert(Anamnesis anamnesis)
         {
-            anamnesis.Id = _anamnesesMaxId++;
+            anamnesis.Id = ++_anamnesesMaxId;
+            _anamneses.ToList().Add(anamnesis);
             _fileHandler.AppendLineToFile(anamnesis);
         }
 

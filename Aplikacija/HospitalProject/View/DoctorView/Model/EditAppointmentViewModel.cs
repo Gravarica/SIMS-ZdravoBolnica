@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.ValidationRules.DoctorValidation;
 using HospitalProject.View.Util;
 using Model;
 using System;
@@ -24,7 +25,7 @@ namespace HospitalProject.View.DoctorView.Model
         private Patient patient;
         private Doctor doctor;
         private ObservableCollection<Appointment> _generatedAppointments;
-        private Appointment _appointment;
+        private Appointment showItem;
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
         public ObservableCollection<Appointment> GeneratedAppointments
@@ -49,9 +50,9 @@ namespace HospitalProject.View.DoctorView.Model
         {
             InitializeControllers();
             InitializeData();
-            _appointment = appointment;
+            showItem = appointment;
             _appointmentItems = appointmentItems;
-            PatientData = _appointment.Patient;
+            PatientData = showItem.Patient;
         }
 
         private void InitializeControllers()
@@ -122,6 +123,19 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public Appointment ShowItem 
+        { 
+            get
+            {
+                return showItem;
+            }
+            set
+            {
+                showItem = value;
+                OnPropertyChanged(nameof(ShowItem));
+            }
+        }
+
         // RELAY COMMAND DEFINITONS
 
         public RelayCommand SubmitCommand
@@ -137,7 +151,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return true;
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) && NewAppointmentValidation.IsComboBoxChecked(PatientData); ;
         }
 
         private void SubmitCommandExecute()
@@ -165,8 +179,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         public virtual void SaveCommandExecute()
         {
-            SelectedItem.Id = _appointment.Id;
+            SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
+            ShowItem.Date = SelectedItem.Date;
         }
     }
 }

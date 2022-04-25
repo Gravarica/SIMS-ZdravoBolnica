@@ -64,7 +64,7 @@ namespace HospitalProject.Repository
         {
             MedicalRecord updateMedicalRecord = GetById(anamnesis.App.Patient.MedicalRecordId);
             updateMedicalRecord.Anamneses.Add(anamnesis);
-            _medicalRecordFileHandler.Save(_medicalRecords);
+            //_medicalRecordFileHandler.Save(_medicalRecords);
         }
 
     }
