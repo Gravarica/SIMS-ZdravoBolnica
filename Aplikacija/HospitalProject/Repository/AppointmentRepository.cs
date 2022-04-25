@@ -40,6 +40,7 @@ namespace Repository
         {
                 appointment.Id = ++_appointmentMaxId;
                 _appointmentFileHandler.AppendLineToFile(appointment);
+                _appointments.Add(appointment);
                 return appointment;
         }
 

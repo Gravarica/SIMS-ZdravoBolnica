@@ -7,7 +7,7 @@
         xmlns:Model="clr-namespace:HospitalProject.View.Model"
         xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
-        Title="MainView" Height="720" Width="1080"
+        Title="MainView" Height="720" Width="1180"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
@@ -26,7 +26,7 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Bolnica Zdravo"
+            <TextBlock Text="Zdravo Hospital"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="White"
@@ -57,14 +57,19 @@
 
             </StackPanel>
 
-            <Button Content="Doctor"
-                    Height ="40"
-                    Width="100"
+            <Button Height ="32"
+                    Width="32"
                     FontSize="22"
                     VerticalContentAlignment="Center"
                     HorizontalAlignment="Right"
                     Margin="0 0 20 0"
-                    Grid.Column="1" />
+                    Grid.Column="1"
+                    Background="Transparent"
+                    BorderThickness="0">
+                <DockPanel>
+                    <Image Source="Icons/doctorIcon.png"/>
+                </DockPanel>
+            </Button>
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"

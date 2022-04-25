@@ -30,6 +30,12 @@
                 <view:PreviousExaminationsView/>
             </DataTemplate>
 
+            <Style x:Key="WinAll" TargetType="{x:Type Window}">
+                <Setter Property="FontFamily"
+                        Value="Open Sans" />
+                <Setter Property="FontSize"
+                        Value="14" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

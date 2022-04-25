@@ -9,6 +9,7 @@ using Model;
 using HospitalProject.Service;
 using System.Collections.Generic;
 using System.Linq;
+using HospitalProject.ValidationRules.DoctorValidation;
 
 namespace Service
 {
@@ -17,13 +18,15 @@ namespace Service
         private AppointmentRepository appointmentRepository;
         private PatientService _patientService;
         private DoctorService _doctorService;
-        
-        public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, DoctorService doctorService)
-          {
-              this.appointmentRepository = appointmentRepository;
-              _patientService = patientService;
-              _doctorService = doctorService;
-          }
+        private RoomService _roomService;
+
+        public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, DoctorService doctorService, RoomService roomService)
+        {
+            this.appointmentRepository = appointmentRepository;
+            _patientService = patientService;
+            _doctorService = doctorService;
+            _roomService=roomService;
+        }
 
         // Creates a new appointment in the system
         public Appointment Create(Appointment appointment)
@@ -56,18 +59,24 @@ namespace Service
         {
             BindAppointmentsWithDoctors(appointments);
             BindAppointmentsWithPatients(appointments);
+            BindAppointmentsWithRooms(appointments);
         }
        
         // For each appointment, sets its patient field to a certain patient by his id given in the file
         private void BindAppointmentsWithPatients(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.PatientId));
+            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.Patient.Id));
         }
 
         // For each appointment, sets its doctor field to a certain doctor object by his id written in the file
         private void BindAppointmentsWithDoctors(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.DoctorId));
+            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.Doctor.Id));
+        }
+
+        private void BindAppointmentsWithRooms(IEnumerable<Appointment> appointments)
+        {
+            appointments.ToList().ForEach(appointment => appointment.Room = FindRoomById(appointment.Room.Id));
         }
       
         private Patient FindPatientById(int patientId)
@@ -79,6 +88,92 @@ namespace Service
         {
             return _doctorService.GetById(doctorId);
         }
-   
-   }
+
+        private Room FindRoomById(int roomId)
+        {
+            return _roomService.Get(roomId);
+        }
+
+        // Method that gets all reserved appointments in the system 
+        private List<Appointment> GetAppointmentsByDoctorAndPatient(Doctor doctor, Patient patient)
+        {
+            List<Appointment> retAppointmentsDoctor = new List<Appointment>();
+            List<Appointment> retAppointmentsPatient = new List<Appointment>();
+            var appointments = appointmentRepository.GetAll();
+            BindDataForAppointments(appointments);
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (doctor.Id == appointment.Doctor.Id)
+                {
+                    retAppointmentsDoctor.Add(appointment);
+                }
+                if (patient.Id == appointment.Patient.Id)
+                {
+                    retAppointmentsPatient.Add(appointment);
+                }
+            }
+
+            return retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+        }
+
+        // Method that generates available appointments, this method is called in controller
+        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        {
+
+            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient);
+            var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
+
+            return MinusAppointments(allAppointments, existingAppointments);
+        }
+
+        // Method that removes already scheduled appointments
+        private List<Appointment> MinusAppointments(List<Appointment> allAppointments, List<Appointment> existingAppointments)
+        {
+
+            List<Appointment> removeAppointments = new List<Appointment>();
+
+            foreach (Appointment generatedAppointment in allAppointments)
+            {
+                foreach (Appointment existingAppointment in existingAppointments)
+                {
+                    if (generatedAppointment.Equals(existingAppointment))
+                    {
+                        removeAppointments.Add(generatedAppointment);
+                    }
+                }
+            }
+
+            foreach(Appointment appointment in removeAppointments)
+            {
+                allAppointments.Remove(appointment);
+            }
+
+            return allAppointments;
+        }
+
+        // Method that generates empty appointments
+        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        {
+            List<Appointment> retAppointments = new List<Appointment>();
+            TimeOnly shiftStartConst = new TimeOnly(8, 0);
+            TimeOnly shiftStart;
+            TimeOnly shiftEnd = new TimeOnly(15, 0);
+            while(StartDate <= EndDate)
+            {
+                shiftStart = shiftStartConst;
+
+                while(shiftStart <= shiftEnd)
+                { 
+                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient);
+                    retAppointments.Add(appointment);
+                    shiftStart = shiftStart.AddMinutes(30);
+                }
+                StartDate = StartDate.AddDays(1);
+            }
+
+            return retAppointments;
+        }
+
+    }
 }

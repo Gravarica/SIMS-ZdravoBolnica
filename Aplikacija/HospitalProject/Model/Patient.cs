@@ -37,6 +37,7 @@ namespace Model
             Id = id;
             appointments = new List<Appointment>();    
         }
-   
+
+        public Patient() { }
    }
 }

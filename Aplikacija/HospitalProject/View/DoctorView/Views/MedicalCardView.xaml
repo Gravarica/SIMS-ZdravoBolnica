@@ -9,7 +9,8 @@
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
         mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
-             Background="AliceBlue">
+             Background="AliceBlue"
+        Style="{StaticResource WinAll}">
     <Window.Resources>
         <converters:MedicalCardHeaderConverter x:Key="HeaderConverter" />
     </Window.Resources>

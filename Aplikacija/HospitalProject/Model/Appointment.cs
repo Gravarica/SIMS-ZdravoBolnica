@@ -3,11 +3,12 @@
 // Created: Sunday, March 27, 2022 18:54:07
 // Purpose: Definition of Class Appointment
 
+using HospitalProject.Model;
 using System;
 
 namespace Model
 {
-   public class Appointment
+   public class Appointment : ViewModelBase
    {
       private DateTime date;
       private int duration;
@@ -15,6 +16,7 @@ namespace Model
       private int patientID;
       private int roomID;
       private int id;
+        private bool isDone;
       
       private Patient patient;
       private Doctor doctor;
@@ -47,9 +49,31 @@ namespace Model
 
         public int Id { get; set; }
 
-        public DateTime Date { get; set; }
+      public DateTime Date 
+        { 
+            get
+            {
+                return date;
+            }
+            set
+            {
+                date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
 
-      public int Duration { get; set; }
+      public int Duration 
+        { 
+            get
+            {
+                return duration;
+            }
+            set
+            {
+                duration = value;
+                OnPropertyChanged(nameof(Duration));
+            }
+        }
 
       public int DoctorId { get; set; }
 
@@ -62,6 +86,7 @@ namespace Model
           }
           set {
               patient = value;
+                OnPropertyChanged(nameof(Patient));
           }
       }
 
@@ -73,6 +98,7 @@ namespace Model
             set
             {
                 doctor = value;
+                OnPropertyChanged(nameof(Doctor));
             }
         }
 
@@ -80,14 +106,17 @@ namespace Model
 
         public Appointment() { }
 
-        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId)
+        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId, int roomId)
         {
             Id = id;
             Date = date;
+            Patient = new Patient();
+            Doctor = new Doctor();
+            Room = new Room();
             Duration = duration;
-            PatientId = patientId;
-            DoctorId = doctorId; 
-            RoomID = 5;
+            Patient.Id = patientId;
+            Doctor.Id = doctorId;
+            Room.Id = roomId;
         }
 
         public Appointment(DateTime date, int duration, Doctor doctor, Patient patient)
@@ -96,9 +125,13 @@ namespace Model
             Duration = duration;
             Patient = patient;
             Doctor = doctor;
-            PatientId = Patient.Id;
-            DoctorId = Doctor.Id;
             RoomID = 5;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Appointment appointment &&
+                   Date == appointment.Date;
         }
     }
 }

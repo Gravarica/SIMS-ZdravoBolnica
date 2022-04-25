@@ -11,14 +11,28 @@
              d:DesignHeight="600" d:DesignWidth="950">
     <UserControl.Resources>
         <converters:NameConverter x:Key="NameConverter"/>
+        <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
+        <converters:TimeConverter x:Key="TimeConverter" />
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="Margin" Value="0,20,0,20"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Background ="#a4a4e8" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="125" />
@@ -26,22 +40,25 @@
                 <ColumnDefinition Width="125" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0"
-               FontWeight="Bold" 
-               FontSize ="20" 
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Content="Appointments"
-               Margin="10 0 0 0"/>
+                   FontWeight="Bold" 
+                   FontSize ="20" 
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Content="Appointments"
+                   Margin="10 0 0 0"
+                   Foreground="White"/>
             <Button Grid.Column="1"
                     Content="New Appointment"
                     VerticalAlignment="Center"
                     Width="115"
-                    Height="25" />
+                    Height="25" 
+                    Command="{Binding NewAppointmentCommand}"/>
             <Button Grid.Column="2"
                     Content="Edit Appointment"
                     VerticalAlignment="Center"
                     Width="115"
-                    Height="25" />
+                    Height="25" 
+                    Command="{Binding EditAppointmentCommand}"/>
             <Button Grid.Column="3"
                     Content="Cancel Appointment"
                     VerticalAlignment="Center"
@@ -50,112 +67,156 @@
                     Command="{Binding DeleteCommand}"/>
             <Border BorderThickness="5"/>
         </Grid>
-        
-        <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="False" Name ="Appointments" IsReadOnly="True"  ItemsSource="{Binding Path=AppointmentItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Appointment ID" Binding="{Binding Id}" Width="*"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="*"/>
-                <DataGridTextColumn Header="Patient Name" Binding="{Binding Patient, Converter={StaticResource NameConverter}}" Width="*"/>
-                <DataGridTextColumn Header="Doctor Name" Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0"
+                      Margin="25"
+                      AutoGenerateColumns="False"
+                      Name ="Appointments"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding Path=AppointmentItems}"
+                      SelectedItem="{Binding SelectedItem}"
+                      SelectionMode="Single"
+                      FontSize="15">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"
+                                        Binding="{Binding Id}"
+                                        Width="30"/>
+                    <DataGridTextColumn Header="Date"
+                                        Binding="{Binding Date}"
+                                        Width="180"/>
+                    <DataGridTextColumn Header="Duration"
+                                        Binding="{Binding Duration}"
+                                        Width="70"/>
+                    <DataGridTextColumn Header="Patient Name"
+                                        Binding="{Binding Patient, Converter={StaticResource NameConverter}}"
+                                        Width="*"/>
+                    <DataGridTextColumn Header="Doctor Name"
+                                        Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}"
+                                        Width="*"/>
+              </DataGrid.Columns>
+            </DataGrid>
+            <GroupBox Header="Details of an Appointment"
+                      Grid.Column="1"
+                      Margin="20,25,20,25"
+                      FontSize="16">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
-                <StackPanel Margin="5">
-                    <Label Content="Create new appointment" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Grid Margin="5,20,5,5" Name ="NewAppointmentGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Patient:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding SelectedItem.Patient, Converter={StaticResource NameConverter}}"
+                               Style="{StaticResource TextBoxStyle}"/>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Patient"/>
-                        <ComboBox Name ="PatientID" Grid.Row="0" Grid.Column="1" DisplayMemberPath ="Name" SelectedValuePath="Value" ItemsSource="{Binding Path = PatientComboBox}" SelectedValue = "{Binding Path = PatientData}"></ComboBox>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Date:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding SelectedItem.Date, Converter={StaticResource DateConverter}}"
+                             Style="{StaticResource TextBoxStyle}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="DoctorId"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text ="3" IsReadOnly="True"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Time:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding SelectedItem.Date, Converter={StaticResource TimeConverter}}"
+                             Style="{StaticResource TextBoxStyle}"/>
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Content="Duration:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding SelectedItem.Duration}"
+                             Style="{StaticResource TextBoxStyle}"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="Date"/>
-                        <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path = Date, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="Type:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="4"
+                               Grid.Column="1"
+                               Text="Regular"
+                             Style="{StaticResource TextBoxStyle}"/>
 
-                        <Label Grid.Row="3" Grid.Column="0" Content="Time"/>
-                        <TextBox Grid.Row="3" Grid.Column="1">
-                            <Binding Path="Time" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <doctorvalidation:TimeFormatValidation/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="Room:"
+                           Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="5"
+                               Grid.Column="1"
+                               Text="{Binding SelectedItem.Room.Number}"
+                             Style="{StaticResource TextBoxStyle}"/>
 
-                        <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
-                        <TextBox Grid.Row="4" Grid.Column="1">
-                            <Binding Path="Duration" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <doctorvalidation:DurationValidation/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox>
-
-                        <Button Grid.Row ="5" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
-                        <Button Grid.Row="5" Grid.Column="1" Content="Start Examination" Command="{Binding CreateAnamnesisCommand}" />
-                        <Button Content="MedicalRecord" 
+                    <Button Grid.Row="6"
+                            Grid.Column="0"
+                            Command="{Binding DataContext.CreateAnamnesisCommand, RelativeSource={RelativeSource AncestorType=GroupBox}}"
+                            Margin="0,19,10,19"
+                            FontSize="9"
+                            BorderThickness="1"
+                            BorderBrush="#a4a4e8">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        <DockPanel>
+                            <Image Source="Icons/examination1.png"
+                                   DockPanel.Dock="Left"
+                                   Height="16"
+                                   Width="16"/>
+                            <TextBlock Text="Start Examination"
+                                       VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Command="{Binding DataContext.MedicalRecordCommand, RelativeSource={RelativeSource AncestorType=GroupBox}}"
+                                FontSize="9"
                                 Grid.Row="6"
-                                Grid.Column="0"
-                                Command="{Binding MedicalRecordCommand}"/>
-                    </Grid>
-                </StackPanel>
-            </Border>
-            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
-                <StackPanel Margin="5">
-                    <Label Content="Appointment Information" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Grid Margin="5,20,5,5" Name ="InfoAppointmentGrid" DataContext="{Binding ElementName=Appointments,Path=SelectedItem}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="Patient"/>
-                        <TextBox Name ="PatientIDEdit" Grid.Row="0" Grid.Column="1" Text ="{Binding Path = PatientId}" IsReadOnly="True"></TextBox>
-
-                        <Label Grid.Row="1" Grid.Column="0" Content="DoctorId"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text ="3" IsReadOnly="True"/>
-
-                        <!--<Label Grid.Row="2" Grid.Column="0" Content="Date"/>
-                        <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path = Date}" />-->
-
-                        <Label Grid.Row="3" Grid.Column="0" Content="Time"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path = Date}"/>
-
-                        <Label Grid.Row="4" Grid.Column="0" Content="Duration"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path = Duration}"/>
-
-                        
-                    </Grid>
-                </StackPanel>
-            </Border>
+                            Grid.Column="1"
+                            Margin="10,19,0,19"
+                            BorderThickness="1"
+                            BorderBrush="#a4a4e8">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                            <DockPanel>
+                                <Image Source="Icons/medicalRecord.png"
+                                       DockPanel.Dock="Left"
+                                       Height="16"
+                                       Width="16"/>
+                    <TextBlock Text="Medical Record"
+                                           VerticalAlignment="Center"/>
+                    </DockPanel>
+                    </Button>
+                </Grid>
+            </GroupBox>
         </Grid>
+      
+         
     </Grid>
 </UserControl>

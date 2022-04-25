@@ -8,9 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\DoctorView\Views\Icons\calendarIcon.png" />
+    <None Remove="View\DoctorView\Views\Icons\doctorIcon2.png" />
+    <None Remove="View\DoctorView\Views\Icons\examination1.png" />
+    <None Remove="View\DoctorView\Views\Icons\medicalRecord.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\Doctor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\DoctorView\Views\Icons\calendarIcon.png" />
+    <Resource Include="View\DoctorView\Views\Icons\doctorIcon2.png" />
+    <Resource Include="View\DoctorView\Views\Icons\examination1.png" />
+    <Resource Include="View\DoctorView\Views\Icons\medicalRecord.png" />
   </ItemGroup>
 
 </Project>

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HospitalProject.View.DoctorView.Views
 {
     /// <summary>
-    /// Interaction logic for NewAppointmentView.xaml
+    /// Interaction logic for EditAppointmentview.xaml
     /// </summary>
-    public partial class NewAppointmentView : Window
+    public partial class EditAppointmentview : Window
     {
-        public NewAppointmentView()
+        public EditAppointmentview()
         {
             InitializeComponent();
         }

@@ -38,7 +38,8 @@ namespace HospitalProject.FileHandler
                                    DateTime.Parse(tokens[1]),
                                    int.Parse(tokens[2]),
                                    int.Parse(tokens[3]),
-                                   int.Parse(tokens[4]));
+                                   int.Parse(tokens[4]),
+                                   int.Parse(tokens[5]));
         }
 
         private string ConvertAppointmentToCSVFormat(Appointment appointment)
@@ -48,7 +49,8 @@ namespace HospitalProject.FileHandler
                 appointment.Date.ToString(_datetimeFormat),
                 appointment.Duration,
                 appointment.Patient.Id,
-                appointment.Doctor.Id);
+                appointment.Doctor.Id,
+                appointment.Room.Id);
         }
 
         public void AppendLineToFile(Appointment appointment)

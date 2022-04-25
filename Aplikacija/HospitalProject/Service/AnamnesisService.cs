@@ -19,6 +19,14 @@ namespace HospitalProject.Service
             _anamnesisRepository = anamnesisRepository;
         }
 
+        public MedicalRecordService MRService
+        {
+            set
+            {
+                _medicalRecordService = value;
+            }
+        }
+
         public IEnumerable<Anamnesis> GetAll()
         {
             return _anamnesisRepository.GetAll();
@@ -31,7 +39,7 @@ namespace HospitalProject.Service
 
         public void Create(Anamnesis anamnesis)
         {   
-
+            //_medicalRecordService.AddNewAnamnesisToMedicalRecord(anamnesis);
             _anamnesisRepository.Insert(anamnesis);
         }
 
