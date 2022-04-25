@@ -79,9 +79,9 @@ namespace HospitalProject
 
             var _anamnesisService = new AnamnesisService(_anamnesisRepository);
 
-            var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService);
+            var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService, _roomService);
 
-            var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService);
+            var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService, _roomService);
 
             var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 

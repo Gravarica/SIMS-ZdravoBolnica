@@ -18,13 +18,15 @@ namespace Service
         private AppointmentRepository appointmentRepository;
         private PatientService _patientService;
         private DoctorService _doctorService;
-        
-        public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, DoctorService doctorService)
-          {
-              this.appointmentRepository = appointmentRepository;
-              _patientService = patientService;
-              _doctorService = doctorService;
-          }
+        private RoomService _roomService;
+
+        public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, DoctorService doctorService, RoomService roomService)
+        {
+            this.appointmentRepository = appointmentRepository;
+            _patientService = patientService;
+            _doctorService = doctorService;
+            _roomService=roomService;
+        }
 
         // Creates a new appointment in the system
         public Appointment Create(Appointment appointment)
@@ -57,18 +59,24 @@ namespace Service
         {
             BindAppointmentsWithDoctors(appointments);
             BindAppointmentsWithPatients(appointments);
+            BindAppointmentsWithRooms(appointments);
         }
        
         // For each appointment, sets its patient field to a certain patient by his id given in the file
         private void BindAppointmentsWithPatients(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.PatientId));
+            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.Patient.Id));
         }
 
         // For each appointment, sets its doctor field to a certain doctor object by his id written in the file
         private void BindAppointmentsWithDoctors(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.DoctorId));
+            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.Doctor.Id));
+        }
+
+        private void BindAppointmentsWithRooms(IEnumerable<Appointment> appointments)
+        {
+            appointments.ToList().ForEach(appointment => appointment.Room = FindRoomById(appointment.Room.Id));
         }
       
         private Patient FindPatientById(int patientId)
@@ -79,6 +87,11 @@ namespace Service
         private Doctor FindDoctorById(int doctorId)
         {
             return _doctorService.GetById(doctorId);
+        }
+
+        private Room FindRoomById(int roomId)
+        {
+            return _roomService.Get(roomId);
         }
 
         // Method that gets all reserved appointments in the system 

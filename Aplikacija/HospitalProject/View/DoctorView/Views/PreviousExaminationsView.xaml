@@ -28,15 +28,25 @@
                                     Width="200"
                                     Binding="{Binding App.Date, Converter={StaticResource DateConverter}}"/>
                 <DataGridTextColumn Header="Doctor" 
-                                    Width="*"
+                                    Width="2*"
                                     Binding="{Binding App.Doctor, Converter={StaticResource NameConverter}}"/>
                 <DataGridTextColumn Header="Description"
-                                    Width="*"
+                                    Width="4*"
                                     Binding="{Binding Description}"/>
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" Command="{Binding DataContext.EditAnamnesisCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            <Border BorderThickness="1"
+                                    BorderBrush="#afafef"
+                                    CornerRadius="2"
+                                    Margin="10">
+                                <Button Content="Edit"
+                                        FontSize="12"
+                                        Foreground="White"
+                                    Command="{Binding DataContext.EditAnamnesisCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    Background="#a4a4e8"/>
+                            </Border>
+                            
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -103,8 +103,28 @@ namespace Model
       }
 
         
-
-        public int Number { get; set; }
+        public int Id 
+        { 
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+        public int Number 
+        { 
+            get
+            {
+                return _number;
+            }
+            set
+            {
+                _number = value;
+            }
+        }
 
         public int Floor { get; set; }
         public RoomType RoomType { get; set; }

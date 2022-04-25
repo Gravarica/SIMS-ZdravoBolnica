@@ -106,14 +106,17 @@ namespace Model
 
         public Appointment() { }
 
-        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId)
+        public Appointment(int id, DateTime date, int duration, int patientId, int doctorId, int roomId)
         {
             Id = id;
             Date = date;
+            Patient = new Patient();
+            Doctor = new Doctor();
+            Room = new Room();
             Duration = duration;
-            PatientId = patientId;
-            DoctorId = doctorId; 
-            RoomID = 5;
+            Patient.Id = patientId;
+            Doctor.Id = doctorId;
+            Room.Id = roomId;
         }
 
         public Appointment(DateTime date, int duration, Doctor doctor, Patient patient)
@@ -122,8 +125,6 @@ namespace Model
             Duration = duration;
             Patient = patient;
             Doctor = doctor;
-            PatientId = Patient.Id;
-            DoctorId = Doctor.Id;
             RoomID = 5;
         }
 
