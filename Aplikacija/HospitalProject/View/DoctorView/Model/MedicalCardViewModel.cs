@@ -61,6 +61,8 @@ namespace HospitalProject.View.DoctorView.Model
 
             PreviousExaminationsVM = new PreviousExaminationsViewModel(_medicalRecord);       // Ovde prosledim iz medicinskog kartona listu anamneza kako bih prikazao na tom pogledu
 
+            CurrentView = PatientInformationVM;
+
             PatientInformationViewCommand = new RelayCommand(o =>
             {
                 CurrentView = PatientInformationVM;
