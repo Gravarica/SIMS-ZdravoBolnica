@@ -35,7 +35,7 @@ namespace HospitalProject.View.Model
         private string _lastname;
         private string _mail;
         private string _adress;
-        private string _jmbg;
+        private int _jmbg;
         private string _phonenumber;
 
         public ObservableCollection<PatientViewModel> PatientItems { get; set; }
@@ -133,7 +133,7 @@ namespace HospitalProject.View.Model
                 }
             }
         }
-        public String Jmbg
+        public int Jmbg
         {
             get
             {
@@ -143,7 +143,7 @@ namespace HospitalProject.View.Model
             {
                 if (value != _jmbg)
                 {
-                    _username = value;
+                    _jmbg = value;
                     OnPropertyChanged(nameof(Jmbg));
                 }
             }
@@ -189,7 +189,7 @@ namespace HospitalProject.View.Model
         {
             try
             {
-                return _patientController.Add(new Patient(_username, _firstname, _lastname, _mail, _adress, _jmbg, 0635558291));
+                return _patientController.Create(new Patient(_username, _firstname, _lastname, _mail, _adress, _jmbg, 0635558291));
             }
             catch (InvalidDateException)
             {

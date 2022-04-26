@@ -26,28 +26,18 @@ namespace Service
          return _patientRepository.GetAll();
       }
 
-        public void Update(Patient patient)
-        {
-
-            Patient p = _patientRepository.Get(patient.Id);
-            p.Mail = patient.Mail;
-
-            p.Adress = patient.Adress;
-            p.Jmbg = patient.Jmbg;
-            p.PhoneNumber = patient.PhoneNumber;
-            p.FirstName = patient.FirstName;
-            p.LastName = patient.LastName;
-            p.Username = patient.Username;
-
-        }
+      public void Update(Patient patient)
+      {
+          _patientRepository.Update(patient);
+      }
 
         public void Delete(string id) => _patientRepository.Delete(id);
 
-        public Patient Add(Patient patient)
+        public Patient Create(Patient patient)
         {
-
-            return _patientRepository.Add(patient);
+            return _patientRepository.Insert(patient);
         }
+
 
         public Patient GetById(int id)
         {

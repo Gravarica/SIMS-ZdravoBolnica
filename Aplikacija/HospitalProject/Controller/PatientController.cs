@@ -20,14 +20,9 @@ namespace Controller
         }
 
 
-        /*private void Create(string id, string name, string surname, string mail, string adress, DateTime dateOfBirth)
+        public Patient Create(Patient patient)
         {
-           _patientService.Create(id, name, surname, mail, adress, dateOfBirth);
-        }*/
-
-        public Patient Add(Patient patient)
-        {
-            return _patientService.Add(patient);
+           return _patientService.Create(patient);
         }
 
 

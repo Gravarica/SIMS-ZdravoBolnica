@@ -45,11 +45,35 @@ namespace Repository
             return _patients.FirstOrDefault(p => p.Id == id);
         }
 
-        public Patient Add(Patient patient)
+        public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;
             AppendLineToFile(_path, ConvertPatientToCSVFormat(patient));
             return patient;
+        }
+        
+        public void Update(Patient patient)
+        {
+            foreach (Patient p in _patients)
+            {
+                if (patient.Id == p.Id)
+                {
+                    p.DateOfBirth = patient.DateOfBirth;
+                    p.BloodType = patient.BloodType;
+                    p.Gender = patient.Gender;
+                    p.Guest = patient.Guest;
+                    p.Email = patient.Email;
+                    p.Adress = patient.Adress;
+                    p.Jmbg = patient.Jmbg;
+                    p.PhoneNumber = patient.PhoneNumber;
+                    p.FirstName = patient.FirstName;
+                    p.LastName = patient.LastName;
+                    p.Username = patient.Username;
+                    break;
+                }
+            }
+
+            Save();
         }
         public void Delete(string id)
         {
@@ -98,17 +122,23 @@ namespace Repository
             return new Patient(int.Parse(tokens[0]), int.Parse(tokens[1]),tokens[2], tokens[3], tokens[4]);
         }
         private string ConvertPatientToCSVFormat(Patient patient)
-        {
+        { 
             return string.Join(_delimiter,
                 patient.Id,
                 patient.MedicalRecordId,
+                patient.BloodType,
+                patient.Guest,
                 patient.Username,
                 patient.FirstName,
                 patient.LastName,
-                patient.Mail,
-                patient.Adress,
+                patient.UserType,
                 patient.Jmbg,
-                patient.PhoneNumber);
+                patient.PhoneNumber,
+                patient.Email,
+                patient.Adress,
+                patient.DateOfBirth,
+                patient.Gender
+                );
         }
 
         private void AppendLineToFile(string path, string line)
