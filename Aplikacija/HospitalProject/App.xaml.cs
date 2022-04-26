@@ -26,6 +26,7 @@ namespace HospitalProject
         private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\doctors.csv";
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
         private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
+        private string EQUIPEMENT_FILE = _projectPath + "\\Resources\\Data\\equipement.csv";
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
@@ -39,6 +40,9 @@ namespace HospitalProject
 
         public AppointmentController AppointmentController { get; set; }
 
+        
+        public EquipementController EquipementController { get; set; }
+
         public RoomControoler RoomController { get; set; }
 
         public AppointmentController AppointmentControllerPatient { get; set; }
@@ -49,6 +53,8 @@ namespace HospitalProject
 
         public App()
         {
+            var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
+
             var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
             var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
@@ -56,6 +62,10 @@ namespace HospitalProject
             var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
 
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
+
+
+
+            var _equipementRepository = new EquipementRepository(_equipementFileHandler);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
@@ -70,6 +80,10 @@ namespace HospitalProject
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
+
+
+
+            var _equipementService = new EquipementService(_equipementRepository);
 
             var _doctorService = new DoctorService(_doctorRepository);
             
@@ -86,6 +100,10 @@ namespace HospitalProject
             var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 
             _anamnesisService.MRService = _medicalRecordService;
+
+
+
+            EquipementController = new EquipementController(_equipementService);
 
             AppointmentController = new AppointmentController(_appointmentService);
 

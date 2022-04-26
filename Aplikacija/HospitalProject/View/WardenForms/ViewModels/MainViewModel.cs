@@ -11,7 +11,7 @@ namespace HospitalProject.View.WardenForms
         public WardenRoomControl WardenRoomControl { get; set; }
         public RelayCommand RoomViewCommand { get; set; }
         
-        public WardenEquipementControl WardenEquipementControl { get; set; }
+        public WardenEquipementView WardenEquipementView { get; set; }
         public RelayCommand EquipementCommand { get; set; }
         
         public WardenEquipemntRelocationControl WardenEquipemntRelocationControl { get; set; }
@@ -34,7 +34,7 @@ namespace HospitalProject.View.WardenForms
         public MainViewModel()
         {
             WardenRoomControl = new WardenRoomControl();
-            WardenEquipementControl = new WardenEquipementControl();
+            WardenEquipementView = new WardenEquipementView();
             WardenEquipemntRelocationControl = new WardenEquipemntRelocationControl();
 
             MomentalView = WardenRoomControl;
@@ -45,7 +45,7 @@ namespace HospitalProject.View.WardenForms
                  );
              EquipementCommand = new RelayCommand(o =>
                  {
-                     MomentalView = WardenEquipementControl;
+                     MomentalView = WardenEquipementView;
                  }
              );
              EquipementRelocationCommand = new RelayCommand(o
