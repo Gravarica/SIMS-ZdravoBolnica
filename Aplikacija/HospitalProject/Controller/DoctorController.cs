@@ -28,5 +28,10 @@ namespace HospitalProject.Controller
             return _doctorService.GetById(id);
         }
 
+        public Doctor GetLoggedDoctor(string username)
+        {
+            return _doctorService.GetLoggedDoctor(username);
+        }
+
     }
 }

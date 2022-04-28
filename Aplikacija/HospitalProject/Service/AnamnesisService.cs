@@ -1,5 +1,6 @@
 ﻿using HospitalProject.Model;
 using HospitalProject.Repository;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +13,14 @@ namespace HospitalProject.Service
     {
 
         private AnamnesisRepository _anamnesisRepository;
-        private MedicalRecordService _medicalRecordService;
-
-        public AnamnesisService(AnamnesisRepository anamnesisRepository)
+        private AppointmentService _appointmentService;
+        public AnamnesisService(AnamnesisRepository anamnesisRepository, AppointmentService appointmentService)
         {
             _anamnesisRepository = anamnesisRepository;
+            _appointmentService = appointmentService;
+            LinkAnamnesisWithAppointments();
         }
 
-        public MedicalRecordService MRService
-        {
-            set
-            {
-                _medicalRecordService = value;
-            }
-        }
 
         public IEnumerable<Anamnesis> GetAll()
         {
@@ -38,8 +33,8 @@ namespace HospitalProject.Service
         }
 
         public void Create(Anamnesis anamnesis)
-        {   
-            //_medicalRecordService.AddNewAnamnesisToMedicalRecord(anamnesis);
+        {
+            _appointmentService.SetAppointmentFinished(anamnesis.App);
             _anamnesisRepository.Insert(anamnesis);
         }
 
@@ -56,6 +51,17 @@ namespace HospitalProject.Service
         public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
         {
             return _anamnesisRepository.GetAnamnesesByMedicalRecord(patientId);
+        }
+
+        private void LinkAnamnesisWithAppointments()
+        {
+            int id;
+
+            foreach (Anamnesis anamnesis in GetAll())
+            {
+                id = anamnesis.App.Id;
+                anamnesis.App = _appointmentService.GetById(id);
+            }
         }
 
     }

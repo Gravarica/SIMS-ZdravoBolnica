@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
         Title="ExaminationView" Height="600" Width="950">
     <Window.Resources>
+        <converters:NameConverter x:Key="NameConverter"/>
         <Style TargetType="Label" x:Key="LabelStyle">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -77,21 +79,24 @@
                     <DatePicker Grid.Row="0"
                                 Grid.Column="1"
                                 Margin="10,10,35,10"
-                                FontSize="15"/>
+                                FontSize="15"
+                                SelectedDate="{Binding ShowItem.Date}"/>
 
                     <Label Grid.Row="1"
                            Content="Patient:"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
-                             Style="{StaticResource TextBoxStyle}"/>
+                             Style="{StaticResource TextBoxStyle}"
+                             Text="{Binding ShowItem.Patient, Converter={StaticResource NameConverter}}"/>
 
                     <Label Grid.Row="2"
                            Content="Doctor:"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
-                             Style="{StaticResource TextBoxStyle}"/>
+                             Style="{StaticResource TextBoxStyle}"
+                             Text="{Binding ShowItem.Doctor, Converter={StaticResource NameConverter}}"/>
 
 
                     <Label Grid.Row="3"
@@ -99,7 +104,8 @@
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
-                             Style="{StaticResource TextBoxStyle}"/>
+                             Style="{StaticResource TextBoxStyle}"
+                             Text="General practice"/>
 
 
                     <Label Grid.Row="4"
@@ -107,7 +113,8 @@
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="4"
                              Grid.Column="1"
-                             Style="{StaticResource TextBoxStyle}"/>
+                             Style="{StaticResource TextBoxStyle}"
+                             Text="{Binding ShowItem.ExaminationType}"/>
 
 
                     <Label Grid.Row="5"
@@ -117,7 +124,8 @@
                              Grid.ColumnSpan="2"
                              Margin="35,10,35,10"
                              FontSize="15"
-                             BorderBrush="#A4A4E8"/>
+                             BorderBrush="#A4A4E8"
+                             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </GroupBox>
             <Border Grid.Column ="1"
@@ -146,7 +154,8 @@
                             Style="{StaticResource RoundButton}"
                             Background="#a4a4e8"
                             Foreground="White"
-                            Margin="15,10,15,10"/>
+                            Margin="15,10,15,10"
+                            Command="{Binding AddNewAnamnesis}"/>
                 </Grid>
             </Border>
         </Grid>

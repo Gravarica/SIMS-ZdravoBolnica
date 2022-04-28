@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:Model="clr-namespace:HospitalProject.View.Model"
         xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
         Title="MainView" Height="720" Width="1180"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
+    
+    <Window.Resources>
+        <converters:NameConverter x:Key="Name converter"/>
+    </Window.Resources>
     
     <Border Background="#272537"
             >
@@ -57,19 +59,32 @@
 
             </StackPanel>
 
-            <Button Height ="32"
-                    Width="32"
-                    FontSize="22"
-                    VerticalContentAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Margin="0 0 20 0"
-                    Grid.Column="1"
-                    Background="Transparent"
-                    BorderThickness="0">
-                <DockPanel>
-                    <Image Source="Icons/doctorIcon.png"/>
-                </DockPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal" Grid.Column="1"
+                        HorizontalAlignment="Right">
+
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           Text="{Binding LoggedDoctor, Converter={StaticResource Name converter}}"
+                           Margin="0,0,20,0"/>
+                <Button Height ="32"
+                        Width="32"
+                        FontSize="22"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="0 0 20 0"
+                        Grid.Column="1"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding LogoutCommand}">
+                    <DockPanel>
+                        <Image Source="Icons/examination.png"/>
+                    </DockPanel>
+                </Button>
+                
+                
+            </StackPanel>
+            
 
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
