@@ -21,6 +21,7 @@
                 <DataGridTextColumn Header="Room Floor" Binding="{Binding RoomFloor}" Width="*"/>
                 <DataGridTextColumn Header="Room Type" Binding="{Binding TypeRoom}" Width="*"/>
                 
+                
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2">

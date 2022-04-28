@@ -6,8 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using HospitalProject.Controller;
 using HospitalProject.Exception;
+using HospitalProject.Model;
 using HospitalProject.View.Converter;
 using HospitalProject.View.Model;
 using Model;
@@ -23,6 +25,7 @@ namespace HospitalProject.View.WardenForms
         private int _id;
         private string _roomType;
         private List<String> roomTypes;
+        private List<Equipement> roomsEquipement;
         public ObservableCollection<RoomViewModel> RoomItems { get; set; }
         private RoomControoler _roomControoler;
 
@@ -184,7 +187,7 @@ namespace HospitalProject.View.WardenForms
         {
             try
             {
-                return _roomControoler.Create(new Room(_id, _number, _floor, StringToRoomType(_roomType)));
+                return _roomControoler.Create(new Room(roomsEquipement,_id, _number, _floor, StringToRoomType(_roomType)));
             }
             catch (InvalidDateException)
             {

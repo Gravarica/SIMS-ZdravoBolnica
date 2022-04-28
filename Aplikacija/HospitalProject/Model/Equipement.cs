@@ -80,6 +80,12 @@ namespace HospitalProject.Model
             Name = name;
             EquipementType = equipementType;
         }
+
+        public Equipement(int id, int quantity)
+        {
+            this.id = id;
+            this.quantity = quantity;
+        }
     }
 
 
