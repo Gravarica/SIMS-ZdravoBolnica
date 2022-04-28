@@ -18,7 +18,7 @@ namespace Model
        public BloodType BloodType
        {
            get { return bloodType; }
-           set { bloodType = value; }
+           set { this.bloodType = value; }
        }
 
        public bool Guest 
@@ -38,15 +38,42 @@ namespace Model
             appointments = new List<Appointment>(); 
         }
 
-        public Patient(String username, String firstName, string lastName, string email, string adress, int jmbg, int phoneNumber) : base(username, firstName, lastName)
-        {
-            Email = email;
-            Adress = adress;
-            Jmbg = jmbg;
-            PhoneNumber = phoneNumber;
-            appointments = new List<Appointment>();
-        }
+      public Patient(
+          int id, 
+          int medicalRecordId,
+          BloodType bloodtype,
+          bool guest,
+          String username,
+          String firstName,
+          String lastName,
+          UserType userType,
+          int jmbg,
+          int phoneNumber,
+          string email,
+          string adress,
+          DateTime dateofBirth,
+          Gender gender) : base(username,
+                                firstName,
+                                lastName,
+                                userType,
+                                jmbg,
+                                phoneNumber,
+                                email,
+                                adress,
+                                dateofBirth,
+                                gender)
+      {
+          Id = id;
+          MedicalRecordId = medicalRecordId;
+          BloodType = bloodtype;
+          Guest = false;
+          appointments = new List<Appointment>();
+          
+      }
+
+        //kad se menja , ostaje ID
         public Patient(
+            int medicalRecordId,
             BloodType bloodtype, 
             bool guest,
             String username,
@@ -68,22 +95,20 @@ namespace Model
                                     adress,
                                     dateofBirth,
                                     gender)
-        {
+        {   
+            MedicalRecordId = medicalRecordId;
             BloodType = bloodtype;
             Guest = guest;
             appointments = new List<Appointment>();
         }
 
         public Patient(
-            bool guest,
             String firstName,
             String lastName,
-            int jmbg) : base(firstName, lastName)
+            int jmbg) : base(firstName, lastName, jmbg)
         {
             
             this.guest = true;
-            this.jmbg = jmbg;
-
             appointments = new List<Appointment>();
         }
         public Patient(int id) { 

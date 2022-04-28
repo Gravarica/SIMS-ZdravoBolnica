@@ -54,6 +54,11 @@ public abstract class User
         LastName = lastName;
     }
 
+    public User(String firstName, String lastName, int jmbg) { 
+        Username = username;
+        FirstName = firstName;
+        Jmbg = jmbg;
+    }
     public User() { }
     
     public Int32 Jmbg
