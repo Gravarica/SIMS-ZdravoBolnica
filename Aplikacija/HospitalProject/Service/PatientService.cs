@@ -23,7 +23,7 @@ namespace Service
       
       public IEnumerable<Patient> GetAll()
       {
-         return _patientRepository.GetAll();
+         return _patientRepository._patientFileHandler.ReadAll();
       }
 
       public void Update(Patient patient)
@@ -31,7 +31,7 @@ namespace Service
           _patientRepository.Update(patient);
       }
 
-        public void Delete(string id) => _patientRepository.Delete(id);
+        public void Delete(int id) => _patientRepository.Delete(id);
 
         public Patient Create(Patient patient)
         {

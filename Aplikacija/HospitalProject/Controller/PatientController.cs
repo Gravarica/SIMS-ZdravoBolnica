@@ -36,7 +36,7 @@ namespace Controller
          return _patientService.GetAll();
       }
       
-      public void Delete(string id)
+      public void Delete(int id)
       {
             _patientService.Delete(id);
         }

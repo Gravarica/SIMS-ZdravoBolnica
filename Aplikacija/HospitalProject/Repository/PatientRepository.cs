@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HospitalProject.Exception;
+using HospitalProject.FileHandler;
 using Model;
 
 namespace Repository
@@ -14,14 +15,15 @@ namespace Repository
         private string _path;       // Putanja do fajla 
         private string _delimiter;  // Delimiter za CSV format
         private int _patientMaxId;
+        public PatientFileHandler _patientFileHandler;
         private List<Patient> _patients = new List<Patient>();
 
         public PatientRepository(string path, string delimiter)
         {
             _path = path;
             _delimiter = delimiter;
-            _patients = (List<Patient>)GetAll();
-            _patientMaxId = GetMaxId(GetAll());
+            _patients = (List<Patient>) _patientFileHandler.ReadAll();
+            _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
         }
 
         private int GetMaxId(IEnumerable<Patient> patients)
@@ -32,13 +34,7 @@ namespace Repository
         public List<Patient> Patients
         { get { return _patients; } }
 
-        // Vraca listu svih entiteta 
-        public IEnumerable<Patient> GetAll()
-        {
-            return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-                .Select(ConvertCSVFormatToAccount)
-                .ToList();
-        }
+       
 
         public Patient GetById(int id)
         {
@@ -48,7 +44,7 @@ namespace Repository
         public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;
-            AppendLineToFile(_path, ConvertPatientToCSVFormat(patient));
+            _patientFileHandler.AppendLineToFile(_path, _patientFileHandler.ConvertPatientToCSVFormat(patient));
             return patient;
         }
         
@@ -73,39 +69,30 @@ namespace Repository
                 }
             }
 
-            Save();
+            _patientFileHandler.Save();
         }
-        public void Delete(string id)
+        public void Delete(int id)
         {
-            List<Patient> patients = GetAll().ToList();
+            List<Patient> patients = _patientFileHandler.ReadAll().ToList();
 
             Patient p = patients.SingleOrDefault(r => r.Id.Equals(id));
 
             if (p != null)
             {
                 patients.Remove(p);
-                Save();
+                _patientFileHandler.Save();
             }
 
         }
 
-        public void Save()
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (Patient patient in _patients)
-                {
-                    file.WriteLine(ConvertPatientToCSVFormat(patient));
-                }
-            }
-        }
+        
         // Pokupi samo jedan entitet po njegovom ID-u
         public Patient Get(int id)
         {
             try
             {
                 {                                                                           // Vraca ili onaj entitet koji je jedinstven, ili vraca default vrednost
-                    return GetAll().SingleOrDefault(patient => patient.Id == id);           // Daj mi onaj account za koji je account.Id == id
+                    return _patientFileHandler.ReadAll().SingleOrDefault(patient => patient.Id == id);           // Daj mi onaj account za koji je account.Id == id
                 }
             }
             catch (ArgumentException)
@@ -115,36 +102,5 @@ namespace Repository
                 }
             }
         }
-
-        private Patient ConvertCSVFormatToAccount(string acountCSVFormat)                   // Ovo prebacuje iz CSV formata i kreira objekat
-        {
-            var tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
-            return new Patient(int.Parse(tokens[0]), int.Parse(tokens[1]),tokens[2], tokens[3], tokens[4]);
-        }
-        private string ConvertPatientToCSVFormat(Patient patient)
-        { 
-            return string.Join(_delimiter,
-                patient.Id,
-                patient.MedicalRecordId,
-                patient.BloodType,
-                patient.Guest,
-                patient.Username,
-                patient.FirstName,
-                patient.LastName,
-                patient.UserType,
-                patient.Jmbg,
-                patient.PhoneNumber,
-                patient.Email,
-                patient.Adress,
-                patient.DateOfBirth,
-                patient.Gender
-                );
-        }
-
-        private void AppendLineToFile(string path, string line)
-        {
-            File.AppendAllText(path, line + Environment.NewLine);
-        }
-
-    }
+   }
 }
