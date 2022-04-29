@@ -12,6 +12,7 @@ namespace HospitalProject.View.WardenForms
         
         public ObservableCollection<Equipement> EquipementItems { get; set; }
         private EquipementController _equipementController;
+        public RelayCommand EquipementRelocationCommand { get; set; }
 
 
         public EquipementViewModel()
@@ -24,6 +25,14 @@ namespace HospitalProject.View.WardenForms
         {
             var app = System.Windows.Application.Current as App;
             _equipementController = app.EquipementController;
+            EquipementRelocationCommand = new RelayCommand(param => ExecuteEquipementRelocationComand(), param => true);
+        }
+
+        private void ExecuteEquipementRelocationComand()
+        {
+            WardenEquipemntRelocationViewModel wardenEquipemntRelocationViewModel =
+                new WardenEquipemntRelocationViewModel();
+            MainViewModel.Instance.MomentalView = wardenEquipemntRelocationViewModel;
         }
 
         private void InstantiateData()

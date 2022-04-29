@@ -7,9 +7,9 @@
         xmlns:local="clr-namespace:HospitalProject.View"
         mc:Ignorable="d"
         Title="WardenWindow" Height="700" Width="1100">
-    
+
     <Grid>
-        <Border Background="WhiteSmoke" >
+        <Border Background="#FF272537" Margin="0,-1,0,0" >
             <Grid >
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="210">
@@ -21,13 +21,18 @@
                     <RowDefinition Height="65"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="1" Grid.Column="0" Background="CadetBlue" >
-                    <RadioButton  Height="70"  Content="Rooms" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="Black"  Width="210" Command="{Binding RoomViewCommand}" />
-                    <RadioButton Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="Black"  Width="210" Command="{Binding EquipementCommand}" />
+                <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF272537" >
+                    <RadioButton  Height="60"  Content="Rooms" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}" Checked="RadioButton_Checked" ClickMode="Release" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5" />
+                    <RadioButton Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
                 </StackPanel>
-                <ContentControl Grid.Row="1" BorderBrush="Aqua" BorderThickness="2" Grid.Column="1" Margin="10" Content="{Binding MomentalView}"></ContentControl>
+                <ContentControl BorderThickness="15" Margin="209,2,0,0" Content="{Binding MomentalView}" BorderBrush="#FFF2FF00" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
             </Grid>
-                
+
         </Border>
+        <TextBlock Text="Zdravo Hospital"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Foreground="#FFF3BF09"
+            FontSize="22" Margin="14,16,0,0"/>
     </Grid>
 </Window>

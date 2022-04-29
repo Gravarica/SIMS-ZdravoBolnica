@@ -8,6 +8,6 @@ public partial class WardenEquipementView : UserControl
     {
         
         InitializeComponent();
-        DataContext = new EquipementViewModel();
+        //DataContext = new EquipementViewModel();
     }
 }

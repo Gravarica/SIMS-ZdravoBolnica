@@ -2,9 +2,9 @@
 
 namespace HospitalProject.View.WardenForms;
 
-public partial class WardenEquipemntRelocationControl : UserControl
+public partial class WardenEquipemntRelocationView : UserControl
 {
-    public WardenEquipemntRelocationControl()
+    public WardenEquipemntRelocationView()
     {
         InitializeComponent();
     }

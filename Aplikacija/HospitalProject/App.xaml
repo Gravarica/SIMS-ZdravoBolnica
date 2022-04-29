@@ -23,6 +23,10 @@
             <DataTemplate DataType="{x:Type wardenForms:EquipementViewModel}">
                 <wardenForms:WardenEquipementView/>
             </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type wardenForms:WardenEquipemntRelocationViewModel}">
+                <wardenForms:WardenEquipemntRelocationView/>
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
                 <view:PatientsView/>

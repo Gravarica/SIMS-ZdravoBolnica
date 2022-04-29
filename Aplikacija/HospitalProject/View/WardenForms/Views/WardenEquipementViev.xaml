@@ -32,6 +32,6 @@
             </DataGrid.Columns>
             
         </DataGrid>
-        <Button Grid.Row="2" Grid.Column="0" Content="Add" Command="{Binding EquipementRelocationCommand}"></Button>
+        <Button Grid.Row="2" Grid.Column="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}"></Button>
     </Grid>
 </UserControl>
