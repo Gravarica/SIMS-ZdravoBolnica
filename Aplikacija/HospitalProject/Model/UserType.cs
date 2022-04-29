@@ -9,9 +9,9 @@ namespace Model
 {
    public enum UserType
    {
-      pacient,
-      warden,
-      secretary,
-      doctor
+      PATIENT,
+      DOCTOR,
+      SECRETARY,
+      WARDEN
    }
 }

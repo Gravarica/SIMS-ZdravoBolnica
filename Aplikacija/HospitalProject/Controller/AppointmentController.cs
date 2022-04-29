@@ -44,10 +44,15 @@ namespace Controller
             _appointmentService.Delete(id);
       }
 
-        public List<Appointment> GenerateAvailableAppointments(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient)
+      public List<Appointment> GenerateAvailableAppointments(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient)
+      {
+          return _appointmentService.GenerateAvailableAppointments(startDate, endDate, doctor, patient);
+      }
+
+        public IEnumerable<Appointment> GetAllUnifinishedAppointmentsForDoctor(int doctorId)
         {
-            return _appointmentService.GenerateAvailableAppointments(startDate, endDate, doctor, patient);
+            return _appointmentService.GetAllUnifinishedAppointmentsForDoctor(doctorId);
         }
-                                                                                                                              
-   }
+
+    }
 }

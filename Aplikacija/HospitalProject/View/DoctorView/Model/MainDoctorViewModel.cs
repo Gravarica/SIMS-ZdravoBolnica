@@ -30,9 +30,8 @@ namespace HospitalProject.View.DoctorView.Model
         private int _duration;
         private String _time;
         private Doctor _doctor;
-        private Patient _patient;
 
-        private RelayCommand addCommand;
+        private Patient _patient;
         private RelayCommand createAnamnesisCommand;
         private RelayCommand medicalRecordCommand;
         private RelayCommand deleteCommand;
@@ -45,6 +44,7 @@ namespace HospitalProject.View.DoctorView.Model
         AppointmentController _appointmentController;
         PatientController _patientController;
         DoctorController _doctorController;
+        UserController _userController;
 
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>(); 
 
@@ -76,13 +76,15 @@ namespace HospitalProject.View.DoctorView.Model
             _appointmentController = app.AppointmentController;
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
+            _userController = app.UserController;
         }
 
         private void InstantiateData()
         {
-            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAllUnfinishedAppointments().ToList());
+            _doctor = _doctorController.GetLoggedDoctor(_userController.GetLoggedUser().Username);
+            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAllUnifinishedAppointmentsForDoctor(_doctor.Id).ToList());
             _patients = _patientController.GetAll().ToList();
-            _doctor = _doctorController.Get(3);
+            
         }
 
         private void FillComboData()
@@ -102,15 +104,6 @@ namespace HospitalProject.View.DoctorView.Model
                 return deleteCommand ?? (deleteCommand = new RelayCommand(param => DeleteCommandExecute(), param => CanDeleteCommandExecute()));
             }
         }
-
-        /*public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ?? (addCommand = new RelayCommand(param => AddCommandExecute(), param => CanAddCommandExecute()));
-            }
-
-        }*/
 
         public RelayCommand CreateAnamnesisCommand
         {
@@ -204,28 +197,12 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void CreateAnamnesisCommandExecute()
         {
-            AnamnesisView view = new AnamnesisView();
-            view.DataContext = new AnamnesisViewModel(SelectedItem);
+            ExaminationView view = new ExaminationView();
+            AnamnesisViewModel avm = new AnamnesisViewModel(SelectedItem, view);
+            view.DataContext = avm;
             view.ShowDialog();
+            AppointmentItems.Remove(avm.ShowItem);
         }
-
-        private bool CanAddCommandExecute()
-        {
-            return true ;
-        }
-
-        /*private void AddCommandExecute()
-        {
-            if(!CanCreate())
-            {
-                MessageBox.Show("Appointment is already taken");
-                return;
-            }
-
-            Appointment appointment = new Appointment(parseTime(), _duration, _doctor, PatientData, );
-            _appointmentController.Create(appointment);
-            AppointmentItems.Add(appointment);
-        }*/
 
         public Appointment SelectedItem
         {

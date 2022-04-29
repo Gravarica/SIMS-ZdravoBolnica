@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Themes/probni.xaml"/>
                 <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MedicalCardButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/LoginButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:MainDoctorViewModel}">

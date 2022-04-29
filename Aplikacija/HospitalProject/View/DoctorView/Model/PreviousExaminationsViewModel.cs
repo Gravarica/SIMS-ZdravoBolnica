@@ -40,7 +40,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void EditAnamnesisCommandExecute()
         {
             EditAnamnesisWindow view = new EditAnamnesisWindow();
-            view.DataContext = new EditAnamnesisViewModel(SelectedItem);
+            view.DataContext = new EditAnamnesisViewModel(SelectedItem, view);
             view.ShowDialog();
         }
 

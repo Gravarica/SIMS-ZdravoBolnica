@@ -82,6 +82,33 @@ namespace Repository
                 _appointmentFileHandler.Save(_appointments);
         }
 
+        // Method that sets appointment as finished after examination
+        public void SetAppointmentFinished(Appointment appointment)
+        {
+            Appointment updatedAppointment = GetById(appointment.Id);
+
+            updatedAppointment.IsDone = true;
+
+            _appointmentFileHandler.Save(_appointments);
+        }
+
+        // Method that returns all appointments for a given doctor
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForDoctor(int doctorId)
+        {
+            return _appointments.Where(x => x.IsDone == false && x.Doctor.Id == doctorId);
+        }
+
+        // Method that returns all appointments for a given patient
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
+        {
+            return _appointments.Where(x => x.Patient.Id == patientId && x.IsDone == false);
+        }
+
+        // Method that returns all appointments for a given room 
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForRoom(int roomId)
+        {
+            return _appointments.Where((x) => x.Room.Id == roomId && x.IsDone == false);
+        }
 }
 
 }

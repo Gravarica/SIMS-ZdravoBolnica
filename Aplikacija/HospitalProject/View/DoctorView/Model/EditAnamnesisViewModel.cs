@@ -7,23 +7,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
     public class EditAnamnesisViewModel : BaseViewModel
     {
         private Anamnesis showItem;
-        private string _description;
         private AnamnesisController _anamnesisController;
+        private Window _window;
 
         private RelayCommand editAnamnesisCommand;
-        private RelayCommand cancelNewAnamnesis;
+        private RelayCommand exitCommand;
 
-        public EditAnamnesisViewModel(Anamnesis anamnesis)
+        public EditAnamnesisViewModel(Anamnesis anamnesis, Window window)
         {
             var app = System.Windows.Application.Current as App;
 
             ShowItem = anamnesis;
+            _window = window;
 
             _anamnesisController = app.AnamnesisController;
 
@@ -64,14 +66,34 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public RelayCommand ExitCommand
+        {
+            get
+            {
+                return exitCommand ?? (exitCommand = new RelayCommand(param => ExitCommandExecute(),
+                                                                               param => CanExitCommandExecute()));
+            }
+        }
+
         private bool CanEditAnamnesisCommandExecute()
         {
-            return true;
+            return !string.IsNullOrEmpty(ShowItem.Description);
         }
 
         private void EditAnamnesisCommandExecute()
         {
             _anamnesisController.Update(ShowItem);
+            _window.Close();
+        }
+
+        private bool CanExitCommandExecute()
+        {
+            return true;
+        }
+
+        private void ExitCommandExecute()
+        {
+            _window.Close();
         }
 
 
