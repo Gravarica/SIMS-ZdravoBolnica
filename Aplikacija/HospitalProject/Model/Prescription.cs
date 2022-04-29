@@ -30,6 +30,8 @@ namespace HospitalProject.Model
             this.Interval = interval;
         }
 
+
+        // Dodati lek u konsturktor kada zakela ubaci entitet
         public Prescription(int id, int patientId, int doctorId, DateOnly startDate, DateOnly endDate, int interval)
         {
             Id = id;
@@ -40,6 +42,17 @@ namespace HospitalProject.Model
             StartDate = startDate;
             EndDate = endDate;
             Interval = interval;
+        }
+
+        // Dodati lek u konstruktor kada zakela ubaci entitet
+        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval)
+        {
+            Id = id;
+            Appointment = new Appointment();
+            Appointment.Id = appointmentId;
+            StartDate = startDate;
+            EndDate = endDate;
+            Interval=interval;
         }
 
         public int Interval
@@ -143,6 +156,19 @@ namespace HospitalProject.Model
             {
                 description = value;
                 OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public Appointment Appointment
+        {
+            get
+            {
+                return appointment;
+            }
+            set
+            {
+                appointment = value;
+                OnPropertyChanged(nameof(Appointment));
             }
         }
     }
