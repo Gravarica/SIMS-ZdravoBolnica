@@ -23,8 +23,8 @@ namespace HospitalProject.FileHandler
 
         public IEnumerable<Prescription> ReadAll()
         {
-            return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-                   .Select(ConvertCSVFormatToPrescription)   // 1 | 20.01.2000 12:15| 20 | 2 | 3 => app1(...) 
+            return File.ReadAllLines(_path)                 
+                   .Select(ConvertCSVFormatToPrescription)  
                    .ToList();
         }
 

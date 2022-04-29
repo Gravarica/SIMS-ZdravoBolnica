@@ -12,11 +12,13 @@ namespace HospitalProject.Model
         private int id;
         private Patient patient;
         private Doctor doctor;
+        private Appointment appointment;
         // Ovde treba i lek cuvati 
         private DateOnly startDate;
         private DateOnly endDate;
         private int interval;
         private TimeOnly startTime;
+        private string description;
 
         public Prescription(int id, Patient patient, Doctor doctor, DateOnly startDate, DateOnly endDate, int interval)
         {
@@ -128,6 +130,19 @@ namespace HospitalProject.Model
             {
                 startTime = value;
                 OnPropertyChanged(nameof(StartTime));
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+                OnPropertyChanged(nameof(Description));
             }
         }
     }
