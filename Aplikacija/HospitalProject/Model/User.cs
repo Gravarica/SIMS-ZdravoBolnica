@@ -96,6 +96,7 @@ public class User : ViewModelBase
         LastName = lastName;
     }
 
+
     public User(string username, string password, UserType userType)
     {
         Username = username;
