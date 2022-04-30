@@ -127,30 +127,16 @@ namespace Service
         // Method that gets all reserved appointments in the system 
         private List<Appointment> GetAppointmentsByDoctorAndPatient(Doctor doctor, Patient patient)
         {
-            List<Appointment> retAppointmentsDoctor = new List<Appointment>();
-            List<Appointment> retAppointmentsPatient = new List<Appointment>();
-            var appointments = appointmentRepository.GetAll();
-            BindDataForAppointments(appointments);
-
-            foreach (Appointment appointment in appointments)
-            {
-                if (doctor.Id == appointment.Doctor.Id)
-                {
-                    retAppointmentsDoctor.Add(appointment);
-                }
-                if (patient.Id == appointment.Patient.Id)
-                {
-                    retAppointmentsPatient.Add(appointment);
-                }
-            }
-
-            return retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            List<Appointment> retAppointmentsDoctor = appointmentRepository.GetAppointmentsForDoctor(doctor.Id).ToList();
+            List<Appointment> retAppointmentsPatient = appointmentRepository.GetAppointmentsForPatient(patient.Id).ToList();
+            List<Appointment> unionAppointments = retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            BindDataForAppointments(unionAppointments);
+            return unionAppointments;
         }
 
         // Method that generates available appointments, this method is called in controller
         public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
-        {
-
+        { 
             List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient, examType, room);
             var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
 

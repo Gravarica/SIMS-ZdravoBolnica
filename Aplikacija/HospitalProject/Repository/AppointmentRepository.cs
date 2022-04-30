@@ -92,10 +92,20 @@ namespace Repository
             _appointmentFileHandler.Save(_appointments);
         }
 
+        public IEnumerable<Appointment> GetAppointmentsForDoctor(int doctorId)
+        {
+            return _appointments.Where(appointment => appointment.Doctor.Id == doctorId);
+        }
+
+        public IEnumerable<Appointment> GetAppointmentsForPatient(int patientId)
+        {
+            return _appointments.Where(appointment => appointment.Patient.Id == patientId);
+        }
+
         // Method that returns all appointments for a given doctor
         public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForDoctor(int doctorId)
         {
-            return _appointments.Where(x => x.IsDone == false && x.Doctor.Id == doctorId);
+            return _appointments.Where(appointment => appointment.IsDone == false && appointment.Doctor.Id == doctorId);
         }
 
         // Method that returns all appointments for a given patient
