@@ -1,5 +1,6 @@
 ﻿using HospitalProject.Model;
 using HospitalProject.Repository;
+using HospitalProject.ValidationRules.DoctorValidation;
 using Model;
 using Service;
 using System;
@@ -47,9 +48,19 @@ namespace HospitalProject.Service
             prescription.Appointment = appointmentService.GetById(prescription.Appointment.Id);
         }
 
-        public bool Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
+        public void Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
-
+            //Allergies returnAllergen = AllergensValidation.CheckIfPatientIsAllergicToMedicine(medicalRecordService.GetAllergensForPatient(appointment.Patient.Id), medicine);
+            //if(returnAllergen == null)
+            //{
+            //    Prescription prescription = new Prescription(appointment, startDate, endDate, interval, description, medicine);
+            //    prescriptionRepository.Insert(prescription);
+            //    return null;
+            //} else
+            //{
+            //    return returnAllergen.Name;
+            //}
+            Prescription prescription = new Prescription(appointment, startDate, endDate, interval, description);
             prescriptionRepository.Insert(prescription);
         }
 

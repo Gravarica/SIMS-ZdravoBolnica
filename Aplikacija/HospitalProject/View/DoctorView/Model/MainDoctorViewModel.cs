@@ -201,7 +201,10 @@ namespace HospitalProject.View.DoctorView.Model
             AnamnesisViewModel avm = new AnamnesisViewModel(SelectedItem, view);
             view.DataContext = avm;
             view.ShowDialog();
-            AppointmentItems.Remove(avm.ShowItem);
+            if(avm.ModalResult)
+            {
+                AppointmentItems.Remove(avm.ShowItem);
+            }
         }
 
         public Appointment SelectedItem

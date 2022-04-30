@@ -31,8 +31,7 @@ namespace HospitalProject.Controller
 
         public void Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
-            Prescription prescription = new Prescription(appointment, startDate, endDate, interval, description);
-            prescriptionService.Create(prescription);
+            prescriptionService.Create(appointment, startDate, endDate, interval, description);
         }
 
         public void Delete(int prescriptionId)
