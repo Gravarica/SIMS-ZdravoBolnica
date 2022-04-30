@@ -10,6 +10,7 @@ using HospitalProject.Service;
 using System.Collections.Generic;
 using System.Linq;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.Model;
 
 namespace Service
 {
@@ -126,31 +127,17 @@ namespace Service
         // Method that gets all reserved appointments in the system 
         private List<Appointment> GetAppointmentsByDoctorAndPatient(Doctor doctor, Patient patient)
         {
-            List<Appointment> retAppointmentsDoctor = new List<Appointment>();
-            List<Appointment> retAppointmentsPatient = new List<Appointment>();
-            var appointments = appointmentRepository.GetAll();
-            BindDataForAppointments(appointments);
-
-            foreach (Appointment appointment in appointments)
-            {
-                if (doctor.Id == appointment.Doctor.Id)
-                {
-                    retAppointmentsDoctor.Add(appointment);
-                }
-                if (patient.Id == appointment.Patient.Id)
-                {
-                    retAppointmentsPatient.Add(appointment);
-                }
-            }
-
-            return retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            List<Appointment> retAppointmentsDoctor = appointmentRepository.GetAppointmentsForDoctor(doctor.Id).ToList();
+            List<Appointment> retAppointmentsPatient = appointmentRepository.GetAppointmentsForPatient(patient.Id).ToList();
+            List<Appointment> unionAppointments = retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            BindDataForAppointments(unionAppointments);
+            return unionAppointments;
         }
 
         // Method that generates available appointments, this method is called in controller
-        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
-        {
-
-            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient);
+        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
+        { 
+            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient, examType, room);
             var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
 
             return MinusAppointments(allAppointments, existingAppointments);
@@ -182,21 +169,19 @@ namespace Service
         }
 
         // Method that generates empty appointments
-        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         {
-            List<Appointment> retAppointments = new List<Appointment>();
-            TimeOnly shiftStartConst = new TimeOnly(8, 0);
-            TimeOnly shiftStart;
-            TimeOnly shiftEnd = new TimeOnly(15, 0);
+            List<Appointment> retAppointments = new List<Appointment>();     
+            TimeOnly shiftIterator;
             while(StartDate <= EndDate)
             {
-                shiftStart = shiftStartConst;
+                shiftIterator = doctor.ShiftStart;
 
-                while(shiftStart <= shiftEnd)
+                while(shiftIterator <= doctor.ShiftEnd)
                 { 
-                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient, FindRoomById(2), HospitalProject.Model.ExaminationType.GENERAL);
+                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftIterator), 30, doctor, patient, room, examType);
                     retAppointments.Add(appointment);
-                    shiftStart = shiftStart.AddMinutes(30);
+                    shiftIterator = shiftIterator.AddMinutes(30);
                 }
                 StartDate = StartDate.AddDays(1);
             }

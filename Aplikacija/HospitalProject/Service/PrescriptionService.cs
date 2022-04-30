@@ -1,5 +1,6 @@
 ﻿using HospitalProject.Model;
 using HospitalProject.Repository;
+using Model;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -46,8 +47,9 @@ namespace HospitalProject.Service
             prescription.Appointment = appointmentService.GetById(prescription.Appointment.Id);
         }
 
-        public void Create(Prescription prescription)
+        public bool Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
+
             prescriptionRepository.Insert(prescription);
         }
 

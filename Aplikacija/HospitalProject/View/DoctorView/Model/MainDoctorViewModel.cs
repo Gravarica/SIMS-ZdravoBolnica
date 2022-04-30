@@ -159,7 +159,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void NewAppointmentCommandExecute()
         {
             NewAppointmentView view = new NewAppointmentView();
-            view.DataContext = new NewAppointmentViewModel(AppointmentItems);
+            view.DataContext = new NewAppointmentViewModel(AppointmentItems,view);
             view.ShowDialog();
         }
 
