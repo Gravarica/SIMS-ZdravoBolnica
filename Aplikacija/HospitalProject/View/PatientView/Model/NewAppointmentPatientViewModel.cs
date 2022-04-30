@@ -1,4 +1,5 @@
-﻿using Controller;
+﻿
+using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.ValidationRules.DoctorValidation;
@@ -11,9 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalProject.View.DoctorView.Model
+namespace HospitalProject.View.PatientView.Model
 {
-    public class NewAppointmentViewModel : BaseViewModel
+    public class NewAppointmentPatientViewModel : BaseViewModel
     {
 
         private AppointmentController appointmentController;
@@ -28,7 +29,9 @@ namespace HospitalProject.View.DoctorView.Model
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
 
-        private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
+        private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
+
+
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get
@@ -42,47 +45,23 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        private RelayCommand submitCommand;
-        private RelayCommand resetCommand;
-        private RelayCommand saveCommand;
-        private RelayCommand cancelCommand;
 
-        public NewAppointmentViewModel(ObservableCollection<Appointment> AppointmentItems)
-        {
-            _appointmentItems = AppointmentItems;
-            InitializeControllers();
-            InitializeData();
-        }
-
-        private void InitializeControllers()
-        {
-            var app = System.Windows.Application.Current as App;
-
-            appointmentController = app.AppointmentController;
-            patientController = app.PatientController;
-            doctorController = app.DoctorController;
-        }
-
-        private void InitializeData()
-        {
-            doctor = doctorController.Get(3);   // IZMENITI KAD BUDE LOGIN
-            FillComboData();
-        }
-
-        // PROPERTY DEFINITIONS
-
-        public List<ComboBoxData<Patient>> PatientComboBox
+        public List<ComboBoxData<Doctor>> DoctorComboBox
         {
 
             get
             {
-                return patientComboBox;
+                return doctorComboBox;
+
             }
             set
             {
-                patientComboBox = value;
-                OnPropertyChanged(nameof(PatientComboBox));
+                doctorComboBox = value;
+                OnPropertyChanged(nameof(DoctorComboBox));
+
             }
+        
+        
         }
 
         public DateTime StartDate
@@ -111,20 +90,20 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public Patient PatientData
+        public Doctor DoctorData
         {
             get
             {
-                return patient;
+                return doctor;
             }
             set
             {
-                patient = value;
-                OnPropertyChanged(nameof(PatientData));
+                doctor = value;
+                OnPropertyChanged(nameof(DoctorData));
             }
         }
 
-       public Appointment SelectedItem
+        public Appointment SelectedItem
         {
             get
             {
@@ -137,11 +116,47 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        // RELAY COMMAND DEFINITONS
+        private RelayCommand submitCommand;
+        private RelayCommand resetCommand;
+        private RelayCommand saveCommand;
+        private RelayCommand cancelCommand;
+
+        public NewAppointmentPatientViewModel(ObservableCollection<Appointment> AppointmentItems)
+        {
+            _appointmentItems = AppointmentItems;
+            InitializeControllers();
+            InitializeData();
+        }
+
+        private void InitializeControllers()
+        {
+            var app = System.Windows.Application.Current as App;
+
+            appointmentController = app.AppointmentController;
+            patientController = app.PatientController;
+            doctorController = app.DoctorController;
+        }
+
+        private void InitializeData()
+        {
+            patient = patientController.Get(3);   
+            FillComboData();
+        }
+
+        private void FillComboData()
+        {
+
+            foreach (Doctor d in doctorController.GetAll())
+            {
+                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = d.FirstName + " " + d.LastName, Value = d });
+            }
+
+        }
+
 
         public RelayCommand SubmitCommand
         {
-            
+
             get
             {
                 return submitCommand ?? (submitCommand = new RelayCommand(param => SubmitCommandExecute(), param => CanSubmitCommandExecute()));
@@ -151,19 +166,19 @@ namespace HospitalProject.View.DoctorView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate,EndDate) && 
-                   NewAppointmentValidation.IsComboBoxChecked(PatientData) &&
-                   NewAppointmentValidation.IsDateAfterNow(StartDate,EndDate);
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
+                   NewAppointmentValidation.IsComboBoxCheckedDoctor(DoctorData) &&
+                   NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate);
         }
 
         private void SubmitCommandExecute()
         {
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
-            DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);  
-            GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly, 
+            DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
+            GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
-                                                                                                                              doctor,
-                                                                                                                              PatientData));
+                                                                                                                              DoctorData,
+                                                                                                                              patient));
         }
 
         public RelayCommand SaveCommand
@@ -185,16 +200,6 @@ namespace HospitalProject.View.DoctorView.Model
         }
 
 
-        // INTERNAL PRIVATE METHODS
-
-        private void FillComboData()
-        {
-
-            foreach (Patient p in patientController.GetAll())
-            {
-                patientComboBox.Add(new ComboBoxData<Patient> { Name = p.FirstName + " " + p.LastName, Value = p });
-            }
-
-        }
+        
     }
 }
