@@ -59,11 +59,7 @@ public class User : ViewModelBase
         }
     }
 
-    public string Password
-    {
-        get { return password; }
-        set { password = value; }
-    }
+    
     public UserType UserType
     {
         get 
