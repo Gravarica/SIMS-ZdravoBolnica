@@ -2,6 +2,7 @@
 using HospitalProject.Service;
 using Model;
 using System.Collections.Generic;
+using HospitalProject.View.WardenForms.ViewModels;
 
 namespace HospitalProject.Controller
 {
@@ -34,8 +35,11 @@ namespace HospitalProject.Controller
             _roomService.Delete(id);
         }
 
-        
-        
+        public IEnumerable<EquipmentRoomModel> GenerateEquipementRooms(int id)
+        {
+            return _roomService.GenerateEquipmentRooms(id);
+        }
+
         public Room Get(int id)
         {
             return _roomService.Get(id);

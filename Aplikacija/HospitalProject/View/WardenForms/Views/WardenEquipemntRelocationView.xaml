@@ -4,23 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:HospitalProject.View.WardenForms"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             xmlns:converter="clr-namespace:HospitalProject.View.Converter"
+             mc:Ignorable="d" Height="883.04" Width="1391">
+
+    <Grid Background="#FFF3BF09"   Margin="0,58,0,1" >
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Grid.RowSpan="2" Margin="5" AutoGenerateColumns="False" Name ="Rooms" IsReadOnly="True"   SelectionMode="Single">
+        <Label Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="66,87,915,543" Grid.RowSpan="2">Rooms cointaing selected equipment:</Label>
+        
+
+        <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="66,4,0,5" AutoGenerateColumns="False" x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
+            ItemsSource="{Binding GeneratedRooms}"
+            SelectedItem="{Binding SelectedRoom}"
+                  RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="379"  SelectionChanged="Rooms_SelectionChanged_1"
+                  Grid.Row="1">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.517"/>
+                    <RotateTransform Angle="0.142"/>
+                    <TranslateTransform Y="-0.958" X="0.027"/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Room id"  Width="*"/>
-                <DataGridTextColumn Header="dsdafdas" Width="*"/>
-                <DataGridTextColumn Header=" Floor"  Width="*"/>
-                <DataGridTextColumn Header="Type"  Width="*"/>
-                
+                <DataGridTextColumn Header="Room id" Binding="{Binding RoomId}" Width="*"/>
+                <DataGridTextColumn Header="Room number" Binding="{Binding RoomNumber}" Width="2*"/>
+                <DataGridTextColumn Header=" Equipment quantity" Binding="{Binding EquipmentQuantity}"  Width="2*"/>
+
             </DataGrid.Columns>
-            
+
         </DataGrid>
+        <TextBox HorizontalAlignment="Left" Height="0" Margin="-135,296,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
+
 </UserControl>

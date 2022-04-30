@@ -6,7 +6,7 @@
         xmlns:lm = "clr-namespace:HospitalProject.View.WardenForms"
         xmlns:local="clr-namespace:HospitalProject.View"
         mc:Ignorable="d"
-        Title="WardenWindow" Height="700" Width="1100">
+        Title="WardenWindow" Height="900" Width="1600">
 
     <Grid>
         <Border Background="#FF272537" Margin="0,-1,0,0" >

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HospitalProject.View.WardenForms.ViewModels;
 
 namespace HospitalProject.Service
 {
@@ -46,6 +47,11 @@ namespace HospitalProject.Service
         {
             _roomRepository.Delete(id);
         }
-        
+
+        public IEnumerable<EquipmentRoomModel> GenerateEquipmentRooms(int equipmentId)
+        {
+            return _roomRepository.GetByEquipment(equipmentId);
+        }
+
     }
 }

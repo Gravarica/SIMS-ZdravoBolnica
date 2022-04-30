@@ -10,7 +10,10 @@ using Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 using HospitalProject.Model;
+using HospitalProject.View.Converter;
+using HospitalProject.View.WardenForms.ViewModels;
 using Repository;
 
 namespace Repository
@@ -124,7 +127,25 @@ namespace Repository
             }
          }
       }
-      
+
+      public IEnumerable<EquipmentRoomModel> GetByEquipment(int equpmentId)
+      {
+         var allRooms = ReadAll();
+         List<EquipmentRoomModel> wantedRooms = new List<EquipmentRoomModel>();
+         foreach (Room room in allRooms)
+         {
+            foreach (Equipement eq in room.Equipment)
+            {
+               if (eq.Id == equpmentId)
+               {
+                  wantedRooms.Add(RoomEquipmentConverter.ConvertRoomToEquipementRoom(room,equpmentId));
+               }
+            }
+         }
+
+         return wantedRooms;
+      }
+
       public IEnumerable<Room> ReadAll()
       {
          return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
