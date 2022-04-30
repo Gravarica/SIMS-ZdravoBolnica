@@ -150,6 +150,19 @@ namespace HospitalProject.View.DoctorView.Model
 
         }
 
+        public Doctor LoggedDoctor
+        {
+            get
+            {
+                return doctor;
+            }
+            set
+            {
+                doctor = value;
+                OnPropertyChanged(nameof(LoggedDoctor));
+            }
+        }
+
 
         private bool CanSubmitCommandExecute()
         {
