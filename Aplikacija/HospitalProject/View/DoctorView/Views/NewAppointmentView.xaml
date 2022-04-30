@@ -134,7 +134,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="Priority:"/>
+                           Content="Type:"/>
 
                     <Grid Grid.Row="4"
                           Grid.Column="1">

@@ -19,21 +19,21 @@ namespace Model
       private Doctor doctor;
       private Room room;
       
-      public Room Room
-      {
-         get
-         {
-            return room;
-         }
-         set
-            {
+        public Room Room
+        {
+           get
+           {
+                return room;
+           }
+           set
+           {
                 room = value;
-                OnPropertyChanged(nameof(Room));  
-            }
-      }
+                OnPropertyChanged(nameof(Room));
+           }
+        }
 
-      public int Id 
-      { 
+        public int Id 
+        { 
             get
             {
                 return id;
@@ -43,9 +43,9 @@ namespace Model
                 id = value;
                 OnPropertyChanged(nameof(Id));
             }
-      }
+        }
 
-      public DateTime Date 
+        public DateTime Date 
         { 
             get
             {
@@ -58,7 +58,7 @@ namespace Model
             }
         }
 
-      public int Duration 
+        public int Duration 
         { 
             get
             {
@@ -71,19 +71,19 @@ namespace Model
             }
         }
 
-      public Patient Patient 
-      {
-          get { 
-              return patient;
-          }
-          set {
-              patient = value;
-                OnPropertyChanged(nameof(Patient));
-          }
-      }
+        public Patient Patient 
+        {
+            get { 
+                return patient;
+            }
+            set {
+                patient = value;
+                  OnPropertyChanged(nameof(Patient));
+            }
+        }
 
-      public Doctor Doctor
-      {
+        public Doctor Doctor
+        {
             get {
                 return doctor;
             }

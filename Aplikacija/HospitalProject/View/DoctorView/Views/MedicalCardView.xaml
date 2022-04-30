@@ -55,7 +55,8 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MedicalCardButtonTheme}"/>
+                             Style="{StaticResource MedicalCardButtonTheme}"
+                             Command="{Binding PrescriptionHistoryViewCommand}"/>
 
         </StackPanel>
 

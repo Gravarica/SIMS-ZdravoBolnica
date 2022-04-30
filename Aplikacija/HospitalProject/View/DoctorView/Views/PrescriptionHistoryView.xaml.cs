@@ -18,9 +18,9 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for PrescriptionHistory.xaml
     /// </summary>
-    public partial class PrescriptionHistory : UserControl
+    public partial class PrescriptionHistoryView : UserControl
     {
-        public PrescriptionHistory()
+        public PrescriptionHistoryView()
         {
             InitializeComponent();
         }
