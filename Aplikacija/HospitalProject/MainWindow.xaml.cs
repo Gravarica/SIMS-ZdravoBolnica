@@ -16,6 +16,8 @@ using HospitalProject.Controller;
 using HospitalProject.View;
 using HospitalProject.View.DoctorView.Views;
 using HospitalProject.View.Model;
+using HospitalProject.View.PatientView;
+using HospitalProject.View.PatientView.View;
 using HospitalProject.View.WardenForms;
 
 namespace HospitalProject
@@ -32,6 +34,25 @@ namespace HospitalProject
         }
 
 
-           
+        private void OpenPatientView(object sender, RoutedEventArgs e)
+        {
+            MainPatientView mpv = new MainPatientView();
+            this.Close();
+            mpv.Show();
+        }
+
+        private void OpenSecretaryView(object sender, RoutedEventArgs e)
+        {
+            SecretaryView sv = new SecretaryView();
+
+            sv.Show();
+        }
+
+        private void OpenWardenView(object sender, RoutedEventArgs e)
+        {
+            WardenWindow rv = new WardenWindow();
+            this.Close();
+            rv.Show();
+        }   
     }
 }

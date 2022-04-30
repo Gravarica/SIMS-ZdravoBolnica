@@ -33,5 +33,10 @@ namespace HospitalProject.ValidationRules.DoctorValidation
         {
             return SelectedValue != null;
         }
+
+        public static bool IsComboBoxCheckedDoctor(Doctor SelectedValue)
+        {
+            return SelectedValue != null;
+        }
     }
 }
