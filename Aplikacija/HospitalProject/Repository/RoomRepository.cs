@@ -146,6 +146,19 @@ namespace Repository
          return wantedRooms;
       }
 
+      public IEnumerable<EquipmentRoomModel> GetAllWithEquipment(int equipmentId)
+      {
+         var allRooms = ReadAll();
+         List<EquipmentRoomModel> wantedRooms = new List<EquipmentRoomModel>();
+         foreach (Room room in allRooms)
+         {
+           
+            wantedRooms.Add(RoomEquipmentConverter.ConvertRoomToEquipementRoom(room,equipmentId));
+         }
+
+         return wantedRooms;
+      }
+
       public IEnumerable<Room> ReadAll()
       {
          return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()

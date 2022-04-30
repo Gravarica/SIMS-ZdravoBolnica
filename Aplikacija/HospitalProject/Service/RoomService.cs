@@ -52,6 +52,10 @@ namespace HospitalProject.Service
         {
             return _roomRepository.GetByEquipment(equipmentId);
         }
+        public IEnumerable<EquipmentRoomModel> GenerateAllEquipmentRooms(int equipmentId)
+        {
+            return _roomRepository.GetAllWithEquipment(equipmentId);
+        }
 
     }
 }

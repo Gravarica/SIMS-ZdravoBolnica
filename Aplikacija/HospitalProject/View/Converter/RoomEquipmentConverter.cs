@@ -26,14 +26,11 @@ public class RoomEquipmentConverter
      //   => ConvertEntityListToViewList(rooms, ConvertRoomToRoomView);
 
 
-    public static Room ConvertRoomViewtoRoom(RoomViewModel rvm)
+    public static Room ConvertRoomEquipmentToRoom(EquipmentRoomModel erm)
         => new Room
         {
-            _id = rvm.RoomId,
-            _floor = rvm.RoomFloor,
-            _number = rvm.RoomNumber,
-            _roomType = (RoomType) Enum.Parse(typeof(RoomType), rvm.TypeRoom, true),
-            Equipment = rvm.Equipment
+            _id = erm.RoomId,
+            _number = erm.RoomNumber
         };
 
     public static int CountEquipement(int id,Room room)

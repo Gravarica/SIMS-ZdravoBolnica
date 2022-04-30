@@ -44,8 +44,13 @@ namespace Model
         public Room()
         {
         }
-        
-        
+
+
+        public Room(int id, int number)
+        {
+           _id = id;
+           _number = number;
+        }
 
         public System.Collections.Generic.List<Equipement> Equipment
         {

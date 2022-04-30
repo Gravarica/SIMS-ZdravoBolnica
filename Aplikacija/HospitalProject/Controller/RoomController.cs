@@ -39,6 +39,10 @@ namespace HospitalProject.Controller
         {
             return _roomService.GenerateEquipmentRooms(id);
         }
+        public IEnumerable<EquipmentRoomModel> GenerateAllEquipementRooms(int id)
+        {
+            return _roomService.GenerateAllEquipmentRooms(id);
+        }
 
         public Room Get(int id)
         {
