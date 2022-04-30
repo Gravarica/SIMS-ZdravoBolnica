@@ -58,6 +58,7 @@ public abstract class User
         Username = username;
         FirstName = firstName;
         Jmbg = jmbg;
+        
     }
     public User() { }
     

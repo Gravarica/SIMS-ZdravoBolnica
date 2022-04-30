@@ -19,6 +19,10 @@
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
+    <Compile Remove="Model\PersonaInfo.cs" />
+    <Compile Remove="Repository\PatientAllergiesRepository.cs" />
+    <Compile Remove="FileHandler\PatientAllergiesFileHandler.cs" />
+    <Compile Remove="Model\PatientAllergies.cs" />
   </ItemGroup>
 
   <ItemGroup>

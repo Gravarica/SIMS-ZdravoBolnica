@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Model
 {
-   public class Patient : User
+   public class Patient : User 
    {
        private int id;
        private BloodType bloodType;
@@ -12,7 +12,11 @@ namespace Model
        public int Id
        {
            get { return id; }
-           set { id = value; }
+           set
+           {
+               id = value;
+            
+           }
        }
 
        public BloodType BloodType
