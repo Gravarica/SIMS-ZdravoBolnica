@@ -7,7 +7,8 @@
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              mc:Ignorable="d" 
              Height="600" Width="950"
-             Background="AliceBlue">
+             Background="AliceBlue"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:DateConverterForNewAppointment x:Key="DateConverter"/>
         <converters:NameConverter x:Key="NameConverter"/>
@@ -133,7 +134,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="Priority:"/>
+                           Content="Type:"/>
 
                     <Grid Grid.Row="4"
                           Grid.Column="1">

@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
 using HospitalProject.View.Util;
 using Model;
@@ -30,6 +31,7 @@ namespace HospitalProject.View.DoctorView.Model
         private ObservableCollection<Appointment> _appointmentItems;
 
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
+        private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get

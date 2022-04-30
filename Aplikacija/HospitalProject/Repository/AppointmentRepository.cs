@@ -25,14 +25,14 @@ namespace Repository
         {
             _appointmentFileHandler=appointmentFileHandler;
             _appointments = _appointmentFileHandler.ReadAll().ToList();
-            _appointmentMaxId = GetMaxId(_appointments);
+            _appointmentMaxId = GetMaxId();
         }
 
         public List<Appointment> Appointments { get; set; }
 
         // Method that calculates what is max id of an appointment in the system 
-        private int GetMaxId(IEnumerable<Appointment> appointments) {
-            return appointments.Count() == 0 ? 0 : appointments.Max(appointment => appointment.Id);
+        private int GetMaxId() {
+            return _appointments.Count() == 0 ? 0 : _appointments.Max(appointment => appointment.Id);
         }
 
         // Method that inserts new appointment in the system

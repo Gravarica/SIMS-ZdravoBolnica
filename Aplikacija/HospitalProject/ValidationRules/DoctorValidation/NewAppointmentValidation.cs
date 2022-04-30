@@ -21,7 +21,7 @@ namespace HospitalProject.ValidationRules.DoctorValidation
 
         public static bool IsStartBeforeEnd(DateOnly startDate, DateOnly endDate)
         {
-            return endDate <= startDate;
+            return startDate <= endDate;
         }
 
         public static bool IsDateAfterNow(DateTime startDate, DateTime endDate)

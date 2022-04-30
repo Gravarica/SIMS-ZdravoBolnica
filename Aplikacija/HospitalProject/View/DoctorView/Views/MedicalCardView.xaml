@@ -10,7 +10,8 @@
         mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue"
-        Style="{StaticResource WinAll}">
+        Style="{StaticResource WinAll}"
+            WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:MedicalCardHeaderConverter x:Key="HeaderConverter" />
     </Window.Resources>
@@ -54,7 +55,8 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MedicalCardButtonTheme}"/>
+                             Style="{StaticResource MedicalCardButtonTheme}"
+                             Command="{Binding PrescriptionHistoryViewCommand}"/>
 
         </StackPanel>
 
