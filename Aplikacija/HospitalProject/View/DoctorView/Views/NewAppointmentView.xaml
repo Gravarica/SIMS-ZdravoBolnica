@@ -28,7 +28,7 @@
                 </Style>
             </Style.Resources>
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Margin" Value="5,17,5,17"/>
+            <Setter Property="Margin" Value="5,15,5,15"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#3e3ece"/>
         </Style>
@@ -147,7 +147,7 @@
                               SelectedValuePath="Value"
                               DisplayMemberPath="Name"
                               Margin="5,15,5,15"
-                              SelectedItem="{Binding SelectedExamination}"/>
+                              SelectedValue="{Binding SelectedExamination}"/>
 
                     <Label Grid.Row="5"
                            Grid.Column="0"
@@ -160,7 +160,7 @@
                               SelectedValuePath="Value"
                               DisplayMemberPath="Name"
                               Margin="5,15,5,15"
-                              SelectedItem="{Binding SelectedRoom}"/>
+                              SelectedValue ="{Binding SelectedRoom}"/>
 
                     <Grid Grid.Row="6"
                           Grid.ColumnSpan="2">

@@ -240,8 +240,10 @@ namespace HospitalProject.View.DoctorView.Model
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly, 
                                                                                                                               endDateOnly,
                                                                                                                               doctor,
-                                                                                                                              PatientData));
-            window.Close();
+                                                                                                                              PatientData,
+                                                                                                                              SelectedExamination,
+                                                                                                                              SelectedRoom));
+            
         }
 
         public RelayCommand SaveCommand
@@ -261,6 +263,7 @@ namespace HospitalProject.View.DoctorView.Model
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
+            window.Close();
         }
 
         // INTERNAL PRIVATE METHODS
