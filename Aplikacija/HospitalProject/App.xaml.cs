@@ -31,6 +31,8 @@ namespace HospitalProject
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
         private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
+        private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
+        private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
 
@@ -51,6 +53,10 @@ namespace HospitalProject
 
         public MedicalRecordController MedicalRecordController { get; set; }    
 
+        public UserController UserController { get; set; }
+
+        public PrescriptionController PrescriptionController { get; set; }
+
         public App()
         {
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
@@ -63,7 +69,9 @@ namespace HospitalProject
 
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
 
+            var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
 
+            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
 
             var _equipementRepository = new EquipementRepository(_equipementFileHandler);
 
@@ -82,6 +90,9 @@ namespace HospitalProject
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
 
 
+            var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
+
+            var _userRepository = new UserRepository(_userFileHandler);
 
             var _equipementService = new EquipementService(_equipementRepository);
 
@@ -91,15 +102,17 @@ namespace HospitalProject
 
             var _patientService = new PatientService(_patientRepository);
 
-            var _anamnesisService = new AnamnesisService(_anamnesisRepository);
-
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService, _roomService);
+
+            var _anamnesisService = new AnamnesisService(_anamnesisRepository, _appointmentService);
 
             var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService, _roomService);
 
             var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 
-            _anamnesisService.MRService = _medicalRecordService;
+            var _userService = new UserService(_userRepository);
+
+            var _prescriptionService = new PrescriptionService(_prescriptionRepository, _appointmentService);
 
 
 
@@ -118,6 +131,10 @@ namespace HospitalProject
             AnamnesisController = new AnamnesisController(_anamnesisService);
 
             MedicalRecordController = new MedicalRecordController(_medicalRecordService);
+
+            UserController = new UserController(_userService);
+
+            PrescriptionController = new PrescriptionController(_prescriptionService);
         }
 
        

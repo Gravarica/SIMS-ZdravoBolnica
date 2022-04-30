@@ -25,14 +25,14 @@ namespace Repository
         {
             _appointmentFileHandler=appointmentFileHandler;
             _appointments = _appointmentFileHandler.ReadAll().ToList();
-            _appointmentMaxId = GetMaxId(_appointments);
+            _appointmentMaxId = GetMaxId();
         }
 
         public List<Appointment> Appointments { get; set; }
 
         // Method that calculates what is max id of an appointment in the system 
-        private int GetMaxId(IEnumerable<Appointment> appointments) {
-            return appointments.Count() == 0 ? 0 : appointments.Max(appointment => appointment.Id);
+        private int GetMaxId() {
+            return _appointments.Count() == 0 ? 0 : _appointments.Max(appointment => appointment.Id);
         }
 
         // Method that inserts new appointment in the system
@@ -82,6 +82,33 @@ namespace Repository
                 _appointmentFileHandler.Save(_appointments);
         }
 
+        // Method that sets appointment as finished after examination
+        public void SetAppointmentFinished(Appointment appointment)
+        {
+            Appointment updatedAppointment = GetById(appointment.Id);
+
+            updatedAppointment.IsDone = true;
+
+            _appointmentFileHandler.Save(_appointments);
+        }
+
+        // Method that returns all appointments for a given doctor
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForDoctor(int doctorId)
+        {
+            return _appointments.Where(x => x.IsDone == false && x.Doctor.Id == doctorId);
+        }
+
+        // Method that returns all appointments for a given patient
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
+        {
+            return _appointments.Where(x => x.Patient.Id == patientId && x.IsDone == false);
+        }
+
+        // Method that returns all appointments for a given room 
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForRoom(int roomId)
+        {
+            return _appointments.Where((x) => x.Room.Id == roomId && x.IsDone == false);
+        }
 }
 
 }

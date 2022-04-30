@@ -1,12 +1,14 @@
 ﻿using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.DoctorView.Views;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
@@ -16,15 +18,18 @@ namespace HospitalProject.View.DoctorView.Model
         private Anamnesis _anamnesis;
         private string _description;
         private AnamnesisController _anamnesisController;
+        private Window _window;
 
         private RelayCommand addNewAnamnesis;
         private RelayCommand cancelNewAnamnesis;
+        private RelayCommand writePrescriptionCommand;
 
-        public AnamnesisViewModel(Appointment appointment)
+        public AnamnesisViewModel(Appointment appointment, Window window)
         {
             var app = System.Windows.Application.Current as App;
 
             ShowItem = appointment;
+            _window = window;
 
             _anamnesisController = app.AnamnesisController;
 
@@ -74,8 +79,27 @@ namespace HospitalProject.View.DoctorView.Model
         {
             _anamnesis = new Anamnesis(ShowItem, Description);
             _anamnesisController.Create(_anamnesis);
-            Description = null;
+            _window.Close();
+        }
+
+        public RelayCommand WritePrescriptionCommand
+        {
+            get
+            {
+                return writePrescriptionCommand ?? (writePrescriptionCommand = new RelayCommand(param => WritePrescriptionCommandExecute(), param => CanWritePrescriptionCommandExecute()));
+            }
         }
         
+        private bool CanWritePrescriptionCommandExecute()
+        {
+            return true;
+        }
+
+        private void WritePrescriptionCommandExecute()
+        {
+            NewPrescriptionView view = new NewPrescriptionView();
+            view.DataContext = new NewPrescriptionViewModel(view, ShowItem);
+            view.ShowDialog();
+        }
     }
 }

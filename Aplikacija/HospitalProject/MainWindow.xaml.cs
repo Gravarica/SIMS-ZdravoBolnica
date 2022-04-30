@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalProject.Controller;
 using HospitalProject.View;
 using HospitalProject.View.DoctorView.Views;
 using HospitalProject.View.Model;
@@ -27,34 +28,10 @@ namespace HospitalProject
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel(this);
         }
 
-        private void OpenDoctorView(object sender, RoutedEventArgs e)
-        {
-            MainView dv = new MainView();
-            this.Close();
-            dv.Show();
-        }
 
-        private void OpenPatientView(object sender, RoutedEventArgs e)
-        {
-            PatientView pv = new PatientView();
-            this.Close();
-            pv.Show();
-        }
-
-        private void OpenSecretaryView(object sender, RoutedEventArgs e)
-        {
-            SecretaryView sv = new SecretaryView();
-
-            sv.Show();
-        }
-
-        private void OpenWardenView(object sender, RoutedEventArgs e)
-        {
-            WardenWindow rv = new WardenWindow();
-            this.Close();
-            rv.Show();
-        }   
+           
     }
 }

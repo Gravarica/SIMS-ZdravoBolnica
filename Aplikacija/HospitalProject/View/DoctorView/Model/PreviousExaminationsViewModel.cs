@@ -1,4 +1,5 @@
-﻿using HospitalProject.Core;
+﻿using HospitalProject.Controller;
+using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.View.DoctorView.Views;
 using System;
@@ -19,9 +20,13 @@ namespace HospitalProject.View.DoctorView.Model
 
         private Anamnesis selectedItem;
 
+        private AnamnesisController anamnesisController;
+
         public PreviousExaminationsViewModel(MedicalRecord medicalRecord)
         {
-            Anamneses = new ObservableCollection<Anamnesis>(medicalRecord.Anamneses);
+            var app = System.Windows.Application.Current as App;
+            anamnesisController = app.AnamnesisController;
+            Anamneses = new ObservableCollection<Anamnesis>(anamnesisController.GetAnamnesisByMedicalRecord(medicalRecord.Patient.Id));
         }
 
         public RelayCommand EditAnamnesisCommand
@@ -40,7 +45,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void EditAnamnesisCommandExecute()
         {
             EditAnamnesisWindow view = new EditAnamnesisWindow();
-            view.DataContext = new EditAnamnesisViewModel(SelectedItem);
+            view.DataContext = new EditAnamnesisViewModel(SelectedItem, view);
             view.ShowDialog();
         }
 

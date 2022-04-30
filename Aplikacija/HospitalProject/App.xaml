@@ -13,7 +13,8 @@
                 <ResourceDictionary Source="Themes/probni.xaml"/>
                 <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MedicalCardButtonTheme.xaml"/>
-                
+                <ResourceDictionary Source="Themes/LoginButtonTheme.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:MainDoctorViewModel}">
@@ -38,6 +39,10 @@
 
             <DataTemplate DataType="{x:Type viewModel:PreviousExaminationsViewModel}">
                 <view:PreviousExaminationsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:PrescriptionHistoryViewModel}">
+                <view:PrescriptionHistoryView/>
             </DataTemplate>
 
             <Style x:Key="WinAll" TargetType="{x:Type Window}">

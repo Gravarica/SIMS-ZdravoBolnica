@@ -47,14 +47,30 @@ namespace Repository
         {
             try
             {
-                {                                                                           // Vraca ili onaj entitet koji je jedinstven, ili vraca default vrednost
-                    return GetAll().SingleOrDefault(account => account.Id == id);           // Daj mi onaj account za koji je account.Id == id
+                {                                                                           
+                    return GetAll().SingleOrDefault(doctor => doctor.Id == id);           
                 }
             }
             catch (ArgumentException)
             {
                 {
                     throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
+                }
+            }
+        }
+
+        public Doctor GetLoggedDoctor(string username)
+        {
+            try
+            {
+                {                                                                           
+                    return GetAll().SingleOrDefault(doctor => doctor.Username.Equals(username));           
+                }
+            }
+            catch (ArgumentException)
+            {
+                {
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "username", username));
                 }
             }
         }

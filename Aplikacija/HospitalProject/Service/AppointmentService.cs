@@ -47,6 +47,13 @@ namespace Service
         {
             appointmentRepository.Update(appointment);
         }
+
+        public Appointment GetById(int id)
+        {
+            var appointment = appointmentRepository.GetById(id);
+            BindDataForOneAppointment(appointment);
+            return appointment;
+        }
         
         // Deletes(Cancels) an appointment in the system by the given id
         public void Delete(int id)
@@ -61,22 +68,44 @@ namespace Service
             BindAppointmentsWithPatients(appointments);
             BindAppointmentsWithRooms(appointments);
         }
+
+        private void BindDataForOneAppointment(Appointment appointment)
+        {
+            SetPatient(appointment);
+            SetDoctor(appointment);
+            SetRoom(appointment);  
+        }
        
         // For each appointment, sets its patient field to a certain patient by his id given in the file
         private void BindAppointmentsWithPatients(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => appointment.Patient = FindPatientById(appointment.Patient.Id));
+            appointments.ToList().ForEach(appointment => SetPatient(appointment));
         }
 
         // For each appointment, sets its doctor field to a certain doctor object by his id written in the file
         private void BindAppointmentsWithDoctors(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach (appointment => appointment.Doctor = FindDoctorById(appointment.Doctor.Id));
+            appointments.ToList().ForEach (appointment => SetDoctor(appointment));
         }
 
         private void BindAppointmentsWithRooms(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => appointment.Room = FindRoomById(appointment.Room.Id));
+            appointments.ToList().ForEach(appointment => SetRoom(appointment));
+        }
+
+        private void SetPatient(Appointment appointment)
+        {
+            appointment.Patient = FindPatientById(appointment.Patient.Id);
+        }
+
+        private void SetDoctor(Appointment appointment)
+        {
+            appointment.Doctor = FindDoctorById(appointment.Doctor.Id);
+        }
+
+        private void SetRoom(Appointment appointment)
+        {
+            appointment.Room = FindRoomById(appointment.Room.Id);
         }
       
         private Patient FindPatientById(int patientId)
@@ -177,9 +206,20 @@ namespace Service
 
 
         public IEnumerable<Appointment> GetAllUnfinishedAppointments()
-        {
-
+        { 
             var appointments = appointmentRepository.GetAllUnfinishedAppointments();
+            BindDataForAppointments(appointments);
+            return appointments;
+        }
+
+        public void SetAppointmentFinished(Appointment appointment)
+        {
+            appointmentRepository.SetAppointmentFinished(appointment);
+        }
+
+        public IEnumerable<Appointment> GetAllUnifinishedAppointmentsForDoctor(int doctorId)
+        {
+            var appointments = appointmentRepository.GetAllUnfinishedAppointmentsForDoctor(doctorId);
             BindDataForAppointments(appointments);
             return appointments;
         }

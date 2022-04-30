@@ -19,6 +19,7 @@ namespace HospitalProject.View.DoctorView.Model
         private AppointmentController appointmentController;
         private DoctorController doctorController;
         private PatientController patientController;
+        private UserController userController;
 
         private DateTime startDate;
         private DateTime endDate;
@@ -62,11 +63,12 @@ namespace HospitalProject.View.DoctorView.Model
             appointmentController = app.AppointmentController;
             patientController = app.PatientController;
             doctorController = app.DoctorController;
+            userController = app.UserController;
         }
 
         private void InitializeData()
         {
-            doctor = doctorController.Get(3);   // IZMENITI KAD BUDE LOGIN
+            doctor = doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);   // IZMENITI KAD BUDE LOGIN
         }
 
         // PROPERTY DEFINITION

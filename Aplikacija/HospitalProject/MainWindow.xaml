@@ -3,43 +3,108 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HospitalProject"
+        xmlns:local="clr-namespace:HospitalProject" xmlns:model="clr-namespace:HospitalProject.View.Model" d:DataContext="{d:DesignInstance Type=model:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="380"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
 
-    <DockPanel Background="AliceBlue">
-        <Border Visibility="Visible" BorderThickness="2" BorderBrush="Blue" CornerRadius="8" Margin="30,30,30,30" DockPanel.Dock="Top" Height="32">
-            <Grid Margin="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Content="ZDRAVO CORPORATION" HorizontalAlignment="Left" VerticalAlignment="Center" Width="720" Background="LightBlue" FontSize="20" Height="44" Grid.ColumnSpan="3"/>
-
-
-            </Grid>
-        </Border>
+    <Grid>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Left" Margin="29,30,0,0" TextWrapping="Wrap" Text="WARDEN" VerticalAlignment="Top" Height="36" Width="104"/>
-            <Button Content="View" HorizontalAlignment="Left" Margin="174,20,0,0" VerticalAlignment="Top" Height="36" Width="117" Click="OpenWardenView"/>
-            <TextBlock HorizontalAlignment="Left" Margin="29,99,0,0" TextWrapping="Wrap" Text="SECRETARY" VerticalAlignment="Top" Height="36" Width="104"/>
-            <TextBlock HorizontalAlignment="Left" Margin="29,31,0,0" TextWrapping="Wrap" Text="PATIENT" VerticalAlignment="Top" Height="36" Width="104" Grid.Row="1"/>
-            <TextBlock HorizontalAlignment="Left" Margin="29,99,0,0" TextWrapping="Wrap" Text="DOCTOR" VerticalAlignment="Top" Height="36" Width="104" Grid.Row="1"/>
-            <Button Content="View" HorizontalAlignment="Left" Margin="174,89,0,0" VerticalAlignment="Top" Height="36" Width="117" Click ="OpenSecretaryView"/>
-            <Button Content="View" HorizontalAlignment="Left" Margin="174,21,0,0" VerticalAlignment="Top" Height="36" Width="117" Grid.Row="1" Click ="OpenPatientView"/>
-            <Button Content="View" HorizontalAlignment="Left" Margin="174,94,0,0" VerticalAlignment="Top" Height="36" Width="117" Grid.Row="1" Click="OpenDoctorView"/>
+
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#43cea2" Offset="0.0"/>
+                        <GradientStop Color="#185a9d" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="Resources/Images/General/Logo.png" Width="64"/>
+                    <TextBlock Text="Zdravo Hospital"
+                           FontWeight="Light"
+                           FontFamily="Helvetica"
+                           FontSize="22"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+                </StackPanel>
+
+            <StackPanel Grid.Row="1" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBox FontFamily="Helvetica"
+                         FontWeight="Light"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="20"
+                         HorizontalAlignment="Center"
+                         Foreground="White"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Width="229"
+                         HorizontalContentAlignment="Left"
+                         Opacity="0.5"
+                         Height="25"
+                         Margin="63,0,0,0"/>
+                    <Image Source="Resources/Images/General/Account2.png" 
+                       Width="25" Height="25"
+                       />
+                </StackPanel>
+                <Border Width="250"
+                    Height="2"
+                    Background="White"
+                    Opacity="0.5"/>
+
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,20,0,0">
+                    <TextBox FontFamily="Helvetica"
+                         FontWeight="Light"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="20"
+                         HorizontalAlignment="Center"
+                         Foreground="White"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Width="229"
+                         HorizontalContentAlignment="Left"
+                         Opacity="0.5"
+                         Height="25"
+                         Margin="63,0,0,0"/>
+                    <Image Source="Resources/Images/General/Password.png" 
+                       Width="25" Height="25"
+                       />
+                </StackPanel>
+                <Border Width="250"
+                    Height="2"
+                    Background="White"
+                    Opacity="0.5"/>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,50,0,0">
+
+                    <Button Width="100"
+                            Height="40"
+                            Content="LOGIN"
+                            Command="{Binding LoginCommand}"
+                            Margin="60,0,0,0"
+                            Style="{StaticResource LoginButtonTheme}"/>
+
+                    <Button Width="100"
+                            Height="40"
+                            Content="EXIT"
+                            Command="{Binding ExitCommand}"
+                            Margin="60,0,0,0"
+                            Style="{StaticResource LoginButtonTheme}"/>
+                </StackPanel>
+            </StackPanel>
 
         </Grid>
-
-    </DockPanel>
-
+    </Grid>
 </Window>

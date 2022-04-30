@@ -17,9 +17,13 @@ namespace HospitalProject.View.DoctorView.Model
 
         public RelayCommand PreviousExaminationViewCommand { get; set; }
 
+        public RelayCommand PrescriptionHistoryViewCommand { get; set; }
+
         public PatientInformationViewModel PatientInformationVM { get; set; }
 
         public PreviousExaminationsViewModel PreviousExaminationsVM { get; set; }
+
+        public PrescriptionHistoryViewModel PrescriptionHistoryVM { get; set; } 
 
         private object _CurrentView;
 
@@ -61,6 +65,10 @@ namespace HospitalProject.View.DoctorView.Model
 
             PreviousExaminationsVM = new PreviousExaminationsViewModel(_medicalRecord);       // Ovde prosledim iz medicinskog kartona listu anamneza kako bih prikazao na tom pogledu
 
+            PrescriptionHistoryVM = new PrescriptionHistoryViewModel(_medicalRecord);
+
+            CurrentView = PatientInformationVM;
+
             PatientInformationViewCommand = new RelayCommand(o =>
             {
                 CurrentView = PatientInformationVM;
@@ -69,6 +77,11 @@ namespace HospitalProject.View.DoctorView.Model
             PreviousExaminationViewCommand = new RelayCommand(o =>
             {
                 CurrentView = PreviousExaminationsVM;
+            });
+
+            PrescriptionHistoryViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = PrescriptionHistoryVM;
             });
         }
 

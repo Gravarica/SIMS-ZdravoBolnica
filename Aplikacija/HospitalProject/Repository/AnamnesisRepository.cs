@@ -13,17 +13,15 @@ namespace HospitalProject.Repository
     public class AnamnesisRepository
     {
         private AnamnesisFileHandler _fileHandler;
-        private IEnumerable<Anamnesis> _anamneses;
+        private List<Anamnesis> _anamneses;
         private int _anamnesesMaxId;
-        private AppointmentRepository _appointmentRepository;
+    
 
         public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler, AppointmentRepository appointmentRepository)
         {
             _fileHandler = anamnesisFileHandler;
-            _anamneses = _fileHandler.ReadAll();
-            _appointmentRepository = appointmentRepository;
+            _anamneses = _fileHandler.ReadAll().ToList();
             _anamnesesMaxId = GetMaxId();
-            LinkAnamnesisWithAppointments();
         }
 
         public int GetMaxId()
@@ -44,7 +42,7 @@ namespace HospitalProject.Repository
         public void Insert(Anamnesis anamnesis)
         {
             anamnesis.Id = ++_anamnesesMaxId;
-            _anamneses.ToList().Add(anamnesis);
+            _anamneses.Add(anamnesis);
             _fileHandler.AppendLineToFile(anamnesis);
         }
 
@@ -64,17 +62,6 @@ namespace HospitalProject.Repository
             updateAnamnesis.Description = anamnesis.Description;
 
             _fileHandler.Save(_anamneses);
-        }
-
-        private void LinkAnamnesisWithAppointments()
-        {
-            int id;
-
-            foreach(Anamnesis anamnesis in _anamneses)
-            {
-                id = anamnesis.App.Id;
-                anamnesis.App = _appointmentRepository.GetById(id);
-            }
         }
 
         public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)

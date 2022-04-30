@@ -7,9 +7,11 @@
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              mc:Ignorable="d" 
              Height="600" Width="950"
-             Background="AliceBlue">
+             Background="AliceBlue"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:DateConverterForNewAppointment x:Key="DateConverter"/>
+        <converters:NameConverter x:Key="NameConverter"/>
         <Style x:Key="LabelStyle" TargetType="Grid">
             <Style.Resources>
                 <Style TargetType="Label">
@@ -100,7 +102,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
                              IsEnabled="False"
-                             Text="Milos Gravara"/>
+                             Text="{Binding LoggedDoctor, Converter={StaticResource NameConverter}}"/>
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -132,7 +134,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="Priority:"/>
+                           Content="Type:"/>
 
                     <Grid Grid.Row="4"
                           Grid.Column="1">
