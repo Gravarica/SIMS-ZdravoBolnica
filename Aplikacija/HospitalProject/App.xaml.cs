@@ -31,6 +31,7 @@ namespace HospitalProject
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
         private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
         private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
+        private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
 
@@ -50,6 +51,8 @@ namespace HospitalProject
 
         public UserController UserController { get; set; }
 
+        public PrescriptionController PrescriptionController { get; set; }
+
         public App()
         {
             var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
@@ -61,6 +64,8 @@ namespace HospitalProject
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
 
             var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
+
+            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
@@ -75,6 +80,8 @@ namespace HospitalProject
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
+
+            var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
 
             var _userRepository = new UserRepository(_userFileHandler);
 
@@ -94,6 +101,8 @@ namespace HospitalProject
 
             var _userService = new UserService(_userRepository);
 
+            var _prescriptionService = new PrescriptionService(_prescriptionRepository, _appointmentService);
+
             AppointmentController = new AppointmentController(_appointmentService);
 
             DoctorController = new DoctorController(_doctorService);
@@ -109,6 +118,8 @@ namespace HospitalProject
             MedicalRecordController = new MedicalRecordController(_medicalRecordService);
 
             UserController = new UserController(_userService);
+
+            PrescriptionController = new PrescriptionController(_prescriptionService);
         }
 
        

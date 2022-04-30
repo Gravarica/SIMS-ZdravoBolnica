@@ -20,7 +20,7 @@ namespace HospitalProject.View.Converter
                 return null;
             }
 
-            return "Medical card - " + patient.FirstName + " " + patient.LastName;
+            return "Medical Record - " + patient.FirstName + " " + patient.LastName;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -10,49 +10,48 @@ namespace HospitalProject.Model
     public class Prescription : ViewModelBase
     {
         private int id;
-        private Patient patient;
-        private Doctor doctor;
         private Appointment appointment;
         // Ovde treba i lek cuvati 
         private DateOnly startDate;
         private DateOnly endDate;
         private int interval;
+        private TimeSpan timeInterval;  // Ovde izmeniti na time span, lakse je za vremensko racunanje
         private TimeOnly startTime;
         private string description;
 
-        public Prescription(int id, Patient patient, Doctor doctor, DateOnly startDate, DateOnly endDate, int interval)
+        // Constructor that is called when creating a new object
+        public Prescription(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
-            this.id = id;
-            this.patient = patient;
-            this.doctor = doctor;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.Interval = interval;
-        }
-
-
-        // Dodati lek u konsturktor kada zakela ubaci entitet
-        public Prescription(int id, int patientId, int doctorId, DateOnly startDate, DateOnly endDate, int interval)
-        {
-            Id = id;
-            Patient = new Patient();
-            Patient.Id = patientId;
-            Doctor = new Doctor();
-            Doctor.Id = doctorId;
-            StartDate = startDate;
-            EndDate = endDate;
-            Interval = interval;
+            Appointment = appointment;
+            SetFieldsForConstructor(startDate, endDate, interval, description);
         }
 
         // Dodati lek u konstruktor kada zakela ubaci entitet
-        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval)
+        // // Constructor that is called when reading from a file
+        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
             Id = id;
-            Appointment = new Appointment();
-            Appointment.Id = appointmentId;
+            SetIds(appointmentId);
+            SetFieldsForConstructor(startDate, endDate, interval, description);
+        }
+
+        private void SetFieldsForConstructor(DateOnly startDate, DateOnly endDate, int interval, string description)
+        {
             StartDate = startDate;
             EndDate = endDate;
-            Interval=interval;
+            Interval = interval;
+            Description = description;
+        }
+
+        private void SetIds(int appointmentId)
+        {
+            InstantiateObjects();
+            Appointment.Id = appointmentId;
+        }
+
+        private void InstantiateObjects()
+        {
+            Appointment = new Appointment();
         }
 
         public int Interval
@@ -78,32 +77,6 @@ namespace HospitalProject.Model
             {
                 id = value;
                 OnPropertyChanged(nameof(Id));
-            }
-        }
-
-        public Doctor Doctor
-        {
-            get
-            {
-                return doctor;
-            }
-            set
-            {
-                doctor = value;
-                OnPropertyChanged(nameof(Doctor));
-            }
-        }
-
-        public Patient Patient
-        {
-            get
-            {
-                return patient;
-            }
-            set
-            {
-                patient = value;
-                OnPropertyChanged(nameof(Patient));
             }
         }
 

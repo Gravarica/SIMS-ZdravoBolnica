@@ -98,7 +98,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void WritePrescriptionCommandExecute()
         {
             NewPrescriptionView view = new NewPrescriptionView();
-            view.DataContext = new NewPrescriptionViewModel(view);
+            view.DataContext = new NewPrescriptionViewModel(view, ShowItem);
             view.ShowDialog();
         }
     }

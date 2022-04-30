@@ -33,21 +33,21 @@ namespace HospitalProject.FileHandler
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new Prescription(int.Parse(tokens[0]),
                                    int.Parse(tokens[1]),
-                                   int.Parse(tokens[2]),
+                                   DateOnly.Parse(tokens[2]),
                                    DateOnly.Parse(tokens[3]),
-                                   DateOnly.Parse(tokens[4]),
-                                   int.Parse(tokens[5]));
+                                   int.Parse(tokens[4]),
+                                   tokens[5]);
         }
 
         public string ConvertPrescriptionToCSVFormat(Prescription prescription)
         {
             return string.Join(_delimiter,
             prescription.Id,
-            prescription.Patient.Id,
-            prescription.Doctor.Id,
+            prescription.Appointment.Id,
             prescription.StartDate.ToString(),
             prescription.EndDate.ToString(),
-            prescription.Interval);
+            prescription.Interval,
+            prescription.Description);
         }
 
         public void AppendLineToFile(Prescription prescription)

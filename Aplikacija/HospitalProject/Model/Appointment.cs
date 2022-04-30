@@ -26,22 +26,10 @@ namespace Model
             return room;
          }
          set
-         {
-            if (this.room == null || !this.room.Equals(value))
             {
-               if (this.room != null)
-               {
-                  Room oldRoom = this.room;
-                  this.room = null;
-                  oldRoom.RemoveAppointments(this);
-               }
-               if (value != null)
-               {
-                  this.room = value;
-                  this.room.AddAppointments(this);
-               }
+                room = value;
+                OnPropertyChanged(nameof(Room));  
             }
-         }
       }
 
       public int Id 
@@ -134,30 +122,46 @@ namespace Model
 
         public Appointment() { }
 
+        // Constructor that is used for reading from file
         public Appointment(int id, DateTime date, int duration, int patientId, int doctorId, int roomId, ExaminationType examinationType, bool isDone)
         {
             Id = id;
-            Date = date;
-            IsDone = isDone;
-            Patient = new Patient();
-            Doctor = new Doctor();
-            Room = new Room();
-            Duration = duration;
-            Patient.Id = patientId;
-            Doctor.Id = doctorId;
-            Room.Id = roomId;
-            ExaminationType = examinationType;
+            SetIds(patientId, doctorId, roomId);
+            SetFields(duration, examinationType, isDone, date);
         }
 
+        // Constructor that is used for creating a new appomitment
         public Appointment(DateTime date, int duration, Doctor doctor, Patient patient, Room room, ExaminationType examinationType)
         {
-            Date = date;
-            Duration = duration;
             Patient = patient;
             Doctor = doctor;
             Room = room;
-            ExaminationType=examinationType;
-            IsDone=false;
+            SetFields(duration, examinationType, false, date); 
+        }
+
+        // Method that sets field values for an appointment
+        private void SetFields(int duration, ExaminationType examinationType, bool isDone, DateTime date)
+        {
+            Date = date;
+            Duration = duration;
+            ExaminationType = examinationType;
+            IsDone = isDone;
+        }
+
+        // Method that is used for reading from a file
+        private void SetIds(int patientId, int doctorId, int roomId)
+        {
+            InstantiateEmptyObjects();
+            Patient.Id = patientId;
+            Doctor.Id = doctorId;
+            Room.Id = roomId;
+        }
+
+        private void InstantiateEmptyObjects()
+        {
+            Patient = new Patient();
+            Doctor = new Doctor();
+            Room = new Room();
         }
 
         public override bool Equals(object? obj)

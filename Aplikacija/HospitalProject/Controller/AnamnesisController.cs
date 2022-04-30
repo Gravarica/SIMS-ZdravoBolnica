@@ -29,5 +29,11 @@ namespace HospitalProject.Controller
         {
             _anamnesisService.Update(anamnesis);
         }
+
+        public IEnumerable<Anamnesis> GetAnamnesisByMedicalRecord(int patientId)
+        {
+            return _anamnesisService.GetAnamnesesByMedicalRecord(patientId);
+        }
+
     }
 }
