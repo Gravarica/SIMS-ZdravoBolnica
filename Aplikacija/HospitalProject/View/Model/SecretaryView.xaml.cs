@@ -315,13 +315,11 @@ namespace HospitalProject.View.Model
             {
                 return _patientController.Create(new Patient(
                     _id,
-                    _medicalRecordId,
-                    _bloodtype, 
+                    _medicalRecordId, 
                     _guest,
                     _username,
                     _firstname,
                     _lastname,
-                    _usertype,
                     _jmbg,
                     _phonenumber,
                     _email,

@@ -45,12 +45,10 @@ namespace Model
       public Patient(
           int id, 
           int medicalRecordId,
-          BloodType bloodtype,
           bool guest,
           String username,
           String firstName,
           String lastName,
-          UserType userType,
           int jmbg,
           int phoneNumber,
           string email,
@@ -59,7 +57,6 @@ namespace Model
           Gender gender) : base(username,
                                 firstName,
                                 lastName,
-                                userType,
                                 jmbg,
                                 phoneNumber,
                                 email,
@@ -69,7 +66,6 @@ namespace Model
       {
           Id = id;
           MedicalRecordId = medicalRecordId;
-          BloodType = bloodtype;
           Guest = false;
           appointments = new List<Appointment>();
           
@@ -78,12 +74,10 @@ namespace Model
         //kad se menja , ostaje ID
         public Patient(
             int medicalRecordId,
-            BloodType bloodtype, 
             bool guest,
             String username,
             String firstName,
             String lastName,
-            UserType userType,
             int jmbg,
             int phoneNumber,
             string email,
@@ -92,7 +86,6 @@ namespace Model
             Gender gender) : base(  username,
                                     firstName,
                                     lastName,
-                                    userType,
                                     jmbg,
                                     phoneNumber,
                                     email,
@@ -101,7 +94,6 @@ namespace Model
                                     gender)
         {   
             MedicalRecordId = medicalRecordId;
-            BloodType = bloodtype;
             Guest = guest;
             appointments = new List<Appointment>();
         }

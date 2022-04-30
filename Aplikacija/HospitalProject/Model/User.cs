@@ -158,7 +158,6 @@ public class User : ViewModelBase
           public User(String username,
                       String firstName,
                       String lastName,
-                      UserType userType,
                       int jmbg,
                       int phoneNumber,
                       String email,
@@ -169,7 +168,6 @@ public class User : ViewModelBase
               Username = username;
               FirstName = firstName;
               LastName = lastName;
-              UserType = userType;
               Jmbg = jmbg;
               PhoneNumber = phoneNumber;
               Email = email;

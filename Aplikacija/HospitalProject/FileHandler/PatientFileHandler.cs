@@ -44,18 +44,16 @@ namespace HospitalProject.FileHandler
             string[] tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
             return new Patient(int.Parse(tokens[0]),
                 int.Parse(tokens[1]),
-                (BloodType)Enum.Parse(typeof(BloodType), tokens[2], true),
-                bool.Parse(tokens[3]),
+                bool.Parse(tokens[2]),
+                tokens[3],
                 tokens[4],
                 tokens[5],
-                tokens[6],
-                (UserType)Enum.Parse(typeof(UserType), tokens[7], true),
-                int.Parse(tokens[8]),
-                int.Parse(tokens[9]),
-                tokens[10],
-                tokens[11],
-                DateTime.Parse(tokens[12]),
-                (Gender)Enum.Parse(typeof(Gender), tokens[13], true));
+                int.Parse(tokens[6]),
+                int.Parse(tokens[7]),
+                tokens[8],
+                tokens[9],
+                DateTime.Parse(tokens[10]),
+                (Gender)Enum.Parse(typeof(Gender), tokens[11], true));
         }
 
         public IEnumerable<Patient> ReadAll()
@@ -81,12 +79,10 @@ namespace HospitalProject.FileHandler
             return string.Join(_delimiter,
                 patient.Id,
                 patient.MedicalRecordId,
-                patient.BloodType,
                 patient.Guest,
                 patient.Username,
                 patient.FirstName,
                 patient.LastName,
-                patient.UserType,
                 patient.Jmbg,
                 patient.PhoneNumber,
                 patient.Email,

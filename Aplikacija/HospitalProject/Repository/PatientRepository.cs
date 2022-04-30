@@ -18,10 +18,9 @@ namespace Repository
         public PatientFileHandler _patientFileHandler;
         private List<Patient> _patients = new List<Patient>();
 
-        public PatientRepository(string path, string delimiter)
+        public PatientRepository(PatientFileHandler patientFileHandler)
         {
-            _path = path;
-            _delimiter = delimiter;
+            _patientFileHandler = patientFileHandler;
             _patients = (List<Patient>) _patientFileHandler.ReadAll();
             _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
         }
