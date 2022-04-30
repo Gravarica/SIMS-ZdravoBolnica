@@ -206,8 +206,7 @@ namespace Service
 
 
         public IEnumerable<Appointment> GetAllUnfinishedAppointments()
-        {
-
+        { 
             var appointments = appointmentRepository.GetAllUnfinishedAppointments();
             BindDataForAppointments(appointments);
             return appointments;

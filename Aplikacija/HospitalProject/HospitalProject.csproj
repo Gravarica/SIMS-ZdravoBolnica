@@ -11,9 +11,15 @@
     <None Remove="Resources\Images\General\Account.png" />
     <None Remove="Resources\Images\General\Logo.png" />
     <None Remove="View\DoctorView\Views\Icons\calendarIcon.png" />
+    <None Remove="View\DoctorView\Views\Icons\doctorIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\doctorIcon2.png" />
+    <None Remove="View\DoctorView\Views\Icons\examination.png" />
     <None Remove="View\DoctorView\Views\Icons\examination1.png" />
+    <None Remove="View\DoctorView\Views\Icons\hospitalIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\medicalRecord.png" />
+    <None Remove="View\DoctorView\Views\Icons\patientIcon.png" />
+    <None Remove="View\DoctorView\Views\Icons\treatmentIcon.png" />
+    <None Remove="View\DoctorView\Views\Icons\treatmentIcon2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +35,36 @@
   <ItemGroup>
     <Resource Include="Resources\Images\General\Account.png" />
     <Resource Include="Resources\Images\General\Logo.png" />
-    <Resource Include="View\DoctorView\Views\Icons\calendarIcon.png" />
-    <Resource Include="View\DoctorView\Views\Icons\doctorIcon2.png" />
-    <Resource Include="View\DoctorView\Views\Icons\examination1.png" />
-    <Resource Include="View\DoctorView\Views\Icons\medicalRecord.png" />
+    <Resource Include="View\DoctorView\Views\Icons\calendarIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\doctorIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\doctorIcon2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\examination.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\examination1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\hospitalIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\medicalRecord.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\patientIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\treatmentIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\DoctorView\Views\Icons\treatmentIcon2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

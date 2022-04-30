@@ -1,6 +1,7 @@
 ﻿using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.DoctorView.Views;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private RelayCommand addNewAnamnesis;
         private RelayCommand cancelNewAnamnesis;
+        private RelayCommand writePrescriptionCommand;
 
         public AnamnesisViewModel(Appointment appointment, Window window)
         {
@@ -79,6 +81,25 @@ namespace HospitalProject.View.DoctorView.Model
             _anamnesisController.Create(_anamnesis);
             _window.Close();
         }
+
+        public RelayCommand WritePrescriptionCommand
+        {
+            get
+            {
+                return writePrescriptionCommand ?? (writePrescriptionCommand = new RelayCommand(param => WritePrescriptionCommandExecute(), param => CanWritePrescriptionCommandExecute()));
+            }
+        }
         
+        private bool CanWritePrescriptionCommandExecute()
+        {
+            return true;
+        }
+
+        private void WritePrescriptionCommandExecute()
+        {
+            NewPrescriptionView view = new NewPrescriptionView();
+            view.DataContext = new NewPrescriptionViewModel(view, ShowItem);
+            view.ShowDialog();
+        }
     }
 }

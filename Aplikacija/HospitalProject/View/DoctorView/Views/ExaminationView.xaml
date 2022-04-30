@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
-        Title="ExaminationView" Height="600" Width="950">
+        Title="ExaminationView" Height="600" Width="950"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:NameConverter x:Key="NameConverter"/>
         <Style TargetType="Label" x:Key="LabelStyle">
@@ -80,7 +81,8 @@
                                 Grid.Column="1"
                                 Margin="10,10,35,10"
                                 FontSize="15"
-                                SelectedDate="{Binding ShowItem.Date}"/>
+                                SelectedDate="{Binding ShowItem.Date}"
+                                IsEnabled="False"/>
 
                     <Label Grid.Row="1"
                            Content="Patient:"
@@ -142,7 +144,8 @@
                         <Button Content="Medical Record"
                                 Style="{StaticResource RoundButton}"/>
                         <Button Content="Write Prescription"
-                                Style="{StaticResource RoundButton}"/>
+                                Style="{StaticResource RoundButton}"
+                                Command="{Binding WritePrescriptionCommand}"/>
                         <Button Content="Write Referal"
                                 Style="{StaticResource RoundButton}"/>
                         <Button Content="Write Hospital Referal"

@@ -13,14 +13,14 @@ namespace HospitalProject.Repository
     public class AnamnesisRepository
     {
         private AnamnesisFileHandler _fileHandler;
-        private IEnumerable<Anamnesis> _anamneses;
+        private List<Anamnesis> _anamneses;
         private int _anamnesesMaxId;
     
 
         public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler, AppointmentRepository appointmentRepository)
         {
             _fileHandler = anamnesisFileHandler;
-            _anamneses = _fileHandler.ReadAll();
+            _anamneses = _fileHandler.ReadAll().ToList();
             _anamnesesMaxId = GetMaxId();
         }
 
@@ -42,7 +42,7 @@ namespace HospitalProject.Repository
         public void Insert(Anamnesis anamnesis)
         {
             anamnesis.Id = ++_anamnesesMaxId;
-            _anamneses.ToList().Add(anamnesis);
+            _anamneses.Add(anamnesis);
             _fileHandler.AppendLineToFile(anamnesis);
         }
 

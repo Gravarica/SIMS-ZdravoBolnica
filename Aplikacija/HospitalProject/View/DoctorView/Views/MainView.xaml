@@ -78,7 +78,7 @@
                         BorderThickness="0"
                         Command="{Binding LogoutCommand}">
                     <DockPanel>
-                        <Image Source="Icons/examination.png"/>
+                        <Image Source="Icons/doctorIcon2.png"/>
                     </DockPanel>
                 </Button>
                 

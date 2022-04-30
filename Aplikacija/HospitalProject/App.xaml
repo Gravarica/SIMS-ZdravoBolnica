@@ -31,6 +31,10 @@
                 <view:PreviousExaminationsView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:PrescriptionHistoryViewModel}">
+                <view:PrescriptionHistoryView/>
+            </DataTemplate>
+
             <Style x:Key="WinAll" TargetType="{x:Type Window}">
                 <Setter Property="FontFamily"
                         Value="Open Sans" />
