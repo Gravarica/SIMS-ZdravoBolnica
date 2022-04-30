@@ -116,6 +116,7 @@ public class User : ViewModelBase
         Username = username;
         FirstName = firstName;
         Jmbg = jmbg;
+        
     }
     public User() { }
     

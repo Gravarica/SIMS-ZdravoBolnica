@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
 
 namespace HospitalProject.Repository
 {
     public class MedicalRecordRepository
     {
         private MedicalRecordFileHandler _medicalRecordFileHandler;
-
+        private PatientFileHandler _patientFileHandler;
         private List<MedicalRecord> _medicalRecords;
 
         private int _medicalRecordMaxId;
@@ -66,6 +67,16 @@ namespace HospitalProject.Repository
             updateMedicalRecord.Anamneses.Add(anamnesis);
             //_medicalRecordFileHandler.Save(_medicalRecords);
         }
+        
+        public void AddNewAllergiesToMedicalRecord(Allergies allergies, int PatientID)
+        {   
+            List<Patient> patients = _patientFileHandler.ReadAll().ToList();
 
+            Patient p = patients.SingleOrDefault(r => r.Id.Equals(PatientID));
+            int s = p.MedicalRecordId;
+            MedicalRecord updateMedicalRecord = GetById(s);
+            updateMedicalRecord.Allergies.Add(allergies);
+          
+        }
     }
 }
