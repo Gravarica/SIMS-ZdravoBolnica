@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Documents;
+using HospitalProject.Model;
 using Model;
 
 namespace HospitalProject.View.Model
@@ -9,6 +12,7 @@ namespace HospitalProject.View.Model
         int _roomNumber;
         string _roomType;
         int _roomFloor;
+        private List<Equipement> equipment;
         
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -17,6 +21,22 @@ namespace HospitalProject.View.Model
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        public List<Equipement> Equipment
+        {
+            get
+            {
+                return equipment;
+            }
+            set
+            {
+                if (value != equipment)
+                {
+                    equipment = value;
+                    OnPropertyChanged(nameof(Equipment));
+                }
             }
         }
 

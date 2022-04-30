@@ -13,7 +13,8 @@ namespace HospitalProject.View.Converter
                 RoomId = room._id,
                 RoomFloor = room._floor,
                 RoomNumber = room._number,
-                TypeRoom = room._roomType.ToString()
+                TypeRoom = room._roomType.ToString(),
+                Equipment = room.Equipment
             };
 
         public static IList<RoomViewModel> ConvertRoomListTORoomViewList(IList<Room> rooms)
@@ -26,7 +27,8 @@ namespace HospitalProject.View.Converter
                 _id = rvm.RoomId,
                 _floor = rvm.RoomFloor,
                 _number = rvm.RoomNumber,
-                _roomType = (RoomType) Enum.Parse(typeof(RoomType), rvm.TypeRoom, true)
+                _roomType = (RoomType) Enum.Parse(typeof(RoomType), rvm.TypeRoom, true),
+                Equipment = rvm.Equipment
             };
     }
 }

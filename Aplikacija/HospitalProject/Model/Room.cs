@@ -4,6 +4,9 @@
 // Purpose: Definition of Class Room
 
 using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
+using HospitalProject.Model;
 
 namespace Model
 {
@@ -14,8 +17,22 @@ namespace Model
       public int _floor{ get; set; }
       public RoomType _roomType { get; set; }
       
-      
+      private System.Collections.Generic.List<Equipement> equipment;
+
+
+      public Room(List<Equipement> equipment, int id, int number, int floor, RoomType roomType)
+      {
+         this.equipment = equipment;
+         _id = id;
+         _number = number;
+         _floor = floor;
+         _roomType = roomType;
+      }
+
       private System.Collections.Generic.List<Appointment> appointments;
+      
+      
+      
 
         public Room(int id, int n, int f,RoomType rt) { 
             _id = id;
@@ -27,6 +44,41 @@ namespace Model
         public Room()
         {
         }
+
+
+        public Room(int id, int number)
+        {
+           _id = id;
+           _number = number;
+        }
+
+        public System.Collections.Generic.List<Equipement> Equipment
+        {
+           get
+           {
+              if (equipment == null)
+              {
+                 equipment = new System.Collections.Generic.List<Equipement>();
+              }
+              return equipment;
+           }
+           set
+           {
+              if (equipment != null)
+              {
+                 equipment.Clear();
+              }
+              if (value != null)
+              {
+                 foreach (Equipement eq in value)
+                 {
+                    AddEquipment(eq);
+                 }
+              }
+              
+           }
+        }
+        
 
         /// <summary>
       /// Property for collection of Appointment
@@ -50,6 +102,25 @@ namespace Model
             }
          }
       }
+
+        public void AddEquipment(Equipement eq)
+        {
+           if (eq == null)
+           {
+              return;
+           }
+
+           if (equipment == null)
+           {
+              equipment = new System.Collections.Generic.List<Equipement>();
+           }
+
+           if (!equipment.Contains(eq))
+           {
+              equipment.Add(eq);
+           }
+           
+        }
       
       /// <summary>
       /// Add a new Appointment in the collection

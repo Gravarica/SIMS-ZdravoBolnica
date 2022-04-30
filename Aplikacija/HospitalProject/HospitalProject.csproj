@@ -26,10 +26,14 @@
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
+    <Compile Update="View\WardenForms\Views\WardenEquipementView.xaml.cs">
+      <DependentUpon>WardenEquipementViev.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
+    <Folder Include="View\WardenForms\Views\" />
   </ItemGroup>
 
   <ItemGroup>

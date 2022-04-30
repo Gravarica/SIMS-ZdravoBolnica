@@ -9,5 +9,9 @@ public partial class WardenWindow : Window
         DataContext = new MainViewModel();
         InitializeComponent();
     }
-    
+
+    private void RadioButton_Checked(object sender, RoutedEventArgs e)
+    {
+
+    }
 }
