@@ -27,14 +27,21 @@
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Remove="Model\PersonaInfo.cs" />
     <Compile Remove="Repository\PatientAllergiesRepository.cs" />
     <Compile Remove="FileHandler\PatientAllergiesFileHandler.cs" />
     <Compile Remove="Model\PatientAllergies.cs" />
+=======
+    <Compile Update="View\WardenForms\Views\WardenEquipementView.xaml.cs">
+      <DependentUpon>WardenEquipementViev.xaml</DependentUpon>
+    </Compile>
+>>>>>>> fca0eaab2c59a717058be6ed41ac7ce1b63bd866
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
+    <Folder Include="View\WardenForms\Views\" />
   </ItemGroup>
 
   <ItemGroup>

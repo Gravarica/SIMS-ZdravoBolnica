@@ -10,6 +10,10 @@ using Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
+using HospitalProject.Model;
+using HospitalProject.View.Converter;
+using HospitalProject.View.WardenForms.ViewModels;
 using Repository;
 
 namespace Repository
@@ -50,11 +54,40 @@ namespace Repository
       
       private string ConvertRoomToCSVFormat(Room room)
       {
-         return string.Join(_delimiter,
-            room._id.ToString(),
-            room._number.ToString(),
-            room._floor.ToString(),
-            room._roomType.ToString());
+         if (room.Equipment.Count == 0)
+         {
+            return string.Join(_delimiter,
+               room._id.ToString(),
+               room._number.ToString(),
+               room._floor.ToString(),
+               room._roomType.ToString());
+         }
+         else
+         {
+            return string.Join(_delimiter,
+               room._id.ToString(),
+               room._number.ToString(),
+               room._floor.ToString(),
+               room._roomType.ToString(),
+               ConvertEquipment(room));
+         }
+         
+      }
+
+      private string ConvertEquipment(Room room)
+      {
+         string roomsEquipement = String.Empty;
+         
+         foreach (Equipement eq in room.Equipment)
+         {
+            string id = eq.Id.ToString();
+            string quantity = eq.Quantity.ToString();
+            roomsEquipement= roomsEquipement + (id + "-" + quantity+"|");
+         }
+
+         roomsEquipement = roomsEquipement.Remove(roomsEquipement.Length - 1,1);
+
+         return roomsEquipement;
       }
       
       private void RoomLineToFile(string path, string line)
@@ -66,7 +99,17 @@ namespace Repository
       private Room ConvertCSVFormatToRoom(string roomCSVFormat)                   // Ovo prebacuje iz CSV formata i kreira objekat
       {
          var tokens = roomCSVFormat.Split(_delimiter.ToCharArray());
-         return new Room(int.Parse(tokens[0]), int.Parse(tokens[1]), int.Parse(tokens[2]),(RoomType) Enum.Parse(typeof(RoomType), tokens[3], true));
+         int equipementSize = tokens.Length - 4;
+         List<Equipement> roomsEquipement = new List<Equipement>();
+         for (int i = 0; i < equipementSize; i++)
+         {
+            var eqToken = tokens[i + 4].Split("-");
+            int id = int.Parse(eqToken[0]);
+            int quantity = int.Parse(eqToken[1]);
+            Equipement eq = new Equipement(id,quantity);
+            roomsEquipement.Add(eq);
+         } 
+         return new Room(roomsEquipement,int.Parse(tokens[0]), int.Parse(tokens[1]), int.Parse(tokens[2]),(RoomType) Enum.Parse(typeof(RoomType), tokens[3], true));
       }
       
       public Room Get(int id)
@@ -84,7 +127,38 @@ namespace Repository
             }
          }
       }
-      
+
+      public IEnumerable<EquipmentRoomModel> GetByEquipment(int equpmentId)
+      {
+         var allRooms = ReadAll();
+         List<EquipmentRoomModel> wantedRooms = new List<EquipmentRoomModel>();
+         foreach (Room room in allRooms)
+         {
+            foreach (Equipement eq in room.Equipment)
+            {
+               if (eq.Id == equpmentId)
+               {
+                  wantedRooms.Add(RoomEquipmentConverter.ConvertRoomToEquipementRoom(room,equpmentId));
+               }
+            }
+         }
+
+         return wantedRooms;
+      }
+
+      public IEnumerable<EquipmentRoomModel> GetAllWithEquipment(int equipmentId)
+      {
+         var allRooms = ReadAll();
+         List<EquipmentRoomModel> wantedRooms = new List<EquipmentRoomModel>();
+         foreach (Room room in allRooms)
+         {
+           
+            wantedRooms.Add(RoomEquipmentConverter.ConvertRoomToEquipementRoom(room,equipmentId));
+         }
+
+         return wantedRooms;
+      }
+
       public IEnumerable<Room> ReadAll()
       {
          return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
@@ -119,6 +193,7 @@ namespace Repository
                r._floor = room._floor;
                r._number = room._number;
                r._roomType = room._roomType;
+               r.Equipment = room.Equipment;
                break;
             }
          }

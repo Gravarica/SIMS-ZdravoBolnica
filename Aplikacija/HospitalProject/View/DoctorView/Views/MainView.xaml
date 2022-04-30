@@ -17,8 +17,7 @@
         <converters:NameConverter x:Key="Name converter"/>
     </Window.Resources>
     
-    <Border Background="#272537"
-            >
+    <Border Background="#272537">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -89,7 +88,7 @@
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"
-                            Content="{Binding CurrentView}"/>
+                            Content="{Binding CurrentView}" Foreground="{x:Null}"/>
 
         </Grid>
         
