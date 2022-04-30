@@ -2,6 +2,7 @@
 using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.View.Util;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand saveCommand;
 
         public ObservableCollection<Prescription> PatientPrescriptions { get; set; }
+        private List<ComboBoxData<int>> intervals = new List<ComboBoxData<int>>();
         private Appointment showItem;
 
         private DateTime startDate;
@@ -45,8 +47,11 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void InstantiateData(Appointment showItem)
         {
+            StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             ShowItem = showItem;
             PatientPrescriptions = new ObservableCollection<Prescription>(prescriptionController.GetPrescriptionsForPatient(ShowItem.Patient.Id));
+            FillComboData();
         }
 
         public Appointment ShowItem
@@ -114,6 +119,20 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public List<ComboBoxData<int>> IntervalComboBox
+        {
+
+            get
+            {
+                return intervals;
+            }
+            set
+            {
+                intervals = value;
+                OnPropertyChanged(nameof(IntervalComboBox));
+            }
+        }
+
         public RelayCommand ReturnCommand
         {
             get
@@ -150,6 +169,14 @@ namespace HospitalProject.View.DoctorView.Model
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
             DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
             prescriptionController.Create(ShowItem, startDateOnly, endDateOnly, Interval, Description);
+            _window.Close();
+        }
+
+        private void FillComboData()
+        {
+            intervals.Add(new ComboBoxData<int> { Name = "8 hours", Value = 8 });
+            intervals.Add(new ComboBoxData<int> { Name = "6 hours", Value = 6 });
+            intervals.Add(new ComboBoxData<int> { Name = "12 hours", Value = 12 });
         }
     }
 }
