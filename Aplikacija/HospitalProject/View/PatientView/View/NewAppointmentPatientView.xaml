@@ -10,6 +10,7 @@
 
     <Window.Resources>
         <converters:DateConverterForNewAppointment x:Key="DateConverter"/>
+        <converters:NameConverter x:Key="NameConverter"/>
     </Window.Resources>
     <Grid>
 
@@ -66,11 +67,11 @@
                 <Label Content="New Appointment" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="22"/>
 
                 <Label Content="Patient:" Grid.Row="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Text="Ilija Galin" IsEnabled="False"
+                <TextBox Text="{Binding Patient , Converter={StaticResource NameConverter}}" IsEnabled="False"
                          Grid.Row="1" Grid.Column="1" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          FontSize="18" Width="150" TextAlignment="Center"
-                         Foreground="Gray" BorderThickness="2"/>
+                         Foreground="Gray" BorderThickness="2" />
 
                 <Label Content="Doctor:" Grid.Row="2" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Row="2"
@@ -103,12 +104,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <RadioButton Grid.Row="0"
-                                     Grid.Column="0"
-                                     Content="Doctor"/>
-                    <RadioButton Grid.Row="0"
-                                     Grid.Column="1"
-                                     Content="Date"/>
+                    <RadioButton GroupName="Search" Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=FlagForValue1, Mode=TwoWay}"
+                             >Doctor</RadioButton>
+                    <RadioButton GroupName="Search" Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=FlagForValue2, Mode=TwoWay}"
+                             >Date</RadioButton>
+                    
                 </Grid>
 
                 <Button Content="Submit" Command="{Binding SubmitCommand}" Grid.Row="6" Height="20" Width="80"/>

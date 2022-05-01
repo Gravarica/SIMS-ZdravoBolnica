@@ -15,23 +15,13 @@ using System.Windows.Shapes;
 namespace HospitalProject.View.PatientView.View
 {
     /// <summary>
-    /// Interaction logic for newAppointmentPatientView.xaml
+    /// Interaction logic for EditAppointmentPatientView.xaml
     /// </summary>
-    public partial class NewAppointmentPatientView : Window
+    public partial class EditAppointmentPatientView : Window
     {
-        public NewAppointmentPatientView()
+        public EditAppointmentPatientView()
         {
             InitializeComponent();
         }
-
-
-        private void OpenAppointmentsForPatient(object sender, RoutedEventArgs e)
-        {
-            AppointmentsViewPatient avp = new AppointmentsViewPatient();
-            this.Close();
-            avp.Show();
-        }
-
-        
     }
 }

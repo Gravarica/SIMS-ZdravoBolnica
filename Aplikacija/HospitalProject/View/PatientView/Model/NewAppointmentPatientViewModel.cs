@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -20,6 +21,8 @@ namespace HospitalProject.View.PatientView.Model
         private AppointmentController appointmentController;
         private DoctorController doctorController;
         private PatientController patientController;
+        private UserController userController;
+        
 
         private DateTime startDate;
         private DateTime endDate;
@@ -28,6 +31,8 @@ namespace HospitalProject.View.PatientView.Model
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
+        private int _intValue;
+        
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
 
@@ -90,6 +95,19 @@ namespace HospitalProject.View.PatientView.Model
             }
         }
 
+        public Patient Patient
+        {
+            get
+            {
+                return patient;
+            }
+            set
+            {
+                patient = value;
+                OnPropertyChanged(nameof(Patient));
+            }
+        }
+
         public Doctor DoctorData
         {
             get
@@ -123,6 +141,7 @@ namespace HospitalProject.View.PatientView.Model
 
         public NewAppointmentPatientViewModel(ObservableCollection<Appointment> AppointmentItems)
         {
+            
             _appointmentItems = AppointmentItems;
             InitializeControllers();
             InitializeData();
@@ -131,15 +150,17 @@ namespace HospitalProject.View.PatientView.Model
         private void InitializeControllers()
         {
             var app = System.Windows.Application.Current as App;
+            
 
             appointmentController = app.AppointmentController;
             patientController = app.PatientController;
             doctorController = app.DoctorController;
+            userController = app.UserController;
         }
 
         private void InitializeData()
         {
-            patient = patientController.Get(3);   
+            patient = patientController.GetLoggedPatient(userController.GetLoggedUser().Username);   
             FillComboData();
         }
 
@@ -179,6 +200,33 @@ namespace HospitalProject.View.PatientView.Model
                                                                                                                               endDateOnly,
                                                                                                                               DoctorData,
                                                                                                                               patient));
+            if (GeneratedAppointments.Count == 0) {
+
+                if (_intValue == 1) {
+
+                    GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly,endDateOnly, DoctorData, patient));
+                }
+                else if(_intValue == 2)
+                {
+                    GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, patient));
+                }
+            
+            }
+
+        }
+
+        private IEnumerable<Appointment> DoctorIsPriority(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient) {
+
+             return appointmentController.GenerateAppointmentsPriorityDoctor(startDate, endDate, DoctorData, patient );
+
+
+        }
+
+        private IEnumerable<Appointment> DateIsPriority(DateOnly startDate, DateOnly endDate,Patient patient) {
+
+            return appointmentController.GenerateAppointmentsPriorityDate(startDate,endDate,patient);
+
+
         }
 
         public RelayCommand SaveCommand
@@ -197,9 +245,60 @@ namespace HospitalProject.View.PatientView.Model
         public virtual void SaveCommandExecute()
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
+            _generatedAppointments.Remove(SelectedItem);
         }
 
+        /*public RelayCommand CancelCommand
+        {
 
-        
+            get
+            {
+                return cancelCommand ?? (cancelCommand = new RelayCommand(param => CancelCommandExecute(), param => CanCancelCommandExecute()));
+            }
+
+        }
+
+        private bool CanCancelCommandExecute()
+        {
+            return true;
+        }
+
+        private void CancelCommandExecute()
+        {
+            _window.Close();
+        }*/
+
+        public bool FlagForValue1
+        {
+            get
+            {
+                return (_intValue == 1) ? true : false;
+            }
+            set
+            {
+                _intValue = 1;
+                
+                //RaisePropertyChanged("FlagForValue2");
+                OnPropertyChanged(nameof(FlagForValue2));
+                
+
+            }
+        }
+
+        public bool FlagForValue2
+        {
+            get
+            {
+                return (_intValue == 2) ? true : false;
+            }
+            set
+            {
+                _intValue = 2;
+                //RaisePropertyChanged("FlagForValue1");
+                OnPropertyChanged(nameof(FlagForValue1));
+
+            }
+        }
+
     }
 }

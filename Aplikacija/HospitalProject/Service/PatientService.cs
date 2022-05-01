@@ -48,6 +48,12 @@ namespace Service
         {
             GetById(patientId).MedicalRecordId = medicalRecordId;
         }
+
+        public Patient GetLoggedPatient(string username)
+        {
+            return _patientRepository.GetLoggedPatient(username);
+        }
+
     }
 
     

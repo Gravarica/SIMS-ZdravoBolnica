@@ -38,6 +38,8 @@ namespace HospitalProject.View.PatientView.Model
         AppointmentController _appointmentController;
         PatientController _patientController;
         DoctorController _doctorController;
+        UserController _userController;
+
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
 
@@ -135,13 +137,15 @@ namespace HospitalProject.View.PatientView.Model
             _appointmentController = app.AppointmentController;
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
+            _userController = app.UserController;
         }
 
         private void InstantiateData()
         {
-            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAll().ToList());
+            _patient = _patientController.GetLoggedPatient(_userController.GetLoggedUser().Username);
+            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAllUnfinishedAppointmentsForPatient(_patient.Id).ToList());
             _doctors = _doctorController.GetAll().ToList();
-            _patient = _patientController.Get(3);
+            
         }
 
         private void FillComboData()
@@ -177,7 +181,7 @@ namespace HospitalProject.View.PatientView.Model
 
         }
 
-        public RelayCommand AddCommand
+       /* public RelayCommand AddCommand
         {
             get
             {
@@ -203,7 +207,7 @@ namespace HospitalProject.View.PatientView.Model
             _appointmentController.Create(appointment);
             AppointmentItems.Add(appointment);
         }
-
+       */
 
 
          public RelayCommand NewAppointmentCommand

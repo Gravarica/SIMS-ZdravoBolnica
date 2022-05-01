@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
@@ -22,6 +23,7 @@ namespace HospitalProject.View.DoctorView.Model
         private PatientController patientController;
         private UserController userController;
 
+        
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
@@ -29,7 +31,7 @@ namespace HospitalProject.View.DoctorView.Model
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
-
+        private string patientId;
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
         public ObservableCollection<Appointment> GeneratedAppointments
@@ -75,6 +77,10 @@ namespace HospitalProject.View.DoctorView.Model
 
         // PROPERTY DEFINITIONS
 
+        
+        
+        
+        
         public List<ComboBoxData<Patient>> PatientComboBox
         {
 
@@ -212,6 +218,6 @@ namespace HospitalProject.View.DoctorView.Model
             }
 
         }
-
+        
     }
 }
