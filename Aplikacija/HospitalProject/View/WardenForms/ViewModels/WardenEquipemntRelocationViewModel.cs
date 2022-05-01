@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
@@ -54,6 +55,19 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         }
     }
     
+    public int Quantity
+    {
+        get
+        {
+            return quantity;
+        }
+        set
+        {
+            quantity = value;
+            OnPropertyChanged(nameof(Quantity));
+        }
+    }
+    
     public EquipmentRoomModel DestinationRoom
     {
         get
@@ -85,6 +99,8 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         int equipmentsId = selectedEquipment.Id;
         GeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateEquipementRooms(equipmentsId));
         AllRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
+        RelocateEquipmentCommand = new RelayCommand( parm=> ExecuteEquipmentRelocation(selectedEquipment), param => true);
+
     }
     public WardenEquipemntRelocationViewModel()
     {
@@ -100,17 +116,7 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
     private void ExecuteEquipmentRelocation(Equipement selectedEquipment)
     {
-        Room selected = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(SelectedRoom);
-        Room destination = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(DestinationRoom);
-        Room oldSelected = roomControoler.Get(selected.Id);
-        Room oldDestination = roomControoler.Get(destination.Id);
-        foreach (Equipement eq in oldSelected.Equipment)
-        {
-            //if(selectedEquipment.Id == )
-        }
-        {
-            
-        }
+        roomControoler.UpdateRoomsEquipment(SelectedRoom,DestinationRoom,selectedEquipment.Id,Quantity);
     }
     
 

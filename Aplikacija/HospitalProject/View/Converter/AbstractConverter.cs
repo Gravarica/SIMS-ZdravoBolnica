@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.View.Converter
 {
-    public class AbstractConverter
+    public class 
+        AbstractConverter
     {
         protected static IList<V> ConvertEntityListToViewList<E, V>(IList<E> entities, Func<E, V> convert)
             => entities

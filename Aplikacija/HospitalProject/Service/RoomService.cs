@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HospitalProject.Model;
+using HospitalProject.View.Converter;
 using HospitalProject.View.WardenForms.ViewModels;
 
 namespace HospitalProject.Service
@@ -55,6 +57,68 @@ namespace HospitalProject.Service
         public IEnumerable<EquipmentRoomModel> GenerateAllEquipmentRooms(int equipmentId)
         {
             return _roomRepository.GetAllWithEquipment(equipmentId);
+        }
+
+        public void UpdateRoomsEquipment(EquipmentRoomModel source, EquipmentRoomModel destination, int equipmentId,int quantity)
+        {
+            Room selectedRoom = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(source);
+            Room selectedDestinationRoom = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(destination);
+            Room oldSource = _roomRepository.Get(source.RoomId);
+            Room oldDestination = _roomRepository.Get((destination.RoomId));
+            
+            selectedRoom.Floor = oldSource.Floor;
+            selectedRoom.RoomType = oldSource.RoomType;
+
+            selectedDestinationRoom.Floor = oldDestination.Floor;
+            selectedDestinationRoom.RoomType = oldDestination.RoomType;
+
+
+
+            Boolean contains = false;
+            foreach (Equipement eq in oldDestination.Equipment)
+            {
+                
+                if (equipmentId == eq.Id)
+                {
+
+                    contains = true;
+                }
+                
+            }
+
+            if (contains)
+            {
+                foreach (Equipement eq in oldDestination.Equipment)
+                {
+                    if (equipmentId == eq.Id)
+                    {
+
+                        eq.Quantity += quantity;
+                    }
+                    selectedDestinationRoom.Equipment.Add(eq);
+                }
+            }
+            else
+            {
+                selectedDestinationRoom.Equipment.Add(new Equipement(equipmentId, quantity));
+            }
+            
+            foreach (Equipement eq in oldSource.Equipment)
+            
+            {
+                if (equipmentId == eq.Id)
+                {
+                    eq.Quantity -= quantity;
+                }
+                selectedRoom.Equipment.Add(eq);
+            }
+
+            
+            
+             
+            _roomRepository.Update(selectedRoom);
+            _roomRepository.Update(selectedDestinationRoom);
+
         }
 
     }
