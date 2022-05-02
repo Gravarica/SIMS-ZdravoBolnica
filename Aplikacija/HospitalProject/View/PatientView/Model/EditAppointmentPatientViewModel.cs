@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
 using Model;
 using System;
@@ -19,6 +20,8 @@ namespace HospitalProject.View.PatientView.Model
         private DoctorController doctorController;
         private PatientController patientController;
         private UserController userController;
+        private RoomControoler roomController;
+
 
         private DateTime startDate;
         private DateTime endDate;
@@ -62,6 +65,8 @@ namespace HospitalProject.View.PatientView.Model
             patientController = app.PatientController;
             doctorController = app.DoctorController;
             userController = app.UserController;
+            roomController = app.RoomController;
+
         }
 
         private void InitializeData()
@@ -169,7 +174,8 @@ namespace HospitalProject.View.PatientView.Model
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
                                                                                                                               DoctorData,
-                                                                                                                              patient));
+                                                                                                                              patient,
+                                                                                                                              ExaminationType.GENERAL, roomController.Get(3)));
         }
 
         public RelayCommand SaveCommand
