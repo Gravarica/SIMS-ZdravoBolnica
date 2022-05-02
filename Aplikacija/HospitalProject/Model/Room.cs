@@ -45,6 +45,11 @@ namespace Model
         {
         }
 
+        public Room(int id)
+        {
+           _id = id;
+        }
+
 
         public Room(int id, int number)
         {

@@ -12,6 +12,7 @@ namespace HospitalProject.Model
         TEST_TUBE,
         BED,
         GLOVES,
-        MASK
+        MASK,
+        MEDICINE
     }
 }

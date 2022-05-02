@@ -12,8 +12,56 @@ namespace HospitalProject.Model
         private int quantity;
         private string name;
         private EquipementType equipementType;
+        private List<Alergen> alergens;
 
 
+
+
+        public List<Alergen> Alergens
+        {
+            get
+            {
+                if (alergens == null)
+                {
+                    alergens = new System.Collections.Generic.List<Alergen>();
+                }
+                return alergens;
+            }
+            set
+            {
+                if (alergens != null)
+                {
+                    alergens.Clear();
+                }
+                if (value != null)
+                {
+                    foreach (Alergen al in value)
+                    {
+                        AddAlergen(al);
+                    }
+                }
+              
+            }
+        }
+        
+        public void AddAlergen(Alergen al)
+        {
+            if (al == null)
+            {
+                return;
+            }
+
+            if (alergens == null)
+            {
+                alergens = new System.Collections.Generic.List<Alergen>();
+            }
+
+            if (!alergens.Contains(al))
+            {
+                alergens.Add(al);
+            }
+           
+        }
         public int Id
         {
             get
@@ -72,6 +120,15 @@ namespace HospitalProject.Model
             Quantity = quantity;
             Name = name;
             EquipementType = equipementType;
+        }
+
+        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Alergen> alergens)
+        {
+            this.id = id;
+            this.quantity = quantity;
+            this.name = name;
+            this.equipementType = equipementType;
+            this.alergens = alergens;
         }
 
         public Equipement( int quantity, string name, EquipementType equipementType)

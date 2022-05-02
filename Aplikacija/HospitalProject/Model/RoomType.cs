@@ -13,6 +13,7 @@ namespace Model
       stationary,
       meeting,
       relaxation,
-      examination
+      examination,
+      stockroom
    }
 }
