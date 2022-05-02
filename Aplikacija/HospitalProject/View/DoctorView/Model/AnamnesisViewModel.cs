@@ -19,6 +19,7 @@ namespace HospitalProject.View.DoctorView.Model
         private string _description;
         private AnamnesisController _anamnesisController;
         private Window _window;
+        private bool modalResult;
 
         private RelayCommand addNewAnamnesis;
         private RelayCommand cancelNewAnamnesis;
@@ -29,6 +30,7 @@ namespace HospitalProject.View.DoctorView.Model
             var app = System.Windows.Application.Current as App;
 
             ShowItem = appointment;
+            modalResult = false;
             _window = window;
 
             _anamnesisController = app.AnamnesisController;
@@ -61,6 +63,19 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public bool ModalResult
+        {
+            get 
+            { 
+                return modalResult;
+            }
+            set
+            {
+                modalResult = value;
+                OnPropertyChanged(nameof(ModalResult));
+            }
+        }
+
         public RelayCommand AddNewAnamnesis
         {
             get
@@ -79,6 +94,7 @@ namespace HospitalProject.View.DoctorView.Model
         {
             _anamnesis = new Anamnesis(ShowItem, Description);
             _anamnesisController.Create(_anamnesis);
+            ModalResult = true;
             _window.Close();
         }
 

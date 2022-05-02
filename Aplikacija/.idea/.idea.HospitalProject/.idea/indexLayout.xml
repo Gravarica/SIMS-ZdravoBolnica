@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="UserContentModel">
+<<<<<<< HEAD
+    <attachedFolders>
+      <Path>../../SIMS-ZdravoBolnica</Path>
+    </attachedFolders>
+=======
     <attachedFolders />
+>>>>>>> fca0eaab2c59a717058be6ed41ac7ce1b63bd866
     <explicitIncludes />
     <explicitExcludes />
   </component>

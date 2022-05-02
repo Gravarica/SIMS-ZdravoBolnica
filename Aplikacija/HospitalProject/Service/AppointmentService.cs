@@ -10,6 +10,7 @@ using HospitalProject.Service;
 using System.Collections.Generic;
 using System.Linq;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.Model;
 
 namespace Service
 {
@@ -126,31 +127,17 @@ namespace Service
         // Method that gets all reserved appointments in the system 
         private List<Appointment> GetAppointmentsByDoctorAndPatient(Doctor doctor, Patient patient)
         {
-            List<Appointment> retAppointmentsDoctor = new List<Appointment>();
-            List<Appointment> retAppointmentsPatient = new List<Appointment>();
-            var appointments = appointmentRepository.GetAll();
-            BindDataForAppointments(appointments);
-
-            foreach (Appointment appointment in appointments)
-            {
-                if (doctor.Id == appointment.Doctor.Id)
-                {
-                    retAppointmentsDoctor.Add(appointment);
-                }
-                if (patient.Id == appointment.Patient.Id)
-                {
-                    retAppointmentsPatient.Add(appointment);
-                }
-            }
-
-            return retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            List<Appointment> retAppointmentsDoctor = appointmentRepository.GetAppointmentsForDoctor(doctor.Id).ToList();
+            List<Appointment> retAppointmentsPatient = appointmentRepository.GetAppointmentsForPatient(patient.Id).ToList();
+            List<Appointment> unionAppointments = retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
+            BindDataForAppointments(unionAppointments);
+            return unionAppointments;
         }
 
         // Method that generates available appointments, this method is called in controller
-        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
-        {
-
-            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient);
+        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
+        { 
+            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient, examType, room);
             var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
 
             return MinusAppointments(allAppointments, existingAppointments);
@@ -182,21 +169,19 @@ namespace Service
         }
 
         // Method that generates empty appointments
-        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient)
+        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         {
-            List<Appointment> retAppointments = new List<Appointment>();
-            TimeOnly shiftStartConst = new TimeOnly(8, 0);
-            TimeOnly shiftStart;
-            TimeOnly shiftEnd = new TimeOnly(15, 0);
+            List<Appointment> retAppointments = new List<Appointment>();     
+            TimeOnly shiftIterator;
             while(StartDate <= EndDate)
             {
-                shiftStart = shiftStartConst;
+                shiftIterator = doctor.ShiftStart;
 
-                while(shiftStart <= shiftEnd)
+                while(shiftIterator <= doctor.ShiftEnd)
                 { 
-                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftStart), 30, doctor, patient, FindRoomById(2), HospitalProject.Model.ExaminationType.GENERAL);
+                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftIterator), 30, doctor, patient, room, examType);
                     retAppointments.Add(appointment);
-                    shiftStart = shiftStart.AddMinutes(30);
+                    shiftIterator = shiftIterator.AddMinutes(30);
                 }
                 StartDate = StartDate.AddDays(1);
             }
@@ -224,5 +209,69 @@ namespace Service
             return appointments;
         }
 
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
+        {
+            var appointments = appointmentRepository.GetAllUnfinishedAppointmentsForPatient(patientId);
+            BindDataForAppointments(appointments);
+            return appointments;
+        }
+
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDoctor(DateOnly startDate, DateOnly endDate , Doctor doctor, Patient patient)
+        {
+        
+           
+            DateTime date6 = DateTime.Now;
+            TimeOnly time = new TimeOnly(date6.Hour, date6.Minute) ;
+            DateTime date1 = startDate.ToDateTime(time);
+            DateTime date2 = endDate.ToDateTime(time);
+
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+
+
+
+
+            if ((date1 - date6).TotalDays < 5)
+            {
+
+                DateOnly date3 = endDate;
+
+                return GenerateAvailableAppointments(today, date3.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
+
+
+            }
+            else
+
+            {
+                DateOnly date4 = startDate;
+                DateOnly date5 = endDate;
+
+                return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
+            }
+
+           
+
+
+        }
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient)
+        {
+            IEnumerable<Doctor> allDoctors = _doctorService.getAll();
+            List<Appointment> existingAppointments = appointmentRepository.GetAll().ToList();
+            List<Appointment> generatedAppointments = new List<Appointment>();
+
+            foreach (Doctor d in allDoctors) {
+
+
+                generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, d, patient, ExaminationType.GENERAL, FindRoomById(3)));
+
+            }
+
+            //List<Appointment> list3 = generatedAppointments.(existingAppointments).ToList();
+
+
+            return generatedAppointments;
+
+        }
     }
 }

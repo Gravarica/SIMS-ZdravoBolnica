@@ -24,7 +24,7 @@ namespace HospitalProject.FileHandler
         private Doctor ConvertCSVFormatToDoctor(string acountCSVFormat)                   
         {
             var tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
-            return new Doctor(int.Parse(tokens[0]), tokens[1], tokens[2], tokens[3]);
+            return new Doctor(int.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], TimeOnly.Parse(tokens[4]), TimeOnly.Parse(tokens[5]));
         }
 
         public IEnumerable<Doctor> ReadAll()

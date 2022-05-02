@@ -20,14 +20,9 @@ namespace Controller
         }
 
 
-        /*private void Create(string id, string name, string surname, string mail, string adress, DateTime dateOfBirth)
+        public Patient Create(Patient patient)
         {
-           _patientService.Create(id, name, surname, mail, adress, dateOfBirth);
-        }*/
-
-        public Patient Add(Patient patient)
-        {
-            return _patientService.Add(patient);
+           return _patientService.Create(patient);
         }
 
 
@@ -41,7 +36,7 @@ namespace Controller
          return _patientService.GetAll();
       }
       
-      public void Delete(string id)
+      public void Delete(int id)
       {
             _patientService.Delete(id);
         }
@@ -50,6 +45,13 @@ namespace Controller
       {
             _patientService.Update(patient);
         }
-   
-   }
+
+        public Patient GetLoggedPatient(string username)
+        {
+            return _patientService.GetLoggedPatient(username);
+        }
+
+
+
+    }
 }

@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <AnalysisLevel>5.0</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,10 @@
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
+    <Compile Remove="Model\PersonaInfo.cs" />
+    <Compile Remove="Repository\PatientAllergiesRepository.cs" />
+    <Compile Remove="FileHandler\PatientAllergiesFileHandler.cs" />
+    <Compile Remove="Model\PatientAllergies.cs" />
     <Compile Update="View\WardenForms\Views\WardenEquipementView.xaml.cs">
       <DependentUpon>WardenEquipementViev.xaml</DependentUpon>
     </Compile>
@@ -33,6 +38,9 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
+	  <Folder Include="ValidationRules\PatientValidation\" />
+	  <Folder Include="View\WardenForms\Views\" />
+
   </ItemGroup>
 
   <ItemGroup>

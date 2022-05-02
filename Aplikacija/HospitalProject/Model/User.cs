@@ -13,10 +13,15 @@ public class User : ViewModelBase
    protected String password;
    protected String firstName;
    protected String lastName;
-   
    public UserType userType;
+   protected int jmbg;
+   protected int phoneNumber;
+   protected String email;
+   protected String adress;
+   protected DateTime dateOfBirth;
+   protected Gender gender;
 
-    public String Username
+   public String Username
     {
         get 
         { 
@@ -54,6 +59,7 @@ public class User : ViewModelBase
         }
     }
 
+    
     public UserType UserType
     {
         get 
@@ -86,6 +92,7 @@ public class User : ViewModelBase
         LastName = lastName;
     }
 
+
     public User(string username, string password, UserType userType)
     {
         Username = username;
@@ -102,6 +109,75 @@ public class User : ViewModelBase
         UserType = userType;
     }
 
+    public User(String firstName, String lastName, int jmbg) { 
+        Username = username;
+        FirstName = firstName;
+        Jmbg = jmbg;
+        
+    }
     public User() { }
     
+    public Int32 Jmbg
+    {
+         get { return jmbg; }
+         set { jmbg= value; }
+    }
+    
+    public int PhoneNumber
+    { 
+        get { return phoneNumber; }
+        set { phoneNumber = value; }
+    }
+    
+    public string Email
+    {
+        get { return email; }
+        set { email = value; }
+    }
+    
+    public string Adress
+    {
+        get { return adress; }
+        set { adress = value; }
+    }
+    
+    public DateTime DateOfBirth 
+    {
+        get { return dateOfBirth; }
+        set { dateOfBirth = value; }
+    }
+    
+    public Gender Gender
+    {
+        get { return gender; }
+        set { gender = value; }
+    }
+            
+            
+            
+          public User(String username,
+                      String firstName,
+                      String lastName,
+                      int jmbg,
+                      int phoneNumber,
+                      String email,
+                      String adress,
+                      DateTime dateOfBirth,
+                      Gender gender)
+          {
+              Username = username;
+              FirstName = firstName;
+              LastName = lastName;
+              Jmbg = jmbg;
+              PhoneNumber = phoneNumber;
+              Email = email;
+              Adress = adress;
+              DateOfBirth = dateOfBirth;
+              Gender = this.gender;
+          }
+          public User(string firstName, string lastName)
+          {
+              this.firstName = FirstName;
+              this.lastName = LastName;
+          }
 }

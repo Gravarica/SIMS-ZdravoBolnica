@@ -67,8 +67,7 @@ namespace HospitalProject.Repository
             User updateUser = GetUser(user.Username);
             
             updateUser.Password = user.Password;
-            updateUser.FirstName = user.FirstName;
-            updateUser.LastName = user.LastName;
+            
         }
 
         public void Logout()

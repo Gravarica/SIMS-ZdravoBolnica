@@ -28,16 +28,23 @@ namespace HospitalProject.View.Model
     /// </summary>
     public partial class SecretaryView : Window
     {
-
-        private int _id;
-        private string _username;
-        private string _firstname;
-        private string _lastname;
-        private string _mail;
-        private string _adress;
-        private string _jmbg;
-        private string _phonenumber;
-
+        private IList<Patient> _patients;
+        private int _id; //
+        private int _medicalRecordId;
+        private string _username; //
+        private string _firstname; //
+        private string _lastname; //
+        private string _adress; //
+        private int _jmbg; //
+        private int _phonenumber; //
+        private BloodType _bloodtype; //
+        private bool _guest;//
+        private UserType _usertype;//
+        private string _email; //
+        private DateTime _dateofbirth;
+        private Gender _gender; //
+        
+        
         public ObservableCollection<PatientViewModel> PatientItems { get; set; }
         PatientController _patientController;
         
@@ -48,6 +55,137 @@ namespace HospitalProject.View.Model
             PatientItems = new ObservableCollection<PatientViewModel>(PatientConverter.ConvertPatientListToPatientViewList(_patientController.GetAll().ToList()));
 
         }
+        
+        
+        //int _medicalRecordId
+        public int Medicalrecordid
+        {
+            get
+            {
+                return _medicalRecordId;
+            }
+            set
+            {
+                if(_medicalRecordId != value)
+                {
+                    _medicalRecordId = value;
+                    OnPropertyChanged(nameof(Medicalrecordid));
+                }
+            }
+        }
+        
+        public int Id 
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if(_id != value)
+                {
+                    _id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public Gender Gender
+        {
+            get
+            {
+                return _gender;
+            }
+            set
+            {
+                if (value != _gender)
+                {
+                    _gender = value;
+                    OnPropertyChanged(nameof(Gender));
+                }
+            }
+        }
+        //DateTime _dateofbirth
+        public DateTime Dateofbirth
+        {
+            get
+            {
+                return _dateofbirth;
+            }
+            set
+            {
+                if (value != _dateofbirth)
+                {
+                    _dateofbirth = value;
+                    OnPropertyChanged(nameof(Dateofbirth));
+                }
+            }
+        }
+        
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged(nameof(Email));
+                }
+            }
+        }
+        public bool Guest
+        {
+            get
+            {
+                return _guest;
+            }
+            set
+            {
+                if (value != _guest)
+                {
+                    _guest = value;
+                    OnPropertyChanged(nameof(Guest));
+                }
+            }
+        }
+        
+        public UserType Usertype
+        {
+            get
+            {
+                return _usertype;
+            }
+            set
+            {
+                if (value != _usertype)
+                {
+                    _usertype = value;
+                    OnPropertyChanged(nameof(Usertype));
+                }
+            }
+        }
+        
+        public BloodType Bloodtype
+        {
+            get
+            {
+                return _bloodtype;
+            }
+            set
+            {
+                if (value != _bloodtype)
+                {
+                    _bloodtype = value;
+                    OnPropertyChanged(nameof(Bloodtype));
+                }
+            }
+        }
+        
+        
+       
 
 
         public String Username
@@ -67,7 +205,7 @@ namespace HospitalProject.View.Model
         }
 
 
-        public String FirstName
+        public String Firstname
         {
             get
             {
@@ -78,14 +216,14 @@ namespace HospitalProject.View.Model
                 if (value != _firstname)
                 {
                     _username = value;
-                    OnPropertyChanged(nameof(FirstName));
+                    OnPropertyChanged(nameof(Firstname));
                 }
             }
         }
 
 
 
-        public String LastName
+        public String Lastname
         {
             get
             {
@@ -96,26 +234,12 @@ namespace HospitalProject.View.Model
                 if (value != _lastname)
                 {
                     _username = value;
-                    OnPropertyChanged(nameof(LastName));
+                    OnPropertyChanged(nameof(Lastname));
                 }
             }
         }
 
-        public String Mail
-        {
-            get
-            {
-                return _mail;
-            }
-            set
-            {
-                if (value != _mail)
-                {
-                    _username = value;
-                    OnPropertyChanged(nameof(Mail));
-                }
-            }
-        }
+        
 
 
         public String Adress
@@ -133,7 +257,7 @@ namespace HospitalProject.View.Model
                 }
             }
         }
-        public String Jmbg
+        public int Jmbg
         {
             get
             {
@@ -143,14 +267,14 @@ namespace HospitalProject.View.Model
             {
                 if (value != _jmbg)
                 {
-                    _username = value;
+                    _jmbg = value;
                     OnPropertyChanged(nameof(Jmbg));
                 }
             }
         }
 
 
-        public String PhoneNumber
+        public int Phonenumber
         {
             get
             {
@@ -160,8 +284,8 @@ namespace HospitalProject.View.Model
             {
                 if (value != _phonenumber)
                 {
-                    _username = value;
-                    OnPropertyChanged(nameof(PhoneNumber));
+                    _phonenumber = value;
+                    OnPropertyChanged(nameof(Phonenumber));
                 }
             }
         }
@@ -189,7 +313,19 @@ namespace HospitalProject.View.Model
         {
             try
             {
-                return _patientController.Add(new Patient(_username, _firstname, _lastname, _mail, _adress, _jmbg, 0635558291));
+                return _patientController.Create(new Patient(
+                    _id,
+                    _medicalRecordId, 
+                    _guest,
+                    _username,
+                    _firstname,
+                    _lastname,
+                    _jmbg,
+                    _phonenumber,
+                    _email,
+                    _adress,
+                    _dateofbirth,
+                    _gender));
             }
             catch (InvalidDateException)
             {
@@ -202,6 +338,49 @@ namespace HospitalProject.View.Model
             PatientItems.Add(PatientConverter.ConvertPatientToPatientView(patient));
         }
 
-
+       
+        
+        
+        
+        private void DeleteItem(object sender, RoutedEventArgs e)
+        {
+            if(Patients.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a patient", "Warning", MessageBoxButton.OK);
+            } 
+            else
+            {
+                DeletePatient();
+            }
+        }
+        private void DeletePatient()
+        {
+            PatientViewModel rvm = (PatientViewModel)Patients.SelectedItem;
+            _patientController.Delete(rvm.Id);
+            PatientItems.Remove(rvm);
+        }
+        
+        private void EditEvent_Handler(object sender, RoutedEventArgs e)
+        {
+            if (Patients.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a patient", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+           //     EditPatient();
+            }
+        }
+     /*   private void EditPatient()
+        {
+            try
+            {
+                
+            }
+            catch (InvalidDateException)
+            {
+                throw;
+            }
+        }*/
     }
 }

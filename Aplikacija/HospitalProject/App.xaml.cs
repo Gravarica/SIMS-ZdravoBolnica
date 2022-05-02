@@ -81,26 +81,27 @@ namespace HospitalProject
 
             var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
 
-
-
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
             
+
+            var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+
             var _equipementRepository = new EquipementRepository(_equipementFileHandler);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
-            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+//          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
-            var _patientRepository = new PatientRepository(PATIENT_FILE, CSV_DELIMITER);
+            var _patientRepository = new PatientRepository(_patientFileHandler);
 
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
-            
+
             var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
 
             var _userRepository = new UserRepository(_userFileHandler);
@@ -120,7 +121,7 @@ namespace HospitalProject
 
             var _anamnesisService = new AnamnesisService(_anamnesisRepository, _appointmentService);
 
-            var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService, _roomService);
+            //var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService, _roomService);
 
             var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
 
@@ -128,18 +129,19 @@ namespace HospitalProject
 
             var _prescriptionService = new PrescriptionService(_prescriptionRepository, _appointmentService);
 
+
             var _roomRenovationService = new RoomRenovationService(_roomRenovationRepository,_appointmentService,_roomService);
 
 
             RenovationController = new RoomRenovationController(_roomRenovationService);
-            
+
             EquipementController = new EquipementController(_equipementService);
 
             AppointmentController = new AppointmentController(_appointmentService);
 
             DoctorController = new DoctorController(_doctorService);
 
-            AppointmentControllerPatient = new AppointmentController(_appointment_patient_Service);
+            //AppointmentControllerPatient = new AppointmentController(_appointment_patient_Service);
 
             PatientController = new PatientController(_patientService);
 

@@ -23,31 +23,21 @@ namespace Service
       
       public IEnumerable<Patient> GetAll()
       {
-         return _patientRepository.GetAll();
+         return _patientRepository._patientFileHandler.ReadAll();
       }
 
-        public void Update(Patient patient)
+      public void Update(Patient patient)
+      {
+          _patientRepository.Update(patient);
+      }
+
+        public void Delete(int id) => _patientRepository.Delete(id);
+
+        public Patient Create(Patient patient)
         {
-
-            Patient p = _patientRepository.Get(patient.Id);
-            p.Mail = patient.Mail;
-
-            p.Adress = patient.Adress;
-            p.Jmbg = patient.Jmbg;
-            p.PhoneNumber = patient.PhoneNumber;
-            p.FirstName = patient.FirstName;
-            p.LastName = patient.LastName;
-            p.Username = patient.Username;
-
+            return _patientRepository.Insert(patient);
         }
 
-        public void Delete(string id) => _patientRepository.Delete(id);
-
-        public Patient Add(Patient patient)
-        {
-
-            return _patientRepository.Add(patient);
-        }
 
         public Patient GetById(int id)
         {
@@ -58,6 +48,12 @@ namespace Service
         {
             GetById(patientId).MedicalRecordId = medicalRecordId;
         }
+
+        public Patient GetLoggedPatient(string username)
+        {
+            return _patientRepository.GetLoggedPatient(username);
+        }
+
     }
 
     

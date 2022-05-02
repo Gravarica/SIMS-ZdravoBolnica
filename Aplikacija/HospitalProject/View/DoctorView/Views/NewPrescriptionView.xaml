@@ -179,10 +179,10 @@
                               Margin="0,10,5,10"
                               FontSize="15"
                               VerticalContentAlignment="Center"
-                              SelectedValue="Value"
+                              SelectedValuePath="Value"
                               DisplayMemberPath="Name"
                               ItemsSource="{Binding IntervalComboBox}"
-                              SelectedItem="{Binding Interval}"/>
+                              SelectedValue="{Binding Interval}"/>
 
                     <Label Grid.Row="6"
                            Content="Description:"
