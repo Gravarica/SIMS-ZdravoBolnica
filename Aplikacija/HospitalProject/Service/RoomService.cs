@@ -69,7 +69,7 @@ namespace HospitalProject.Service
             selectedRoom.Floor = oldSource.Floor;
             selectedRoom.RoomType = oldSource.RoomType;
 
-            selectedDestinationRoom.Floor = oldDestination.Floor;
+           selectedDestinationRoom.Floor = oldDestination.Floor;
             selectedDestinationRoom.RoomType = oldDestination.RoomType;
 
 
@@ -110,7 +110,12 @@ namespace HospitalProject.Service
                 {
                     eq.Quantity -= quantity;
                 }
-                selectedRoom.Equipment.Add(eq);
+
+                if (eq.Quantity != 0)
+                {
+                    selectedRoom.Equipment.Add(eq);
+                }
+                
             }
 
             

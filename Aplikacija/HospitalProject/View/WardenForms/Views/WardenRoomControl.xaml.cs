@@ -51,8 +51,10 @@ namespace HospitalProject.View.WardenForms
                     return global::Model.RoomType.relaxation;
                 case "meeting":
                     return global::Model.RoomType.meeting;
-                default:
+                case "examination":
                     return global::Model.RoomType.examination;
+                default:
+                    return global::Model.RoomType.stockroom;
             }
         }
 
