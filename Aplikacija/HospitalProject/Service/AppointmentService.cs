@@ -224,5 +224,64 @@ namespace Service
             return appointments;
         }
 
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
+        {
+            var appointments = appointmentRepository.GetAllUnfinishedAppointmentsForPatient(patientId);
+            BindDataForAppointments(appointments);
+            return appointments;
+        }
+
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDoctor(DateOnly startDate, DateOnly endDate , Doctor doctor, Patient patient)
+        {
+        
+           
+            DateTime date6 = DateTime.Now;
+            TimeOnly time = new TimeOnly(date6.Hour, date6.Minute) ;
+            DateTime date1 = startDate.ToDateTime(time);
+            DateTime date2 = endDate.ToDateTime(time);
+
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+
+
+
+
+            if ((date1 - date6).TotalDays < 5)
+            {
+
+                DateOnly date3 = endDate;
+                return GenerateAvailableAppointments(today, date3.AddDays(5), doctor, patient);
+
+            }
+            else
+
+            {
+                DateOnly date4 = startDate;
+                DateOnly date5 = endDate;
+                return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient);
+            }
+
+           
+
+
+        }
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient)
+        {
+            IEnumerable<Doctor> allDoctors = _doctorService.getAll();
+            List<Appointment> existingAppointments = appointmentRepository.GetAll().ToList();
+            List<Appointment> generatedAppointments = new List<Appointment>();
+
+            foreach (Doctor d in allDoctors) {
+
+                generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, d, patient));
+            }
+
+            //List<Appointment> list3 = generatedAppointments.(existingAppointments).ToList();
+
+
+            return generatedAppointments;
+
+        }
     }
 }

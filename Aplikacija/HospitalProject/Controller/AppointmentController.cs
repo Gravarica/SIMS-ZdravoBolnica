@@ -54,5 +54,20 @@ namespace Controller
             return _appointmentService.GetAllUnifinishedAppointmentsForDoctor(doctorId);
         }
 
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
+        {
+            return _appointmentService.GetAllUnfinishedAppointmentsForPatient(patientId);
+        }
+
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDoctor(DateOnly startDate, DateOnly endDate,Doctor doctor, Patient patient)
+        {
+            return _appointmentService.GenerateAppointmentsPriorityDoctor(startDate,endDate,doctor,patient);
+        }
+
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient)
+        {
+            return _appointmentService.GenerateAppointmentsPriorityDate(startDate, endDate,patient);
+        }
     }
 }
