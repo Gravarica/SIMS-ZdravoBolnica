@@ -189,7 +189,7 @@ namespace HospitalProject.View.PatientView.Model
         private bool CanSubmitCommandExecute()
         {
             return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
-                   NewAppointmentValidation.IsComboBoxCheckedDoctor(DoctorData) &&
+                   //NewAppointmentValidation.IsComboBoxCheckedDoctor(DoctorData) &&
                    NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate) &&
                    (_intValue == 1 || _intValue == 2) ;
         }

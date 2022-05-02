@@ -38,7 +38,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
-	  <Folder Include="ValidationRules\PatientValidation\" />
 	  <Folder Include="View\WardenForms\Views\" />
   </ItemGroup>
 

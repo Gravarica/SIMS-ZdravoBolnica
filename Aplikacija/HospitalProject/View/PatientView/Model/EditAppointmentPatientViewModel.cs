@@ -3,6 +3,7 @@ using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.ValidationRules.PatientValidation;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,11 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate); //&& NewAppointmentValidation.IsComboBoxChecked(DoctorData); 
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
+                //LessThanADayRemainingUntillAppointmentCheck() &&
+                IsTimeFrameValid() &&
+                NewAppointmentValidation.IsDateAfterNow(StartDate,endDate)
+                ; 
         }
 
         private void SubmitCommandExecute()
@@ -196,6 +201,17 @@ namespace HospitalProject.View.PatientView.Model
             ShowItem.Date = SelectedItem.Date;
         }
 
+        private bool LessThanADayRemainingUntillAppointmentCheck() {
+
+            DateTime date = showItem.Date;
+            return EditAppointmentValidation.LessThank24HoursCheck(date);
+        }
+
+        private bool IsTimeFrameValid()
+        {
+            return EditAppointmentValidation.MoreThanFourDaysCheck(StartDate, endDate, showItem.Date);
+            
+        }
 
     }
 }

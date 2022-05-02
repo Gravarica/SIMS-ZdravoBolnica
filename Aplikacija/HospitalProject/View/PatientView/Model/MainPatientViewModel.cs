@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HospitalProject.ValidationRules.PatientValidation;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -242,7 +243,8 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanEditAppointmentCommandExecute()
         {
-            return SelectedItem != null;
+            return SelectedItem != null &&
+            EditAppointmentValidation.LessThank24HoursCheck(selectedItem.Date);
         }
 
         private void EditAppointmentCommandExecute()
