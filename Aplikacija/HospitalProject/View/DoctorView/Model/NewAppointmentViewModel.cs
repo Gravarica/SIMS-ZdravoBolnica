@@ -26,6 +26,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private Window window;
 
+        
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
@@ -35,7 +36,6 @@ namespace HospitalProject.View.DoctorView.Model
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
         private ExaminationType selectedExamination;
-
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
         private List<ComboBoxData<Room>> roomsComboBox = new List<ComboBoxData<Room>>();

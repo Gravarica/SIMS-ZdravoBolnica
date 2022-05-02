@@ -235,7 +235,9 @@ namespace Service
             {
 
                 DateOnly date3 = endDate;
+
                 return GenerateAvailableAppointments(today, date3.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
+
 
             }
             else
@@ -243,6 +245,7 @@ namespace Service
             {
                 DateOnly date4 = startDate;
                 DateOnly date5 = endDate;
+
                 return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
             }
 
@@ -259,7 +262,9 @@ namespace Service
 
             foreach (Doctor d in allDoctors) {
 
+
                 generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, d, patient, ExaminationType.GENERAL, FindRoomById(3)));
+
             }
 
             //List<Appointment> list3 = generatedAppointments.(existingAppointments).ToList();
