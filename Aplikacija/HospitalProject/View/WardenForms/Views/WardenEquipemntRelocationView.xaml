@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <converter:EquipmentRelocationHeaderConverter x:Key="EquipmentRelocationHeaderConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Width="1391">
         <Grid.RowDefinitions>
             <RowDefinition Height="78*"></RowDefinition>
             <RowDefinition Height="805*"/>
