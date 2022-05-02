@@ -101,5 +101,26 @@ namespace Repository
                 }
             }
         }
-   }
+
+        public Patient GetLoggedPatient(string username)
+        {
+            try
+            {
+                {
+                    return GetAll().SingleOrDefault(patient => patient.Username.Equals(username));
+                }
+            }
+            catch (ArgumentException)
+            {
+                {
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "username", username));
+                }
+            }
+        }
+
+        public IEnumerable<Patient> GetAll()
+        {
+            return _patients;
+        }
+    }
 }

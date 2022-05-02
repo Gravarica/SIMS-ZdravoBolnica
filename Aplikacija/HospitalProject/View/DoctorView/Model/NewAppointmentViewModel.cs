@@ -84,6 +84,10 @@ namespace HospitalProject.View.DoctorView.Model
 
         // PROPERTY DEFINITIONS
 
+        
+        
+        
+        
         public List<ComboBoxData<Patient>> PatientComboBox
         {
 
@@ -298,6 +302,6 @@ namespace HospitalProject.View.DoctorView.Model
                 roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
             }
         }
-
+        
     }
 }

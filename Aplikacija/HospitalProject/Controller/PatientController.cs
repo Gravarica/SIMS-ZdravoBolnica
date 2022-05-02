@@ -45,6 +45,13 @@ namespace Controller
       {
             _patientService.Update(patient);
         }
-   
-   }
+
+        public Patient GetLoggedPatient(string username)
+        {
+            return _patientService.GetLoggedPatient(username);
+        }
+
+
+
+    }
 }
