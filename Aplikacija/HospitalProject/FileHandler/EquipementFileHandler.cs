@@ -50,15 +50,15 @@ namespace HospitalProject.FileHandler
             
         }
 
-        private List<Alergen> ConvertCSVToAlergens(string CSVFormat)
+        private List<Allergies> ConvertCSVToAlergens(string CSVFormat)
         {
-            List<Alergen> alergens = new List<Alergen>();
+            List<Allergies> alergens = new List<Allergies>();
             string[] alergenTokens = CSVFormat.Split("-");
             int alergenNum = alergenTokens.Length;
             for (int i = 0; i < alergenNum; i++)
             {
                 
-                Alergen al = new Alergen(int.Parse(alergenTokens[i]));
+                Allergies al = new Allergies(int.Parse(alergenTokens[i]));
                 alergens.Add(al);
             }
 
@@ -73,7 +73,7 @@ namespace HospitalProject.FileHandler
             {
                 if (equipement.Alergens.Count != 0)
                 {
-                    foreach (Alergen alergen in equipement.Alergens)
+                    foreach (Allergies alergen in equipement.Alergens)
                     {
                         string id = alergen.Id.ToString();
 
