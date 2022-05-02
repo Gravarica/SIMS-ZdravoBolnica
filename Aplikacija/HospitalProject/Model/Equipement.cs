@@ -12,18 +12,18 @@ namespace HospitalProject.Model
         private int quantity;
         private string name;
         private EquipementType equipementType;
-        private List<Alergen> alergens;
+        private List<Allergies> alergens;
 
 
 
 
-        public List<Alergen> Alergens
+        public List<Allergies> Alergens
         {
             get
             {
                 if (alergens == null)
                 {
-                    alergens = new System.Collections.Generic.List<Alergen>();
+                    alergens = new System.Collections.Generic.List<Allergies>();
                 }
                 return alergens;
             }
@@ -35,7 +35,7 @@ namespace HospitalProject.Model
                 }
                 if (value != null)
                 {
-                    foreach (Alergen al in value)
+                    foreach (Allergies al in value)
                     {
                         AddAlergen(al);
                     }
@@ -44,7 +44,7 @@ namespace HospitalProject.Model
             }
         }
         
-        public void AddAlergen(Alergen al)
+        public void AddAlergen(Allergies al)
         {
             if (al == null)
             {
@@ -53,7 +53,7 @@ namespace HospitalProject.Model
 
             if (alergens == null)
             {
-                alergens = new System.Collections.Generic.List<Alergen>();
+                alergens = new System.Collections.Generic.List<Allergies>();
             }
 
             if (!alergens.Contains(al))
@@ -122,7 +122,7 @@ namespace HospitalProject.Model
             EquipementType = equipementType;
         }
 
-        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Alergen> alergens)
+        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
         {
             this.id = id;
             this.quantity = quantity;

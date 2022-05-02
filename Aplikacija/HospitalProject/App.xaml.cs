@@ -30,6 +30,7 @@ namespace HospitalProject
         private string ROOM_RENOVATION_FILE = _projectPath + "\\Resources\\Data\\roomRenovations.csv";
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
+        private string ALLERGIES_FILE = _projectPath + "\\Resources\\Data\\allergies.csv";
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
         private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
         private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
@@ -38,7 +39,7 @@ namespace HospitalProject
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
         
         
-        
+        public AllergiesController AllergiesController { get; set; }
         public RoomRenovationController RenovationController { get; set; }
 
         public DoctorController DoctorController { get; set; }
@@ -64,6 +65,8 @@ namespace HospitalProject
 
         public App()
         {
+
+            var _allergiesFileHandler = new AllergiesFileHandler(ALLERGIES_FILE, CSV_DELIMITER);
 
             var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, DATETIME_FORMAT);
             
@@ -92,6 +95,9 @@ namespace HospitalProject
 
 //          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
+
+            var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
+
             var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
@@ -107,8 +113,10 @@ namespace HospitalProject
             var _userRepository = new UserRepository(_userFileHandler);
 
 
-            
 
+
+            var _allergiesService = new AllergiesService(_allergiesRepository);
+            
             var _equipementService = new EquipementService(_equipementRepository);
 
             var _doctorService = new DoctorService(_doctorRepository);
@@ -132,6 +140,9 @@ namespace HospitalProject
 
             var _roomRenovationService = new RoomRenovationService(_roomRenovationRepository,_appointmentService,_roomService);
 
+
+
+            AllergiesController = new AllergiesController(_allergiesService);
 
             RenovationController = new RoomRenovationController(_roomRenovationService);
 

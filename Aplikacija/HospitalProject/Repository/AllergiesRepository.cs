@@ -15,17 +15,17 @@ public class AllergiesRepository
         private AllergiesFileHandler _allergiesFileHandler;
         private PatientFileHandler _patientFileHandler;
         private int _allergiesMaxId;  
-        private AllergiesRepository _allergiesRepository;
+        
         public PatientRepository _patientRepository;
         public MedicalRecordRepository _medicalRecordRepository;
         
-        public AllergiesRepository(AllergiesFileHandler allergiesFileHandler, AllergiesRepository allergiesRepository)
+        public AllergiesRepository(AllergiesFileHandler allergiesFileHandler)
         {
             _allergiesFileHandler = allergiesFileHandler;
-            _allergiesRepository = allergiesRepository;
+            
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
-            LinkAllergiesWithPatients();
+            //LinkAllergiesWithPatients();
         }
         private int GetMaxId() {
             return _allergies.Count() == 0 ? 0 : _allergies.Max(Allergy => Allergy.Id);
