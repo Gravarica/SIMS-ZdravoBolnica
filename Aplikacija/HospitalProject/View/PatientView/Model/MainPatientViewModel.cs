@@ -231,7 +231,7 @@ namespace HospitalProject.View.PatientView.Model
          }
 
 
-       /* public RelayCommand EditAppointmentCommand
+        public RelayCommand EditAppointmentCommand
         {
             get
             {
@@ -243,14 +243,14 @@ namespace HospitalProject.View.PatientView.Model
         private bool CanEditAppointmentCommandExecute()
         {
             return SelectedItem != null;
-        }*/
+        }
 
-       /* private void EditAppointmentCommandExecute()
+        private void EditAppointmentCommandExecute()
         {
-            EditAppointmentview view = new EditAppointmentview();
-            view.DataContext = new EditAppointmentViewModel(SelectedItem, AppointmentItems);
+            EditAppointmentPatientView view = new EditAppointmentPatientView();
+            view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems);
             view.ShowDialog();
-        }*/
+        }
 
 
 

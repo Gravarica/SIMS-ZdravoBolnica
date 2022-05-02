@@ -31,7 +31,7 @@ namespace HospitalProject.View.PatientView.Model
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
-        private int _intValue;
+        private int _intValue = 0;
         
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
@@ -189,7 +189,8 @@ namespace HospitalProject.View.PatientView.Model
         {
             return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
                    NewAppointmentValidation.IsComboBoxCheckedDoctor(DoctorData) &&
-                   NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate);
+                   NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate) &&
+                   (_intValue == 1 || _intValue == 2) ;
         }
 
         private void SubmitCommandExecute()
@@ -204,11 +205,11 @@ namespace HospitalProject.View.PatientView.Model
 
                 if (_intValue == 1) {
 
-                    GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly,endDateOnly, DoctorData, patient));
+                     GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly,endDateOnly, DoctorData, patient));
                 }
                 else if(_intValue == 2)
                 {
-                    GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, patient));
+                     GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, patient));
                 }
             
             }
@@ -246,6 +247,7 @@ namespace HospitalProject.View.PatientView.Model
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
+            SubmitCommandExecute();
         }
 
         /*public RelayCommand CancelCommand

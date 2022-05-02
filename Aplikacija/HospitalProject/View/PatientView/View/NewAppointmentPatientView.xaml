@@ -127,11 +127,15 @@
                       SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date"
-                                        Width="2*"
-                                        Binding="{Binding Date}"/>
+                                        Width="3*"
+                                        Binding="{Binding Date}"
+                                        FontSize="10"/>
                     <DataGridTextColumn Header="Duration"
-                                        Width="*"
-                                        Binding="{Binding Duration}"/>
+                                        Width="2*"
+                                        Binding="{Binding Duration}"
+                                        FontSize="10"/>
+
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor , Converter={StaticResource NameConverter}}"  Width="3*" FontSize="10"/>
                 </DataGrid.Columns>
 
             </DataGrid>
