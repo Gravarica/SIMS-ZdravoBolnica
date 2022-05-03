@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Documents;
+using HospitalProject.Core;
 using HospitalProject.Model;
 using Model;
 
@@ -13,6 +14,8 @@ namespace HospitalProject.View.Model
         string _roomType;
         int _roomFloor;
         private List<Equipement> equipment;
+        
+        private Room selectedItem2;
         
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -37,6 +40,19 @@ namespace HospitalProject.View.Model
                     equipment = value;
                     OnPropertyChanged(nameof(Equipment));
                 }
+            }
+        }
+        
+        public Room SelectedItem2
+        {
+            get
+            {
+                return selectedItem2;
+            }
+            set
+            {
+                selectedItem2 = value;
+                OnPropertyChanged(nameof(SelectedItem2));
             }
         }
 

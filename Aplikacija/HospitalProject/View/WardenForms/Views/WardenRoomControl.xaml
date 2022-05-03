@@ -14,7 +14,11 @@
         </Grid.RowDefinitions>
 
         <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top" Content="WARDEN VIEW - ROOMS" Foreground="#FFF3BF09" BorderThickness="1" Width="1382" Height="58" Margin="0,8,0,0" BorderBrush="#FFF3BF09" Grid.RowSpan="2" />
-        <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1" Margin="5" AutoGenerateColumns="False" Name ="Rooms" IsReadOnly="True"  ItemsSource="{Binding Path=RoomItems}" SelectionMode="Single" BorderBrush="#FFD4D600">
+        <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1" Margin="5" 
+                  AutoGenerateColumns="False" Name ="Rooms" IsReadOnly="True" 
+                    ItemsSource="{Binding Path=RoomItems}"
+                  SelectedItem="{Binding SelectedItem1}" 
+                  SelectionMode="Single" BorderBrush="#FFD4D600">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Room ID" Binding="{Binding RoomId}" Width="*"/>
                 <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" Width="*"/>
@@ -66,9 +70,9 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="1" BorderBrush="#FFD4D600" BorderThickness="1" Margin="5">
-                <StackPanel Margin="-688,199,698,13" Background="#FFF3BF09">
+                <StackPanel Margin="-690,189,700,1" Background="#FFF3BF09">
                     <Label Content="Room Information" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF272537"/>
-                    <Grid Margin="5,20,5,5" Name ="InfoRoomtGrid" DataContext="{Binding ElementName=Rooms,Path=SelectedItem}">
+                    <Grid Margin="5,20,5,5" Name ="InfoRoomtGrid" DataContext="{Binding ElementName=Rooms,Path=SelectedItem}" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -97,12 +101,12 @@
                         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding RoomFloor}"/>
 
 
-                        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content= "Edit" Click="EditEvent_Handler" Foreground="#FF272537"/>
+                        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content= "Edit" Click="EditEvent_Handler" Foreground="#FF272537" Margin="112,7,148,-43"/>
                     </Grid>
                 </StackPanel>
             </Border>
         </Grid>
-        <Button Content="Delete" HorizontalAlignment="Left" Margin="870,30,0,0" VerticalAlignment="Top" Height="23" Width="70" />
-        <Button Content="Room renovatoin" Margin="861,176,163,169" Grid.Row="2"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="730,76,0,0" VerticalAlignment="Top" Height="104" Width="612" Grid.Row="2" />
+        <Button Content="Room renovatoin" Margin="732,243,53,68" Grid.Row="2" Command="{Binding RenovationCommand}"></Button>
     </Grid>
 </UserControl>

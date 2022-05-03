@@ -5,8 +5,8 @@ namespace HospitalProject.Model;
 
 public class RoomRenovation : ViewModelBase
 {
-    private DateTime startDate;
-    private DateTime endDate;
+    private DateOnly startDate;
+    private DateOnly endDate;
     private Room room;
     private bool isDone;
     private int id;
@@ -31,7 +31,7 @@ public class RoomRenovation : ViewModelBase
         }
     }
     
-    public DateTime StartDate 
+    public DateOnly StartDate 
     { 
         get
         {
@@ -44,7 +44,7 @@ public class RoomRenovation : ViewModelBase
         }
     }
     
-    public DateTime EndDate 
+    public DateOnly EndDate 
     { 
         get
         {
@@ -71,7 +71,7 @@ public class RoomRenovation : ViewModelBase
 
     public RoomRenovation() {}
 
-    public RoomRenovation(DateTime startDate, DateTime endDate, int roomId, bool isDone,int id)
+    public RoomRenovation(DateOnly startDate, DateOnly endDate, int roomId, bool isDone,int id)
     {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -81,7 +81,7 @@ public class RoomRenovation : ViewModelBase
         this.id = id;
     }
 
-    public RoomRenovation(DateTime startDate, DateTime endDate, Room room)
+    public RoomRenovation(DateOnly startDate, DateOnly endDate, Room room)
     {
         this.startDate = startDate;
         this.endDate = endDate;

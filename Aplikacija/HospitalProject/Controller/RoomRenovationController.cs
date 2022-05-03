@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HospitalProject.Model;
 using HospitalProject.Service;
+using Model;
 
 namespace HospitalProject.Controller
 {
@@ -31,6 +33,13 @@ namespace HospitalProject.Controller
         public void Delete(int id)
         {
             _roomRenovationService.Delete(id);
+        }
+
+        public List<RoomRenovation> GenerateAvailableRenovationAppointments(DateOnly searchStartDate, DateOnly
+            searchEndDate, Room room, int duration)
+        {
+            return _roomRenovationService.GenerateAvailableRenovationAppointments(searchStartDate, searchEndDate, room,
+                duration);
         }
     }
 }

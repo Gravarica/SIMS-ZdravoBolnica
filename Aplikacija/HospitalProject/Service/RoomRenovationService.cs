@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 using HospitalProject.Model;
 using HospitalProject.Repository;
 using Model;
@@ -67,6 +69,58 @@ namespace HospitalProject.Service
         private Room FindRoomById(int roomId)
         {
             return _roomService.Get(roomId);
+        }
+        
+        public List<RoomRenovation> GenerateAvailableRenovationAppointments(DateOnly searchStartDate, DateOnly
+            searchEndDate, Room room,int duration)
+        {
+            List<RoomRenovation> availableRenovationAppointments = new List<RoomRenovation>();
+            List<RoomRenovation> allRenovations =
+                GenerateAllRenovationAppointments(searchStartDate, searchEndDate, room, duration);
+            foreach (RoomRenovation rr in allRenovations)
+            {
+                if (_appointmentService.RoomHasApointmentByDay(rr.StartDate, rr.EndDate, rr.Room)
+                    && RoomHasReservationsByDay(rr.StartDate, rr.EndDate, rr.Room)
+                    )
+                {
+                    availableRenovationAppointments.Add(rr);
+                }
+            }
+
+            return availableRenovationAppointments;
+        }
+
+        private bool RoomHasReservationsByDay(DateOnly startDate, DateOnly endDate, Room room)
+        {
+            var allReservations = getAll();
+            foreach (RoomRenovation rr in allReservations)
+            {
+                if (startDate >= rr.StartDate && startDate <= rr.EndDate && rr.Room.Id == room.Id)
+                {
+                    return false;
+                }
+                if (endDate >= rr.StartDate && endDate <= rr.EndDate && rr.Room.Id == room.Id)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private List<RoomRenovation> GenerateAllRenovationAppointments(DateOnly searchStartDate, DateOnly
+            searchEndDate, Room room, int duration)
+        {
+            List<RoomRenovation> generatedRenovations = new List<RoomRenovation>();
+            while (searchStartDate.AddDays(duration) <= searchEndDate)
+            {
+                RoomRenovation renovation =
+                    new RoomRenovation(searchStartDate, searchStartDate.AddDays(duration), room);
+                generatedRenovations.Add(renovation);
+                searchStartDate = searchStartDate.AddDays(1);
+            }
+
+            return generatedRenovations;
         }
         
         
