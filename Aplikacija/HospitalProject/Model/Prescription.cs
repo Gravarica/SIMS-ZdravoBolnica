@@ -20,6 +20,7 @@ namespace HospitalProject.Model
         private string description;
 
         // Constructor that is called when creating a new object
+        public Prescription() { }
         public Prescription(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
         {
             Appointment = appointment;

@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using HospitalProject.ValidationRules.PatientValidation;
+using HospitalProject.Model;
+using System.Threading;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -35,6 +37,7 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand infoCommand;
 
         private Window window;
+        private Thread thread;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> DoctorIds { get; set; }
@@ -43,6 +46,7 @@ namespace HospitalProject.View.PatientView.Model
         PatientController _patientController;
         DoctorController _doctorController;
         UserController _userController;
+        NotificationController _notificationController;
 
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
@@ -132,7 +136,9 @@ namespace HospitalProject.View.PatientView.Model
             InstantiateControllers();
             InstantiateData();
             FillComboData();
-
+            ThreadStart ts = new ThreadStart(StartNotificationThread);
+            thread = new Thread(ts);
+            thread.Start();
         }
 
         private void InstantiateControllers()
@@ -142,6 +148,7 @@ namespace HospitalProject.View.PatientView.Model
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
             _userController = app.UserController;
+            _notificationController = app.NotificationController;
         }
 
         private void InstantiateData()
@@ -295,6 +302,30 @@ namespace HospitalProject.View.PatientView.Model
 
             return true;
         }
+
+
+        public void StartNotificationThread()
+        {
+            while (true)
+            {
+                Notification notification = _notificationController.CheckForNotifications(_patient);
+                if (notification != null)
+                {
+
+                    MessageBox.Show(notification.Prescription.Description, notification.Name);
+                
+                }
+
+
+                Thread.Sleep(60*1000);
+
+
+
+            }
+        
+        
+        }
+
     }
 
 }
