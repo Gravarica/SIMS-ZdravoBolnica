@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
 using HospitalProject.View.Util;
 using Model;
@@ -20,15 +21,21 @@ namespace HospitalProject.View.DoctorView.Model
         private DoctorController doctorController;
         private PatientController patientController;
         private UserController userController;
+        private RoomControoler roomController;
 
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
         private Doctor doctor;
+        private Room room;
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment showItem;
         private Appointment selectedItem;
+        private ExaminationType selectedExamination;
+
         private ObservableCollection<Appointment> _appointmentItems;
+        private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
+        private List<ComboBoxData<Room>> roomsComboBox = new List<ComboBoxData<Room>>();
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get
@@ -64,6 +71,7 @@ namespace HospitalProject.View.DoctorView.Model
             patientController = app.PatientController;
             doctorController = app.DoctorController;
             userController = app.UserController;
+            roomController = app.RoomController;
         }
 
         private void InitializeData()
@@ -138,6 +146,58 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public List<ComboBoxData<ExaminationType>> ExaminationTypeComboBox
+        {
+            get
+            {
+                return examinationTypeComboBox;
+            }
+            set
+            {
+                examinationTypeComboBox = value;
+                OnPropertyChanged(nameof(ExaminationTypeComboBox));
+            }
+        }
+
+        public List<ComboBoxData<Room>> RoomComboBox
+        {
+            get
+            {
+                return roomsComboBox;
+            }
+            set
+            {
+                roomsComboBox = value;
+                OnPropertyChanged(nameof(RoomComboBox));
+            }
+        }
+
+        public ExaminationType SelectedExamination
+        {
+            get
+            {
+                return selectedExamination;
+            }
+            set
+            {
+                selectedExamination = value;
+                OnPropertyChanged(nameof(SelectedExamination));
+            }
+        }
+
+        public Room SelectedRoom
+        {
+            get
+            {
+                return room;
+            }
+            set
+            {
+                room = value;
+                OnPropertyChanged(nameof(SelectedRoom));
+            }
+        }
+
         // RELAY COMMAND DEFINITONS
 
         public RelayCommand SubmitCommand
@@ -176,7 +236,9 @@ namespace HospitalProject.View.DoctorView.Model
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
                                                                                                                               doctor,
-                                                                                                                              PatientData));
+                                                                                                                              PatientData,
+                                                                                                                              SelectedExamination,
+                                                                                                                              SelectedRoom));
         }
 
         public RelayCommand SaveCommand
