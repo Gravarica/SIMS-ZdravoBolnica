@@ -29,9 +29,9 @@ namespace HospitalProject.Controller
             return prescriptionService.GetPrescriptionsForPatient(patientId);
         }
 
-        public void Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
+        public string Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
         {
-            prescriptionService.Create(appointment, startDate, endDate, interval, description);
+            return prescriptionService.Create(appointment, startDate, endDate, interval, description, medicine);
         }
 
         public void Delete(int prescriptionId)

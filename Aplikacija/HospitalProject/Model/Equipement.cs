@@ -143,6 +143,8 @@ namespace HospitalProject.Model
             this.id = id;
             this.quantity = quantity;
         }
+
+        public Equipement() { }
     }
 
 

@@ -45,6 +45,7 @@ namespace Controller
       
       public void Delete(int id)
       {
+            //userService.Delete(username)
             _patientService.Delete(id);
         }
       

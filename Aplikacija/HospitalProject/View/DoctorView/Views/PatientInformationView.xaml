@@ -10,6 +10,7 @@
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
+        <converters:AllergyConverter x:Key="AllergyConverter"/>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -145,6 +146,15 @@
                            Grid.Column="1"
                            Text="Diabetes"
                            Style="{StaticResource TextBlockStyle}"/>
+
+                <ListView Grid.Row="0"
+                          Grid.Column="2"
+                          Grid.RowSpan="2"
+                          Grid.ColumnSpan="2"
+                          Margin="40,10,40,10"
+                          ItemsSource="{Binding MedicalRecord.Allergies, Converter={StaticResource AllergyConverter}}"/>
+
+
             </Grid>
         </GroupBox>
     </Grid>

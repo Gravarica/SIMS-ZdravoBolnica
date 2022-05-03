@@ -36,5 +36,10 @@ namespace HospitalProject.Controller
         {
             _equipementService.Delete(id);
         }
+
+        public List<Equipement> GetAllMedicine()
+        {
+            return _equipementService.GetAllMedicine();
+        }
     }
 }
