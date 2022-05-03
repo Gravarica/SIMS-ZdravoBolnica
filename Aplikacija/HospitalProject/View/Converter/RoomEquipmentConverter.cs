@@ -17,7 +17,8 @@ public class RoomEquipmentConverter
         {
             RoomId = room._id,
             RoomNumber = room._number,
-            EquipmentQuantity = CountEquipement(equipmentId,room)
+            EquipmentQuantity = CountEquipement(equipmentId,room),
+            WasZero = false
 
             
 };
