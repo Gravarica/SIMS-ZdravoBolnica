@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:PatientProfileVM}"
         mc:Ignorable="d" 
          d:DesignHeight="525" d:DesignWidth="750"
-             Background="AliceBlue">
+             Background="PaleVioletRed">
     <Window.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
@@ -28,8 +28,8 @@
         <GroupBox Header="General Information" 
                   FontSize="25"
                   Grid.Row="0"
-                  Margin="20,20,71,24">
-            <Grid >
+                  Margin="30,34,60,10">
+            <Grid Margin="10,0,-36,0" Height="371" >
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -38,79 +38,81 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="162*" />
+                    <ColumnDefinition Width="162*" />
+                    <ColumnDefinition Width="164*" />
+                    <ColumnDefinition Width="149*" />
+                    <ColumnDefinition Width="11*"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Content="First Name: "
-                       Style = "{StaticResource LabelStyle}"/>
-                <TextBlock Grid.Row="0"
+                       Style = "{StaticResource LabelStyle}" Margin="0,0,0,1"/>
+                <TextBlock
                            Grid.Column="1"
                            Style="{StaticResource TextBlockStyle}"
-                           Text="{Binding MedicalRecord.Patient.FirstName}"/>
+                           Text="{Binding Patient.FirstName}" Height="23" Width="0"/>
 
-                <Label Grid.Row="1"
+                <Label
                        Grid.Column="0"
                        Content="Last Name: "
-                       Style = "{StaticResource LabelStyle}"/>
+                       Style = "{StaticResource LabelStyle}" Margin="0,74,0,2" Grid.RowSpan="2"/>
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
                            Style="{StaticResource TextBlockStyle}"
-                           Text="{Binding MedicalRecord.Patient.LastName}"/>
+                           Text="{Binding Patient.LastName}" Height="24" Width="0"/>
 
-                <Label Grid.Row="2"
+                <Label Grid.Row="1"
                        Grid.Column="0"
                        Content="Date of Birth:"
-                       Style = "{StaticResource LabelStyle}"/>
-                <TextBlock Grid.Row="2"
-                           Grid.Column="1"
-                           Text="{Binding MedicalRecord.Patient.DateOfBirth}"/>
+                       Style = "{StaticResource LabelStyle}" Margin="0,74,0,1" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Patient.DateOfBirth}" Margin="168,74,0,1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="3"
                        Grid.Column="0"
                        Content="JMBG: "
-                       Style = "{StaticResource LabelStyle}"/>
+                       Style = "{StaticResource LabelStyle}" Margin="0,0,0,2"/>
                 <TextBlock Grid.Row="3"
-                           Grid.Column="1"
-                           Text="{Binding MedicalRecord.Patient.Jmbg}"/>
+                           Text="{Binding Patient.Jmbg}" Margin="168,0,0,2" Grid.ColumnSpan="2"/>
 
                 <Label Grid.Row="4"
                        Grid.Column="0"
                        Content="Email Adress: "
-                       Style = "{StaticResource LabelStyle}"/>
+                       Style = "{StaticResource LabelStyle}" Margin="0,0,0,1"/>
                 <TextBlock Grid.Row="4"
                            Grid.Column="1"
-                           Text="{Binding MedicalRecord.Patient.Email}"/>
-                <TextBlock Grid.Row="3"
-                           Text="{Binding MedicalRecord.Patient.BloodType}" Margin="0,86,2,1" Grid.Column="3" Grid.RowSpan="2"/>
-                <Label Grid.Row="4"
-                       Grid.Column="2"
-                       Content="Blood Type:"
-                       Style="{StaticResource LabelStyle}" Margin="0,1,5,0"/>
+                           Text="{Binding Patient.Email}"/>
                 <Label Grid.Row="3"
                     Grid.Column="2"
                     Content="Phone number:"
-                    Style="{StaticResource LabelStyle}" Margin="0,0,5,85" Grid.RowSpan="2"/>
+                    Style="{StaticResource LabelStyle}" Margin="0,2,155,74" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                 <Label Grid.Row="1"
                     Grid.Column="2"
                     Content="Gender:"
-                    Style="{StaticResource LabelStyle}" Margin="0,84,24,1" Grid.RowSpan="2"/>
+                    Style="{StaticResource LabelStyle}" Margin="0,74,5,74" Grid.RowSpan="3"/>
                 <Label
                     Grid.Column="2"
                     Content="Username:"
-                    Style="{StaticResource LabelStyle}" Margin="0,84,5,1" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="2"
-                    Text="{Binding MedicalRecord.Patient.PhoneNumber}" Margin="0,85,2,2" Grid.Column="3" Grid.RowSpan="2"/>
-                <TextBlock Grid.Row="2"
-                    Text="{Binding MedicalRecord.Patient.Gender}" Margin="0,0,2,0" Grid.Column="3"/>
+                    Style="{StaticResource LabelStyle}" Margin="0,74,155,3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+                <TextBlock Grid.Row="3"
+                    Text="{Binding Patient.PhoneNumber}" Margin="0,0,25,2" Grid.Column="3"/>
+                <TextBlock Grid.Row="1"
+                    Text="{Binding Patient.Gender}" Margin="0,74,25,1" Grid.Column="3" Grid.RowSpan="2"/>
                 <TextBlock
-                    Text="{Binding MedicalRecord.Patient.Username}" Margin="0,85,2,2" Grid.Column="3" Grid.RowSpan="2"/>
+                    Text="{Binding Patient.Username}" Margin="0,74,25,2" Grid.Column="3" Grid.RowSpan="2"/>
+                <TextBlock
+                    Text="{Binding Patient.LastName}" Margin="168,73,0,2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBlock
+                    Text="{Binding Patient.FirstName}" Margin="168,0,0,1" Grid.ColumnSpan="2"/>
             </Grid>
         </GroupBox>
+        <Button Command="{Binding ShowAllergiesCommand}"  Content="Allergies" HorizontalAlignment="Left" Margin="572,67,0,0" VerticalAlignment="Top" Height="47" Width="97" >
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

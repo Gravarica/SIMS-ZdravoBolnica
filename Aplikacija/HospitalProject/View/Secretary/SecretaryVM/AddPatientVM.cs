@@ -258,28 +258,17 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public Gender StringToGender(string str)
-        {
-            switch (str)
-            {
-                case "male":
-                    return global::Model.Gender.male;
-
-                default:
-                    return global::Model.Gender.female;
-            }
-        }
+       
 
 
-
-
-        public RelayCommand SaveCommand
+       /* public RelayCommand SaveCommand
         {
             get
             {
                 return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand()));
             }
-        }
+        }*/
+
 
         private void ExecuteSaveCommand()
         {

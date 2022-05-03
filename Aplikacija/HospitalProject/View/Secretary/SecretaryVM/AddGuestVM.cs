@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Controller;
 using HospitalProject.Core;
 using Model;
@@ -28,7 +29,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Patient _patient;
 
         private int _id;
-
+        private int _idMR;
 
         public AddGuestVM()
         {
@@ -45,11 +46,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         // private bool CanExecute() {
         /* if (!string.IsNullOrEmpty(p.FirstName) &&
-                  !string.IsNullOrEmpty(p.Username) &&
                   !string.IsNullOrEmpty(p.LastName) &&
-                  !string.IsNullOrEmpty(p.Email) &&
-                  !string.IsNullOrEmpty(p.Adress) &&
-                  !string.IsNullOrEmpty(p.Password))
+                  !string.IsNullOrEmpty(p.Jmbg))
 
 
           { return true; }*/
@@ -106,11 +104,14 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        private void ExecuteSaveCommand()
+        private Patient ExecuteSaveCommand()
         {
+            Patient P = _patientController.Create(new Patient(_id, _idMR, FirstName, LastName, Jmbg));
 
-            Patients.Add(_patientController.Create(new Patient(_id, FirstName, LastName, Jmbg)));
+            Patients.Add(P);
+            MessageBox.Show("Patient succsessfully added", "Add new patient", MessageBoxButton.OK);
 
+            return P;
         }
 
 
