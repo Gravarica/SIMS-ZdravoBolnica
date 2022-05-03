@@ -18,9 +18,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        
         <Border Grid.Row="0" Background="IndianRed"/>
         <Label Grid.Row="0" Content="Edit Appointment" HorizontalContentAlignment="Left" FontSize="22" Foreground="White"/>
-
+        <Button Grid.Column="1" Content="Save" Height="20" Width="110" HorizontalAlignment="Right"
+                Margin="0,0,20,0"
+                Command="{Binding SaveCommand}"/>
+        
         <Grid Grid.Row="1">
 
             <Grid.ColumnDefinitions>
@@ -47,7 +51,7 @@
                 <Label Content="Reschedule the appointment" Grid.ColumnSpan="2" FontSize="18" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Label Content="Patient:" FontSize="18" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
                 <Label Content="Doctor:" FontSize="18" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
-                <Label Content="Start Date::" FontSize="18" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                <Label Content="Start Date:" FontSize="18" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                 <Label Content="End Date:" FontSize="18" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center"/>
                 
                 <Button 
@@ -80,7 +84,7 @@
             <DataGrid Grid.Column="1"
                       Margin="20,25,20,45"
                       AutoGenerateColumns="False"
-                      FontSize="20"
+                      FontSize="16"
                       ItemsSource="{Binding Path=GeneratedAppointments}"
                       SelectedItem="{Binding SelectedItem}"
                       IsReadOnly="True"

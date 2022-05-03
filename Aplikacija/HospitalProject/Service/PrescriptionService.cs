@@ -76,6 +76,14 @@ namespace HospitalProject.Service
             prescriptionRepository.Delete(prescriptionId);
         }
 
+
+        public Prescription GetById(int id) {
+
+            var prescription = prescriptionRepository.GetById(id);
+            SetAppointmentForPrescription(prescription);
+            return prescription;
+        }
+      
         private void BindMedicinesWithPrescriptions(List<Prescription> prescriptions)
         {
             prescriptions.ForEach(prescription => SetMedicineForPrescription(prescription));

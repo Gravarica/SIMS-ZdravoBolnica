@@ -34,6 +34,7 @@ namespace HospitalProject
         private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
         private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
+        private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
         private const string ONLY_DATE_FORMAT = "MM/dd/yyyy";
@@ -63,6 +64,8 @@ namespace HospitalProject
 
         public PrescriptionController PrescriptionController { get; set; }
 
+        public NotificationController NotificationController { get; set; }
+
         public App()
         {
 
@@ -86,9 +89,13 @@ namespace HospitalProject
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
-            var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
 
-            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
+            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
+
+//          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+
+            var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
             var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
 
@@ -105,6 +112,8 @@ namespace HospitalProject
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
 
             var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
+
+            var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
 
             var _userRepository = new UserRepository(_userFileHandler);
 
@@ -136,6 +145,8 @@ namespace HospitalProject
 
             RenovationController = new RoomRenovationController(_roomRenovationService);
 
+            var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
+
             EquipementController = new EquipementController(_equipementService);
 
             AppointmentController = new AppointmentController(_appointmentService);
@@ -155,6 +166,8 @@ namespace HospitalProject
             UserController = new UserController(_userService);
 
             PrescriptionController = new PrescriptionController(_prescriptionService);
+
+            NotificationController = new NotificationController(_notificationService);
         }
 
        

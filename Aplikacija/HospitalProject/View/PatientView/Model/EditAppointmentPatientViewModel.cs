@@ -3,6 +3,7 @@ using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.ValidationRules.PatientValidation;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -21,6 +23,7 @@ namespace HospitalProject.View.PatientView.Model
         private PatientController patientController;
         private UserController userController;
         private RoomControoler roomController;
+        private Window window; 
 
 
         private DateTime startDate;
@@ -48,8 +51,9 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand cancelCommand;
         private RelayCommand saveCommand;
 
-        public EditAppointmentPatientViewModel(Appointment appointment, ObservableCollection<Appointment> appointmentItems)
+        public EditAppointmentPatientViewModel(Appointment appointment, ObservableCollection<Appointment> appointmentItems, Window window)
         {
+            this.window = window;
             InitializeControllers();
             InitializeData();
             showItem = appointment;
@@ -164,7 +168,11 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanSubmitCommandExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate); //&& NewAppointmentValidation.IsComboBoxChecked(DoctorData); 
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
+                //LessThanADayRemainingUntillAppointmentCheck() &&
+                IsTimeFrameValid() &&
+                NewAppointmentValidation.IsDateAfterNow(StartDate,endDate)
+                ; 
         }
 
         private void SubmitCommandExecute()
@@ -196,8 +204,20 @@ namespace HospitalProject.View.PatientView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            window.Close();
         }
 
+        private bool LessThanADayRemainingUntillAppointmentCheck() {
+
+            DateTime date = showItem.Date;
+            return EditAppointmentValidation.LessThank24HoursCheck(date);
+        }
+
+        private bool IsTimeFrameValid()
+        {
+            return EditAppointmentValidation.MoreThanFourDaysCheck(StartDate, endDate, showItem.Date);
+            
+        }
 
     }
 }
