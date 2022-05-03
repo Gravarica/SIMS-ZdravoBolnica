@@ -261,14 +261,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
        
 
 
-       /* public RelayCommand SaveCommand
+       public RelayCommand SaveCommand
         {
             get
             {
-                return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand()));
+                return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand(), param => CanExecute()));
             }
-        }*/
+        }
 
+        private bool CanExecute()
+        {
+            return true;
+        }
 
         private void ExecuteSaveCommand()
         {
