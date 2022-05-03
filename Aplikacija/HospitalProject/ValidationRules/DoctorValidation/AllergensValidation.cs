@@ -9,13 +9,13 @@ namespace HospitalProject.ValidationRules.DoctorValidation
 {
     public class AllergensValidation
     {
-        /*public static Allergies CheckIfPatientIsAllergicToMedicine(List<Allergies> allergies, Equipement medicine)
+        public static Allergies CheckIfPatientIsAllergicToMedicine(List<Allergies> allergies, Equipement medicine)
         {
             foreach (Allergies allergen in allergies)
             {
-                foreach (String substance in medicine.ActiveSubstances)
+                foreach(Allergies medicineAllergen in medicine.Alergens)
                 {
-                    if(allergen.Name.Equals(substance))
+                    if(allergen.Name.Equals(medicineAllergen.Name))
                     {
                         return allergen;
                     }
@@ -23,6 +23,6 @@ namespace HospitalProject.ValidationRules.DoctorValidation
             }
 
             return null;
-        }*/
+        }
     }
 }

@@ -63,15 +63,15 @@ namespace HospitalProject.FileHandler
 
         private UserType convertStringToUserType(string userType)
         {
-            if(userType.Equals("PATIENT"))
+            if (userType.Equals("PATIENT"))
             {
                 return UserType.PATIENT;
-            } 
-            else if(userType.Equals("DOCTOR"))
+            }
+            else if (userType.Equals("DOCTOR"))
             {
                 return UserType.DOCTOR;
             }
-            else if(userType.Equals("SECRETARY"))
+            else if (userType.Equals("SECRETARY"))
             {
                 return UserType.SECRETARY;
             }
@@ -79,6 +79,7 @@ namespace HospitalProject.FileHandler
             {
                 return UserType.WARDEN;
             }
+           
         }
     }
 }

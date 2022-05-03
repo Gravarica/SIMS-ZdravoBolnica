@@ -25,6 +25,7 @@ namespace HospitalProject.View.PatientView.Model
         private RoomControoler roomController;
         private Window window; 
 
+
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
@@ -69,6 +70,7 @@ namespace HospitalProject.View.PatientView.Model
             doctorController = app.DoctorController;
             userController = app.UserController;
             roomController = app.RoomController;
+
         }
 
         private void InitializeData()

@@ -98,6 +98,7 @@ public class User : ViewModelBase
         Username = username;
         Password = password;
         UserType = userType;
+
     }
 
     public User(String username, String password, String firstName, String lastName, UserType userType)
@@ -110,47 +111,57 @@ public class User : ViewModelBase
     }
 
     public User(String firstName, String lastName, int jmbg) { 
-        Username = username;
         FirstName = firstName;
+        LastName = lastName;
         Jmbg = jmbg;
-        
-    }
+        Username = "guest";
+        Password = "guest";
+    
+        UserType = UserType.PATIENT;
+
+        PhoneNumber = 0000;
+        Email = "guest@gmail.com";
+        Adress = "guest";
+        DateOfBirth = Convert.ToDateTime("10/10/2000 11:00");
+        Gender = Gender.female;
+
+}
     public User() { }
     
     public Int32 Jmbg
     {
          get { return jmbg; }
-         set { jmbg= value; }
+         set { jmbg= value; OnPropertyChanged(nameof(Jmbg)); }
     }
     
     public int PhoneNumber
     { 
         get { return phoneNumber; }
-        set { phoneNumber = value; }
+        set { phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); }
     }
     
     public string Email
     {
         get { return email; }
-        set { email = value; }
+        set { email = value; OnPropertyChanged(nameof(Email)); }
     }
     
     public string Adress
     {
         get { return adress; }
-        set { adress = value; }
+        set { adress = value; OnPropertyChanged(nameof(Adress)); }
     }
     
     public DateTime DateOfBirth 
     {
         get { return dateOfBirth; }
-        set { dateOfBirth = value; }
+        set { dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); }
     }
     
     public Gender Gender
     {
         get { return gender; }
-        set { gender = value; }
+        set { gender = value; OnPropertyChanged(nameof(Gender)); }
     }
             
             
@@ -166,6 +177,7 @@ public class User : ViewModelBase
                       Gender gender)
           {
               Username = username;
+              Password = password;
               FirstName = firstName;
               LastName = lastName;
               Jmbg = jmbg;
@@ -179,5 +191,27 @@ public class User : ViewModelBase
           {
               this.firstName = FirstName;
               this.lastName = LastName;
+          }
+
+    public User(String username,
+              String password,
+                    String firstName,
+                    String lastName,
+                    int jmbg,
+                    int phoneNumber,
+                    String email,
+                    String adress,
+                    DateTime dateOfBirth,
+                    Gender gender)
+          {
+              Username = username;
+              FirstName = firstName;
+              LastName = lastName;
+              Jmbg = jmbg;
+              PhoneNumber = phoneNumber;
+              Email = email;
+              Adress = adress;
+              DateOfBirth = dateOfBirth;
+              Gender = this.gender;
           }
 }

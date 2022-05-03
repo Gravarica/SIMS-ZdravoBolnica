@@ -20,7 +20,7 @@ namespace HospitalProject.Repository
             users = userFileHandler.ReadAll().ToList();
             _user = null;
         }
-
+     
         public User Login(String username, String password)
         {
             foreach(User user in users)

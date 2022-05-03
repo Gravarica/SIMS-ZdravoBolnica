@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using HospitalProject.Core;
 using HospitalProject.View.Model;
+using HospitalProject.View.WardenForms.ViewModels;
 
 namespace HospitalProject.View.WardenForms
 {
@@ -17,6 +18,12 @@ namespace HospitalProject.View.WardenForms
         public WardenEquipemntRelocationViewModel WardenEquipemntRelocationViewModel { get; set; }
         
         public RelayCommand EquipementRelocationCommand { get; set; }
+        
+        public RoomRenovationViewModel RoomRenovationViewModel { get; set; }
+        
+        public RelayCommand RoomRenovationCommand { get; set; }
+        
+        
         
         
         
@@ -39,6 +46,7 @@ namespace HospitalProject.View.WardenForms
             WardenRoomControl = new WardenRoomControl();
             WardenEquipementView = new EquipementViewModel();
             WardenEquipemntRelocationViewModel = new WardenEquipemntRelocationViewModel();
+            RoomRenovationViewModel = new RoomRenovationViewModel();
 
             MomentalView = WardenRoomControl;
              RoomViewCommand = new RelayCommand(o =>
@@ -56,6 +64,8 @@ namespace HospitalProject.View.WardenForms
              {
                  MomentalView = WardenEquipemntRelocationViewModel;
              });
+             RoomRenovationCommand = new RelayCommand(o => { MomentalView = RoomRenovationViewModel; });
+
         }
         
         

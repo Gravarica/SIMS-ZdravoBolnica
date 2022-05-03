@@ -42,6 +42,15 @@ namespace Service
            BindDataForAppointments(appointments);
            return appointments;
         }
+
+        public void DeleteApointmentsByRoomId(int id)
+        {
+            var apointments = appointmentRepository.GetAllByRoomId(id);
+            foreach (Appointment app in apointments)
+            {
+                Delete(app.Id);
+            }
+        }
         
         // Updates given appointment to certain parameters
         public void Update(Appointment appointment)
@@ -132,6 +141,21 @@ namespace Service
             List<Appointment> unionAppointments = retAppointmentsDoctor.Union(retAppointmentsPatient).ToList();
             BindDataForAppointments(unionAppointments);
             return unionAppointments;
+        }
+
+        public bool RoomHasApointmentByDay(DateOnly startDate, DateOnly endDate, Room room)
+        {
+            var allApointments = getAll();
+            foreach (Appointment ap in allApointments)
+            {
+                DateOnly date = new DateOnly(ap.Date.Year,ap.Date.Month,ap.Date.Day);
+                if (date >= startDate && date <= endDate && ap.Room.Id == room.Id)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         // Method that generates available appointments, this method is called in controller
@@ -235,7 +259,9 @@ namespace Service
             {
 
                 DateOnly date3 = endDate;
+
                 return GenerateAvailableAppointments(today, date3.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
+
 
             }
             else
@@ -243,6 +269,7 @@ namespace Service
             {
                 DateOnly date4 = startDate;
                 DateOnly date5 = endDate;
+
                 return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
             }
 
@@ -259,7 +286,9 @@ namespace Service
 
             foreach (Doctor d in allDoctors) {
 
+
                 generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, d, patient, ExaminationType.GENERAL, FindRoomById(3)));
+
             }
 
             //List<Appointment> list3 = generatedAppointments.(existingAppointments).ToList();

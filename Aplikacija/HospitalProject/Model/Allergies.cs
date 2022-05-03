@@ -50,5 +50,9 @@ public class Allergies  : ViewModelBase
         {
             Name = name;
         }
-    
+
+        public Allergies(int id)
+        {
+            this.id = id;
+        }
 }

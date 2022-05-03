@@ -28,6 +28,11 @@ namespace HospitalProject.Service
             return equipements;
         }
 
+        public Equipement GetById(int id)
+        {
+            return this.equipementRepository.GetById(id);
+        }
+
         public void Update(Equipement equipement)
         {
             equipementRepository.Update(equipement);
@@ -36,6 +41,11 @@ namespace HospitalProject.Service
         public void Delete(int id)
         {
             equipementRepository.Delete(id);
+        }
+
+        public List<Equipement> GetAllMedicine()
+        {
+            return equipementRepository.GetAllMedicine();
         }
     }
 }

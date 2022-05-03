@@ -22,13 +22,13 @@ namespace Model
        public BloodType BloodType
        {
            get { return bloodType; }
-           set { this.bloodType = value; }
+           set { this.bloodType = value; OnPropertyChanged(nameof(BloodType)); }
        }
 
        public bool Guest 
        {
            get { return guest; }
-           set { guest = value; }
+           set { guest = value; OnPropertyChanged(nameof(Guest)); }
        }
 
         public int MedicalRecordId { get; set; }
@@ -94,22 +94,54 @@ namespace Model
                                     gender)
         {   
             MedicalRecordId = medicalRecordId;
-            Guest = guest;
+            Guest = false;
             appointments = new List<Appointment>();
         }
 
-        public Patient(
+        public Patient(int id, int medicalRecordId,
             String firstName,
             String lastName,
             int jmbg) : base(firstName, lastName, jmbg)
         {
-            
+            Id = id;
+            this.bloodType = BloodType.a;
             this.guest = true;
             appointments = new List<Appointment>();
         }
         public Patient(int id) { 
             Id = id;
             appointments = new List<Appointment>();    
+        }
+
+        public Patient(
+          int id,
+          int medicalRecordId,
+          bool guest,
+          String username,
+          String password,
+          String firstName,
+          String lastName,
+          int jmbg,
+          int phoneNumber,
+          string email,
+          string adress,
+          DateTime dateofBirth,
+          Gender gender) : base(username,
+                                password,
+                                firstName,
+                                lastName,
+                                jmbg,
+                                phoneNumber,
+                                email,
+                                adress,
+                                dateofBirth,
+                                gender)
+        {
+            Id = id;
+            MedicalRecordId = medicalRecordId;
+            Guest = guest;
+            appointments = new List<Appointment>();
+
         }
 
         public Patient() { }
