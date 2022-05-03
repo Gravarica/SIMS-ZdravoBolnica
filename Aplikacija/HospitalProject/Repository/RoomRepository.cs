@@ -132,6 +132,8 @@ namespace Repository
             }
          }
       }
+      
+      
 
       public IEnumerable<EquipmentRoomModel> GetByEquipment(int equpmentId)
       {

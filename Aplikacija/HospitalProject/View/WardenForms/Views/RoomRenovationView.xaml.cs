@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HospitalProject.View.WardenForms.Views
-{
+namespace HospitalProject.View.WardenForms.Views;
+
     /// <summary>
     /// Interaction logic for RoomRenovationView.xaml
     /// </summary>
-    public partial class RoomRenovationView : UserControl
+public partial class RoomRenovationView : UserControl 
     {
         public RoomRenovationView()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
     }
-}
+

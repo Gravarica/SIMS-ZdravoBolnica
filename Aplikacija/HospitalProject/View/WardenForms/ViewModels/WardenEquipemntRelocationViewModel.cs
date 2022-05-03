@@ -158,6 +158,7 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
         if (selectedRoom.EquipmentQuantity == Quantity)
         {
+            SelectedRoom.WasZero = false;
             GeneratedRooms.Remove(SelectedRoom);
         }
         else
@@ -168,13 +169,13 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
         if (DestinationRoom.EquipmentQuantity == 0)
         {
-            WasZero = true;
+            DestinationRoom.WasZero = true;
             GeneratedRooms.Add(DestinationRoom);
             DestinationRoom.EquipmentQuantity += Quantity;
         }
         else
         {
-            if (WasZero)
+            if (DestinationRoom.WasZero)
             {
                 DestinationRoom.EquipmentQuantity += Quantity;
             }

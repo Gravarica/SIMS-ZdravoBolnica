@@ -7,7 +7,22 @@ public class EquipmentRoomModel : BaseViewModel
     private int id;
     private int number;
     private int quantity;
+
+    private bool wasZero;
     
+    
+    public bool WasZero
+    {
+        get { return wasZero; }
+        set
+        {
+            if (value != wasZero)
+            {
+                wasZero = value;
+                OnPropertyChanged(nameof(WasZero));
+            }
+        }
+    }
     
     public int RoomId
     {

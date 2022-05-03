@@ -14,6 +14,7 @@ namespace HospitalProject.FileHandler
         private readonly string _delimiter;
 
         private readonly string _datetimeFormat;
+        
 
         public RoomRenovationFileHandler(string path, string delimiter, string datetimeFormat)
         {
@@ -32,8 +33,8 @@ namespace HospitalProject.FileHandler
         private RoomRenovation ConvertCSVFormatToRoomRenovation(string CSVFormat)
         {
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
-            return new RoomRenovation(DateTime.Parse(tokens[0]),
-                DateTime.Parse(tokens[1]),
+            return new RoomRenovation(DateOnly.Parse(tokens[0]),
+                DateOnly.Parse(tokens[1]),
                 int.Parse(tokens[2]),
                 bool.Parse(tokens[3]),
                 int.Parse(tokens[4]));

@@ -56,6 +56,11 @@ namespace Repository
                 return _appointments.Where(x=> x.IsDone==false);  
         }
 
+        public IEnumerable<Appointment> GetAllByRoomId(int id)
+        {
+            return _appointments.Where(x=> x.Room.Id==id);  
+        }
+        
         public IEnumerable<Appointment> GetAll()
         {
             return _appointments;

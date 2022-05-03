@@ -36,6 +36,7 @@ namespace HospitalProject
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
+        private const string ONLY_DATE_FORMAT = "MM/dd/yyyy";
         
         
         public AllergiesController AllergiesController { get; set; }
@@ -67,7 +68,7 @@ namespace HospitalProject
 
             var _allergiesFileHandler = new AllergiesFileHandler(ALLERGIES_FILE, CSV_DELIMITER);
 
-            var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, DATETIME_FORMAT);
+            var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
             
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
 

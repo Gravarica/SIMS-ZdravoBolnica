@@ -7,11 +7,14 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using Controller;
 using HospitalProject.Controller;
+using HospitalProject.Core;
 using HospitalProject.Exception;
 using HospitalProject.Model;
 using HospitalProject.View.Converter;
 using HospitalProject.View.Model;
+using HospitalProject.View.WardenForms.ViewModels;
 using Model;
 
 namespace HospitalProject.View.WardenForms
@@ -26,8 +29,25 @@ namespace HospitalProject.View.WardenForms
         private string _roomType;
         private List<String> roomTypes;
         private List<Equipement> roomsEquipement;
+        private RoomViewModel selectedRoom1;
+        public RelayCommand RenovationCommand { get; set; }
         public ObservableCollection<RoomViewModel> RoomItems { get; set; }
         private RoomControoler _roomControoler;
+        private RoomRenovationController _roomRenovationController;
+        private AppointmentController _appointmentController;
+
+        public RoomViewModel SelectedRoom1
+        {
+            get
+            {
+                return selectedRoom1;
+            }
+            set
+            {
+                selectedRoom1 = value;
+                OnPropertyChanged(nameof(SelectedRoom1));
+            }
+        }
 
         public WardenRoomControl()
         {
@@ -35,10 +55,27 @@ namespace HospitalProject.View.WardenForms
             DataContext = this;
             var app = Application.Current as App;
             _roomControoler = app.RoomController;
+            _appointmentController = app.AppointmentController;
+            _roomRenovationController = app.RenovationController;
             RoomItems = new ObservableCollection<RoomViewModel>(
                 RoomConverter.ConvertRoomListTORoomViewList(_roomControoler.GetAll().ToList()));
-        }
+            RenovationCommand = new RelayCommand(param => ExecuteRenovationComand(), param => CanExecuteRenovation());
 
+        }
+        
+        private void ExecuteRenovationComand()
+        {
+            
+            RoomRenovationViewModel roomRenovationViewModel =
+                new RoomRenovationViewModel(RoomConverter.ConvertRoomViewtoRoom((RoomViewModel)Rooms.SelectedItem));
+            MainViewModel.Instance.MomentalView = roomRenovationViewModel;
+        }
+        
+        private bool CanExecuteRenovation()
+        {
+            return Rooms.SelectedItem != null;
+        }
+        
         public RoomType StringToRoomType(string str)
         {
             switch (str)
@@ -132,6 +169,14 @@ namespace HospitalProject.View.WardenForms
 
             UpdateDataViewAdd(CreateRoom());
         }
+        
+        private void DeleteEvent_Handler(object sender, RoutedEventArgs e)
+        {
+
+            DeleteRoom();
+        }
+        
+        
 
         private void UpdateDataViewAdd(Room room)
         {
