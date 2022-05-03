@@ -47,6 +47,7 @@ namespace Model
           int medicalRecordId,
           bool guest,
           String username,
+          String password,
           String firstName,
           String lastName,
           int jmbg,
@@ -55,6 +56,7 @@ namespace Model
           string adress,
           DateTime dateofBirth,
           Gender gender) : base(username,
+                                password,
                                 firstName,
                                 lastName,
                                 jmbg,
@@ -76,6 +78,7 @@ namespace Model
             int medicalRecordId,
             bool guest,
             String username,
+            String password,
             String firstName,
             String lastName,
             int jmbg,
@@ -84,6 +87,7 @@ namespace Model
             string adress,
             DateTime dateofBirth,
             Gender gender) : base(  username,
+                                    password,
                                     firstName,
                                     lastName,
                                     jmbg,
@@ -94,16 +98,17 @@ namespace Model
                                     gender)
         {   
             MedicalRecordId = medicalRecordId;
-            Guest = guest;
+            Guest = false;
             appointments = new List<Appointment>();
         }
 
-        public Patient(
+        public Patient(int id,
             String firstName,
             String lastName,
             int jmbg) : base(firstName, lastName, jmbg)
         {
-            
+            Id = id;
+            this.bloodType = BloodType.a;
             this.guest = true;
             appointments = new List<Appointment>();
         }

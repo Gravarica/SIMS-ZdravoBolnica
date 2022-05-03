@@ -14,14 +14,15 @@ namespace HospitalProject.Service
     {
 
         private AnamnesisService _anamnesisService;
+        private AllergiesService _allergiesService;
 
         private MedicalRecordRepository _medicalRecordRepostiory;
 
         private PatientService _patientService;
 
-        public MedicalRecordService(AnamnesisService anamnesisService, MedicalRecordRepository medicalRecordRepostiory, PatientService patientService)
+        public MedicalRecordService(AllergiesService allergiesService,  AnamnesisService anamnesisService, MedicalRecordRepository medicalRecordRepostiory, PatientService patientService)
         {
-
+            _allergiesService = allergiesService;
             _anamnesisService=anamnesisService;
 
             _medicalRecordRepostiory=medicalRecordRepostiory;
@@ -109,6 +110,16 @@ namespace HospitalProject.Service
         public void AddNewAnamnesisToMedicalRecord(Anamnesis anamnesis)
         {
             _medicalRecordRepostiory.AddNewAnamnesisToMedicalRecord(anamnesis);
+        }
+        public void AddNewAllergiesToMedicalRecord(Allergies allergies, int PatientID)
+        {
+            _medicalRecordRepostiory.AddNewAllergiesToMedicalRecord(allergies, PatientID);
+        }
+
+        private void BindMedicalRecordWithAllergies(MedicalRecord medicalRecord)
+        {
+            
+            medicalRecord.Allergies = (List<Allergies>)_allergiesService.GetAllergiesByMedicalRecord(medicalRecord.Patient.Id);
         }
 
     }

@@ -43,7 +43,7 @@ namespace Repository
         public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;
-            _patientFileHandler.AppendLineToFile(_path, _patientFileHandler.ConvertPatientToCSVFormat(patient));
+            _patientFileHandler.AppendLineToFile(patient);
             return patient;
         }
         
@@ -55,6 +55,7 @@ namespace Repository
                 {
                     p.DateOfBirth = patient.DateOfBirth;
                     p.BloodType = patient.BloodType;
+                    p.Password = patient.Password;
                     p.Gender = patient.Gender;
                     p.Guest = patient.Guest;
                     p.Email = patient.Email;

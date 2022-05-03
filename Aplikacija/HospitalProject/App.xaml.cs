@@ -30,6 +30,7 @@ namespace HospitalProject
         private string APPOINTMENTS_PATIENT_FILE = _projectPath + "\\Resources\\Data\\appointments_patient.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
         private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
+        private string ALLERGIES_FILE = _projectPath + "\\Resources\\Data\\allergy.csv";
         private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
         private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
@@ -50,6 +51,8 @@ namespace HospitalProject
         public AppointmentController AppointmentControllerPatient { get; set; }
 
         public AnamnesisController AnamnesisController { get; set; }
+
+        public AllergiesController AllergiesController { get; set; }
 
         public MedicalRecordController MedicalRecordController { get; set; }    
 
@@ -75,6 +78,8 @@ namespace HospitalProject
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
+            var _allergiesFileHandler = new AllergiesFileHandler(ALLERGIES_FILE, CSV_DELIMITER);
+
             var _equipementRepository = new EquipementRepository(_equipementFileHandler);
 
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
@@ -90,6 +95,8 @@ namespace HospitalProject
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
+
+            var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
 
             var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
 
@@ -107,9 +114,11 @@ namespace HospitalProject
 
             var _anamnesisService = new AnamnesisService(_anamnesisRepository, _appointmentService);
 
+            var _allergiesService = new AllergiesService(_allergiesRepository);
+
             var _appointment_patient_Service = new AppointmentService(_appointmentRepository_patient, _patientService, _doctorService, _roomService);
 
-            var _medicalRecordService = new MedicalRecordService(_anamnesisService, _medicalRecordRepository, _patientService);
+            var _medicalRecordService = new MedicalRecordService(_allergiesService, _anamnesisService, _medicalRecordRepository, _patientService);
 
             var _userService = new UserService(_userRepository);
 
@@ -128,6 +137,8 @@ namespace HospitalProject
             RoomController = new RoomControoler(_roomService);
 
             AnamnesisController = new AnamnesisController(_anamnesisService);
+
+            AllergiesController = new AllergiesController(_allergiesService);
 
             MedicalRecordController = new MedicalRecordController(_medicalRecordService);
 
