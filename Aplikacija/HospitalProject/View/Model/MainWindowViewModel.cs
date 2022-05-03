@@ -3,6 +3,7 @@ using HospitalProject.Core;
 using HospitalProject.View.DoctorView.Views;
 using HospitalProject.View.DoctorView.Model;
 using HospitalProject.View.WardenForms;
+
 using Model;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HospitalProject.View.Secretary.SecretaryV;
+using HospitalProject.View.Secretary.SecretaryVM;
 using HospitalProject.View.PatientView.View;
+
 
 namespace HospitalProject.View.Model
 {

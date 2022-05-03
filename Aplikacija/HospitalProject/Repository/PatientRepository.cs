@@ -15,19 +15,28 @@ namespace Repository
         private string _path;       // Putanja do fajla 
         private string _delimiter;  // Delimiter za CSV format
         private int _patientMaxId;
+        private int _patientMRMaxId;
         public PatientFileHandler _patientFileHandler;
+
         private List<Patient> _patients = new List<Patient>();
 
         public PatientRepository(PatientFileHandler patientFileHandler)
         {
             _patientFileHandler = patientFileHandler;
             _patients = (List<Patient>) _patientFileHandler.ReadAll();
-            _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
+             _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
+            _patientMRMaxId = GetMaxMRId(patients: _patientFileHandler.ReadAll());
+
         }
 
         private int GetMaxId(IEnumerable<Patient> patients)
         {
             return patients.Count() == 0 ? 0 : patients.Max(patient => patient.Id);
+        }
+
+        private int GetMaxMRId(IEnumerable<Patient> patients)
+        {
+            return patients.Count() == 0 ? 0 : patients.Max(patient => patient.MedicalRecordId);
         }
 
         public List<Patient> Patients
@@ -43,7 +52,8 @@ namespace Repository
         public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;
-            _patientFileHandler.AppendLineToFile(_path, _patientFileHandler.ConvertPatientToCSVFormat(patient));
+            patient.MedicalRecordId = ++_patientMRMaxId;
+            _patientFileHandler.AppendLineToFile(patient);
             return patient;
         }
         
@@ -55,6 +65,7 @@ namespace Repository
                 {
                     p.DateOfBirth = patient.DateOfBirth;
                     p.BloodType = patient.BloodType;
+                    p.Password = patient.Password;
                     p.Gender = patient.Gender;
                     p.Guest = patient.Guest;
                     p.Email = patient.Email;

@@ -12,16 +12,30 @@ namespace HospitalProject.Repository
     public class MedicalRecordRepository
     {
         private MedicalRecordFileHandler _medicalRecordFileHandler;
+        private AllergiesRepository _allergiesRepository;
         private PatientFileHandler _patientFileHandler;
         private List<MedicalRecord> _medicalRecords;
 
         private int _medicalRecordMaxId;
 
-        public MedicalRecordRepository(MedicalRecordFileHandler medicalRecordFileHandler)
+        public MedicalRecordRepository(MedicalRecordFileHandler medicalRecordFileHandler, AllergiesRepository allergiesRepository)
+        {
+            InstantiateLayers(medicalRecordFileHandler, allergiesRepository);
+            InstantiateData();
+        }
+
+        private void InstantiateLayers(MedicalRecordFileHandler medicalRecordFileHandler, AllergiesRepository allergiesRepository)
         {
             _medicalRecordFileHandler=medicalRecordFileHandler;
 
+            _allergiesRepository = allergiesRepository;
+        }
+
+        private void InstantiateData()
+        {
             _medicalRecords = _medicalRecordFileHandler.ReadAll().ToList();
+
+            BindAllergensForMedicalRecord();
 
             _medicalRecordMaxId = GetMaxId();
         }
@@ -78,5 +92,25 @@ namespace HospitalProject.Repository
             updateMedicalRecord.Allergies.Add(allergies);
           
         }
+
+        private void BindAllergensForMedicalRecord()
+        {
+            _medicalRecords.ForEach(medicalRecord => SetAllergiesForMedicalRecord(medicalRecord));
+        }
+
+        private void SetAllergiesForMedicalRecord(MedicalRecord medicalRecord)
+        {
+            foreach (Allergies allergy in medicalRecord.Allergies)
+            {
+                SetAllergen(allergy);
+            }
+        }
+
+        private void SetAllergen(Allergies allergy)
+        {
+            allergy.Name = _allergiesRepository.GetById(allergy.Id).Name;
+        }
+
+
     }
 }

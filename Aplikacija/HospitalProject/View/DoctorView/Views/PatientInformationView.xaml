@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="750"
              Background="AliceBlue">
     <UserControl.Resources>
+        <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
+        <converters:AllergyConverter x:Key="AllergyConverter"/>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -68,25 +71,45 @@
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="2"
                            Grid.Column="1"
-                           Text="20.01.2000."
-                           Style="{StaticResource TextBlockStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"
+                           Text="{Binding MedicalRecord.Patient.DateOfBirth, Converter = {StaticResource DateConverter}}"/>
                 
                 <Label Grid.Row="3"
                        Grid.Column="0"
-                       Content="JMBG: "
+                       Content="Gender: "
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="3"
                            Grid.Column="1"
-                           Text="2001000800027"
+                           Text="{Binding MedicalRecord.Patient.Gender}"
                            Style="{StaticResource TextBlockStyle}"/>
 
                 <Label Grid.Row="4"
                        Grid.Column="0"
-                       Content="Email Adress: "
+                       Content="JMBG: "
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="4"
                            Grid.Column="1"
-                           Text="gravarica@gmail.com"
+                           Text="{Binding MedicalRecord.Patient.Jmbg}"
+                           Style="{StaticResource TextBlockStyle}"/>
+
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Content="Address: "
+                       Style = "{StaticResource LabelStyle}"/>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="3"
+                           Text="{Binding MedicalRecord.Patient.Adress}"
+                           Style="{StaticResource TextBlockStyle}"/>
+
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Content="Phone Number: "
+                       Style = "{StaticResource LabelStyle}"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="3"
+                           Text="{Binding MedicalRecord.Patient.PhoneNumber}"
                            Style="{StaticResource TextBlockStyle}"/>
             </Grid>
         </GroupBox>
@@ -123,6 +146,15 @@
                            Grid.Column="1"
                            Text="Diabetes"
                            Style="{StaticResource TextBlockStyle}"/>
+
+                <ListView Grid.Row="0"
+                          Grid.Column="2"
+                          Grid.RowSpan="2"
+                          Grid.ColumnSpan="2"
+                          Margin="40,10,40,10"
+                          ItemsSource="{Binding MedicalRecord.Allergies, Converter={StaticResource AllergyConverter}}"/>
+
+
             </Grid>
         </GroupBox>
     </Grid>

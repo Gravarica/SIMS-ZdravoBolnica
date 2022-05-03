@@ -23,14 +23,17 @@ namespace HospitalProject.View.DoctorView.Model
 
         public ObservableCollection<Prescription> PatientPrescriptions { get; set; }
         private List<ComboBoxData<int>> intervals = new List<ComboBoxData<int>>();
+        private List<ComboBoxData<Equipement>> medicines = new List<ComboBoxData<Equipement>>();    
         private Appointment showItem;
 
         private DateTime startDate;
         private DateTime endDate;
         private int interval;
         private string description;
+        private Equipement selectedMedicine;
 
         private PrescriptionController prescriptionController;
+        private EquipementController equipementController;
 
         public NewPrescriptionViewModel(Window window, Appointment showItem)
         {
@@ -43,6 +46,7 @@ namespace HospitalProject.View.DoctorView.Model
         {
             var app = System.Windows.Application.Current as App;
             prescriptionController = app.PrescriptionController;
+            equipementController = app.EquipementController;
         }
 
         private void InstantiateData(Appointment showItem)
@@ -119,6 +123,19 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public Equipement SelectedMedicine
+        {
+            get
+            {
+                return selectedMedicine;
+            }
+            set
+            {
+                selectedMedicine = value;
+                OnPropertyChanged(nameof(SelectedMedicine));
+            }
+        }
+
         public List<ComboBoxData<int>> IntervalComboBox
         {
 
@@ -130,6 +147,19 @@ namespace HospitalProject.View.DoctorView.Model
             {
                 intervals = value;
                 OnPropertyChanged(nameof(IntervalComboBox));
+            }
+        }
+
+        public List<ComboBoxData<Equipement>> MedicinesComboBox
+        {
+            get
+            {
+                return medicines;
+            }
+            set
+            {
+                medicines = value;
+                OnPropertyChanged(nameof(MedicinesComboBox));
             }
         }
 
@@ -168,15 +198,37 @@ namespace HospitalProject.View.DoctorView.Model
         {
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
             DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
-            prescriptionController.Create(ShowItem, startDateOnly, endDateOnly, Interval, Description);
-            _window.Close();
+            string checkString = prescriptionController.Create(ShowItem, startDateOnly, endDateOnly, Interval, Description, SelectedMedicine);
+            if(checkString != null)
+            {
+                MessageBox.Show("Patient is allergic to " + checkString + " in " + SelectedMedicine.Name, "Cannot create prescription", MessageBoxButton.OK, MessageBoxImage.Warning);
+            } 
+            else
+            {
+                _window.Close();
+            }
+            
         }
 
         private void FillComboData()
         {
+            FillComboDataForIntervals();
+            FillComboDataForMedicine();
+        }
+
+        private void FillComboDataForIntervals()
+        {
             intervals.Add(new ComboBoxData<int> { Name = "8 hours", Value = 8 });
             intervals.Add(new ComboBoxData<int> { Name = "6 hours", Value = 6 });
             intervals.Add(new ComboBoxData<int> { Name = "12 hours", Value = 12 });
+        }
+
+        private void FillComboDataForMedicine()
+        {
+            foreach(Equipement medicine in equipementController.GetAllMedicine())
+            {
+                medicines.Add(new ComboBoxData<Equipement> { Name = medicine.Name, Value = medicine });
+            }
         }
     }
 }

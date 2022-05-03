@@ -15,9 +15,10 @@ public class AllergiesController
 
     }
 
-    public void Create(Allergies allergy)
+    public Allergies Create(Allergies allergy)
     {
         _allergiesService.Create(allergy);
+        return allergy;
     }
 
     public void Update(Allergies allergy)
@@ -38,5 +39,13 @@ public class AllergiesController
     public IEnumerable<Allergies> GetAll()
     {
         return _allergiesService.GetAll();
+    }
+    public IEnumerable<Allergies> GetAllergiesByMedicalRecord(int medicalRecordId)
+    {
+        return _allergiesService.GetAllergiesByMedicalRecord(medicalRecordId);
+    }
+    public IEnumerable<Allergies> GetAllergiesByPatientID(int patientId)
+    {
+        return _allergiesService.GetAllergiesByPatientID(patientId);
     }
 }

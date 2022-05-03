@@ -33,9 +33,10 @@ public class AllergiesService
         return _allergiesRepository.GetById(id);
     }
 
-    public void Create(Allergies allergies)
+    public Allergies Create(Allergies allergies)
     {   
         _allergiesRepository.Insert(allergies);
+        return allergies;
     }
 
     public void Delete(int id)
@@ -48,13 +49,13 @@ public class AllergiesService
         _allergiesRepository.Update(allergies);
     }
 
-    public List<Allergies> GetAllergiesByMedicalRecord(int patientId)
+    public IEnumerable<Allergies> GetAllergiesByMedicalRecord(int medicalRecordId)
     {
-        return _allergiesRepository.GetAllergiesByMedicalRecord(patientId);
+        return _allergiesRepository.GetAllergiesByMedicalRecord(medicalRecordId);
     }
-    public List<Patient> GetPatientsByAllergy(int allergyID)
+
+    public IEnumerable<Allergies> GetAllergiesByPatientID(int patientId)
     {
-        return _allergiesRepository.GetPatientsByAllergy(allergyID);
+        return _allergiesRepository.GetAllergiesByPatientID(patientId);
     }
-    
 }

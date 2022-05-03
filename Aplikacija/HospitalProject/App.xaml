@@ -1,4 +1,4 @@
-﻿<Application x:Class="HospitalProject.App"
+<Application x:Class="HospitalProject.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:HospitalProject"
@@ -8,6 +8,7 @@
              xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
              xmlns:viewModels="clr-namespace:HospitalProject.View.WardenForms.ViewModels"
              xmlns:views="clr-namespace:HospitalProject.View.WardenForms.Views"
+             xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -31,11 +32,11 @@
                 <wardenForms:WardenEquipemntRelocationView/>
             </DataTemplate>
             
+
             <DataTemplate DataType="{x:Type viewModels:RoomRenovationViewModel}">
                 <views:RoomRenovationView/>
             </DataTemplate>
-            
-            
+
             <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
                 <view:PatientsView/>
             </DataTemplate>

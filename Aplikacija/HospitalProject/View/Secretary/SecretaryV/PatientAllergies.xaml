@@ -1,0 +1,41 @@
+﻿<Window x:Class="HospitalProject.View.Secretary.SecretaryV.PatientAllergies"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:PatientAllergiesVM}"
+        mc:Ignorable="d"
+        Title="PatientAllergies" Height="450" Width="443"
+        Background="PaleGoldenrod">
+    <Grid Margin="0,0,286,-33">
+        <DataGrid Margin="33,35,-22,62" AutoGenerateColumns="False"
+            SelectionMode="Single"             
+            x:Name ="Patients_Copy"
+            IsReadOnly="True"
+            ItemsSource="{Binding patientAllergies}" 
+            SelectedItem="{Binding SelectedAllergy}"
+            Background="LightYellow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Margin="221,51,-236,384"
+                x:Name="Delete_Copy"
+            Content="Delete allergy"
+            Command="{Binding DeleteAllergyCommand}"
+            >
+            
+        </Button>
+        <ComboBox Margin="221,121,-236,317"
+             ItemsSource="{Binding AllergiesCB}"
+            SelectedItem="{Binding SelectedAllergyCB}"     
+                  
+                  ></ComboBox>
+        <Button Margin="221,188,-236,247"
+            x:Name="Delete_Copy1"
+            Content="Add allergy"
+            Command="{Binding AddAllergyCommand}"
+            />
+    </Grid>
+</Window>

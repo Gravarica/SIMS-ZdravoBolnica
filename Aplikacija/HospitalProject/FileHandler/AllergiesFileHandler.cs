@@ -12,6 +12,7 @@ public class AllergiesFileHandler
     
             private string _delimiter;
     
+     //path allergy.csv
             public  AllergiesFileHandler(String path, String delimiter)
             {
                 _path = path;
@@ -25,14 +26,14 @@ public class AllergiesFileHandler
                        .ToList();
             }
     
+            
             public Allergies ConvertCSVFormatToAllergies(string CSVFormat)
             {
-                string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
-                return new Allergies( int.Parse(tokens[0]), tokens[1]);
-                                       
-            }
-    
-            public string ConvertAllergiesToCSVFormat(Allergies allergies)
+              var tokens = CSVFormat.Split(_delimiter.ToCharArray());
+                return new Allergies(int.Parse(tokens[0]),tokens[1]);
+             }
+
+        public string ConvertAllergiesToCSVFormat(Allergies allergies)
             {
                 return string.Join(_delimiter,
                 allergies.Id,

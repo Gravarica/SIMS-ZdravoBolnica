@@ -19,30 +19,16 @@ namespace HospitalProject.FileHandler
         
         public PatientFileHandler(string path, string delimiter, string dateTimeFormat)
         {
-            _path=path;
+            _path = path;
             _delimiter=delimiter;
             _datetimeFormat=dateTimeFormat;
         }
 
         private Patient ConvertCSVFormatToPatient(string acountCSVFormat)                   
         {
-            /*
-             0id
-             1medical record
-             2BloodType bloodtype, 
-            3bool guest,
-            4String username,
-            5String firstName,
-            6String lastName,
-            7UserType userType,
-            8int jmbg,
-            9int phoneNumber,
-            10string email,
-            11string adress,
-            12DateTime dateofBirth,
-            13Gender gender*/
             string[] tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
-            return new Patient(int.Parse(tokens[0]),
+            return new Patient(
+                int.Parse(tokens[0]),
                 int.Parse(tokens[1]),
                 bool.Parse(tokens[2]),
                 tokens[3],
@@ -88,13 +74,14 @@ namespace HospitalProject.FileHandler
                 patient.Email,
                 patient.Adress,
                 patient.DateOfBirth.ToString(_datetimeFormat),
-                patient.Gender
-            );
+                patient.Gender);
         }
 
-        public void AppendLineToFile(string path, string line)
+        public void AppendLineToFile(Patient Patient)
         {
-            File.AppendAllText(path, line + Environment.NewLine);
+            string line = ConvertPatientToCSVFormat(Patient);
+            File.AppendAllText(_path, line + Environment.NewLine);
         }
+        
     }
 }
