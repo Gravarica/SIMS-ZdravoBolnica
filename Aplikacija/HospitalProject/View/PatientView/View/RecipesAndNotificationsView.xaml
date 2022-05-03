@@ -1,0 +1,89 @@
+﻿<Window x:Class="HospitalProject.View.PatientView.View.RecipesAndNotificationsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:HospitalProject.View.PatientView.Model"
+        
+        
+        mc:Ignorable="d"
+        Title="RecipesAndNotificationsView" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewModel:NotificationsViewModel/>
+
+    </Window.DataContext>
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+
+        </Grid.ColumnDefinitions>
+       
+        <Grid Background="IndianRed">
+            <Label Content="Info" Foreground="White" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+        </Grid>
+
+        <Grid Grid.Column="1" Background="IndianRed">
+            
+        </Grid>
+
+        <Grid Background="IndianRed" Grid.Row="1">
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Background="IndianRed">
+
+                <RadioButton Content="Notifications"
+                             Height="50"
+                             Foreground="White"
+                             Background="IndianRed"
+                             FontSize="14"
+                             Style="{StaticResource MedicalCardButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding NotificationsViewCommand}"/>
+
+                <RadioButton Content="Recipes"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Background="IndianRed"
+                             Style="{StaticResource MedicalCardButtonTheme}"
+                             Command="{Binding  RecipesViewCommand}"/>
+
+                <RadioButton Content="Medical card"
+                             Height="50"
+                             Foreground="White"
+                             Background="IndianRed"
+                             FontSize="14"
+                             Style="{StaticResource MedicalCardButtonTheme}"
+                             Command="{Binding PrescriptionHistoryViewCommand}"/>
+
+            </StackPanel>
+
+            
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}">
+               
+            </ContentControl>
+
+
+        </Grid>
+        
+    </Grid>
+</Window>

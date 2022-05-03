@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using HospitalProject.ValidationRules.PatientValidation;
+using HospitalProject.Model;
+using System.Threading;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -31,6 +34,10 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand deleteCommand;
         private RelayCommand newAppointmentCommand;
         private RelayCommand editAppointmentCommand;
+        private RelayCommand infoCommand;
+
+        private Window window;
+        private Thread thread;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> DoctorIds { get; set; }
@@ -39,6 +46,7 @@ namespace HospitalProject.View.PatientView.Model
         PatientController _patientController;
         DoctorController _doctorController;
         UserController _userController;
+        NotificationController _notificationController;
 
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
@@ -128,7 +136,9 @@ namespace HospitalProject.View.PatientView.Model
             InstantiateControllers();
             InstantiateData();
             FillComboData();
-
+            ThreadStart ts = new ThreadStart(StartNotificationThread);
+            thread = new Thread(ts);
+            thread.Start();
         }
 
         private void InstantiateControllers()
@@ -138,6 +148,7 @@ namespace HospitalProject.View.PatientView.Model
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
             _userController = app.UserController;
+            _notificationController = app.NotificationController;
         }
 
         private void InstantiateData()
@@ -181,33 +192,7 @@ namespace HospitalProject.View.PatientView.Model
 
         }
 
-       /* public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ?? (addCommand = new RelayCommand(param => AddCommandExecute(), param => CanAddCommandExecute()));
-            }
 
-        }
-
-        private bool CanAddCommandExecute()
-        {
-            return true;
-        }
-
-        private void AddCommandExecute()
-        {
-            if (!CanCreate())
-            {
-                MessageBox.Show("Appointment is already taken");
-                return;
-            }
-
-            Appointment appointment = new Appointment(parseTime(), _duration, DoctorData, _patient);
-            _appointmentController.Create(appointment);
-            AppointmentItems.Add(appointment);
-        }
-       */
 
 
          public RelayCommand NewAppointmentCommand
@@ -226,7 +211,7 @@ namespace HospitalProject.View.PatientView.Model
          private void NewAppointmentCommandExecute()
          {
              NewAppointmentPatientView view = new NewAppointmentPatientView();
-             view.DataContext = new NewAppointmentPatientViewModel(AppointmentItems);
+             view.DataContext = new NewAppointmentPatientViewModel(AppointmentItems,view);
              view.ShowDialog();
          }
 
@@ -242,18 +227,37 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanEditAppointmentCommandExecute()
         {
-            return SelectedItem != null;
+            return SelectedItem != null &&
+            EditAppointmentValidation.LessThank24HoursCheck(selectedItem.Date);
         }
 
         private void EditAppointmentCommandExecute()
         {
             EditAppointmentPatientView view = new EditAppointmentPatientView();
-            view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems);
+            view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems,view);
             view.ShowDialog();
         }
 
+        public RelayCommand InfoCommand
+        {
+            get
+            {
+                return infoCommand ?? (infoCommand = new RelayCommand(param => InfoCommandExecute(),
+                                                                                            param => CanInfoCommandExecute()));
+            }
+        }
 
+        private bool CanInfoCommandExecute()
+        {
+            return true;
+        }
 
+        private void InfoCommandExecute()
+        {
+            RecipesAndNotificationsView view = new RecipesAndNotificationsView();
+            view.DataContext = new RecipesAndNotificationsViewModel(window);
+            view.ShowDialog();
+        }
 
 
         private DateTime parseTime()
@@ -298,6 +302,30 @@ namespace HospitalProject.View.PatientView.Model
 
             return true;
         }
+
+
+        public void StartNotificationThread()
+        {
+            while (true)
+            {
+                Notification notification = _notificationController.CheckForNotifications(_patient);
+                if (notification != null)
+                {
+
+                    MessageBox.Show(notification.Prescription.Description, notification.Name);
+                
+                }
+
+
+                Thread.Sleep(60*1000);
+
+
+
+            }
+        
+        
+        }
+
     }
 
 }
