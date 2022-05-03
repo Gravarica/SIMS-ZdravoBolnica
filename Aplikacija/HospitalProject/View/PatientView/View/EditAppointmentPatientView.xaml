@@ -51,7 +51,7 @@
                 <Label Content="Reschedule the appointment" Grid.ColumnSpan="2" FontSize="18" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Label Content="Patient:" FontSize="18" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"/>
                 <Label Content="Doctor:" FontSize="18" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
-                <Label Content="Start Date::" FontSize="18" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+                <Label Content="Start Date:" FontSize="18" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
                 <Label Content="End Date:" FontSize="18" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center"/>
                 
                 <Button 

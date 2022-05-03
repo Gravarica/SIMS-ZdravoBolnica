@@ -32,6 +32,9 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand deleteCommand;
         private RelayCommand newAppointmentCommand;
         private RelayCommand editAppointmentCommand;
+        private RelayCommand infoCommand;
+
+        private Window window;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> DoctorIds { get; set; }
@@ -182,33 +185,7 @@ namespace HospitalProject.View.PatientView.Model
 
         }
 
-       /* public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ?? (addCommand = new RelayCommand(param => AddCommandExecute(), param => CanAddCommandExecute()));
-            }
 
-        }
-
-        private bool CanAddCommandExecute()
-        {
-            return true;
-        }
-
-        private void AddCommandExecute()
-        {
-            if (!CanCreate())
-            {
-                MessageBox.Show("Appointment is already taken");
-                return;
-            }
-
-            Appointment appointment = new Appointment(parseTime(), _duration, DoctorData, _patient);
-            _appointmentController.Create(appointment);
-            AppointmentItems.Add(appointment);
-        }
-       */
 
 
          public RelayCommand NewAppointmentCommand
@@ -227,7 +204,7 @@ namespace HospitalProject.View.PatientView.Model
          private void NewAppointmentCommandExecute()
          {
              NewAppointmentPatientView view = new NewAppointmentPatientView();
-             view.DataContext = new NewAppointmentPatientViewModel(AppointmentItems);
+             view.DataContext = new NewAppointmentPatientViewModel(AppointmentItems,view);
              view.ShowDialog();
          }
 
@@ -254,8 +231,26 @@ namespace HospitalProject.View.PatientView.Model
             view.ShowDialog();
         }
 
+        public RelayCommand InfoCommand
+        {
+            get
+            {
+                return infoCommand ?? (infoCommand = new RelayCommand(param => InfoCommandExecute(),
+                                                                                            param => CanInfoCommandExecute()));
+            }
+        }
 
+        private bool CanInfoCommandExecute()
+        {
+            return true;
+        }
 
+        private void InfoCommandExecute()
+        {
+            RecipesAndNotificationsView view = new RecipesAndNotificationsView();
+            view.DataContext = new RecipesAndNotificationsViewModel(window);
+            view.ShowDialog();
+        }
 
 
         private DateTime parseTime()

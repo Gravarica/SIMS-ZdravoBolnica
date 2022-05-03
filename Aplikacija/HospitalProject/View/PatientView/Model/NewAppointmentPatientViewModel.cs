@@ -23,6 +23,7 @@ namespace HospitalProject.View.PatientView.Model
         private PatientController patientController;
         private UserController userController;
         private RoomControoler roomController;
+        private Window window;
 
         private DateTime startDate;
         private DateTime endDate;
@@ -139,9 +140,10 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand saveCommand;
         private RelayCommand cancelCommand;
 
-        public NewAppointmentPatientViewModel(ObservableCollection<Appointment> AppointmentItems)
+        public NewAppointmentPatientViewModel(ObservableCollection<Appointment> AppointmentItems,Window window)
         {
-            
+
+            this.window = window;
             _appointmentItems = AppointmentItems;
             InitializeControllers();
             InitializeData();
@@ -250,10 +252,10 @@ namespace HospitalProject.View.PatientView.Model
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
-            SubmitCommandExecute();
+            window.Close();
         }
 
-        /*public RelayCommand CancelCommand
+        public RelayCommand CancelCommand
         {
 
             get
@@ -270,8 +272,8 @@ namespace HospitalProject.View.PatientView.Model
 
         private void CancelCommandExecute()
         {
-            _window.Close();
-        }*/
+            window.Close();
+        }
 
         public bool FlagForValue1
         {

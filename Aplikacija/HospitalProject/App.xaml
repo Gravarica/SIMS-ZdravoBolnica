@@ -6,6 +6,8 @@
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
              xmlns:view="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
+             xmlns:patientViewModel="clr-namespace:HospitalProject.View.PatientView.Model"
+             xmlns:patientView="clr-namespace:HospitalProject.View.PatientView.View"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -43,6 +45,14 @@
 
             <DataTemplate DataType="{x:Type viewModel:PrescriptionHistoryViewModel}">
                 <view:PrescriptionHistoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type patientViewModel:RecipesViewModel}">
+                <patientView:RecipesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type patientViewModel:NotificationsViewModel}">
+                <patientView:NotificationsView/>
             </DataTemplate>
 
             <Style x:Key="WinAll" TargetType="{x:Type Window}">
