@@ -213,6 +213,7 @@ namespace HospitalProject.View.WardenForms
         {
             RoomViewModel rvm = (RoomViewModel) Rooms.SelectedItem;
             _roomControoler.Delete(rvm.RoomId);
+            _appointmentController.DeleteApointmentsByRoomId(rvm.RoomId);
             RoomItems.Remove(rvm);
         }
 
