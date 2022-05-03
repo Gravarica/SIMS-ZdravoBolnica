@@ -8,7 +8,6 @@
              xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
              xmlns:viewModels="clr-namespace:HospitalProject.View.WardenForms.ViewModels"
              xmlns:views="clr-namespace:HospitalProject.View.WardenForms.Views"
-             xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
