@@ -15,23 +15,24 @@ namespace HospitalProject.Model
         private DateOnly startDate;
         private DateOnly endDate;
         private int interval;
-        private TimeSpan timeInterval;  // Ovde izmeniti na time span, lakse je za vremensko racunanje
+        private Equipement medicine;
         private TimeOnly startTime;
         private string description;
 
         // Constructor that is called when creating a new object
-        public Prescription(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description)
+        public Prescription(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
         {
             Appointment = appointment;
+            Medicine = medicine;
             SetFieldsForConstructor(startDate, endDate, interval, description);
         }
 
         // Dodati lek u konstruktor kada zakela ubaci entitet
         // // Constructor that is called when reading from a file
-        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval, string description)
+        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval, string description, int medicineId)
         {
             Id = id;
-            SetIds(appointmentId);
+            SetIds(appointmentId, medicineId);
             SetFieldsForConstructor(startDate, endDate, interval, description);
         }
 
@@ -43,15 +44,17 @@ namespace HospitalProject.Model
             Description = description;
         }
 
-        private void SetIds(int appointmentId)
+        private void SetIds(int appointmentId, int medicineId)
         {
             InstantiateObjects();
             Appointment.Id = appointmentId;
+            Medicine.Id = medicineId;
         }
 
         private void InstantiateObjects()
         {
             Appointment = new Appointment();
+            Medicine = new Equipement();
         }
 
         public int Interval
@@ -142,6 +145,19 @@ namespace HospitalProject.Model
             {
                 appointment = value;
                 OnPropertyChanged(nameof(Appointment));
+            }
+        }
+
+        public Equipement Medicine
+        {
+            get
+            {
+                return medicine;
+            }
+            set
+            {
+                medicine = value;
+                OnPropertyChanged(nameof(Medicine));
             }
         }
     }

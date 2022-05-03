@@ -87,13 +87,11 @@ namespace HospitalProject
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
-            var _equipementRepository = new EquipementRepository(_equipementFileHandler);
-
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
-
-
             var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
+
+            var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
 
             var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
@@ -103,7 +101,7 @@ namespace HospitalProject
 
             var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
 
-            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler);
+            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
 
             var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
 
@@ -127,7 +125,7 @@ namespace HospitalProject
 
             var _userService = new UserService(_userRepository);
 
-            var _prescriptionService = new PrescriptionService(_prescriptionRepository, _appointmentService);
+            var _prescriptionService = new PrescriptionService(_prescriptionRepository, _appointmentService, _equipementService, _medicalRecordService);
 
             var _roomRenovationService = new RoomRenovationService(_roomRenovationRepository,_appointmentService,_roomService);
 

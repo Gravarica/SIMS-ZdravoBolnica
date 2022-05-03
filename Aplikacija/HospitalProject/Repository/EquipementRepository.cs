@@ -11,16 +11,16 @@ namespace HospitalProject.Repository
     public class EquipementRepository
     {
         private EquipementFileHandler _equipementFileHandler;
+        private AllergiesRepository allergiesRepository;
         private int _equipementMaxId;
         private List<Equipement> _equipements = new List<Equipement>();
 
-
-
-
-        public EquipementRepository(EquipementFileHandler equipementFileHandler)
+        public EquipementRepository(EquipementFileHandler equipementFileHandler, AllergiesRepository allergiesRepository)
         {
+            this.allergiesRepository = allergiesRepository;
             _equipementFileHandler = equipementFileHandler;
             _equipements = _equipementFileHandler.ReadAll().ToList();
+            BindAllergensForMedicine();
             _equipementMaxId = GetMaxId(_equipements);
         }
 
@@ -63,6 +63,35 @@ namespace HospitalProject.Repository
             updatedEquipement.EquipementType = equipement.EquipementType;
 
             _equipementFileHandler.Save(_equipements);
+        }
+
+        public List<Equipement> GetAllMedicine()
+        {
+            return _equipements.Where(equipment => equipment.EquipementType == EquipementType.MEDICINE).ToList();
+        }
+
+        private void BindAllergensForMedicine()
+        {
+            foreach(Equipement equipement in _equipements)
+            {
+                if(equipement.EquipementType == EquipementType.MEDICINE)
+                {
+                    SetAllergiesForMedicine(equipement);
+                }
+            }
+        }
+
+        private void SetAllergiesForMedicine(Equipement medicine)
+        {
+            foreach(Allergies allergy in medicine.Alergens)
+            {
+                SetAllergen(allergy);
+            }
+        }
+
+        private void SetAllergen(Allergies allergy)
+        {
+            allergy.Name = allergiesRepository.GetById(allergy.Id).Name;
         }
     }
 }
