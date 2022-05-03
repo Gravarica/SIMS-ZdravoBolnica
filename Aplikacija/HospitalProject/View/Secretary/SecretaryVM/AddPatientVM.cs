@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Controller;
 using HospitalProject.Core;
 using Model;
@@ -213,37 +214,19 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public Gender StringToGender(string str)
-        {
-            switch (str)
-            {
-                case "male":
-                    return global::Model.Gender.male;
-
-                default:
-                    return global::Model.Gender.female;
-            }
-        }
+       
 
 
-
-
-        public RelayCommand SaveCommand
+       /* public RelayCommand SaveCommand
         {
             get
             {
                 return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand()));
             }
         }
-
-        private void ExecuteSaveCommand()
-        {
-
-            Patients.Add(_patientController.Create(new Patient(_id, _medicalrecordid, false, UserName,Password, FirstName, LastName, Jmbg, PhoneNumber, Email, Adress, Convert.ToDateTime(Date), StringToGender(Gender))));
-          
-         }
-
+       */
         
+
 
     }
 }

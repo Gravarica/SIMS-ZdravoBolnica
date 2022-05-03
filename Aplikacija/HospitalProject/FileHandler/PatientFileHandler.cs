@@ -34,13 +34,12 @@ namespace HospitalProject.FileHandler
                 tokens[3],
                 tokens[4],
                 tokens[5],
-                tokens[6],
+                int.Parse(tokens[6]),
                 int.Parse(tokens[7]),
-                int.Parse(tokens[8]),
+                tokens[8],
                 tokens[9],
-                tokens[10],
-                DateTime.Parse(tokens[11]),
-                (Gender)Enum.Parse(typeof(Gender), tokens[12], true));
+                DateTime.Parse(tokens[10]),
+                (Gender)Enum.Parse(typeof(Gender), tokens[11], true));
         }
 
         public IEnumerable<Patient> ReadAll()

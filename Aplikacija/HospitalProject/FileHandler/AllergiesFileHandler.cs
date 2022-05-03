@@ -43,7 +43,7 @@ public class AllergiesFileHandler
             public void AppendLineToFile(Allergies allergies)
             {
                 string line = ConvertAllergiesToCSVFormat(allergies);
-                File.AppendAllText(_path, Environment.NewLine + line + Environment.NewLine);
+                File.AppendAllText(_path, line + Environment.NewLine);
             }
     
             public void Save(IEnumerable<Allergies> allergies)

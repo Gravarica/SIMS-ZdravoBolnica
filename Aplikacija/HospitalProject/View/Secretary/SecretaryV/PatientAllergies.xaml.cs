@@ -10,30 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HospitalProject.Model;
-using HospitalProject.View.Secretary.SecretaryVM;
-using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for PatientProfile.xaml
+    /// Interaction logic for PatientAllergies.xaml
     /// </summary>
-    public partial class PatientProfile : Window
+    public partial class PatientAllergies : Window
     {
-       
-        public PatientProfile()
+        public PatientAllergies()
         {
             InitializeComponent();
-
-          //  this.DataContext = new PatientProfileVM();
-
         }
-
-       
     }
-
 }
-    

@@ -167,7 +167,6 @@ public class User : ViewModelBase
             
             
           public User(String username,
-                      String password,
                       String firstName,
                       String lastName,
                       int jmbg,
