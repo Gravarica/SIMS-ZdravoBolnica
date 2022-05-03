@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using HospitalProject.View.Secretary.SecretaryV;
 using HospitalProject.View.Secretary.SecretaryVM;
+using HospitalProject.View.PatientView.View;
+
 
 namespace HospitalProject.View.Model
 {
@@ -128,7 +130,7 @@ namespace HospitalProject.View.Model
 
         private void OpenPatientView()
         {
-            PatientView pv = new PatientView();
+            MainPatientView pv = new MainPatientView();
             window.Close();
             pv.Show();
         }

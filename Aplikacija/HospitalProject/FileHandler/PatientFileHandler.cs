@@ -67,7 +67,6 @@ namespace HospitalProject.FileHandler
                 patient.MedicalRecordId,
                 patient.Guest,
                 patient.Username,
-                patient.Password,
                 patient.FirstName,
                 patient.LastName,
                 patient.Jmbg,
@@ -81,7 +80,7 @@ namespace HospitalProject.FileHandler
         public void AppendLineToFile(Patient Patient)
         {
             string line = ConvertPatientToCSVFormat(Patient);
-            File.AppendAllText(_path, Environment.NewLine + line);
+            File.AppendAllText(_path, line + Environment.NewLine);
         }
         
     }

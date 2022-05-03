@@ -22,17 +22,19 @@
                   FontSize="20"
                   SelectedItem="{Binding SelectedItem}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date"
+                <DataGridTextColumn Header="Start Date"
                                     Width="*"
                                     Binding="{Binding Appointment.Date, Converter={StaticResource DateConverter}}"/>
+                <DataGridTextColumn Header="End Date"
+                                    Width="*"
+                                    Binding="{Binding EndDate, Converter={StaticResource PrescriptionDateConverter}}"/>
                 <DataGridTextColumn Header="Medicine"
-                                    Width="*"/>
+                                    Width="*"
+                                    Binding="{Binding Medicine.Name}"/>
                 <DataGridTextColumn Header="Written By"
                                     Width="*"
                                     Binding="{Binding Appointment.Doctor, Converter={StaticResource NameConverter}}"/>
-                <DataGridTextColumn Header="Duration"
-                                    Width="*"
-                                    Binding="{Binding EndDate, Converter={StaticResource PrescriptionDateConverter}}"/>
+                
             </DataGrid.Columns>
         </DataGrid>    
     </Grid>

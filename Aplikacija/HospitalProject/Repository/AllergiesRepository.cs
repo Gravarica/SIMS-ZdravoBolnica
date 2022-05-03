@@ -16,6 +16,7 @@ public class AllergiesRepository
         private PatientFileHandler _patientFileHandler;
         private MedicalRecordFileHandler _medicalRecordFileHandler;
         private int _allergiesMaxId;
+
         public PatientRepository _patientRepository;
         public MedicalRecordRepository _medicalRecordRepository;
         
@@ -25,7 +26,7 @@ public class AllergiesRepository
             
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
-            
+
         }
         private int GetMaxId() {
             return _allergies.Count() == 0 ? 0 : _allergies.Max(Allergy => Allergy.Id);

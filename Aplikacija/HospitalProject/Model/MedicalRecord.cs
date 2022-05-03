@@ -18,11 +18,22 @@ namespace HospitalProject.Model
         {
             _anamneses = new List<Anamnesis>();
             _allergies= new List<Allergies>();
-            _id = id;
-           _patient = new Patient(patientId);
+            InstantiateData(patientId, id);
         }
 
-        
+        public MedicalRecord(int id, int patientId, List<Allergies> allergies)
+        {
+            InstantiateData(patientId, id);
+            Allergies = allergies;
+            _anamneses = new List<Anamnesis>();
+        }
+
+        private void InstantiateData(int patientId, int id)
+        {
+            Id = id;
+            Patient = new Patient(patientId);
+        }
+
         public int Id 
         { 
             get

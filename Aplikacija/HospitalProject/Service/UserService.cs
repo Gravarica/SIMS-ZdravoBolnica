@@ -17,7 +17,11 @@ namespace HospitalProject.Service
             userRepository = userRepo;
         }
 
-       
+        public void Create(User user)
+        {
+            userRepository.Create(user);
+        }
+
         public User Login(string username, string password)
         {
             return userRepository.Login(username, password);

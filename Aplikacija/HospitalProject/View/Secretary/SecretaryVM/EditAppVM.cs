@@ -176,7 +176,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
                                                                                                                               doctor,
-                                                                                                                              PatientData));
+                                                                                                                              PatientData,
+                                                                                                                              ShowItem.ExaminationType,
+                                                                                                                              ShowItem.Room));
         }
 
         public RelayCommand SaveCommand

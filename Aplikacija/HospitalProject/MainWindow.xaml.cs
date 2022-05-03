@@ -16,6 +16,8 @@ using HospitalProject.Controller;
 using HospitalProject.View;
 using HospitalProject.View.DoctorView.Views;
 using HospitalProject.View.Model;
+using HospitalProject.View.PatientView;
+using HospitalProject.View.PatientView.View;
 using HospitalProject.View.WardenForms;
 
 namespace HospitalProject
@@ -32,6 +34,6 @@ namespace HospitalProject
         }
 
 
-           
+        
     }
 }

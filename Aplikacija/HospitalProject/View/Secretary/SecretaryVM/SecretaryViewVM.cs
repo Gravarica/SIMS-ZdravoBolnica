@@ -61,7 +61,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             set
             {
                 selectedItem = value;
-                OnPropertyChanged(nameof(selectedItem));
+                OnPropertyChanged(nameof(SelectedItem));
             }
         }
 

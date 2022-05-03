@@ -36,7 +36,8 @@ namespace HospitalProject.FileHandler
                                    DateOnly.Parse(tokens[2]),
                                    DateOnly.Parse(tokens[3]),
                                    int.Parse(tokens[4]),
-                                   tokens[5]);
+                                   tokens[5],
+                                   int.Parse(tokens[6]));
         }
 
         public string ConvertPrescriptionToCSVFormat(Prescription prescription)
@@ -47,7 +48,8 @@ namespace HospitalProject.FileHandler
             prescription.StartDate.ToString(),
             prescription.EndDate.ToString(),
             prescription.Interval,
-            prescription.Description);
+            prescription.Description,
+            prescription.Medicine.Id);
         }
 
         public void AppendLineToFile(Prescription prescription)

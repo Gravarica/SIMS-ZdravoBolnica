@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Core;
+using HospitalProject.View.Util;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
@@ -16,7 +17,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         public ObservableCollection<Patient> Patients { get; set; }
         private RelayCommand saveCommand;
-        
+        private bool modalResult;
+
         PatientController _patientController;
 
         private string _dateofbirth;
@@ -32,36 +34,78 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private int _phonenumber;
         private bool _guest;
         private Patient _patient;
+        private Window window;
         private string _gender;
-        
+        private Gender selectedGender;
 
-        public AddPatientVM()
+        List<ComboBoxData<Gender>> genders = new List<ComboBoxData<Gender>>();
+
+        public AddPatientVM(Window window)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
-
+            FillComboData();
+            modalResult = false;
+            this.window = window;
         }
 
 
-        
 
 
 
-       // private bool CanExecute() {
-            /* if (!string.IsNullOrEmpty(p.FirstName) &&
-                      !string.IsNullOrEmpty(p.Username) &&
-                      !string.IsNullOrEmpty(p.LastName) &&
-                      !string.IsNullOrEmpty(p.Email) &&
-                      !string.IsNullOrEmpty(p.Adress) &&
-                      !string.IsNullOrEmpty(p.Password))
+
+        // private bool CanExecute() {
+        /* if (!string.IsNullOrEmpty(p.FirstName) &&
+                  !string.IsNullOrEmpty(p.Username) &&
+                  !string.IsNullOrEmpty(p.LastName) &&
+                  !string.IsNullOrEmpty(p.Email) &&
+                  !string.IsNullOrEmpty(p.Adress) &&
+                  !string.IsNullOrEmpty(p.Password))
 
 
-              { return true; }*/
+          { return true; }*/
 
-         //   return ;
-       // }
-        
+        //   return ;
+        // }
+        public bool ModalResult
+        {
+            get
+            {
+                return modalResult;
+            }
+            set
+            {
+                modalResult = value;
+                OnPropertyChanged(nameof(ModalResult)); 
+            }
+        }
+
+        public Gender SelectedGender
+        {
+            get
+            {
+                return selectedGender;
+            }
+            set
+            {
+                selectedGender = value;
+                OnPropertyChanged(nameof(SelectedGender));
+            }
+        }
+
+        public List<ComboBoxData<Gender>> Genders
+        {
+            get
+            {
+                return genders;
+            }
+            set
+            {
+                genders = value;
+                OnPropertyChanged(nameof(Genders));
+            }
+        }
 
         public string Date
         {
@@ -223,10 +267,25 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             {
                 return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand()));
             }
-        }
-       */
-        
+        }*/
 
+
+        private void ExecuteSaveCommand()
+        {
+
+            Patients.Add(_patientController.Create(new Patient(_id, _medicalrecordid, false, UserName,Password, FirstName, LastName, Jmbg, PhoneNumber, Email, Adress, Convert.ToDateTime(Date), SelectedGender)));
+            ModalResult = true;
+            window.Close();
+
+         }
+
+        private void FillComboData()
+        {
+            foreach(Gender g in Enum.GetValues(typeof(Gender)))
+            {
+                genders.Add(new ComboBoxData<Gender> { Name = g.ToString(), Value = g });
+            }
+        }
 
     }
 }

@@ -30,7 +30,6 @@
                 <wardenForms:WardenEquipemntRelocationView/>
             </DataTemplate>
             
-
             <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
                 <view:PatientsView/>
             </DataTemplate>

@@ -77,15 +77,20 @@ namespace Repository
       private string ConvertEquipment(Room room)
       {
          string roomsEquipement = String.Empty;
+         bool hasEquipment = false;
          
          foreach (Equipement eq in room.Equipment)
          {
-            string id = eq.Id.ToString();
-            string quantity = eq.Quantity.ToString();
-            roomsEquipement= roomsEquipement + (id + "-" + quantity+"|");
+            if (eq.Quantity != 0)
+            {
+               string id = eq.Id.ToString();
+               string quantity = eq.Quantity.ToString();
+               roomsEquipement = roomsEquipement + (id + "-" + quantity + "|");
+               hasEquipment = true;
+            }
          }
-
-         roomsEquipement = roomsEquipement.Remove(roomsEquipement.Length - 1,1);
+         if(hasEquipment){roomsEquipement = roomsEquipement.Remove(roomsEquipement.Length - 1,1);}
+         
 
          return roomsEquipement;
       }

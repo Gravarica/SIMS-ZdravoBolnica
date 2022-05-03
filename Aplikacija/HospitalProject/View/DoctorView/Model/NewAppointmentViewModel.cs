@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
@@ -21,17 +22,23 @@ namespace HospitalProject.View.DoctorView.Model
         private DoctorController doctorController;
         private PatientController patientController;
         private UserController userController;
+        private RoomControoler roomController;
 
+        private Window window;
+
+        
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
         private Doctor doctor;
+        private Room room;
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
-
+        private ExaminationType selectedExamination;
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
+        private List<ComboBoxData<Room>> roomsComboBox = new List<ComboBoxData<Room>>();
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get
@@ -50,11 +57,11 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand saveCommand;
         private RelayCommand cancelCommand;
 
-        public NewAppointmentViewModel(ObservableCollection<Appointment> AppointmentItems)
+        public NewAppointmentViewModel(ObservableCollection<Appointment> AppointmentItems, Window window)
         {
-            _appointmentItems = AppointmentItems;
+            this.window = window;
             InitializeControllers();
-            InitializeData();
+            InitializeData(AppointmentItems);
         }
 
         private void InitializeControllers()
@@ -65,16 +72,22 @@ namespace HospitalProject.View.DoctorView.Model
             patientController = app.PatientController;
             doctorController = app.DoctorController;
             userController = app.UserController;
+            roomController = app.RoomController;
         }
 
-        private void InitializeData()
+        private void InitializeData(ObservableCollection<Appointment> AppointmentItems)
         {
+            _appointmentItems = AppointmentItems;
             doctor = doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
             FillComboData();
         }
 
         // PROPERTY DEFINITIONS
 
+        
+        
+        
+        
         public List<ComboBoxData<Patient>> PatientComboBox
         {
 
@@ -111,7 +124,7 @@ namespace HospitalProject.View.DoctorView.Model
             set
             {
                 startDate = value;
-                //OnPropertyChanged(nameof(StartDate));
+                OnPropertyChanged(nameof(StartDate));
             }
         }
 
@@ -154,6 +167,58 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public List<ComboBoxData<ExaminationType>> ExaminationTypeComboBox
+        {
+            get
+            {
+                return examinationTypeComboBox;
+            }
+            set
+            {
+                examinationTypeComboBox = value;
+                OnPropertyChanged(nameof(ExaminationTypeComboBox));
+            }
+        }
+
+        public List<ComboBoxData<Room>> RoomComboBox
+        { 
+            get
+            {
+                return roomsComboBox;
+            }
+            set
+            {
+                roomsComboBox = value;
+                OnPropertyChanged(nameof (RoomComboBox));
+            }
+        }
+
+        public ExaminationType SelectedExamination
+        { 
+            get
+            {
+                return selectedExamination;
+            }
+            set
+            {
+                selectedExamination = value;
+                OnPropertyChanged(nameof(SelectedExamination));
+            }
+        }
+
+        public Room SelectedRoom
+        {
+            get
+            {
+                return room;
+            }
+            set
+            {
+                room = value;
+                OnPropertyChanged(nameof(SelectedRoom));    
+            }
+        }
+
         // RELAY COMMAND DEFINITONS
 
         public RelayCommand SubmitCommand
@@ -179,7 +244,10 @@ namespace HospitalProject.View.DoctorView.Model
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly, 
                                                                                                                               endDateOnly,
                                                                                                                               doctor,
-                                                                                                                              PatientData));
+                                                                                                                              PatientData,
+                                                                                                                              SelectedExamination,
+                                                                                                                              SelectedRoom));
+            
         }
 
         public RelayCommand SaveCommand
@@ -199,19 +267,41 @@ namespace HospitalProject.View.DoctorView.Model
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
+            window.Close();
         }
 
         // INTERNAL PRIVATE METHODS
 
         private void FillComboData()
         {
+            FillPatientComboData();
+            FillExaminationTypeComboData();
+            FillRoomComboData();
+        }
 
+        private void FillPatientComboData()
+        {
             foreach (Patient p in patientController.GetAll())
             {
                 patientComboBox.Add(new ComboBoxData<Patient> { Name = p.FirstName + " " + p.LastName, Value = p });
             }
-
         }
 
+        private void FillExaminationTypeComboData()
+        {
+            foreach (ExaminationType examType in Enum.GetValues(typeof(ExaminationType)))
+            {
+                examinationTypeComboBox.Add(new ComboBoxData<ExaminationType> { Name = examType.ToString(), Value = examType });
+            }
+        }
+
+        private void FillRoomComboData()
+        {
+            foreach (Room room in roomController.GetAll())
+            {
+                roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
+            }
+        }
+        
     }
 }

@@ -20,6 +20,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private AppointmentController appointmentController;
         private DoctorController doctorController;
         private PatientController patientController;
+        private RoomControoler roomControoler;
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
@@ -64,6 +65,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             appointmentController = app.AppointmentController;
             patientController = app.PatientController;
             doctorController = app.DoctorController;
+            roomControoler = app.RoomController;
         }
 
         private void InitializeData()
@@ -191,7 +193,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
                                                                                                                               doctor,
-                                                                                                                              PatientData));
+                                                                                                                              PatientData,
+                                                                                                                              ExaminationType.GENERAL,
+                                                                                                                              roomControoler.Get(3)));
         }
 
         public RelayCommand SaveCommand
