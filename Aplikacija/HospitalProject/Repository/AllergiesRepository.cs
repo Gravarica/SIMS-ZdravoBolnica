@@ -14,8 +14,11 @@ public class AllergiesRepository
         private List<Allergies> _allergies;
         private AllergiesFileHandler _allergiesFileHandler;
         private PatientFileHandler _patientFileHandler;
+        private MedicalRecordFileHandler _medicalRecordFileHandler;
+        private int _allergiesMaxId;
+
         private int _allergiesMaxId;  
-        
+
         public PatientRepository _patientRepository;
         public MedicalRecordRepository _medicalRecordRepository;
         
@@ -25,7 +28,7 @@ public class AllergiesRepository
             
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
-            //LinkAllergiesWithPatients();
+
         }
         private int GetMaxId() {
             return _allergies.Count() == 0 ? 0 : _allergies.Max(Allergy => Allergy.Id);
@@ -38,6 +41,7 @@ public class AllergiesRepository
             _allergiesFileHandler.AppendLineToFile(a);
         }
 
+    //dpbavi alergije po ID
         public Allergies GetById(int id)
         {
             _allergies = (List<Allergies>)_allergiesFileHandler.ReadAll();
@@ -87,30 +91,30 @@ public class AllergiesRepository
             }
             return false;
         }
-        
-        private void LinkAllergiesWithPatients()
-        { 
-        
 
-            foreach (Allergies allergy in _allergies)
-            {
-                foreach (int id in allergy.PatientsID)
-                {
-                   Patient p = _patientRepository.GetById(id);
-                   
-                   _medicalRecordRepository.AddNewAllergiesToMedicalRecord(allergy, p.Id);
-                
-                }
+    public List<Allergies> GetAllergiesByMedicalRecord(int medicalRecordId)
+    {
+        List<Allergies> allergiesReturnList = new List<Allergies>();
 
-            }
+        //pronadjemo pacijenta po ID 
+        IEnumerable<MedicalRecord> Mrecords = _medicalRecordFileHandler.ReadAll();
+
+        MedicalRecord m = Mrecords.SingleOrDefault(r => r.Id.Equals(medicalRecordId));
+
+        foreach (Allergies allergy in m.Allergies)
+        {
+            allergiesReturnList.Add(allergy);
         }
-        
-        public List<Allergies> GetAllergiesByMedicalRecord(int patientId)
+
+        return allergiesReturnList;
+    }
+
+
+    public List<Allergies> GetAllergiesByPatientID(int patientId)
         {
             List<Allergies> allergiesReturnList = new List<Allergies>();
             
 //pronadjemo pacijenta po ID 
-            //_allergies = (List<Allergies>) _allergiesFileHandler.ReadAll();
             IEnumerable<Patient> patients = _patientFileHandler.ReadAll();
             
             Patient p = patients.SingleOrDefault(r => r.Id.Equals(patientId));
@@ -121,25 +125,11 @@ public class AllergiesRepository
             foreach(Allergies allergy in MedRec.Allergies)
             {
                 allergiesReturnList.Add(allergy);
+              //   allergy.PatientsID.Add(p.Id);
             }
 
             return allergiesReturnList;
         }
         
-        public List<Patient> GetPatientsByAllergy(int allergyID)
-        {
-            List<Patient> patientsReturnList = new List<Patient>();
-            
-//pronadjemo alergiju po ID 
-            _allergies = (List<Allergies>) _allergiesFileHandler.ReadAll();
-            Allergies a = _allergies.SingleOrDefault(r => r.Id.Equals(allergyID));
-            
-            foreach(int patientID in a.PatientsID)
-            {
-                Patient patient = _patientRepository.GetById(patientID);
-                patientsReturnList.Add(patient);
-            }
-
-            return patientsReturnList;
-        }
+    
 }

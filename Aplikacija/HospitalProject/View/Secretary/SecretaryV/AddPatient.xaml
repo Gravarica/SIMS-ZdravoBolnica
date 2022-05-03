@@ -1,0 +1,40 @@
+﻿<Window x:Class="HospitalProject.View.Secretary.SecretaryV.AddPatient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:AddPatientVM}"
+        mc:Ignorable="d"
+        Title="AddPatient" Height="450" Width="800"
+        Background="PaleVioletRed">
+    <Grid>
+        <Label Content="Username" HorizontalAlignment="Left" Margin="421,290,0,0" VerticalAlignment="Top"/>
+        <Label Content="Firstname" HorizontalAlignment="Left" Margin="128,50,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lastname" HorizontalAlignment="Left" Margin="129,82,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="425,325,0,0" VerticalAlignment="Top"/>
+        <Label Content="Adress" HorizontalAlignment="Left" Margin="128,218,0,0" VerticalAlignment="Top"/>
+        <Label Content="Jmbg" HorizontalAlignment="Left" Margin="129,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="Date of birth" HorizontalAlignment="Left" Margin="129,113,0,0" VerticalAlignment="Top"/>
+        <Label Content="Gender" HorizontalAlignment="Left" Margin="129,178,0,0" VerticalAlignment="Top"/>
+        <Button Content="Add patient" HorizontalAlignment="Left" Command ="{Binding SaveCommand}" Margin="508,373,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Left" Margin="508,294,0,0" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Firstname" HorizontalAlignment="Left" Margin="232,58,0,0" TextWrapping="Wrap" Text="{Binding FirstName}" VerticalAlignment="Top" Width="134"/>
+        <TextBox x:Name="Lastname" HorizontalAlignment="Left" Margin="232,90,0,0" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Top" Width="134"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="508,329,0,0" TextWrapping="Wrap" Text="{Binding Password}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Adress" HorizontalAlignment="Left" Margin="232,222,0,0" TextWrapping="Wrap" Text="{Binding Adress}" VerticalAlignment="Top" Width="134"/>
+        <TextBox x:Name="Jmbg" HorizontalAlignment="Left" Margin="232,152,0,0" TextWrapping="Wrap" Text="{Binding Jmbg}" VerticalAlignment="Top" Width="134"/>
+        <ComboBox x:Name="gender" HorizontalAlignment="Left" Margin="232,184,0,0" VerticalAlignment="Top" Width="134"  ItemsSource="{Binding Gender}">
+
+            <ComboBoxItem Content="female"/>
+            <ComboBoxItem Content="male"/>
+        </ComboBox>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Date}" Margin="232,121,0,0" VerticalAlignment="Top" Width="134"/>
+        <Label Content="phone number" HorizontalAlignment="Left" Margin="128,320,0,0" VerticalAlignment="Top" Width="99"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding PhoneNumber}" Margin="232,329,0,0" VerticalAlignment="Top" Width="134"/>
+        <Label Content="E mail" HorizontalAlignment="Left" Margin="129,289,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Mail" HorizontalAlignment="Left" Margin="232,294,0,0" TextWrapping="Wrap" Text="{Binding Email}" VerticalAlignment="Top" Width="134"/>
+
+
+
+    </Grid>
+</Window>

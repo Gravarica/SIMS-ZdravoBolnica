@@ -5,7 +5,8 @@
              xmlns:Model="clr-namespace:HospitalProject.View.Model"
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
              xmlns:view="clr-namespace:HospitalProject.View.DoctorView.Views"
-             xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
+             xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms" 
+             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -28,7 +29,6 @@
             <DataTemplate DataType="{x:Type wardenForms:WardenEquipemntRelocationViewModel}">
                 <wardenForms:WardenEquipemntRelocationView/>
             </DataTemplate>
-            
             
             <DataTemplate DataType="{x:Type viewModel:PatientsViewModel}">
                 <view:PatientsView/>
