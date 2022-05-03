@@ -17,8 +17,6 @@ public class AllergiesRepository
         private MedicalRecordFileHandler _medicalRecordFileHandler;
         private int _allergiesMaxId;
 
-        private int _allergiesMaxId;  
-
         public PatientRepository _patientRepository;
         public MedicalRecordRepository _medicalRecordRepository;
         

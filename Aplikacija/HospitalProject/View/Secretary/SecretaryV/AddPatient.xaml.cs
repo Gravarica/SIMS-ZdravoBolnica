@@ -23,7 +23,7 @@ namespace HospitalProject.View.Secretary.SecretaryV
         public AddPatient()
         {
             InitializeComponent();
-            DataContext = new AddPatientVM();
+            
         }
 
       

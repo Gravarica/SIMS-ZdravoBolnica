@@ -23,11 +23,7 @@
         <TextBox x:Name="Password" HorizontalAlignment="Left" Margin="508,329,0,0" TextWrapping="Wrap" Text="{Binding Password}" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Adress" HorizontalAlignment="Left" Margin="232,222,0,0" TextWrapping="Wrap" Text="{Binding Adress}" VerticalAlignment="Top" Width="134"/>
         <TextBox x:Name="Jmbg" HorizontalAlignment="Left" Margin="232,152,0,0" TextWrapping="Wrap" Text="{Binding Jmbg}" VerticalAlignment="Top" Width="134"/>
-        <ComboBox x:Name="gender" HorizontalAlignment="Left" Margin="232,184,0,0" VerticalAlignment="Top" Width="134"  ItemsSource="{Binding Gender}">
-
-            <ComboBoxItem Content="female"/>
-            <ComboBoxItem Content="male"/>
-        </ComboBox>
+        <ComboBox x:Name="gender" HorizontalAlignment="Left" Margin="232,184,0,0" VerticalAlignment="Top" Width="134"  ItemsSource="{Binding Genders}" DisplayMemberPath="Name" SelectedValuePath="Value" SelectedValue="{Binding SelectedGender}" />
         <TextBox HorizontalAlignment="Left" Text="{Binding Date}" Margin="232,121,0,0" VerticalAlignment="Top" Width="134"/>
         <Label Content="phone number" HorizontalAlignment="Left" Margin="128,320,0,0" VerticalAlignment="Top" Width="99"/>
         <TextBox HorizontalAlignment="Left" Text="{Binding PhoneNumber}" Margin="232,329,0,0" VerticalAlignment="Top" Width="134"/>

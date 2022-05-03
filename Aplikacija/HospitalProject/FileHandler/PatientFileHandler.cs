@@ -34,13 +34,12 @@ namespace HospitalProject.FileHandler
                 tokens[3],
                 tokens[4],
                 tokens[5],
-                tokens[6],
+                int.Parse(tokens[6]),
                 int.Parse(tokens[7]),
-                int.Parse(tokens[8]),
+                tokens[8],
                 tokens[9],
-                tokens[10],
-                DateTime.Parse(tokens[11]),
-                (Gender)Enum.Parse(typeof(Gender), tokens[12], true));
+                DateTime.Parse(tokens[10]),
+                (Gender)Enum.Parse(typeof(Gender), tokens[11], true));
         }
 
         public IEnumerable<Patient> ReadAll()
@@ -68,7 +67,6 @@ namespace HospitalProject.FileHandler
                 patient.MedicalRecordId,
                 patient.Guest,
                 patient.Username,
-                patient.Password,
                 patient.FirstName,
                 patient.LastName,
                 patient.Jmbg,
@@ -82,7 +80,7 @@ namespace HospitalProject.FileHandler
         public void AppendLineToFile(Patient Patient)
         {
             string line = ConvertPatientToCSVFormat(Patient);
-            File.AppendAllText(_path, Environment.NewLine + line);
+            File.AppendAllText(_path, line + Environment.NewLine);
         }
         
     }

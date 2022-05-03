@@ -22,13 +22,13 @@ namespace Model
        public BloodType BloodType
        {
            get { return bloodType; }
-           set { this.bloodType = value; }
+           set { this.bloodType = value; OnPropertyChanged(nameof(BloodType)); }
        }
 
        public bool Guest 
        {
            get { return guest; }
-           set { guest = value; }
+           set { guest = value; OnPropertyChanged(nameof(Guest)); }
        }
 
         public int MedicalRecordId { get; set; }
@@ -115,6 +115,35 @@ namespace Model
         public Patient(int id) { 
             Id = id;
             appointments = new List<Appointment>();    
+        }
+
+        public Patient(
+          int id,
+          int medicalRecordId,
+          bool guest,
+          String username,
+          String firstName,
+          String lastName,
+          int jmbg,
+          int phoneNumber,
+          string email,
+          string adress,
+          DateTime dateofBirth,
+          Gender gender) : base(username,
+                                firstName,
+                                lastName,
+                                jmbg,
+                                phoneNumber,
+                                email,
+                                adress,
+                                dateofBirth,
+                                gender)
+        {
+            Id = id;
+            MedicalRecordId = medicalRecordId;
+            Guest = guest;
+            appointments = new List<Appointment>();
+
         }
 
         public Patient() { }

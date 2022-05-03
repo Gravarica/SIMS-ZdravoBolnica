@@ -131,37 +131,37 @@ public class User : ViewModelBase
     public Int32 Jmbg
     {
          get { return jmbg; }
-         set { jmbg= value; }
+         set { jmbg= value; OnPropertyChanged(nameof(Jmbg)); }
     }
     
     public int PhoneNumber
     { 
         get { return phoneNumber; }
-        set { phoneNumber = value; }
+        set { phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); }
     }
     
     public string Email
     {
         get { return email; }
-        set { email = value; }
+        set { email = value; OnPropertyChanged(nameof(Email)); }
     }
     
     public string Adress
     {
         get { return adress; }
-        set { adress = value; }
+        set { adress = value; OnPropertyChanged(nameof(Adress)); }
     }
     
     public DateTime DateOfBirth 
     {
         get { return dateOfBirth; }
-        set { dateOfBirth = value; }
+        set { dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); }
     }
     
     public Gender Gender
     {
         get { return gender; }
-        set { gender = value; }
+        set { gender = value; OnPropertyChanged(nameof(Gender)); }
     }
             
             
@@ -192,5 +192,26 @@ public class User : ViewModelBase
           {
               this.firstName = FirstName;
               this.lastName = LastName;
+          }
+
+          public User(String username,
+                    String firstName,
+                    String lastName,
+                    int jmbg,
+                    int phoneNumber,
+                    String email,
+                    String adress,
+                    DateTime dateOfBirth,
+                    Gender gender)
+          {
+              Username = username;
+              FirstName = firstName;
+              LastName = lastName;
+              Jmbg = jmbg;
+              PhoneNumber = phoneNumber;
+              Email = email;
+              Adress = adress;
+              DateOfBirth = dateOfBirth;
+              Gender = this.gender;
           }
 }
