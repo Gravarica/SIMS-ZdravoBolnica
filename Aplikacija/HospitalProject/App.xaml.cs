@@ -91,15 +91,11 @@ namespace HospitalProject
 
             var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
 
-            var _equipementRepository = new EquipementRepository(_equipementFileHandler);
-
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
 
 //          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
-
-            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler);
 
             var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
 
