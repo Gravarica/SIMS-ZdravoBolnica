@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.PatientView.Model
 {
@@ -22,6 +23,7 @@ namespace HospitalProject.View.PatientView.Model
         private PatientController patientController;
         private UserController userController;
         private RoomControoler roomController;
+        private Window window; 
 
         private DateTime startDate;
         private DateTime endDate;
@@ -48,8 +50,9 @@ namespace HospitalProject.View.PatientView.Model
         private RelayCommand cancelCommand;
         private RelayCommand saveCommand;
 
-        public EditAppointmentPatientViewModel(Appointment appointment, ObservableCollection<Appointment> appointmentItems)
+        public EditAppointmentPatientViewModel(Appointment appointment, ObservableCollection<Appointment> appointmentItems, Window window)
         {
+            this.window = window;
             InitializeControllers();
             InitializeData();
             showItem = appointment;
@@ -199,6 +202,7 @@ namespace HospitalProject.View.PatientView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            window.Close();
         }
 
         private bool LessThanADayRemainingUntillAppointmentCheck() {

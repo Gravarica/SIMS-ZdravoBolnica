@@ -250,7 +250,7 @@ namespace HospitalProject.View.PatientView.Model
         private void EditAppointmentCommandExecute()
         {
             EditAppointmentPatientView view = new EditAppointmentPatientView();
-            view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems);
+            view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems,view);
             view.ShowDialog();
         }
 
