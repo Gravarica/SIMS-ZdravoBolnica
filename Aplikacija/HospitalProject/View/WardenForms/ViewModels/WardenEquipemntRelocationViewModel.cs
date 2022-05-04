@@ -14,11 +14,15 @@ namespace HospitalProject.View.WardenForms;
 
 public class WardenEquipemntRelocationViewModel : BaseViewModel
 {
+
+    private EquipmentRelocationController equipmentRelocationController;
     private RoomControoler roomControoler;
     private Equipement selectedEquipement;
     private EquipmentRoomModel selectedRoom;
     private EquipmentRoomModel destinationRoom;
     private int quantity;
+
+    private DateTime relocationDate;
     private ObservableCollection<EquipmentRoomModel> _generatedRooms;
     private ObservableCollection<EquipmentRoomModel> _allRooms;
     private int roomNumber;
@@ -57,7 +61,20 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
             OnPropertyChanged(nameof(SelectedRoom));
         }
     }
-    
+
+    public DateTime RelocationDate
+    {
+        get
+        {
+            return relocationDate;
+        }
+        set
+        {
+            relocationDate = value;
+            OnPropertyChanged(nameof(RelocationDate));
+        }
+    }
+
     public bool WasZero
     {
         get
@@ -142,68 +159,66 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
     {
         var app = System.Windows.Application.Current as App;
         roomControoler = app.RoomController;
-        
+        equipmentRelocationController = app.EquipmentRelocationController;
+
     }
 
     private void ExecuteEquipmentRelocation(Equipement selectedEquipment)
     {
-        roomControoler.UpdateRoomsEquipment(SelectedRoom,DestinationRoom,selectedEquipment.Id,Quantity);
-
-
-        var foundSource = AllRooms.FirstOrDefault(x => x.RoomId == SelectedRoom.RoomId);
-
-        int source = AllRooms.IndexOf(foundSource);
-        int selectedQ = 0;
-
-
-        if (selectedRoom.EquipmentQuantity == Quantity)
+        if (RelocationDate != DateTime.Today)
         {
-            SelectedRoom.WasZero = false;
-            GeneratedRooms.Remove(SelectedRoom);
+            equipmentRelocationController.Create(new EquipmentRelocation(new Room(SelectedRoom.RoomId),new Room(DestinationRoom.RoomId),selectedEquipment,Quantity,new DateOnly(RelocationDate.Year,RelocationDate.Month,RelocationDate.Day)));
         }
         else
         {
-            SelectedRoom.EquipmentQuantity -= Quantity;
-            selectedQ = SelectedRoom.EquipmentQuantity;
-        }
+            roomControoler.UpdateRoomsEquipment(SelectedRoom.RoomId,DestinationRoom.RoomId,selectedEquipment.Id,Quantity);
 
-        if (DestinationRoom.EquipmentQuantity == 0)
-        {
-            DestinationRoom.WasZero = true;
-            GeneratedRooms.Add(DestinationRoom);
-            DestinationRoom.EquipmentQuantity += Quantity;
-        }
-        else
-        {
-            if (DestinationRoom.WasZero)
+
+            var foundSource = AllRooms.FirstOrDefault(x => x.RoomId == SelectedRoom.RoomId);
+
+            int source = AllRooms.IndexOf(foundSource);
+            int selectedQ = 0;
+
+
+            if (selectedRoom.EquipmentQuantity == Quantity)
             {
+                SelectedRoom.WasZero = false;
+                GeneratedRooms.Remove(SelectedRoom);
+            }
+            else
+            {
+                SelectedRoom.EquipmentQuantity -= Quantity;
+                selectedQ = SelectedRoom.EquipmentQuantity;
+            }
+
+            if (DestinationRoom.EquipmentQuantity == 0)
+            {
+                DestinationRoom.WasZero = true;
+                GeneratedRooms.Add(DestinationRoom);
                 DestinationRoom.EquipmentQuantity += Quantity;
             }
             else
             {
-            DestinationRoom.EquipmentQuantity += Quantity;
-            var foundDestination = GeneratedRooms.FirstOrDefault(x => x.RoomId == DestinationRoom.RoomId);
-            int destination = GeneratedRooms.IndexOf(foundDestination);
+                if (DestinationRoom.WasZero)
+                {
+                    DestinationRoom.EquipmentQuantity += Quantity;
+                }
+                else
+                {
+                    DestinationRoom.EquipmentQuantity += Quantity;
+                    var foundDestination = GeneratedRooms.FirstOrDefault(x => x.RoomId == DestinationRoom.RoomId);
+                    int destination = GeneratedRooms.IndexOf(foundDestination);
 
-            GeneratedRooms[destination].EquipmentQuantity += Quantity;
+                    GeneratedRooms[destination].EquipmentQuantity += Quantity;
+                }
+
+        
+            }
+        
+        
+            AllRooms[source].EquipmentQuantity = selectedQ; 
         }
-
-        //
-        // var foundDestination1 = AllRooms.FirstOrDefault(x => x.RoomId == DestinationRoom.RoomId);
-        // int destination1 = AllRooms.IndexOf(foundDestination1);
-        //
-        // AllRooms[destination1].EquipmentQuantity += Quantity;
-        }
         
-        
-        AllRooms[source].EquipmentQuantity = selectedQ;
-        
-        
-
-
-
-
-
     }
 
     private bool CanExecuteRelocation()

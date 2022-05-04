@@ -24,7 +24,11 @@ namespace Controller
       {
         return  _appointmentService.Create(appointment);
       }
-      
+
+      public bool DeleteApointmentsByRoomId(int id)
+      {
+          return _appointmentService.DeleteApointmentsByRoomId(id);
+      }
       public IEnumerable<Appointment> GetAll()
       {
             return _appointmentService.getAll();
