@@ -43,13 +43,9 @@ namespace Service
            return appointments;
         }
 
-        public void DeleteApointmentsByRoomId(int id)
+        public bool DeleteApointmentsByRoomId(int id)
         {
-            var apointments = appointmentRepository.GetAllByRoomId(id);
-            foreach (Appointment app in apointments)
-            {
-                Delete(app.Id);
-            }
+           return appointmentRepository.DeleteApointmentsByRoomId(id);
         }
         
         // Updates given appointment to certain parameters
@@ -66,6 +62,8 @@ namespace Service
         }
         
         // Deletes(Cancels) an appointment in the system by the given id
+        
+        
         public void Delete(int id)
         {
            appointmentRepository.Delete(id);

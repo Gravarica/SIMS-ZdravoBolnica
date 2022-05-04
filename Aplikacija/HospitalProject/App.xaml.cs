@@ -35,6 +35,7 @@ namespace HospitalProject
         private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
+        private string EQUIPMENT_RELOCATION_FILE = _projectPath + "\\Resources\\Data\\equipmentRelocations.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
         private const string ONLY_DATE_FORMAT = "MM/dd/yyyy";
@@ -65,6 +66,9 @@ namespace HospitalProject
         public PrescriptionController PrescriptionController { get; set; }
 
         public NotificationController NotificationController { get; set; }
+        
+        public EquipmentRelocationController EquipmentRelocationController{ get; set; }
+
 
         public App()
         {
@@ -91,6 +95,12 @@ namespace HospitalProject
 
             var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
 
+            var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
+
+
+
+            var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
+            
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
 
 //          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
@@ -117,6 +127,8 @@ namespace HospitalProject
 
             var _userRepository = new UserRepository(_userFileHandler);
 
+
+
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
             var _equipementService = new EquipementService(_equipementRepository);
@@ -139,8 +151,11 @@ namespace HospitalProject
 
             var _roomRenovationService = new RoomRenovationService(_roomRenovationRepository,_appointmentService,_roomService);
 
+            var _equipmentRelocationService = new EquipmentRelocationService(_equipmentRelocationRepository,_roomService);
 
-
+            
+            EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
+            
             AllergiesController = new AllergiesController(_allergiesService);
 
             RenovationController = new RoomRenovationController(_roomRenovationService);

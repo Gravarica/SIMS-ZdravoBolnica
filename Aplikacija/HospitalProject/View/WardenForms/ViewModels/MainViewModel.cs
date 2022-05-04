@@ -1,6 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Windows;
+using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.View.Model;
 using HospitalProject.View.WardenForms.ViewModels;
 
@@ -8,6 +15,9 @@ namespace HospitalProject.View.WardenForms
 {
     public class MainViewModel : BaseViewModel
     {
+
+        private EquipmentRelocationController _equipmentRelocationController;
+        private Thread thread;
         private object _momentalView { get; set; }
         public WardenRoomControl WardenRoomControl { get; set; }
         public RelayCommand RoomViewCommand { get; set; }
@@ -42,6 +52,8 @@ namespace HospitalProject.View.WardenForms
         public static MainViewModel Instance => instance;
         public MainViewModel()
         {
+            var app = System.Windows.Application.Current as App;
+            _equipmentRelocationController = app.EquipmentRelocationController;
             instance = this;
             WardenRoomControl = new WardenRoomControl();
             WardenEquipementView = new EquipementViewModel();
@@ -66,6 +78,34 @@ namespace HospitalProject.View.WardenForms
              });
              RoomRenovationCommand = new RelayCommand(o => { MomentalView = RoomRenovationViewModel; });
 
+             ThreadStart threadStart = new ThreadStart(StartRelocationThread);
+             thread = new Thread(threadStart);
+             thread.Start();
+
+        }
+
+        public void StartRelocationThread()
+        {
+            while (true)
+            {
+                List<EquipmentRelocation> todaysRelocations = _equipmentRelocationController.ExecuteRelocations();
+                if (todaysRelocations.Count != 0)
+                {
+                    string message = String.Empty;
+                    bool hasMessage = false;
+                    foreach (EquipmentRelocation er in todaysRelocations)
+                    {
+                        hasMessage = true;
+                        _equipmentRelocationController.Delete(er.Id);
+                        message += (er.Id.ToString()+",");
+                    }
+                    if(hasMessage){message = message.Remove(message.Length - 1,1);}
+                    MessageBox.Show("Sucsefful relocations ids:" + message, "Todayse relocations");
+                }
+                Thread.Sleep(60*1000);
+                
+            }
+            
         }
         
         

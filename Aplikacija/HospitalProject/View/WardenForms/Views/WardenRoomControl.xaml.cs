@@ -185,6 +185,13 @@ namespace HospitalProject.View.WardenForms
 
         private void EditEvent_Handler(object sender, RoutedEventArgs e)
         {
+            RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
+            
+            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+            {
+                MessageBox.Show("Stockroom cant be edited", "Warning", MessageBoxButton.OK);
+            }
+            else
             if (Rooms.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select an room", "Warning", MessageBoxButton.OK);
@@ -211,9 +218,23 @@ namespace HospitalProject.View.WardenForms
 
         private void DeleteRoom()
         {
-            RoomViewModel rvm = (RoomViewModel) Rooms.SelectedItem;
-            _roomControoler.Delete(rvm.RoomId);
-            RoomItems.Remove(rvm);
+            RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
+            
+            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+            {
+                MessageBox.Show("Stockroom cant be deleted", "Warning", MessageBoxButton.OK);
+            }
+            else if (!_appointmentController.DeleteApointmentsByRoomId(selectedRoom.RoomId))
+            {
+                MessageBox.Show("This Room has scheduled appointments", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                
+                _roomControoler.Delete(selectedRoom.RoomId);
+                RoomItems.Remove(selectedRoom);
+            }
+            
         }
 
 
