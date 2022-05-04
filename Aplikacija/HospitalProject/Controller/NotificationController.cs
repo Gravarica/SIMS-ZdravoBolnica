@@ -22,5 +22,15 @@ namespace HospitalProject.Controller
         {
             return notificationService.CheckIfThereAreNotificationsForUser(patient);
         }
+
+        public void Insert(Notification notification)
+        {
+            notificationService.Insert(notification);
+        }
+
+        public List<Notification> GetNotificationsByPatient(int id)
+        {
+            return notificationService.GetNotificationsByPatient(id);
+        }
     }
 }

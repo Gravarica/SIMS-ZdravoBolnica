@@ -20,6 +20,11 @@ namespace HospitalProject.Service
             this.notificationRepository = notificationRepository;
             this.prescriptionService = prescriptionService;
         }
+        public void Insert(Notification notification)
+        {
+            notificationRepository.Insert(notification);
+
+        }
 
         private void SetPrescriptionForNotification(Notification notification)
         {

@@ -31,7 +31,7 @@ namespace HospitalProject.FileHandler
                                notification.Id,
                                notification.Name,
                                notification.Prescription.Id,
-                               notification.StartTime.ToString()
+                               notification.StartTime.ToString("HH:mm")
                                ) ;
         }
 
