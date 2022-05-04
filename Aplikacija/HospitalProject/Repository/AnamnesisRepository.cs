@@ -17,7 +17,7 @@ namespace HospitalProject.Repository
         private int _anamnesesMaxId;
     
 
-        public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler, AppointmentRepository appointmentRepository)
+        public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler)
         {
             _fileHandler = anamnesisFileHandler;
             _anamneses = _fileHandler.ReadAll().ToList();

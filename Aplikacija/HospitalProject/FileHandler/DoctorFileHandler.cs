@@ -21,9 +21,9 @@ namespace HospitalProject.FileHandler
             _delimiter=delimiter;
         }
 
-        private Doctor ConvertCSVFormatToDoctor(string acountCSVFormat)                   
+        private Doctor ConvertCSVFormatToDoctor(string CSVFormat)                   
         {
-            var tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
+            var tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new Doctor(int.Parse(tokens[0]), tokens[1], tokens[2], tokens[3], TimeOnly.Parse(tokens[4]), TimeOnly.Parse(tokens[5]));
         }
 
