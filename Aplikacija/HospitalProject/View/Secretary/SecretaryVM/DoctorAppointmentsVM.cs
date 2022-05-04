@@ -8,6 +8,7 @@ using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Service;
 using HospitalProject.View.Secretary.SecretaryV;
 using HospitalProject.View.Util;
 using Model;
@@ -42,6 +43,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
+        private MedicalRecordService medicalRecordService;
 
         public List<ComboBoxData<Patient>> PatientComboBox
         {
@@ -202,7 +204,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void MedicalRecordCommandExecute()
         {
             PatientProfile view = new PatientProfile();
-            view.DataContext = new PatientProfileVM(SelectedItem.Patient);
+            view.DataContext = new PatientProfileVM(SelectedItem.Patient, medicalRecordService);
             view.ShowDialog();
         }
 

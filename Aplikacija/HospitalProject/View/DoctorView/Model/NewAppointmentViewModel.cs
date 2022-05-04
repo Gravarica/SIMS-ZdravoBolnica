@@ -247,7 +247,12 @@ namespace HospitalProject.View.DoctorView.Model
                                                                                                                               PatientData,
                                                                                                                               SelectedExamination,
                                                                                                                               SelectedRoom));
-            
+
+            if (GeneratedAppointments.Count() == 0)
+            {
+                MessageBox.Show("There are not free appointments for the inverval selected. Please try another date", "No appointments", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
         }
 
         public RelayCommand SaveCommand
@@ -299,7 +304,10 @@ namespace HospitalProject.View.DoctorView.Model
         {
             foreach (Room room in roomController.GetAll())
             {
-                roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
+                if(room.RoomType != RoomType.stockroom)
+                {
+                    roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
+                }             
             }
         }
         

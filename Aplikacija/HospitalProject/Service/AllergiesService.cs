@@ -8,20 +8,12 @@ namespace HospitalProject.Service;
 public class AllergiesService
 {
     private AllergiesRepository _allergiesRepository;
-    private MedicalRecordService _medicalRecordService;
 
     public AllergiesService(AllergiesRepository allergiesRepository)
     {
         _allergiesRepository = allergiesRepository;
     }
 
-    public MedicalRecordService MRService
-    {
-        set
-        {
-            _medicalRecordService = value;
-        }
-    }
 
     public IEnumerable<Allergies> GetAll()
     {

@@ -9,19 +9,46 @@
       Background="White">
 
     <Grid>
-        <DataGrid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+
+
+
+        <DataGrid Grid.Row="1"
+                  Margin="30"
+                  FontSize="15"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Prescriptions}"
+                  SelectedItem="{Binding SelectedItem}">
             <DataGrid.Columns>
-
-                <DataGridTextColumn Header="Start Date" FontSize="30"/>
-
-
-
+                <DataGridTextColumn Header="Start Date"
+                                    Width="2*"
+                                    Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header="End Date"
+                                    Width="2*"
+                                    Binding="{Binding EndDate}"/>
+                <DataGridTextColumn Header="Interval"
+                                    Width="3*"
+                                    Binding="{Binding Interval}"/>
+               
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Make"
+                                    Margin="5,10,10,5"
+                                    Command="{Binding DataContext.MakeNotificationCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-            
-            
-            
-            
         </DataGrid>
-        
+
     </Grid>
 </UserControl>

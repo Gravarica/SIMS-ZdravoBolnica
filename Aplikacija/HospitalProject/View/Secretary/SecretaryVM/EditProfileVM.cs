@@ -7,26 +7,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Core;
-using HospitalProject.Repository;
 using HospitalProject.View.Util;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class AddPatientVM : BaseViewModel
+    internal class EditProfileVM : BaseViewModel
     {
-
         public ObservableCollection<Patient> Patients { get; set; }
-        private RelayCommand saveCommand;
-        private bool modalResult;
-
         PatientController _patientController;
-        private UserRepository _userRepository;
 
         private string _dateofbirth;
         private int _jmbg;
         private int _id;
-        private int _medicalrecordid;
         private string _firstname;
         private string _username;
         private string _lastname;
@@ -36,20 +29,19 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private int _phonenumber;
         private bool _guest;
         private Patient _patient;
-        private Window window;
         private string _gender;
         private Gender selectedGender;
-
+        private RelayCommand saveCommand;
         List<ComboBoxData<Gender>> genders = new List<ComboBoxData<Gender>>();
 
-        public AddPatientVM(Window window)
+        public EditProfileVM(Patient p)
         {
+            _patient = p;
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
             FillComboData();
-            modalResult = false;
-            this.window = window;
+           
         }
 
 
@@ -70,18 +62,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         //   return ;
         // }
-        public bool ModalResult
-        {
-            get
-            {
-                return modalResult;
-            }
-            set
-            {
-                modalResult = value;
-                OnPropertyChanged(nameof(ModalResult)); 
-            }
-        }
+     
 
         public Gender SelectedGender
         {
@@ -93,6 +74,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             {
                 selectedGender = value;
                 OnPropertyChanged(nameof(SelectedGender));
+            }
+        }
+        public Patient Patient
+        {
+            get
+            {
+                return _patient;
+            }
+            set
+            {
+                _patient = value;
+                OnPropertyChanged(nameof(Patient));
             }
         }
 
@@ -244,26 +237,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public BloodType StringToBloodType(string str)
-        {
-            switch (str)
-            {
-                case "a":
-                    return global::Model.BloodType.a;
-                case "b":
-                    return global::Model.BloodType.b;
-                case "ab":
-                    return global::Model.BloodType.ab;
-
-                default:
-                    return global::Model.BloodType.o;
-            }
-        }
-
-       
 
 
-       public RelayCommand SaveCommand
+        public RelayCommand SaveCommand
         {
             get
             {
@@ -273,32 +249,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private bool CanExecute()
         {
-              foreach (Patient u in Patients)
-            {
-                if (UserName == u.Username)
-                {
-                    MessageBox.Show("username already taken", "Error", MessageBoxButton.OK);
-
-                    return false;
-                }
-               
-
-            }
-             return true; 
+            return true;
         }
 
         private void ExecuteSaveCommand()
-        {
+        {   
+            _patientController.Update(Patient);
 
-            Patients.Add(_patientController.Create(new Patient(_id, _medicalrecordid, false, UserName,Password, FirstName, LastName, Jmbg, PhoneNumber, Email, Adress, Convert.ToDateTime(Date), SelectedGender)));
-            ModalResult = true;
-            window.Close();
-
-         }
+        }
 
         private void FillComboData()
         {
-            foreach(Gender g in Enum.GetValues(typeof(Gender)))
+            foreach (Gender g in Enum.GetValues(typeof(Gender)))
             {
                 genders.Add(new ComboBoxData<Gender> { Name = g.ToString(), Value = g });
             }

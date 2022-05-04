@@ -27,7 +27,7 @@ namespace HospitalProject.FileHandler
                    .ToList();
         }
 
-        public Anamnesis ConvertCSVFormatToAnamnesis(string CSVFormat)
+        private Anamnesis ConvertCSVFormatToAnamnesis(string CSVFormat)
         {
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new Anamnesis(int.Parse(tokens[0]),
@@ -37,7 +37,7 @@ namespace HospitalProject.FileHandler
                                    
         }
 
-        public string ConvertAnamnesisToCSVFormat(Anamnesis anamnesis)
+        private string ConvertAnamnesisToCSVFormat(Anamnesis anamnesis)
         {
             return string.Join(_delimiter,
             anamnesis.Id,

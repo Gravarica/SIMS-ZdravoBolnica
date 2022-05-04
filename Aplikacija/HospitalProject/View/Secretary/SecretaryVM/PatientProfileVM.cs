@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.Service;
 using HospitalProject.View.Secretary.SecretaryV;
 using Model;
 
@@ -19,14 +20,17 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         MedicalRecord _medicalRecord;
         private Patient _patient;
+        private MedicalRecordService _medicalRecordService;
         private RelayCommand showAllergiesCommand;
+        private RelayCommand edit;
         public PatientProfileVM(MedicalRecord medicalRecord)
         {
             _medicalRecord = medicalRecord;
         }
 
-        public PatientProfileVM(Patient patient)
+        public PatientProfileVM(Patient patient, MedicalRecordService medicalRecordService)
         {
+            _medicalRecordService = medicalRecordService;
             _patient = patient;
 
         }
@@ -54,7 +58,22 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public void ExecuteShowAllergiesCommand()
         {
             PatientAllergies view = new PatientAllergies();
-            view.DataContext = new PatientAllergiesVM(Patient);
+            view.DataContext = new PatientAllergiesVM(Patient, _medicalRecordService);
+            view.ShowDialog();
+        }
+
+        public RelayCommand Edit
+        {
+            get
+            {
+                return edit ?? (edit = new RelayCommand(param => ExecuteEditCommand()));
+            }
+        }
+
+        public void ExecuteEditCommand()
+        {
+            EditProfile view = new EditProfile();
+            view.DataContext = new EditProfileVM(Patient);
             view.ShowDialog();
         }
 

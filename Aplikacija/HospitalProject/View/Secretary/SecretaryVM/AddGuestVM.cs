@@ -19,28 +19,40 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         PatientController _patientController;
 
         private int _jmbg;
-       
+
         private string _firstname;
-      
+
         private string _lastname;
 
-        //public string Guest = true;
-
         private Patient _patient;
+        private bool modalResult;
 
+        private Window window;
         private int _id;
         private int _idMR;
 
-        public AddGuestVM()
+        public AddGuestVM(Window window)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
-
+            modalResult = false;
+            this.window = window;
         }
 
 
-
+        public bool ModalResult
+        {
+            get
+            {
+                return modalResult;
+            }
+            set
+            {
+                modalResult = value;
+                OnPropertyChanged(nameof(ModalResult));
+            }
+        }
 
 
 
@@ -56,7 +68,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         // }
 
 
-        
+
         public int Jmbg
         {
             get
@@ -95,7 +107,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        
+
         public RelayCommand SaveCommand
         {
             get
@@ -104,14 +116,15 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        private Patient ExecuteSaveCommand()
+        private void ExecuteSaveCommand()
         {
             Patient P = _patientController.Create(new Patient(_id, _idMR, FirstName, LastName, Jmbg));
 
             Patients.Add(P);
-            MessageBox.Show("Patient succsessfully added", "Add new patient", MessageBoxButton.OK);
+           
 
-            return P;
+            ModalResult = true;
+            window.Close();
         }
 
 

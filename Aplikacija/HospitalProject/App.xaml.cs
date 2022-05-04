@@ -117,7 +117,7 @@ namespace HospitalProject
 
             var _patientRepository = new PatientRepository(_patientFileHandler);
 
-            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler, _appointmentRepository);
+            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler);
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
 
@@ -168,7 +168,7 @@ namespace HospitalProject
 
             DoctorController = new DoctorController(_doctorService);
 
-            PatientController = new PatientController(_patientService,_userService);
+            PatientController = new PatientController(_patientService,_userService, _medicalRecordService);
 
             RoomController = new RoomControoler(_roomService);
 

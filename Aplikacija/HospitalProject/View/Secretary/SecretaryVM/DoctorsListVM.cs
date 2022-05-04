@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.View.Secretary.SecretaryV;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
@@ -22,6 +23,40 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             var app = System.Windows.Application.Current as App;
             _doctorController = app.DoctorController;
             Doctors = new ObservableCollection<Doctor>(app.DoctorController.GetAll());
+        }
+        public Doctor SelectedItem
+        {
+            get
+            {
+                return selectedItem;
+            }
+            set
+            {
+                selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+        private bool CanExecute()
+        {
+            return SelectedItem != null;
+        }
+
+       
+        public RelayCommand ShowProfileCommand
+        {
+            get
+            {
+                return showProfileCommand ?? (showProfileCommand = new RelayCommand(param => ExecuteShowProfileCommand(),
+                                                                                     param => CanExecute()));
+            }
+        }
+
+        private void ExecuteShowProfileCommand()
+        {
+
+            DoctorProfile view = new DoctorProfile();
+            view.DataContext = new DoctorProfileVM(SelectedItem);
+            view.ShowDialog();
         }
 
 
