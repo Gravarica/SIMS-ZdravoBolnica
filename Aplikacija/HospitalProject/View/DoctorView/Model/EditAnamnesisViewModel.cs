@@ -16,19 +16,28 @@ namespace HospitalProject.View.DoctorView.Model
         private Anamnesis showItem;
         private AnamnesisController _anamnesisController;
         private Window _window;
+        private bool modalResult;
 
         private RelayCommand editAnamnesisCommand;
         private RelayCommand exitCommand;
 
         public EditAnamnesisViewModel(Anamnesis anamnesis, Window window)
         {
-            var app = System.Windows.Application.Current as App;
+            InstantiateControllers();
+            InstantiateData(anamnesis,window);
+        }
 
+        private void InstantiateData(Anamnesis anamnesis, Window window)
+        {
             ShowItem = anamnesis;
             _window = window;
+            modalResult = false;
+        }
 
+        private void InstantiateControllers()
+        {
+            var app = System.Windows.Application.Current as App;
             _anamnesisController = app.AnamnesisController;
-
         }
 
         public Anamnesis ShowItem
@@ -41,6 +50,19 @@ namespace HospitalProject.View.DoctorView.Model
             {
                 showItem = value;
                 OnPropertyChanged(nameof(ShowItem));
+            }
+        }
+
+        public bool ModalResult
+        {
+            get
+            {
+                return modalResult;
+            }
+            set
+            {
+                modalResult = value;
+                OnPropertyChanged(nameof(ModalResult));
             }
         }
 
@@ -83,6 +105,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void EditAnamnesisCommandExecute()
         {
             _anamnesisController.Update(ShowItem);
+            modalResult = true;
             _window.Close();
         }
 

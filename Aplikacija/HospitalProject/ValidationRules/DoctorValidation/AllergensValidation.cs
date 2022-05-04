@@ -15,7 +15,7 @@ namespace HospitalProject.ValidationRules.DoctorValidation
             {
                 foreach(Allergies medicineAllergen in medicine.Alergens)
                 {
-                    if(allergen.Name.Equals(medicineAllergen.Name))
+                    if(allergen.Name.Trim().Equals(medicineAllergen.Name.Trim()))
                     {
                         return allergen;
                     }
