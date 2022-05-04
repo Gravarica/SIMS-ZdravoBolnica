@@ -1,4 +1,5 @@
 ﻿using HospitalProject.Core;
+using Model;
 
 namespace HospitalProject.View.WardenForms.ViewModels;
 
@@ -7,7 +8,8 @@ public class EquipmentRoomModel : BaseViewModel
     private int id;
     private int number;
     private int quantity;
-
+    private RoomType roomType;
+    private int floor;
     private bool wasZero;
     
     
@@ -33,6 +35,32 @@ public class EquipmentRoomModel : BaseViewModel
             {
                 id = value;
                 OnPropertyChanged(nameof(RoomId));
+            }
+        }
+    }
+    
+    public int Floor
+    {
+        get { return floor; }
+        set
+        {
+            if (value != floor)
+            {
+                floor = value;
+                OnPropertyChanged(nameof(Floor));
+            }
+        }
+    }
+    
+    public RoomType RoomType
+    {
+        get { return roomType; }
+        set
+        {
+            if (value != roomType)
+            {
+                roomType = value;
+                OnPropertyChanged(nameof(RoomType));
             }
         }
     }

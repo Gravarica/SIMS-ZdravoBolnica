@@ -58,7 +58,7 @@ namespace Repository
 
         public IEnumerable<Appointment> GetAllByRoomId(int id)
         {
-            return _appointments.Where(x=> x.Room.Id==id);  
+            return _appointments.Where(x=> x.Room.Id==id && x.IsDone==false);  
         }
         
         public IEnumerable<Appointment> GetAll()
@@ -72,6 +72,20 @@ namespace Repository
             Appointment removeAppointment = GetById(id);
             _appointments.Remove(removeAppointment);
             _appointmentFileHandler.Save(_appointments);
+        }
+        
+        public bool DeleteApointmentsByRoomId(int id)
+        {
+            var apointments = GetAllByRoomId(id);
+            if (apointments.Count() != 0)
+            {
+                return false;
+            }
+            return true;
+            // foreach (Appointment app in apointments)
+            // {
+            //     Delete(app.Id);
+            // }
         }
 
         // Method that updates certain appointment

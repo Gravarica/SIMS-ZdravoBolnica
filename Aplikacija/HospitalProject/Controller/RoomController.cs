@@ -49,7 +49,7 @@ namespace HospitalProject.Controller
             return _roomService.Get(id);
         }
 
-        public void UpdateRoomsEquipment(EquipmentRoomModel source, EquipmentRoomModel destination, int equipmentId,
+        public void UpdateRoomsEquipment(int source, int destination, int equipmentId,
             int quantity)
         {
             _roomService.UpdateRoomsEquipment(source,destination,equipmentId,quantity);

@@ -106,7 +106,7 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Button Content="Delete" HorizontalAlignment="Left" Margin="730,76,0,0" VerticalAlignment="Top" Height="104" Width="612" Grid.Row="2" />
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="730,76,0,0" Click = "DeleteEvent_Handler" VerticalAlignment="Top" Height="104" Width="612" Grid.Row="2" />
         <Button Content="Room renovatoin" Margin="732,243,53,68" Grid.Row="2" Command="{Binding RenovationCommand}"></Button>
     </Grid>
 </UserControl>
