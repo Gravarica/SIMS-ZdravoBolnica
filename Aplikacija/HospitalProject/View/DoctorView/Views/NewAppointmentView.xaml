@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Height="600" Width="950"
              Background="AliceBlue"
@@ -124,7 +125,8 @@
                                 Grid.Column="1"
                                 Margin="5,15,5,15"
                                 FontSize="16"
-                                SelectedDate="{Binding Path = StartDate, Mode=OneWayToSource}"/>
+                                SelectedDate="{Binding Path = StartDate, Mode=OneWayToSource}"
+                                DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
@@ -134,7 +136,8 @@
                                 Grid.Column="1"
                                 Margin="5,15,5,15"
                                 FontSize="16"
-                                SelectedDate="{Binding Path = EndDate, Mode=OneWayToSource}"/>
+                                SelectedDate="{Binding Path = EndDate, Mode=OneWayToSource}"
+                                DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
                     <Label Grid.Row="4"
                            Grid.Column="0"

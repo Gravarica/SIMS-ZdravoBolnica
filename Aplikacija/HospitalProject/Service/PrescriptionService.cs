@@ -56,7 +56,7 @@ namespace HospitalProject.Service
         public string Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
         {
             Prescription prescription;
-            Allergies returnAllergen = AllergensValidation.CheckIfPatientIsAllergicToMedicine(medicalRecordService.GetById(appointment.Patient.Id).Allergies, medicine);
+            Allergies returnAllergen = AllergensValidation.CheckIfPatientIsAllergicToMedicine(medicalRecordService.GetById(appointment.Patient.MedicalRecordId).Allergies, medicine);
             if(returnAllergen == null)
             {
                 prescription = new Prescription(appointment, startDate, endDate, interval, description, medicine);

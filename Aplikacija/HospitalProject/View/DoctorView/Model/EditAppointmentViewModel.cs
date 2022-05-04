@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
@@ -76,6 +77,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void InitializeData()
         {
+            FillComboData();
             doctor = doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);   // IZMENITI KAD BUDE LOGIN
         }
 
@@ -239,6 +241,10 @@ namespace HospitalProject.View.DoctorView.Model
                                                                                                                               PatientData,
                                                                                                                               SelectedExamination,
                                                                                                                               SelectedRoom));
+            if(GeneratedAppointments.Count() == 0)
+            {
+                MessageBox.Show("There are not free appointments for the inverval selected. Please try another date", "No appointments", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         public RelayCommand SaveCommand
@@ -259,6 +265,28 @@ namespace HospitalProject.View.DoctorView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+        }
+
+        private void FillExaminationTypeComboData()
+        {
+            foreach (ExaminationType examType in Enum.GetValues(typeof(ExaminationType)))
+            {
+                examinationTypeComboBox.Add(new ComboBoxData<ExaminationType> { Name = examType.ToString(), Value = examType });
+            }
+        }
+
+        private void FillRoomComboData()
+        {
+            foreach (Room room in roomController.GetAll())
+            {
+                roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
+            }
+        }
+
+        private void FillComboData()
+        {
+            FillExaminationTypeComboData();
+            FillRoomComboData();
         }
     }
 }
