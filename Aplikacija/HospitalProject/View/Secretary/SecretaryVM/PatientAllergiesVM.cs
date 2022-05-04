@@ -28,6 +28,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Allergies selectedAllergy;
 
         private String allergyName;
+        private MedicalRecord MR;
         private int id;
         private MedicalRecordService medicalRecordService;
         PatientController _patientController;
@@ -43,7 +44,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             _medicalRecordController = app.MedicalRecordController;
             this.medicalRecordService = medicalRecordService;
 
-            MedicalRecord MR = _medicalRecordController.GetMedicalRecordByPatient(patient);
+            MedicalRecord Mer = _medicalRecordController.GetMedicalRecordByPatient(patient);
+            MR = Mer;
             patientAllergies = new ObservableCollection<Allergies>(MR.Allergies);
             _allergiesController = app.AllergiesController;
             List<Allergies> list = new(_allergiesController.GetAll());
@@ -96,7 +98,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public void ExecuteaddAllergyCommand()
         {
  
-            MedicalRecord MR = _medicalRecordController.GetMedicalRecordByPatient(Patient);
             medicalRecordService.AddNewAllergiesToMedicalRecord(SelectedAllergyCB, Patient.Id);
             _medicalRecordController.Update(MR);
            
@@ -105,13 +106,14 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         }
 
         private void ExecuteDeleteAllergyCommand()
-        {
-
+        { 
+           
             if (MessageBox.Show("Are you sure you want to delete?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-
+                
+                MedRec.Allergies.Remove(SelectedAllergy);
+                _medicalRecordController.Update(MR);
                 patientAllergies.Remove(SelectedAllergy);
-
             }
 
         }
@@ -148,6 +150,19 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
+        public MedicalRecord MedRec
+        {
+            get
+            {
+                return MR;
+            }
+            set
+            {
+                MR = value;
+                OnPropertyChanged(nameof(MedRec));
+            }
+        }
+       
 
         public int Id
         {

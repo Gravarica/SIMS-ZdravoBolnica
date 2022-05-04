@@ -237,6 +237,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
+        public String Usernsme
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                _username = value;
+                OnPropertyChanged(nameof(Usernsme));
+            }
+        }
 
 
         public RelayCommand SaveCommand
@@ -255,7 +267,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteSaveCommand()
         {   
             _patientController.Update(Patient);
-
         }
 
         private void FillComboData()
