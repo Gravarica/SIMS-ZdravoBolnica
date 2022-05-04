@@ -59,18 +59,20 @@ namespace HospitalProject.Service
             return _roomRepository.GetAllWithEquipment(equipmentId);
         }
 
-        public void UpdateRoomsEquipment(EquipmentRoomModel source, EquipmentRoomModel destination, int equipmentId,int quantity)
+        public void UpdateRoomsEquipment(int source, int destination, int equipmentId,int quantity)
         {
-            Room selectedRoom = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(source);
-            Room selectedDestinationRoom = RoomEquipmentConverter.ConvertRoomEquipmentToRoom(destination);
-            Room oldSource = _roomRepository.Get(source.RoomId);
-            Room oldDestination = _roomRepository.Get((destination.RoomId));
-            
-            selectedRoom.Floor = oldSource.Floor;
-            selectedRoom.RoomType = oldSource.RoomType;
+            Room selectedRoom = new Room(source);
+            Room selectedDestinationRoom = new Room(destination);
+            Room oldSource = _roomRepository.Get(source);
+            Room oldDestination = _roomRepository.Get((destination));
 
-           selectedDestinationRoom.Floor = oldDestination.Floor;
-            selectedDestinationRoom.RoomType = oldDestination.RoomType;
+            selectedRoom._number = oldSource._number;
+            selectedRoom._floor = oldSource._floor;
+            selectedRoom._roomType = oldSource._roomType;
+
+            selectedDestinationRoom._number = oldDestination._number;
+           selectedDestinationRoom._floor = oldDestination._floor;
+            selectedDestinationRoom._roomType = oldDestination._roomType;
 
 
 

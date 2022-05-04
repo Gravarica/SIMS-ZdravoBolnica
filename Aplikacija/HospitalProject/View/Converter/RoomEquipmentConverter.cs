@@ -18,10 +18,12 @@ public class RoomEquipmentConverter
             RoomId = room._id,
             RoomNumber = room._number,
             EquipmentQuantity = CountEquipement(equipmentId,room),
-            WasZero = false
+            WasZero = false,
+            RoomType = room.RoomType,
+            Floor = room._floor
 
-            
-};
+
+        };
 
 //public static IList<RoomViewModel> ConvertRoomListTORoomViewList(IList<Room> rooms)
      //   => ConvertEntityListToViewList(rooms, ConvertRoomToRoomView);
@@ -31,7 +33,9 @@ public class RoomEquipmentConverter
         => new Room
         {
             _id = erm.RoomId,
-            _number = erm.RoomNumber
+            _number = erm.RoomNumber,
+            _roomType = erm.RoomType,
+            _floor = erm.Floor
         };
 
     public static int CountEquipement(int id,Room room)
