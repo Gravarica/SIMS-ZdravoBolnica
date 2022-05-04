@@ -168,7 +168,7 @@ namespace HospitalProject
 
             DoctorController = new DoctorController(_doctorService);
 
-            PatientController = new PatientController(_patientService,_userService);
+            PatientController = new PatientController(_patientService,_userService, _medicalRecordService);
 
             RoomController = new RoomControoler(_roomService);
 

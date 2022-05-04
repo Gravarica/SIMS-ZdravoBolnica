@@ -66,7 +66,8 @@ namespace Model
       {
           Id = id;
           MedicalRecordId = medicalRecordId;
-          Guest = false;
+          Guest = guest;
+          Gender = gender;
           appointments = new List<Appointment>();
           
       }

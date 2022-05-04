@@ -37,5 +37,7 @@ namespace HospitalProject.Service
         {
             userRepository.Logout();
         }
+        public void Delete(string username) => userRepository.Delete(username);
+
     }
 }
