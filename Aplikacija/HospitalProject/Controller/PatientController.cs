@@ -9,6 +9,8 @@ using Model;
 using System.Collections.Generic;
 using HospitalProject.Service;
 using HospitalProject;
+using HospitalProject.Model;
+using System.Linq;
 
 namespace Controller
 {
@@ -16,11 +18,14 @@ namespace Controller
    {
       private PatientService _patientService;
       private UserService userService;
-      
-      public PatientController(PatientService patientService, UserService userService)
+      private MedicalRecordService _medicalRecordService;
+      private int id;
+        public PatientController(PatientService patientService, UserService userService, MedicalRecordService medicalRecordService)
         {
+
             var app = System.Windows.Application.Current as App;
             _patientService = patientService;
+            _medicalRecordService = medicalRecordService;
             this.userService = userService;
         }
 
@@ -28,8 +33,11 @@ namespace Controller
         public Patient Create(Patient patient)
         {
            userService.Create(new User(patient.Username, patient.Password, UserType.PATIENT));
+          // MedicalRecord NewPatientMR = new MedicalRecord(id, patient.Id);
+          // _medicalRecordService.Create(NewPatientMR);
+            
            return _patientService.Create(patient);
-           
+
         }
 
 
@@ -45,7 +53,9 @@ namespace Controller
       
       public void Delete(int id)
       {
-            //userService.Delete(username)
+            Patient P = Get(id);
+
+            userService.Delete(P.Username);
             _patientService.Delete(id);
         }
       

@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HospitalProject.View.Secretary.SecretaryVM;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for AddGuestPatient.xaml
+    /// Interaction logic for EditProfile.xaml
     /// </summary>
-    public partial class AddGuestPatient : Window
+    public partial class EditProfile : Window
     {
-        public AddGuestPatient()
+        public EditProfile()
         {
             InitializeComponent();
         }

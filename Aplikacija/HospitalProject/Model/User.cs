@@ -114,9 +114,8 @@ public class User : ViewModelBase
         FirstName = firstName;
         LastName = lastName;
         Jmbg = jmbg;
-        Username = "guest";
+        Username = Convert.ToString(jmbg);
         Password = "guest";
-    
         UserType = UserType.PATIENT;
 
         PhoneNumber = 0000;
@@ -165,7 +164,7 @@ public class User : ViewModelBase
     }
             
             
-            
+            //kad se cita
           public User(String username,
                       String firstName,
                       String lastName,
@@ -177,7 +176,6 @@ public class User : ViewModelBase
                       Gender gender)
           {
               Username = username;
-              Password = password;
               FirstName = firstName;
               LastName = lastName;
               Jmbg = jmbg;
@@ -192,7 +190,7 @@ public class User : ViewModelBase
               this.firstName = FirstName;
               this.lastName = LastName;
           }
-
+    //kad se kreira
     public User(String username,
               String password,
                     String firstName,
@@ -205,6 +203,7 @@ public class User : ViewModelBase
                     Gender gender)
           {
               Username = username;
+        Password = password;
               FirstName = firstName;
               LastName = lastName;
               Jmbg = jmbg;

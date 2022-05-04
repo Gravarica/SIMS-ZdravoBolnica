@@ -16,6 +16,7 @@ using Controller;
 using HospitalProject.Controller;
 using HospitalProject.View.Secretary.SecretaryV;
 using HospitalProject.Model;
+using HospitalProject.Service;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
@@ -38,7 +39,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private int id;
         PatientController _patientController;
         AllergiesController _allergiesController;
-       
+        private MedicalRecordService medicalRecordService;
         public SecretaryViewVM()
         {
             var app = System.Windows.Application.Current as App;
@@ -160,7 +161,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
 
             PatientProfile view = new PatientProfile();
-            view.DataContext = new PatientProfileVM(SelectedItem);
+            view.DataContext = new PatientProfileVM(SelectedItem, medicalRecordService);
             view.ShowDialog();
         }
 

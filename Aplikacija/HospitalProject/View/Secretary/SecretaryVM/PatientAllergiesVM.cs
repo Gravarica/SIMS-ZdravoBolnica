@@ -9,6 +9,8 @@ using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.Repository;
+using HospitalProject.Service;
 using HospitalProject.View.Secretary.SecretaryV;
 using HospitalProject.View.Util;
 using Model;
@@ -27,19 +29,21 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private String allergyName;
         private int id;
+        private MedicalRecordService medicalRecordService;
         PatientController _patientController;
-        public ObservableCollection<Allergies> patientAllergies { get; set; }
         AllergiesController _allergiesController;
         MedicalRecordController _medicalRecordController;
-
+        public ObservableCollection<Allergies> patientAllergies { get; set; }
+        
         private List<ComboBoxData<Allergies>> allergije = new List<ComboBoxData<Allergies>>();
-        public PatientAllergiesVM(Patient patient)
+        public PatientAllergiesVM(Patient _patient, MedicalRecordService medicalRecordService)
         {
             var app = System.Windows.Application.Current as App;
-             Patient _patient = patient;
+             Patient patient = _patient;
             _medicalRecordController = app.MedicalRecordController;
-            MedicalRecord MR = _medicalRecordController.GetMedicalRecordByPatient(patient);
+            this.medicalRecordService = medicalRecordService;
 
+            MedicalRecord MR = _medicalRecordController.GetMedicalRecordByPatient(patient);
             patientAllergies = new ObservableCollection<Allergies>(MR.Allergies);
             _allergiesController = app.AllergiesController;
             List<Allergies> list = new(_allergiesController.GetAll());
@@ -91,8 +95,12 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         public void ExecuteaddAllergyCommand()
         {
-
-            patientAllergies.Add(SelectedAllergyCB);
+ 
+            MedicalRecord MR = _medicalRecordController.GetMedicalRecordByPatient(Patient);
+            medicalRecordService.AddNewAllergiesToMedicalRecord(SelectedAllergyCB, Patient.Id);
+            _medicalRecordController.Update(MR);
+           
+            
 
         }
 
@@ -112,6 +120,10 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             return SelectedAllergy != null;
         }
+
+        
+
+        
         public string AllergyName
         {
             get { return allergyName; }
@@ -123,10 +135,19 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         }
 
-        private void OnPropertyChanged(string v)
-        {
-            throw new NotImplementedException();
+        public Patient Patient
+           {
+           get
+            {
+                  return patient;
+            }
+            set
+            {
+                patient= value;
+                OnPropertyChanged(nameof(Patient));
+            }
         }
+
 
         public int Id
         {

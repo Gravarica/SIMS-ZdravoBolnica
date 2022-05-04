@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalProject.Repository;
 using HospitalProject.View.Secretary.SecretaryVM;
 using Model;
 
@@ -32,8 +33,8 @@ namespace HospitalProject.View.Secretary.SecretaryV
 
         }
 
-      
 
+        UserRepository userRepository;
         private void _AddPatient__Click(object sender, RoutedEventArgs e)
         {
             var app = System.Windows.Application.Current as App;
@@ -49,9 +50,16 @@ namespace HospitalProject.View.Secretary.SecretaryV
 
         private void addGuest_Click(object sender, RoutedEventArgs e)
         {
+            var app = System.Windows.Application.Current as App;
             AddGuestPatient view = new AddGuestPatient();
-          
+            AddGuestVM viewModel = new AddGuestVM(view);
+            view.DataContext = viewModel;
             view.ShowDialog();
+            if (viewModel.ModalResult == true)
+            {
+                secretaryVM.Patients = new ObservableCollection<Patient>(app.PatientController.GetAll());
+            }
+           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

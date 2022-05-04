@@ -29,6 +29,6 @@
                 <DataGridTextColumn Header="Phone number" Binding="{Binding PhoneNumber}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="show_profile" Content="show Profile" HorizontalAlignment="Left" Margin="514,12,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="98"/>
+        <Button x:Name="show_profile" Command="{Binding ShowProfileCommand}" Content="show Profile" HorizontalAlignment="Left" Margin="514,12,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="98"/>
     </Grid>
 </Window>
