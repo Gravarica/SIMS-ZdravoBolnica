@@ -23,6 +23,15 @@ namespace HospitalProject.Model
 
         }
 
+        public Notification(string Name, Prescription Prescription, DateTime time) {
+
+            name = Name;
+            prescription = Prescription;
+            startTime = time;
+        
+        
+        }
+
 
         public int Id
         {
