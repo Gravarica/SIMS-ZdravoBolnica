@@ -28,7 +28,7 @@ namespace HospitalProject.View.Secretary.SecretaryV
         public SecretaryView()
         {
             InitializeComponent();
-            secretaryVM = new SecretaryViewVM();
+            secretaryVM = new SecretaryViewVM(this);
             this.DataContext = secretaryVM;
 
         }

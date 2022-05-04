@@ -14,6 +14,7 @@ namespace HospitalProject.Model
         private Patient _patient;
         private List<Anamnesis> _anamneses;
         private List<Allergies> _allergies;
+        private List<Prescription> _prescriptions;
         public MedicalRecord(int id, int patientId)
         {
             _anamneses = new List<Anamnesis>();
@@ -83,6 +84,19 @@ namespace HospitalProject.Model
             {
                 _allergies = value;
                 OnPropertyChanged(nameof(Allergies));
+            }
+        }
+        
+        public List<Prescription> Prescriptions
+        {
+            get
+            {
+                return _prescriptions;
+            }
+            set
+            {
+                _prescriptions = value;
+                OnPropertyChanged(nameof(Prescriptions));
             }
         }
 

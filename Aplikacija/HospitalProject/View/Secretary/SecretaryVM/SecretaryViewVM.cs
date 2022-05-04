@@ -31,7 +31,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private RelayCommand deleteCommand;
         private RelayCommand deleteAllergyCommand;
         private RelayCommand addAllergyCommand;
-        private RelayCommand addPatient; 
+        private RelayCommand addPatient;
+        private RelayCommand logoutCommand;
+        private Window window;
         
         private Patient selectedItem;
         private Allergies selectedAllergy;
@@ -39,16 +41,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private int id;
         PatientController _patientController;
         AllergiesController _allergiesController;
+        UserController _userController;
         private MedicalRecordService medicalRecordService;
-        public SecretaryViewVM()
+        public SecretaryViewVM(Window window)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
 
             _allergiesController = app.AllergiesController;
+            _userController = app.UserController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll());
             Allergies = new ObservableCollection<Allergies>(app.AllergiesController.GetAll());
-            
+            this.window = window;
 
            // FillComboData(list);
          }
@@ -163,6 +167,26 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             PatientProfile view = new PatientProfile();
             view.DataContext = new PatientProfileVM(SelectedItem, medicalRecordService);
             view.ShowDialog();
+        }
+
+        public RelayCommand LogoutCommand
+        {
+            get
+            {
+                return logoutCommand ?? (logoutCommand = new RelayCommand(param => LogoutCommandExecute(), param => CanLogoutCommandExecute()));
+            }
+        }
+
+        private bool CanLogoutCommandExecute()
+        {
+            return true;
+        }
+
+        private void LogoutCommandExecute()
+        {
+            _userController.Logout();
+            window.Close();
+            System.Windows.Application.Current.MainWindow.Show();
         }
 
 
