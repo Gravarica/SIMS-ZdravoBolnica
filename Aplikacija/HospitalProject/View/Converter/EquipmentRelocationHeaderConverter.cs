@@ -15,7 +15,7 @@ namespace HospitalProject.View.Converter
                 return null;
             }
 
-            return "Relocation of " + equipement.EquipementType.ToString().ToLower()+"s";
+            return "Relocation of " + equipement.Name.ToLower()+"s";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

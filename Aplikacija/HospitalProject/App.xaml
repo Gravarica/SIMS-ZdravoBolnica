@@ -27,12 +27,12 @@
                 <view:AppointmentsView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:EquipementViewModel}">
-                <wardenForms:WardenEquipementView/>
+            <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
+                <views:WardenEquipementView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:WardenEquipemntRelocationViewModel}">
-                <wardenForms:WardenEquipemntRelocationView/>
+            <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">
+                <views:WardenEquipemntRelocationView/>
             </DataTemplate>
             
 

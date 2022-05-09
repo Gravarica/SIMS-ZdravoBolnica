@@ -4,6 +4,7 @@ using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.WardenForms.Views;
 using Model;
 
 namespace HospitalProject.View.WardenForms.ViewModels
