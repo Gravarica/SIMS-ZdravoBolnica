@@ -75,6 +75,17 @@ namespace Repository
             }
         }
 
+        public List<Doctor> GetDoctorsBySpecialization(Specialization specialization)
+        {
+            return _doctors.Where(doctor => doctor.Specialization == specialization).ToList();
+        }
+
+        public void UpdateFreeDays(Doctor doctor, int days)
+        {
+            Doctor updateDoctor = GetById(doctor.Id);
+            updateDoctor.FreeDays -= days;
+        }
+
         
     }
 }

@@ -138,14 +138,28 @@
                            Grid.Column="0"
                            Content="Priority:"/>
 
-                    <ComboBox Grid.Row="5"
-                              Grid.Column="1"
-                              Style="{DynamicResource ControlStyle}"
-                              ItemsSource="{Binding ExaminationTypeComboBox}"
-                              SelectedValuePath="Value"
-                              DisplayMemberPath="Name"
-                              Margin="5,15,5,15"
-                              SelectedValue="{Binding SelectedExamination}"/>
+                    <Grid Grid.Row="5"
+                          Grid.Column="1"
+                          Margin="5,15,5,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <RadioButton GroupName="Search"
+                                     Grid.Row="0"
+                                     Grid.Column="0"
+                                     Content="Doctor"
+                                     Margin="0,5,20,5"
+                                     FontSize="16"
+                                     IsChecked="{Binding Path=FlagForValue1, Mode=TwoWay}"/>
+                        <RadioButton GroupName="Search"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     Content="Date"
+                                     FontSize="15"
+                                     IsChecked="{Binding Path=FlagForValue2, Mode=TwoWay}"/>
+
+                    </Grid>
 
                     <Grid Grid.Row="6"
                           Grid.ColumnSpan="2">
