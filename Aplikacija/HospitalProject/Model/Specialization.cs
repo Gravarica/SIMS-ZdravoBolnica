@@ -7,10 +7,13 @@ using System;
 
 namespace Model
 {
-   public enum FieldOfWork
-   {
-      cardiology,
-      regularPractice,
-      surgery
-   }
+    public enum Specialization
+    {
+        CARDIOLOGY,
+        GENERAL,
+        SURGERY,
+        NEUROLOGY
+
+    }    
+
 }
