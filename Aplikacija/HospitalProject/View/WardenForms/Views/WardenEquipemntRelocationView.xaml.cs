@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HospitalProject.View.WardenForms;
+namespace HospitalProject.View.WardenForms.Views;
 
 public partial class WardenEquipemntRelocationView : UserControl
 {

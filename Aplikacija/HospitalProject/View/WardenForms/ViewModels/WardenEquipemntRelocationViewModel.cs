@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
-using HospitalProject.View.Converter;
-using HospitalProject.View.WardenForms.ViewModels;
 using Model;
 
-namespace HospitalProject.View.WardenForms;
+namespace HospitalProject.View.WardenForms.ViewModels;
 
 public class WardenEquipemntRelocationViewModel : BaseViewModel
 {

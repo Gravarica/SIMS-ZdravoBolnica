@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
-using HospitalProject.View.Model;
-using HospitalProject.View.WardenForms.ViewModels;
+using HospitalProject.View.WardenForms.Views;
 
-namespace HospitalProject.View.WardenForms
+namespace HospitalProject.View.WardenForms.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
