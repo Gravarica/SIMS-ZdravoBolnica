@@ -162,61 +162,94 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         equipmentRelocationController = app.EquipmentRelocationController;
 
     }
+    
 
+    private void ScheduleEquipmentRelocation(Equipement selectedEquipment)
+    {
+        equipmentRelocationController.Create(new EquipmentRelocation(new Room(SelectedRoom.RoomId),new Room(DestinationRoom.RoomId),selectedEquipment,Quantity,new DateOnly(RelocationDate.Year,RelocationDate.Month,RelocationDate.Day)));
+
+    }
+
+    private void SetRoomEmpty()
+    {
+        SelectedRoom.WasZero = false;
+        GeneratedRooms.Remove(SelectedRoom);
+    }
+
+    private void SubstractEquipmenFromSourceRoom(int selectedQuantity)
+    {
+        SelectedRoom.EquipmentQuantity -= Quantity;
+        selectedQuantity = SelectedRoom.EquipmentQuantity;
+    }
+
+    private void RemoveEquipmentFromSourceRoom(int selectedQuantity)
+    {
+        if (selectedRoom.EquipmentQuantity == Quantity)
+        {
+            SetRoomEmpty();
+        }
+        else
+        {
+            SubstractEquipmenFromSourceRoom(selectedQuantity);
+        }
+    }
+
+    private void BringEqupmentToEmptyRoom()
+    {
+        DestinationRoom.WasZero = true;
+        GeneratedRooms.Add(DestinationRoom);
+        DestinationRoom.EquipmentQuantity += Quantity;
+    }
+
+    private void AddEquipmentToRoom(EquipmentRoomModel room)
+    {
+        room.EquipmentQuantity += Quantity;
+    }
+
+    private void BringEquipmentToRoomThatIsNotEmpty()
+    {
+        AddEquipmentToRoom(DestinationRoom);
+        if (!DestinationRoom.WasZero)
+        {
+            EquipmentRoomModel foundDestination = GeneratedRooms.FirstOrDefault(x => x.RoomId == DestinationRoom.RoomId);
+            AddEquipmentToRoom(foundDestination);
+        }
+       
+    }
+
+    private void AddEquipmentToDestinationRoom()
+    {
+        if (DestinationRoom.EquipmentQuantity == 0)
+        {
+            BringEqupmentToEmptyRoom();
+        }
+        else
+        {
+            BringEquipmentToRoomThatIsNotEmpty();
+        }
+    }
+
+    private void ExecuteEquipmentRelocationNow(Equipement selectedEquipment)
+    {
+        roomControoler.UpdateRoomsEquipment(SelectedRoom.RoomId,DestinationRoom.RoomId,selectedEquipment.Id,Quantity);
+        var foundSource = AllRooms.FirstOrDefault(x => x.RoomId == SelectedRoom.RoomId);
+        int selectedQuantity = 0;
+        
+        RemoveEquipmentFromSourceRoom(selectedQuantity);
+        AddEquipmentToDestinationRoom();
+        
+        //AllRooms[source].EquipmentQuantity = selectedQuantity;
+        foundSource.EquipmentQuantity = selectedQuantity;
+    }
     private void ExecuteEquipmentRelocation(Equipement selectedEquipment)
     {
         if (RelocationDate != DateTime.Today)
         {
-            equipmentRelocationController.Create(new EquipmentRelocation(new Room(SelectedRoom.RoomId),new Room(DestinationRoom.RoomId),selectedEquipment,Quantity,new DateOnly(RelocationDate.Year,RelocationDate.Month,RelocationDate.Day)));
+            ScheduleEquipmentRelocation(selectedEquipment);
         }
         else
         {
-            roomControoler.UpdateRoomsEquipment(SelectedRoom.RoomId,DestinationRoom.RoomId,selectedEquipment.Id,Quantity);
-
-
-            var foundSource = AllRooms.FirstOrDefault(x => x.RoomId == SelectedRoom.RoomId);
-
-            int source = AllRooms.IndexOf(foundSource);
-            int selectedQ = 0;
-
-
-            if (selectedRoom.EquipmentQuantity == Quantity)
-            {
-                SelectedRoom.WasZero = false;
-                GeneratedRooms.Remove(SelectedRoom);
-            }
-            else
-            {
-                SelectedRoom.EquipmentQuantity -= Quantity;
-                selectedQ = SelectedRoom.EquipmentQuantity;
-            }
-
-            if (DestinationRoom.EquipmentQuantity == 0)
-            {
-                DestinationRoom.WasZero = true;
-                GeneratedRooms.Add(DestinationRoom);
-                DestinationRoom.EquipmentQuantity += Quantity;
-            }
-            else
-            {
-                if (DestinationRoom.WasZero)
-                {
-                    DestinationRoom.EquipmentQuantity += Quantity;
-                }
-                else
-                {
-                    DestinationRoom.EquipmentQuantity += Quantity;
-                    var foundDestination = GeneratedRooms.FirstOrDefault(x => x.RoomId == DestinationRoom.RoomId);
-                    int destination = GeneratedRooms.IndexOf(foundDestination);
-
-                    GeneratedRooms[destination].EquipmentQuantity += Quantity;
-                }
-
-        
-            }
-        
-        
-            AllRooms[source].EquipmentQuantity = selectedQ; 
+            ExecuteEquipmentRelocationNow(selectedEquipment);
         }
         
     }
