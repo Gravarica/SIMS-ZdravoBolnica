@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="HospitalProject.View.DoctorView.Views.InventoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="950"
+             Background="AliceBlue">
+    <UserControl.Resources>
+        <converters:AllergyConverter x:Key="AllergyConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                Background="#a4a4e8" 
+                BorderThickness="1"
+                BorderBrush="#a4a4ff">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Text="Requests"
+                           FontSize="22"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="25,0,0,0"
+                           FontWeight="SemiBold"/>
+                <Button Grid.Column="2"
+                        Content="Report Medicine"
+                        Margin = "30,15,30,15"
+                        Style="{StaticResource RoundButton}"
+                        Command="{Binding NewRequestCommand}"/>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1"
+              Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      FontFamily="Verdana"
+                      FontSize = "25"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding Medicines}"
+                      SelectedItem="{Binding SelectedMedicine}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Medicine ID"
+                                        Width="*"
+                                        Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Name"
+                                        Width="*"
+                                        Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Quantity"
+                                        Width="*"
+                                        Binding="{Binding Quantity}"/>
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Report"
+                                    Margin="5,10,10,5"
+                                    Style="{StaticResource RoundButton}"
+                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Margin="20,0,10,30"
+                        BorderBrush="#3e3ece"
+                        BorderThickness="1">
+                <DockPanel>
+                    <Border Height="30"
+                            BorderBrush="#aaaaff"
+                            BorderThickness="1"
+                            Background="#a3a3e8"
+                            DockPanel.Dock="Top">
+                            <TextBlock Foreground="White"
+                                   FontFamily="Verdana"
+                                   FontSize="20"
+                                   Text="Ingridients"
+                                   Margin="5,0,0,0"/>
+                        </Border>
+                        <ListView FontFamily="Verdana"
+                                  FontSize="18"
+                                  ItemsSource="{Binding SelectedMedicine.Alergens, Converter={StaticResource AllergyConverter}}">
+                        </ListView>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Row="1"
+                        Margin="20,20,10,10"
+                        BorderBrush="#3e3ece"
+                        BorderThickness="1">
+                    <DockPanel>
+                        <Border Height="30"
+                            BorderBrush="#aaaaff"
+                            BorderThickness="1"
+                            Background="#a3a3e8"
+                            DockPanel.Dock="Top">
+                            <TextBlock Foreground="White"
+                                   FontFamily="Verdana"
+                                   FontSize="20"
+                                   Text="Alternatives"
+                                   Margin="5,0,0,0"/>
+                        </Border>
+                        <ListView FontFamily="Verdana"
+                                  FontSize="18">
+                            <ListViewItem Content="Item One"/>
+                            <ListViewItem Content="Item Two"/>
+                            <ListViewItem Content="Item Three"/>
+                            <ListViewItem Content="Item Four"/>
+                        </ListView>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
