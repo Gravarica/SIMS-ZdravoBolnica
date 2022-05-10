@@ -100,9 +100,9 @@ namespace HospitalProject.View.DoctorView.Model
             loggedDoctor = _doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
 
             AppVM = new MainDoctorViewModel();
-            PatientsVM = new PatientsViewModel();
+            PatientsVM = new PatientsViewModel(LoggedDoctor);
             RequestsVM = new RequestsViewModel(LoggedDoctor);
-            InventoryVM = new InventoryViewModel();
+            InventoryVM = new InventoryViewModel(LoggedDoctor);
 
             CurrentView = AppVM;
 

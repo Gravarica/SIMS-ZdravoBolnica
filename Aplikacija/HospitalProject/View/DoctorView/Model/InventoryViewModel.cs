@@ -1,6 +1,8 @@
 ﻿using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.DoctorView.Views;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,13 +17,17 @@ namespace HospitalProject.View.DoctorView.Model
 
         private EquipementController equipmentController;
         private Equipement selectedItem;
+        private Doctor loggedDoctor;
 
         public ObservableCollection<Equipement> Medicines { get; set; }
 
-        public InventoryViewModel()
+        private RelayCommand reportCommand;
+
+        public InventoryViewModel(Doctor doctor)
         {
             InstantiateControllers();
             Medicines = new ObservableCollection<Equipement>(equipmentController.GetAllMedicine());
+            loggedDoctor = doctor;
         }
 
         private void InstantiateControllers()
@@ -43,5 +49,24 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public RelayCommand ReportCommand
+        {
+            get
+            {
+                return reportCommand ?? (reportCommand = new RelayCommand(param => ReportCommandExecute(), param => CanReportCommandExecute()));
+            }
+        }
+
+        private bool CanReportCommandExecute()
+        {
+            return true;
+        }
+
+        private void ReportCommandExecute()
+        {
+            MedicineReportView view = new MedicineReportView();
+            view.DataContext = new MedicineReportViewModel(loggedDoctor,SelectedMedicine,view);
+            view.ShowDialog();
+        }
     }
 }

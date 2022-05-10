@@ -32,8 +32,8 @@
     <Border CornerRadius="10">
         <Border.Background>
             <LinearGradientBrush>
-                <GradientStop Color="#a4a4e8" Offset="0.0"/>
-                <GradientStop Color="#ddd6f3" Offset="1"/>
+                <GradientStop Color="#614385" Offset="0.0"/>
+                <GradientStop Color="#516395" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
         <GroupBox Header="Anamnesis"

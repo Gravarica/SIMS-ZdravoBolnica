@@ -1,0 +1,135 @@
+﻿<Window x:Class="HospitalProject.View.DoctorView.Views.MedicineReportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        mc:Ignorable="d"
+        Title="MedicineReportView"
+        Height="600" Width="450"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+            <converters:NameConverter x:Key="NameConverter"/>
+
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="10 5 5 5" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontFamily" Value="Verdana" />
+                <Setter Property="FontWeight" Value="Light"/>
+            </Style>
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="Margin" Value="0,20,5,20"/>
+                <Setter Property="IsEnabled" Value="False" />
+            </Style>
+        </Window.Resources>
+        <Border CornerRadius="10">
+            <Border.Background>
+                <LinearGradientBrush>
+                <GradientStop Color="#614385" Offset="0.0"/>
+                <GradientStop Color="#516395" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <GroupBox Header="Medicine Report"
+                  Foreground="White"
+                  FontFamily="Verdana"
+                  FontSize="20"
+                  Margin="15"
+                  FontWeight="Light">
+                <Grid Margin="10,15,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Content="Date:"
+                       Style="{StaticResource LabelStyle}"/>
+                    <DatePicker Grid.Row="0"
+                            Grid.Column="1"
+                            SelectedDate="{Binding SubmissionDate}"
+                            Margin="0,20,5,20"
+                            FontSize="20"
+                            IsEnabled="False"/>
+
+                    <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Content="Doctor:"
+                       Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{Binding LoggedDoctor, Converter={StaticResource NameConverter}}"
+                         Style="{StaticResource TextBoxStyle}"
+                         FontSize="18"/>
+
+                    <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Content="Medicine:"
+                       Style="{StaticResource LabelStyle}"/>
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Text="{Binding ShowItem.Name}"
+                         Style="{StaticResource TextBoxStyle}"
+                         FontSize="18"/>
+
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Content="Description:"
+                       Style="{StaticResource LabelStyle}"/>
+                    <TextBox Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource TextBoxStyle}"
+                         FontSize="18"
+                         Margin="10,0,5,0"
+                         IsEnabled="True"/>
+
+                    <Button Grid.Row="5"
+                        Grid.Column="0"
+                        Content="Close"
+                        VerticalAlignment="Center"
+                        Margin="10"
+                        FontSize="18"
+                        Command="{Binding CancelCommand}"
+                        Background="#e1e1f7"
+                        BorderBrush="#3e3ece">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="5"
+                        Grid.Column="1"
+                        Content="Submit"
+                        VerticalAlignment="Center"
+                        Margin="10,5,10,5"
+                        FontSize="18"
+                        Command="{Binding SubmitCommand}"
+                        BorderBrush="#3e3ece"
+                        Background="#e1e1f7">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </GroupBox>
+        </Border>
+</Window>

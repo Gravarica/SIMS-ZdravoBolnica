@@ -18,15 +18,17 @@ namespace Controller
    {
       private PatientService _patientService;
       private UserService userService;
+      private AppointmentService appointmentService;
       private MedicalRecordService _medicalRecordService;
       private int id;
-        public PatientController(PatientService patientService, UserService userService, MedicalRecordService medicalRecordService)
+        public PatientController(PatientService patientService, UserService userService, MedicalRecordService medicalRecordService, AppointmentService appointmentService)
         {
 
             var app = System.Windows.Application.Current as App;
             _patientService = patientService;
             _medicalRecordService = medicalRecordService;
             this.userService = userService;
+            this.appointmentService=appointmentService;
         }
 
 
@@ -69,7 +71,10 @@ namespace Controller
             return _patientService.GetLoggedPatient(username);
         }
 
-
+        public List<Patient> GetPatientsThatHadAppointmentWithDoctor(Doctor doctor)
+        {
+            return appointmentService.GetAllPatientsThatHadAppointmentWithDoctor(doctor);
+        }
 
     }
 }

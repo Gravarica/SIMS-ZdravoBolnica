@@ -34,11 +34,6 @@
                            VerticalAlignment="Center"
                            Margin="25,0,0,0"
                            FontWeight="SemiBold"/>
-                <Button Grid.Column="2"
-                        Content="Report Medicine"
-                        Margin = "30,15,30,15"
-                        Style="{StaticResource RoundButton}"
-                        Command="{Binding NewRequestCommand}"/>
             </Grid>
         </Border>
         <Grid Grid.Row="1"
@@ -71,7 +66,7 @@
                                 <Button Content="Report"
                                     Margin="5,10,10,5"
                                     Style="{StaticResource RoundButton}"
-                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

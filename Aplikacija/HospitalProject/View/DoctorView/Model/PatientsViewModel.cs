@@ -19,11 +19,11 @@ namespace HospitalProject.View.DoctorView.Model
 
         private Patient selectedItem;
 
-        public PatientsViewModel()
+        public PatientsViewModel(Doctor loggedDoctor)
         {
             var app = System.Windows.Application.Current as App;
 
-            Patients = new ObservableCollection<Patient>(app.PatientController.GetAll());
+            Patients = new ObservableCollection<Patient>(app.PatientController.GetPatientsThatHadAppointmentWithDoctor(loggedDoctor));
         }
 
         public Patient SelectedItem
