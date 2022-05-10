@@ -27,10 +27,10 @@ namespace HospitalProject.Model
         }
 
         // Konstruktor za kreiranje objekta sa fronta
-        public VacationRequest(DateTime submissionDate, Doctor doctor, DateTime startDate, DateTime endDate, string description, bool isUrgent, RequestState requestState)
+        public VacationRequest(DateTime submissionDate, Doctor doctor, DateTime startDate, DateTime endDate, string description, bool isUrgent)
         {
             Doctor = doctor;
-            InstantiateData(submissionDate, startDate, endDate, description, isUrgent, requestState);
+            InstantiateData(submissionDate, startDate, endDate, description, isUrgent, RequestState.PENDING);
         }
 
         private void InstantiateDoctor(int doctorId)

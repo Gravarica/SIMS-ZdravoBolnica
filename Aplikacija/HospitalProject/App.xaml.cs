@@ -73,7 +73,7 @@ namespace HospitalProject
 
 
 
-        //public VacationRequestController VacationRequestController { get; set; }    
+        public VacationRequestController VacationRequestController { get; set; }    
 
 
         public App()
@@ -105,13 +105,13 @@ namespace HospitalProject
 
 
 
-          //  var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
+            var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
 
-//          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+           var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
@@ -137,7 +137,7 @@ namespace HospitalProject
 
 
 
-           // var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
+            var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -164,7 +164,7 @@ namespace HospitalProject
             var _equipmentRelocationService = new EquipmentRelocationService(_equipmentRelocationRepository,_roomService);
 
 
-           // var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
+            var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
             
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
@@ -196,7 +196,7 @@ namespace HospitalProject
 
             NotificationController = new NotificationController(_notificationService);
 
-            //VacationRequestController = new VacationRequestController(_vacationRequestService);
+            VacationRequestController = new VacationRequestController(_vacationRequestService);
         }
 
        

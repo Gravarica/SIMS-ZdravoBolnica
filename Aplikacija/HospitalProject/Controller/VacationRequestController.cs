@@ -1,4 +1,5 @@
-﻿using HospitalProject.Model;
+﻿using HospitalProject.DataTransferObjects;
+using HospitalProject.Model;
 using HospitalProject.Service;
 using Model;
 using System;
@@ -18,9 +19,9 @@ namespace HospitalProject.Controller
             this.vacationRequestService = vacationRequestService;
         }
 
-        public bool Create(DateTime submissionDate, Doctor doctor, DateTime startDate, DateTime endDate, string description, bool isUrgent, RequestState requestState)
+        public bool Create(NewRequestDTO newRequestDTO)
         {
-            return vacationRequestService.Create(submissionDate, doctor, startDate, endDate, description, isUrgent, requestState);
+            return vacationRequestService.Create(newRequestDTO);
         }
 
         public List<VacationRequest> GetVacationRequestsForDoctor(Doctor doctor)

@@ -57,7 +57,7 @@ namespace HospitalProject.Repository
             return vacationRequests.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<VacationRequest> GetRequestsForDoctor(Doctor doctor)
+        public List<VacationRequest> GetVacationRequestsForDoctor(Doctor doctor)
         {
             return vacationRequests.Where(vacationRequest => vacationRequest.Doctor.Id == doctor.Id).ToList();
         }
@@ -84,12 +84,17 @@ namespace HospitalProject.Repository
             return vacationRequests.Where(vacationRequest => vacationRequest.Doctor.Specialization == specialization).ToList();
         }
 
-        public List<VacationRequest> GetVacationRequestsBySpecializationInDateInterval(Specialization specialization, DateTime startDate, DateTime endDate)
+        public List<VacationRequest> GetVacationRequestsBySpecializationInDateInterval(Doctor doctor, Specialization specialization, DateTime startDate, DateTime endDate)
         {
-            return GetVacationRequestByDateInterval(startDate,endDate).Where(vacationRequest => vacationRequest.Doctor.Specialization == specialization).ToList();
+            return GetVacationRequestByDateInterval(startDate,endDate).Where(vacationRequest => vacationRequest.Doctor.Specialization == specialization && vacationRequest.Doctor.Id != doctor.Id).ToList();
         }
 
-        private bool CheckIfVacationRequestIsInDateInterval(VacationRequest vacationRequest, DateTime startDate, DateTime endDate)
+        public List<VacationRequest> GetVacationRequestsByDoctorInDateInterval(Doctor doctor, DateTime startDate, DateTime endDate)
+        {
+            return GetVacationRequestByDateInterval(startDate,endDate).Where(vacationRequest => vacationRequest.Doctor.Id == doctor.Id).ToList();
+        }
+
+        public bool CheckIfVacationRequestIsInDateInterval(VacationRequest vacationRequest, DateTime startDate, DateTime endDate)
         {
             if (IsDateBetweenTwoDates(vacationRequest.StartDate, startDate, endDate))
             {
