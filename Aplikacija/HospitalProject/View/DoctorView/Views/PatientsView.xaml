@@ -44,7 +44,8 @@
                 </Border>
                 <Button Grid.Column="2"
                         Content="New Appointment"
-                        Margin = "30,15,30,15 "/>
+                        Margin = "30,15,30,15"
+                        Style="{StaticResource RoundButton}"/>
             </Grid>
         </Border>
         <DataGrid Grid.Row="1"

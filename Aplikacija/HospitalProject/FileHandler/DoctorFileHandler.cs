@@ -31,7 +31,7 @@ namespace HospitalProject.FileHandler
                               tokens[3],
                               TimeOnly.Parse(tokens[4]),
                               TimeOnly.Parse(tokens[5]),
-                              DataUtility.ConvertTokenToSpecialization(tokens[6]),
+                              ConvertTokenToSpecialization(tokens[6]),
                               int.Parse(tokens[7]));
         }
 
@@ -42,7 +42,7 @@ namespace HospitalProject.FileHandler
                    .ToList();
         }
 
-        /*private Specialization ConvertTokenToSpecialization(string token)
+        private Specialization ConvertTokenToSpecialization(string token)
         {
             if (token.Equals("CARDIOLOGY"))
             {
@@ -58,7 +58,7 @@ namespace HospitalProject.FileHandler
             }
 
             return Specialization.SURGERY;
-        }*/
+        }
 
     }
 }

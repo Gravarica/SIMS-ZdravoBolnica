@@ -126,7 +126,7 @@
                                 Margin="5,15,5,15"
                                 FontSize="16"
                                 SelectedDate="{Binding Path = StartDate, Mode=OneWayToSource}"
-                                DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                                DisplayDateStart="{x:Static sys:DateTime.Now}"/>
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
@@ -137,7 +137,7 @@
                                 Margin="5,15,5,15"
                                 FontSize="16"
                                 SelectedDate="{Binding Path = EndDate, Mode=OneWayToSource}"
-                                DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                                DisplayDateStart="{x:Static sys:DateTime.Now}"/>
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
