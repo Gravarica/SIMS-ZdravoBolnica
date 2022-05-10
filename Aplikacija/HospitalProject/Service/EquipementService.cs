@@ -28,6 +28,8 @@ namespace HospitalProject.Service
             return equipements;
         }
 
+       
+
         public Equipement GetById(int id)
         {
             return this.equipementRepository.GetById(id);

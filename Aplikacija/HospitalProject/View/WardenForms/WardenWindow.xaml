@@ -24,6 +24,8 @@
                 <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF272537" >
                     <RadioButton  Style="{StaticResource MenuButtonTheme}" Height="60"  Content="Rooms" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}" Checked="RadioButton_Checked" ClickMode="Release" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5" />
                     <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
+                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineViewCommand}" />
+
                 </StackPanel>
                 <ContentControl BorderThickness="15" Margin="209,2,0,0" Content="{Binding MomentalView}" BorderBrush="#FFF2FF00" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
             </Grid>

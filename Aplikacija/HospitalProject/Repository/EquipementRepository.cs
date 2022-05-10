@@ -47,6 +47,20 @@ namespace HospitalProject.Repository
             return _equipements;
         }
 
+        public IEnumerable<Equipement> GetByType(EquipementType equipementType)
+        {
+            IEnumerable<Equipement> equipements = new List<Equipement>();
+            foreach (Equipement equipement in _equipements)
+            {
+                if (equipement.EquipementType == equipementType)
+                {
+                    equipements.Append(equipement);
+                }
+            }
+
+            return equipements;
+        }
+
         public void Delete(int id)
         {
             Equipement removeEquipement = GetById(id);

@@ -28,6 +28,10 @@
                 <view:AppointmentsView/>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewModels:MedicineViewModel}">
+                <views:MedicineView/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
                 <views:WardenEquipementView/>
             </DataTemplate>
