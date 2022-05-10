@@ -18,5 +18,6 @@ namespace HospitalProject.ValidationRules.DoctorValidation
 
             return true;
         }
+
     }
 }

@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="HospitalProject.View.DoctorView.Views.RequestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="950"
+             Background="AliceBlue">
+    <UserControl.Resources>
+        <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                Background="#a4a4e8" 
+                BorderThickness="1"
+                BorderBrush="#a4a4ff">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Foreground="White"
+                           Text="Requests"
+                           FontSize="22"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="25,0,0,0"
+                           FontWeight="SemiBold"/>
+                <Button Grid.Column="2"
+                        Content="New Request"
+                        Margin = "30,15,30,15"
+                        Style="{StaticResource RoundButton}"
+                        Command="{Binding NewRequestCommand}"/>
+            </Grid>
+        </Border>
+        <DataGrid Grid.Row="1"
+                  Margin="30"
+                  FontSize="15"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding VacationRequests}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Submission Date"
+                                    Width="3*"
+                                    Binding="{Binding SubmissionDate, Converter={StaticResource DateConverter}}"/>
+                <DataGridTextColumn Header="Vacation Start"
+                                    Width="3*"
+                                    Binding="{Binding StartDate, Converter={StaticResource DateConverter}}"/>
+                <DataGridTextColumn Header="Vacation End"
+                                    Width="3*"
+                                    Binding="{Binding EndDate, Converter={StaticResource DateConverter}}"/>
+                <DataGridTextColumn Header="Request Status" 
+                                    Width="2*"
+                                    Binding="{Binding RequestState}"/>
+                <DataGridCheckBoxColumn Header="Urgent" 
+                                        IsReadOnly="True"
+                                        Width="*"
+                                        Binding="{Binding IsUrgent}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

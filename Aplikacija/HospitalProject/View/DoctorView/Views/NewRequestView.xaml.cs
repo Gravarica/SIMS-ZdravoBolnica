@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HospitalProject.View.DoctorView.Views
 {
     /// <summary>
-    /// Interaction logic for VacationRequestView.xaml
+    /// Interaction logic for NewRequestView.xaml
     /// </summary>
-    public partial class VacationRequestView : Window
+    public partial class NewRequestView : Window
     {
-        public VacationRequestView()
+        public NewRequestView()
         {
             InitializeComponent();
         }
