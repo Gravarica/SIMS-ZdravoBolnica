@@ -46,6 +46,11 @@ namespace Repository
             return _patients.FirstOrDefault(p => p.Id == id);
         }
 
+        public Patient GetByJmbg(int jmbg)
+        {
+            return _patients.FirstOrDefault(p => p.Jmbg == jmbg);
+        }
+
         public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;

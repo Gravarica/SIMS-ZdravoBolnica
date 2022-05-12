@@ -10,20 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalProject.View.Secretary.SecretaryVM;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for Appointments.xaml
+    /// Interaction logic for RegisterV.xaml
     /// </summary>
-    public partial class Appointments : Window
+    public partial class RegisterV : UserControl
     {
-        public Appointments()
+        public RegisterV()
         {
             InitializeComponent();
-            this.DataContext = new DoctorAppointmentsVM();
+            this.DataContext = new RegisterVM();
         }
     }
 }

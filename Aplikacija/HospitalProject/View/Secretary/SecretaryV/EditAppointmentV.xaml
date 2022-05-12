@@ -1,0 +1,92 @@
+﻿<Window x:Class="HospitalProject.View.Secretary.SecretaryV.EditAppointmentV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
+       xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        mc:Ignorable="d"
+        Title="Edit appointment" Height="550" Width="952"
+        ResizeMode="NoResize"
+        >
+
+
+    <Border Background="#FF195975"  >
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="429*"/>
+                <ColumnDefinition Width="523*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+                <RowDefinition Height="81.4"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Edit appointment"  HorizontalAlignment="Left" FontSize="32"  FontWeight="Light" Foreground="#50fa7b" Width="281"/>
+            <Grid Grid.Row="1"  Margin="10,0,4,81" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="64*"/>
+                    <RowDefinition Height="64*"/>
+                    <RowDefinition Height="71*"/>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="57*"/>
+                    <RowDefinition Height="64*"/>
+                    <RowDefinition Height="64*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="187"/>
+                    <ColumnDefinition Width="46.932"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Doctor:" HorizontalAlignment="Left"  VerticalAlignment="Top"  FontSize="16" FontFamily="Roboto" Height="27" Width="177" Margin="0,17,0,0" />
+                <Label Grid.Column="0" Grid.Row="1" Content="Patient:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" FontSize="16" FontFamily="Roboto" Width="177" RenderTransformOrigin="0.497,0.743" Margin="0,7,0,0" />
+                <ComboBox Grid.Row="1"  x:Name="PatentCombo"  HorizontalAlignment="Left" DisplayMemberPath="DisplayText" SelectedValuePath="Entity" ItemsSource="{Binding Path=PatientComboBox}" SelectedValue = "{Binding Path = PatientData}"  VerticalAlignment="Top" Height="37" Width="202" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Label Grid.Column="0" Grid.Row="2"  Content="Start date:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"  FontSize="16" FontFamily="Roboto" Width="177" RenderTransformOrigin="0.483,0.677" Margin="0,10,0,0"/>
+                <Label Grid.Column="0" Grid.Row="4"  Content="End date:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"  FontSize="16" FontFamily="Roboto" Width="177" RenderTransformOrigin="0.483,0.677" Margin="0,10,0,0"/>
+
+                <DatePicker Grid.Column="1" Grid.Row="2" x:Name="Picker" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="202"
+                   
+                   Grid.ColumnSpan="2" Margin="0,10,0,0">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="Date" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged">
+
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+
+                <Border Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" BorderThickness="0,0,2,0" BorderBrush="#50fa7b" Margin="0,10,10,0" />
+                <ComboBox  x:Name="PatentCombo_Copy"  HorizontalAlignment="Left" DisplayMemberPath="DisplayText" SelectedValuePath="Entity" ItemsSource="{Binding DoctorComboBox}" SelectedValue = "{Binding DoctorData}"  VerticalAlignment="Top" Height="37" Width="202" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,16,0,0" />
+                <DatePicker Grid.Column="1" Grid.Row="4" x:Name="Picker_Copy" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="202"
+                   
+                    Grid.ColumnSpan="2" Margin="0,10,0,0" SelectedDate="{Binding Date, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Button Content="Update table" HorizontalAlignment="Right" Height="Auto" Width="106" Command="{Binding FinishCommand}"   Grid.Row="2" Margin="0,18,33,28"/>
+            <DataGrid
+                Margin="46,0,34,10"
+                AutoGenerateColumns="False"
+                FontSize="25"
+                ItemsSource="{Binding GeneratedAppointments}"
+                SelectedItem="{Binding SelectedItem}"
+                IsReadOnly="True"
+                SelectionMode="Single" Grid.Column="1" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date"
+                        Width="3*"
+                        Binding="{Binding Date}"
+                        FontSize="10"/>
+                    <DataGridTextColumn Header="Duration"
+                        Width="2*"
+                        Binding="{Binding Duration}"
+                        FontSize="10"/>
+
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor}"  Width="3*" FontSize="10"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            <Button Content="Save" HorizontalAlignment="Right" Height="Auto" Width="106" Command="{Binding SaveCommand}"   Grid.Row="2" Margin="0,13,34,33" Grid.Column="1"/>
+        </Grid>
+    </Border>
+</Window>

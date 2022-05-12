@@ -16,15 +16,19 @@ using HospitalProject.View.Secretary.SecretaryVM;
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for AddGuestPatient.xaml
+    /// Interaction logic for SecretaryMainView.xaml
     /// </summary>
-    public partial class AddGuestPatient : Window
+    public partial class SecretaryMainView : Window
     {
-        public AddGuestPatient()
+        public SecretaryMainView()
         {
             InitializeComponent();
-   
+            DataContext = SecretaryMainViewVM.GetFirstInstance();
+
         }
+
+
       
     }
 }
+

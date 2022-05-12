@@ -45,8 +45,13 @@ namespace Controller
       {
          return _patientService.Get(id);
       }
-      
-      public IEnumerable<Patient> GetAll()
+
+        public Patient GetByJmbg(int jmbg)
+        {
+            return _patientService.Get(jmbg);
+        }
+
+        public IEnumerable<Patient> GetAll()
       {
          return _patientService.GetAll();
       }

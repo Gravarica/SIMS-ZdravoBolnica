@@ -138,6 +138,11 @@ namespace Repository
         {
             return _appointments.Where((x) => x.Room.Id == roomId && x.IsDone == false);
         }
-}
+
+        public IEnumerable<Appointment> GetBySpecialization(Specialization specialization)
+        {
+            return _appointments.Where(x => x.Doctor.Specialization == specialization && x.IsDone == false);
+        }
+    }
 
 }

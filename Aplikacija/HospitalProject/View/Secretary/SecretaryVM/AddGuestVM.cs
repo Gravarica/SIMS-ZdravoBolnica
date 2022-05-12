@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Core;
+using HospitalProject.View.Secretary.SecretaryV;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
     internal class AddGuestVM : BaseViewModel
     {
-        public ObservableCollection<Patient> Patients { get; set; }
+        
         private RelayCommand saveCommand;
 
         PatientController _patientController;
@@ -27,7 +28,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Patient _patient;
         private bool modalResult;
 
-        private Window window;
+        private Window Window;
         private int _id;
         private int _idMR;
 
@@ -35,12 +36,16 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
-            Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
             modalResult = false;
-            this.window = window;
+            this.Window = window;
         }
 
-
+      /*  public AddGuestVM()
+        {
+            var app = System.Windows.Application.Current as App;
+            _patientController = app.PatientController;
+            modalResult = false;
+        }*/
         public bool ModalResult
         {
             get
@@ -119,12 +124,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteSaveCommand()
         {
             Patient P = _patientController.Create(new Patient(_id, _idMR, FirstName, LastName, Jmbg));
-
-            Patients.Add(P);
            
-
             ModalResult = true;
-            window.Close();
+            Window.Close();
         }
 
 

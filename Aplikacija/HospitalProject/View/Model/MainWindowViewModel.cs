@@ -137,7 +137,7 @@ namespace HospitalProject.View.Model
 
         private void OpenSecretaryView()
         {
-            SecretaryView sv = new SecretaryView();
+            SecretaryMainView sv = new SecretaryMainView();
             HideWindow();
             sv.Show();
         }

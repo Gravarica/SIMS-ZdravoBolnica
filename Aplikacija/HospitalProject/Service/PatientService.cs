@@ -20,8 +20,13 @@ namespace Service
       {
          return _patientRepository.Get(id);
       }
-      
-      public IEnumerable<Patient> GetAll()
+
+        public Patient GetByJmbg(int jmbg)
+
+        {
+            return _patientRepository.Get(jmbg);
+        }
+        public IEnumerable<Patient> GetAll()
       {
          return _patientRepository._patientFileHandler.ReadAll();
       }

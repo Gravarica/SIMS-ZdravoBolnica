@@ -10,21 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalProject.View.Secretary.SecretaryVM;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for AddGuestPatient.xaml
+    /// Interaction logic for DashBoardV.xaml
     /// </summary>
-    public partial class AddGuestPatient : Window
+    public partial class DashBoardV : UserControl
     {
-        public AddGuestPatient()
+        public DashBoardV()
         {
             InitializeComponent();
-   
+            this.DataContext = new DashBoardVM();
         }
-      
     }
 }

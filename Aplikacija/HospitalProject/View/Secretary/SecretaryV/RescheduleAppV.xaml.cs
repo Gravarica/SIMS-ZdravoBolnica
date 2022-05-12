@@ -15,13 +15,16 @@ using System.Windows.Shapes;
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for EditAppview.xaml
+    /// Interaction logic for RescheduleAppV.xaml
     /// </summary>
-    public partial class EditAppview : Window
+    public partial class RescheduleAppV : Window
     {
-        public EditAppview()
+        public RescheduleAppV()
         {
-            InitializeComponent();
+            //InitializeComponent();
+
         }
+
+       
     }
 }

@@ -38,6 +38,8 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
+    <Folder Include="View\Secretary\SecretaryV\UserControl\" />
+    <Folder Include="View\Secretary\SecretaryV\Windows\" />
 	  <Folder Include="View\WardenForms\Views\" />
 
   </ItemGroup>

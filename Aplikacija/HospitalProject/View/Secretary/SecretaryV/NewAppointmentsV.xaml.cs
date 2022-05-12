@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalProject.View.Secretary.SecretaryVM;
+using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for NewAppointment.xaml
+    /// Interaction logic for NewAppointmentsV.xaml
     /// </summary>
-    public partial class NewAppointment : Window
+    public partial class NewAppointmentsV : UserControl
     {
-        public NewAppointment()
+        public NewAppointmentsV()
         {
             InitializeComponent();
-        }
-    }
+            this.DataContext = new NewAppointmentsVM();
+
+        } 
+        private static NewAppointmentsV _instance;
+        private ObservableCollection<Appointment> _appointments;
+
+}
 }

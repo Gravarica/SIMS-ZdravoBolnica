@@ -164,9 +164,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private void EditAppointmentCommandExecute()
         {
-            EditAppview view = new EditAppview();
-            view.DataContext = new EditAppVM(SelectedItem, AppointmentItems);
-            view.ShowDialog();
+            //EditAppview view = new EditAppview();
+            //view.DataContext = new EditAppVM(SelectedItem, AppointmentItems);
+            //view.ShowDialog();
         }
 
         private bool CanNewAppointmentCommandExecute()
@@ -176,9 +176,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private void NewAppointmentCommandExecute()
         {
-            NewAppointment view = new NewAppointment();
-            view.DataContext = new NewAppointmentVM(AppointmentItems);
-            view.ShowDialog();
+           // NewAppointment view = new NewAppointment();
+           // view.DataContext = new NewAppointmentVM(AppointmentItems);
+            //view.ShowDialog();
         }
 
         private bool CanDeleteCommandExecute()
