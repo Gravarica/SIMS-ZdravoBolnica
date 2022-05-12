@@ -65,6 +65,10 @@
                 <view:NewRequestView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:InventoryViewModel}">
+                <view:InventoryView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type patientViewModel:RecipesViewModel}">
                 <patientView:RecipesView/>
             </DataTemplate>

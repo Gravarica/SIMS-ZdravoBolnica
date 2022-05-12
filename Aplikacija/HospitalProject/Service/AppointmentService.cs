@@ -295,5 +295,17 @@ namespace Service
             return generatedAppointments;
 
         }
+
+        private List<Appointment> GetAppointmentsForDoctor(Doctor doctor)
+        {
+            var list = appointmentRepository.GetAppointmentsForDoctor(doctor.Id).ToList();
+            BindDataForAppointments(list);
+            return list;
+        }
+
+        public List<Patient> GetAllPatientsThatHadAppointmentWithDoctor(Doctor doctor)
+        {
+            return GetAppointmentsForDoctor(doctor).Select(appointment => appointment.Patient).Distinct().ToList();
+        }
     }
 }

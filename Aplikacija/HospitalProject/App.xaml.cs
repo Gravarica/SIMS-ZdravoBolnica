@@ -36,7 +36,7 @@ namespace HospitalProject
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
         private string EQUIPMENT_RELOCATION_FILE = _projectPath + "\\Resources\\Data\\equipmentRelocations.csv";
-
+        private string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
         private string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
@@ -71,7 +71,7 @@ namespace HospitalProject
         
         public EquipmentRelocationController EquipmentRelocationController{ get; set; }
 
-
+        public MedicineReportController MedicineReportController { get; set; }  
 
         public VacationRequestController VacationRequestController { get; set; }    
 
@@ -103,7 +103,7 @@ namespace HospitalProject
 
             var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
-
+            var _medicineReportFileHandler = new MedicineReportFileHandler(MEDICINE_REPORT_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
 
             var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
 
@@ -135,7 +135,7 @@ namespace HospitalProject
 
             var _userRepository = new UserRepository(_userFileHandler);
 
-
+            var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
 
             var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
 
@@ -163,6 +163,7 @@ namespace HospitalProject
 
             var _equipmentRelocationService = new EquipmentRelocationService(_equipmentRelocationRepository,_roomService);
 
+            var _medicineReportService = new MedicineReportService(_medicineReportRepository);
 
             var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
             
@@ -180,7 +181,7 @@ namespace HospitalProject
 
             DoctorController = new DoctorController(_doctorService);
 
-            PatientController = new PatientController(_patientService,_userService, _medicalRecordService);
+            PatientController = new PatientController(_patientService,_userService, _medicalRecordService, _appointmentService);
 
             RoomController = new RoomControoler(_roomService);
 
@@ -197,6 +198,8 @@ namespace HospitalProject
             NotificationController = new NotificationController(_notificationService);
 
             VacationRequestController = new VacationRequestController(_vacationRequestService);
+
+            MedicineReportController = new MedicineReportController(_medicineReportService);
         }
 
        
