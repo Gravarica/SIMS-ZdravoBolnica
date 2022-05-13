@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalProject.DataTransferObjects;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,25 +13,24 @@ namespace HospitalProject.Model
         private int id;
         private DateTime submissionDate;
         private Doctor doctor;
-        private DateTime startDate;
-        private DateTime endDate;
+        private DateInterval dateInterval;
         private string description;
         private bool isUrgent;
         private RequestState requestState;
 
         // Konstruktor za kreiranje objekta iz file handlera
-        public VacationRequest(int id, DateTime submissionDate, int doctorId, DateTime startDate, DateTime endDate, string description, bool isUrgent, RequestState requestState)
+        public VacationRequest(int id, DateTime submissionDate, int doctorId, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState)
         {
             Id = id;
             InstantiateDoctor(doctorId);
-            InstantiateData(submissionDate,startDate,endDate,description,isUrgent,requestState);
+            InstantiateData(submissionDate,dateInterval,description,isUrgent,requestState);
         }
 
         // Konstruktor za kreiranje objekta sa fronta
-        public VacationRequest(DateTime submissionDate, Doctor doctor, DateTime startDate, DateTime endDate, string description, bool isUrgent)
+        public VacationRequest(NewRequestDTO newRequestDTO)
         {
-            Doctor = doctor;
-            InstantiateData(submissionDate, startDate, endDate, description, isUrgent, RequestState.PENDING);
+            Doctor = newRequestDTO.Doctor;
+            InstantiateData(newRequestDTO.SubmissionDate, newRequestDTO.DateInterval, newRequestDTO.Description, newRequestDTO.IsUrgent, RequestState.PENDING);
         }
 
         private void InstantiateDoctor(int doctorId)
@@ -39,11 +39,10 @@ namespace HospitalProject.Model
             Doctor.Id = doctorId;
         }
 
-        private void InstantiateData(DateTime submissionDate, DateTime startDate, DateTime endDate, string description, bool isUrgent, RequestState requestState)
+        private void InstantiateData(DateTime submissionDate, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState)
         {
             SubmissionDate = submissionDate;
-            StartDate = startDate;
-            EndDate = endDate;
+            DateInterval = dateInterval;   
             Description = description;
             IsUrgent = isUrgent;
             RequestState = requestState;
@@ -88,29 +87,16 @@ namespace HospitalProject.Model
             }
         }
 
-        public DateTime StartDate
+        public DateInterval DateInterval
         {
             get
             {
-                return startDate;
+                return dateInterval;
             }
             set
             {
-                startDate = value;
-                OnPropertyChanged(nameof(StartDate));
-            }
-        }
-
-        public DateTime EndDate
-        {
-            get
-            {
-                return endDate;
-            }
-            set
-            {
-                endDate = value;
-                OnPropertyChanged(nameof(EndDate));
+                dateInterval = value;
+                OnPropertyChanged(nameof(DateInterval));
             }
         }
 
@@ -151,6 +137,31 @@ namespace HospitalProject.Model
                 requestState = value;
                 OnPropertyChanged(nameof(RequestState));
             }
+        }
+
+        public bool Overlaps(DateTime intervalStart, DateTime intervalEnd)
+        {
+            return intervalStart <= DateInterval.EndDate && DateInterval.StartDate <= intervalEnd;
+        }
+
+        public bool HasDistinctDoctorForSpecialization(Doctor givenDoctor)
+        {
+            return SpecializationMatches(givenDoctor.Specialization) && !DoctorMatches(givenDoctor);
+        }
+
+        public bool SpecializationMatches(Specialization specialization)
+        {
+            return Doctor.Specialization == specialization;
+        }
+
+        public bool DoctorMatches(Doctor givenDoctor)
+        {
+            return Doctor.Id == givenDoctor.Id;
+        }
+
+        public bool RequestStateMatches(RequestState givenRequestState)
+        {
+            return RequestState == givenRequestState;
         }
     }
 }

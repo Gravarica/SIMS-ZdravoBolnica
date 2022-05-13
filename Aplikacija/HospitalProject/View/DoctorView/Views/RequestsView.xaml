@@ -54,10 +54,10 @@
                                     Binding="{Binding SubmissionDate, Converter={StaticResource DateConverter}}"/>
                 <DataGridTextColumn Header="Vacation Start"
                                     Width="3*"
-                                    Binding="{Binding StartDate, Converter={StaticResource DateConverter}}"/>
+                                    Binding="{Binding DateInterval.StartDate, Converter={StaticResource DateConverter}}"/>
                 <DataGridTextColumn Header="Vacation End"
                                     Width="3*"
-                                    Binding="{Binding EndDate, Converter={StaticResource DateConverter}}"/>
+                                    Binding="{Binding DateInterval.EndDate, Converter={StaticResource DateConverter}}"/>
                 <DataGridTextColumn Header="Request Status" 
                                     Width="2*"
                                     Binding="{Binding RequestState}"/>

@@ -32,7 +32,8 @@ namespace HospitalProject.FileHandler
                               TimeOnly.Parse(tokens[4]),
                               TimeOnly.Parse(tokens[5]),
                               ConvertTokenToSpecialization(tokens[6]),
-                              int.Parse(tokens[7]));
+                              int.Parse(tokens[7]),
+                              int.Parse(tokens[8]));
         }
 
         public IEnumerable<Doctor> ReadAll()
