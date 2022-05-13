@@ -74,5 +74,17 @@ namespace Controller
         {
             return _appointmentService.GenerateAppointmentsPriorityDate(startDate, endDate,patient);
         }
+
+        public Appointment FirstAvailableWithoutRescheduling(Specialization specialization, Patient patient, ExaminationType examType, Room room)
+        {
+            return _appointmentService.FirstAvailableWithoutRescheduling(specialization, patient, examType, room);
+        }
+
+
+        public List<AppointmentsDTO> FirstFromEachDoctorWithRescheduling(Specialization specialization)
+        {
+            return _appointmentService.FirstFromEachDoctorWithRescheduling(specialization);
+        }
+
     }
 }

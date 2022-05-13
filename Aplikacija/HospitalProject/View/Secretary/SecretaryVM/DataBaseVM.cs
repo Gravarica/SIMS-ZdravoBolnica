@@ -9,14 +9,16 @@ using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.Service;
+using HospitalProject.View.Secretary.SecretaryV;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
     internal class DataBaseVM : BaseViewModel
     {
-
-
+       
+        private RelayCommand showProfileCommand;
         private RelayCommand deleteAllergyCommand;
         EquipementController _equipmentController;
 
@@ -103,6 +105,28 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
+        public RelayCommand ShowProfileCommand
+        {
+            get
+            {
+                return showProfileCommand ?? (showProfileCommand = new RelayCommand(param => ExecuteShowProfileCommand(),
+                                                                                     param => CanExecute()));
+            }
+        }
+
+        private bool CanExecute()
+        {
+            return SelectedPatient!= null;
+        }
+
+        private MedicalRecordService medicalRecordService;
+        private void ExecuteShowProfileCommand()
+        {
+
+            PatientProfile view = new PatientProfile();
+            view.DataContext = new PatientProfileVM(SelectedPatient, medicalRecordService);
+            view.ShowDialog();
+        }
 
         public Allergies SelectedAllergy
         {

@@ -33,7 +33,7 @@
 
             <Button x:Name="NewAppointmemt" Content="New Appointment" HorizontalAlignment="Center" Margin="0,0,150,0" Width="150" Height="50" Grid.Row="3" Command="{Binding NewAppointmentCommand}"/>
             <Button Grid.Row="3"  x:Name="Delete" Content="Delete"  HorizontalAlignment="Right" Width="150" Height="50"  Command="{Binding DeleteCommand}" Background="Red"/>
-            <Button x:Name="UpdateExamination" Content="Edit"  HorizontalAlignment="Left" Margin="454,5,0,15" Width="150" Height="50"  Grid.Row="3" Command="{Binding UpdateCommand}" />
+            <Button x:Name="UpdateExamination" Content="Edit"  HorizontalAlignment="Left" Margin="454,5,0,15" Width="150" Height="50"  Grid.Row="3" Command="{Binding EditAppointmentCommand}" />
 
         </Grid>
 

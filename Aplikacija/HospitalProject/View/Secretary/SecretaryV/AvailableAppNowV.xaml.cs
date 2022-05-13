@@ -11,23 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HospitalProject.View.Secretary.SecretaryVM;
 
-namespace HospitalProject.View.Secretary.SecretaryV
+namespace HospitalProject.View.Secretary.SecretaryV.Windows
 {
     /// <summary>
-    /// Interaction logic for SecretaryMainView.xaml
+    /// Interaction logic for AvailableAppNowV.xaml
     /// </summary>
-    public partial class SecretaryMainView : Window
+    public partial class AvailableAppNowV : Window
     {
-        public SecretaryMainView()
+        public AvailableAppNowV()
         {
             InitializeComponent();
-
         }
-
-
-      
     }
 }
-

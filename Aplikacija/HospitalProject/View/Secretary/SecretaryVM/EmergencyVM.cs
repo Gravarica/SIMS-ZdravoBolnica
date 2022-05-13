@@ -23,6 +23,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Patient selectedItem;
         public ObservableCollection<Patient> Patients { get; set; }
         PatientController _patientController;
+
+        private AppointmentController appointmentController;
         private RoomControoler roomController;
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
         private List<ComboBoxData<Room>> roomsComboBox = new List<ComboBoxData<Room>>();
@@ -40,7 +42,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
-
+            appointmentController = app.AppointmentController;
             roomController = app.RoomController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
            
@@ -111,7 +113,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private bool CanExecuteCreateEmergency()
         {
-            return SelectedItem != null;
+            return SelectedItem != null && SelectedSpecialization != null && SelectedRoom != null && SelectedExamination != null;
 
         }
         private void ExecuteAddGuestCommand()
@@ -141,11 +143,20 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private void ExecuteCreateEmergencyCommand() 
         {
-         
 
-        
-        
-        
+            appointmentController.FirstAvailableWithoutRescheduling(SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+
+           
+            List<AppointmentsDTO> moveAppointments = appointmentController.FirstFromEachDoctorWithRescheduling(SelectedSpecialization);
+            RescheduleAppV view = new RescheduleAppV();
+            view.DataContext = new MoveAppVM(moveAppointments, SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+            view.ShowDialog();
+           
+
+            //premesti onaj pa opet pozoves
+            appointmentController.FirstAvailableWithoutRescheduling(SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+
+
         }
 
         private void FillComboData()

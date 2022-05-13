@@ -302,28 +302,30 @@ namespace Service
         public IEnumerable<Appointment> GetBySpecialization(Specialization specialization)
         {
             var appointments = appointmentRepository.GetBySpecialization(specialization);
-           // BindDataForAppointments(appointments);
+            // BindDataForAppointments(appointments);
             return appointments;
         }
 
         //Svi rezervisani termini po specijalizaciji u narednih sat vremena
-        public IEnumerable<Appointment> GetBySpecializationInNextHour(Specialization specialization)
+        public List<Appointment> GetByDoctorInNextHour(Specialization specialization)
         {
-
-            DateTime date = DateTime.Now;
-            DateTime upperLimit = date.AddHours(1);
-
-            List<Appointment> appointments = (List<Appointment>)appointmentRepository.GetBySpecialization(specialization);
-            foreach (Appointment appointment in appointments)
+            IEnumerable<Doctor> allDoctors = _doctorService.getAll();
+            List<Appointment> forEachDoctorFirst = new List<Appointment>(); ; 
+            foreach (Doctor d in allDoctors)
             {
-                if (appointment.Date >= upperLimit)
+                if (d.Specialization == specialization)
                 {
-                    appointments.Remove(appointment);
-                }
-            
+                
+                 Appointment appointment = appointmentRepository.GetAllUnfinishedAppointmentsForDoctor(d.Id).First();
+
+                 forEachDoctorFirst.Add(appointment);
+
+                 }
+
+
             }
-           // BindDataForAppointments(appointments);
-            return appointments;
+
+            return forEachDoctorFirst;
         }
 
 
@@ -335,85 +337,56 @@ namespace Service
             TimeOnly newTime = new TimeOnly(newDate.Hour, newDate.Minute);
 
             TimeSpan difference = newTime - oldTime;
-            
+
 
             return difference;
         }
 
         //Najoptimalniji po specijalizaciji u narednih sat vremena
-        public IEnumerable<Appointment> GetOptimalForReschedulingInNextHour(Specialization specialization)
+        private List<AppointmentsDTO> GetOptimalForReschedulingInNextHour(Specialization specialization)
         {
 
-            List<Appointment> appointments = (List<Appointment>)GetBySpecializationInNextHour(specialization);
+            List<Appointment> firstAppointmentsForEachDoctor = (List<Appointment>)GetByDoctorInNextHour(specialization);
 
-            List<Appointment> potentialAppointments = GetOptimalForEachAppointment(appointments);
+            List<AppointmentsDTO> potentialCombinations = GetOptimalForEachAppointment(firstAppointmentsForEachDoctor);
 
-            //kako da sortiram ovo sranje
-            //iz sortirane liste redom izvuci samo appointmente u potentialAppointments
-            return potentialAppointments;
+           
+            return potentialCombinations;
         }
 
- 
-        public List<Appointment> GetOptimalForEachAppointment(List<Appointment> appointments)
+
+        private List<AppointmentsDTO> GetOptimalForEachAppointment(List<Appointment> appointments)
         {
-           // List<EmergencyAppointments> listForSorting = new List<EmergencyAppointments>();
-            List<Appointment> potentialAppointments = new List<Appointment>();
+
+                DateOnly StartDate;
+                DateOnly EndDate;
+                ExaminationType examType;
+                Room room;
+                List<AppointmentsDTO> potentialCombinations = new List<AppointmentsDTO>();
 
             foreach (Appointment appointment in appointments)
             {
+                
 
-                List<Appointment> nextAppointments = GetAppointmentsByDoctorAndPatient(appointment.Doctor, appointment.Patient);
+                List<Appointment> nextAppointments = GenerateAvailableAppointments(StartDate, EndDate, appointment.Doctor, appointment.Patient, appointment.ExaminationType, appointment.Room);
 
                 Appointment bestPotentialAppointment = nextAppointments.First();
                 TimeSpan bestTime = CountTimeBetweenAppointments(appointment, bestPotentialAppointment);
 
-                potentialAppointments.Add(bestPotentialAppointment);
-               // EmergencyAppointments NewAppointment = new EmergencyAppointments(bestPotentialAppointment.Id, bestTime);
-               // listForSorting.Add(NewAppointment);
-
-                //SortPotentialAppointmentsByTimeSpan(potentialAppointments);
+                AppointmentsDTO NewAppointmentDTO = new AppointmentsDTO(appointment, appointment.Doctor, bestPotentialAppointment, bestTime);
+                potentialCombinations.Add(NewAppointmentDTO);
             }
 
-           return potentialAppointments;
+            return potentialCombinations;
         }
 
-        //Sortiranje liste potencijalnih novih termina 
 
-        /* public List<EmergencyAppointments> SortPotentialAppointmentsByTimeSpan(List<EmergencyAppointments> potentialAppointments)
-         {
-             List<EmergencyAppointments> sortedList = potentialAppointments;
-             int length = sortedList.Count();
-             int i, j;
-             EmergencyAppointments temp = new EmergencyAppointments();
-
-             for (j = length - 1; j > 0; j--)
-             {
-                 for (i = 0; i < j; i++)
-
-                 {
-
-                     if (sortedList[i].Timespan > sortedList[i + 1].Timespan)
-
-                     {
-
-                         temp = sortedList[i + 1];
-                         sortedList[i + 1] = sortedList[i];
-                         sortedList[i] = temp;
-
-                     }
-
-                 }
-             }
-
-             return sortedList;
-         }
-        */
-        //Svi slobodni termini po specijalizaciji, ako je prazna pozivamo GetOptimalForReschedulingInNextHour
-        public List<Appointment> GenerateAvailableAppointmentsBySpecialization(DateTime StartDate, DateTime EndDate, Specialization specialization, Patient patient, ExaminationType examType, Room room)
+        //PRVI OD SVIH SLOBODNIH kod svih specijalista u narednih dva sata SE UZIMA 
+       public Appointment GenerateAvailableAppointmentsBySpecialization(Specialization specialization, Patient patient, ExaminationType examType, Room room)
         {
-            
+
             DateTime dateNow = DateTime.Now;
-            
+
 
             IEnumerable<Doctor> allDoctors = _doctorService.getAll();
             List<Appointment> generatedAppointments = new List<Appointment>();
@@ -426,31 +399,41 @@ namespace Service
 
                 }
             }
-            return generatedAppointments;
+
+            return generatedAppointments.First();
         }
 
         private List<Appointment> GenerateAllApointmentsInNextHour(DateTime StartDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         {
-
-            DateTime timeInOneHour = StartDate.AddHours(1);
-
             List<Appointment> retAppointments = new List<Appointment>();
-           
+
             int i;
-            for (i = 0; i < 2; i++)
-               
-                { 
-                    Appointment appointment = new Appointment(StartDate, 30, doctor, patient, room, examType);
-                    retAppointments.Add(appointment);
-                    StartDate = StartDate.AddMinutes(30);
-                }
-            
+            for (i = 0; i < 4; i++)
+
+            {
+                Appointment appointment = new Appointment(StartDate, 30, doctor, patient, room, examType); //?
+                retAppointments.Add(appointment);
+                StartDate = StartDate.AddMinutes(30);
+            }
+
 
             return retAppointments;
         }
+      
 
+        public Appointment FirstAvailableWithoutRescheduling(Specialization specialization, Patient patient, ExaminationType examType, Room room)
+        {
+            Appointment appointment = GenerateAvailableAppointmentsBySpecialization(specialization, patient, examType, room);
+            Create(appointment);
+            return appointment; //da mi ispise na frontu kod kog doktora i u kojoj je sobi
+        }
 
+        public List <AppointmentsDTO> FirstFromEachDoctorWithRescheduling(Specialization specialization)
+        {
+            List<AppointmentsDTO> eachDoctorsBest = GetOptimalForReschedulingInNextHour(specialization);
+           return eachDoctorsBest;
+        }
 
-
+     
     }
 }

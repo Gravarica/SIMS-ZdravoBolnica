@@ -18,12 +18,37 @@ namespace HospitalProject.View.Secretary.SecretaryVM
     internal class NewAppointmentsVM : BaseViewModel
     {
 
-        public RelayCommand Edit { get; set; }
+        private Appointment selectedItem;
+
+        private IList<Doctor> _doctors;
+
+        private IList<Patient> _patients;
+        private DateTime _date;
+        private int _duration;
+        private String _time;
+        private Doctor _doctor;
+        private Patient _patient;
+
+        private RelayCommand addCommand;
+        private RelayCommand deleteCommand;
+        private RelayCommand newAppointmentCommand;
+        private RelayCommand editAppointmentCommand;
+
+        private Window window;
         public ObservableCollection<Appointment> Appointments { get; set; }
+        public ObservableCollection<int> DoctorIds { get; set; }
 
         AppointmentController _appointmentController;
-        private Appointment selectedItem;
-        public RelayCommand Delete { get; }
+        PatientController _patientController;
+        DoctorController _doctorController;
+        UserController _userController;
+        NotificationController _notificationController;
+
+
+        private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
+
+
+        private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         public Appointment SelectedItem
         {
             get
@@ -37,19 +62,130 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-       
+        public Doctor DoctorData
+        {
+            get
+            {
+                return _doctor;
+            }
+            set
+            {
+                _doctor = value;
+                OnPropertyChanged(nameof(DoctorData));
+            }
+        }
+
+        public Patient PatientData
+        {
+            get
+            {
+                return _patient;
+            }
+            set
+            {
+                _patient = value;
+                OnPropertyChanged(nameof(PatientData));
+            }
+        }
+        public DateTime Date
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                _date = value;
+                OnPropertyChanged(nameof(Date));
+            }
+        }
+
+        public int Duration
+        {
+            get
+            {
+                return _duration;
+            }
+            set
+            {
+                _duration = value;
+                OnPropertyChanged(nameof(Duration));
+            }
+        }
+
+        public String Time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                _time = value;
+                OnPropertyChanged(nameof(Time));
+            }
+        }
+
+        public List<ComboBoxData<Doctor>> DoctorComboBox
+        {
+
+            get
+            {
+                return doctorComboBox;
+            }
+            set
+            {
+                doctorComboBox = value;
+                OnPropertyChanged(nameof(DoctorComboBox));
+            }
+        }
+
+
 
         public NewAppointmentsVM()
         {
 
-            var app = System.Windows.Application.Current as App;
-            _appointmentController = app.AppointmentController;
-            Appointments = new ObservableCollection<Appointment>(_appointmentController.GetAllUnfinishedAppointments());
-            Edit = new RelayCommand(param => EditAppointmentCommandExecute(), param => CanExecute());
-            Delete = new RelayCommand(param => DeleteCommandExecute(), param => CanExecute());
+            InstantiateControllers();
+            InstantiateData();
+            FillComboData1();
+            FillComboData2();
 
         }
 
+        private void InstantiateControllers()
+        {
+            var app = System.Windows.Application.Current as App;
+            _appointmentController = app.AppointmentController;
+            _patientController = app.PatientController;
+            _doctorController = app.DoctorController;
+        }
+
+        private void InstantiateData()
+        {
+            _patients = _patientController.GetAll().ToList();
+            Appointments = new ObservableCollection<Appointment>(_appointmentController.GetAllUnfinishedAppointments().ToList());
+            _doctors = _doctorController.GetAll().ToList();
+
+        }
+
+        private void FillComboData1()
+        {
+
+            foreach (Doctor d in _doctors)
+            {
+                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = d.FirstName + " " + d.LastName, Value = d });
+            }
+
+        }
+        private void FillComboData2()
+        {
+
+            foreach (Patient d in _patients)
+            {
+                patientComboBox.Add(new ComboBoxData<Patient> { Name = d.FirstName + " " + d.LastName, Value = d });
+            }
+
+        }
         private bool CanExecute()
         {
             if (selectedItem == null)
@@ -58,6 +194,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
 
             return true;
+        }
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ?? (deleteCommand = new RelayCommand(param => DeleteCommandExecute(), param => CanDeleteCommandExecute()));
+            }
+        }
+
+        private bool CanDeleteCommandExecute()
+        {
+            return SelectedItem != null;
         }
 
         private void DeleteCommandExecute()
@@ -69,13 +217,47 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
 
         }
-        private void EditAppointmentCommandExecute()
+        public RelayCommand NewAppointmentCommand
         {
-            EditAppV view = new EditAppV();
-            view.DataContext = new EditAppVM(SelectedItem, Appointments);
+            get
+            {
+                return newAppointmentCommand ?? (newAppointmentCommand = new RelayCommand(param => NewAppointmentCommandExecute(), param => CanNewAppointmentCommandExecute()));
+            }
+        }
+
+        private bool CanNewAppointmentCommandExecute()
+        {
+            return true;
+        }
+
+        private void NewAppointmentCommandExecute()
+        {
+            AddNewAppointmentV view = new AddNewAppointmentV();
+            view.DataContext = new AddNewAppointmentVM(Appointments, view);
             view.ShowDialog();
         }
 
-       
+
+        public RelayCommand EditAppointmentCommand
+        {
+            get
+            {
+                return editAppointmentCommand ?? (editAppointmentCommand = new RelayCommand(param => EditAppointmentCommandExecute(),
+                                                                                            param => CanEditAppointmentCommandExecute()));
+            }
+        }
+
+        private bool CanEditAppointmentCommandExecute()
+        {
+            return SelectedItem != null;
+        }
+
+        private void EditAppointmentCommandExecute()
+        {
+            EditAppV view = new EditAppV();
+            view.DataContext = new EditAppVM(SelectedItem, Appointments, view);
+            view.ShowDialog();
+        }
+
     }
 }

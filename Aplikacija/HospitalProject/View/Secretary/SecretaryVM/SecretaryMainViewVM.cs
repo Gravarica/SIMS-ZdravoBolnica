@@ -34,6 +34,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public RelayCommand RequestsCommand { get; set; }
         public DashBoardVM DashBoardVM { get; set; }
 
+        UserController _userController;
+        private Window Window;
 
         public object CurrentView
         {
@@ -48,21 +50,21 @@ namespace HospitalProject.View.Secretary.SecretaryVM
       
         private static SecretaryMainViewVM _instance;
 
-        public static SecretaryMainViewVM GetFirstInstance()
+        /*public static SecretaryMainViewVM GetFirstInstance(Window window)
         {
 
             if (_instance == null)
             {
-                _instance = new SecretaryMainViewVM();
+                _instance = new SecretaryMainViewVM(window);
             }
             return _instance;
-        }
+        }*/
 
         public static SecretaryMainViewVM GetInstance()
         {
             return _instance;
         }
-        private SecretaryMainViewVM()
+        public SecretaryMainViewVM(Window window)
         {
             //DashBoard = new DashBoardV();
             RegisterV = new RegisterV();
@@ -71,8 +73,14 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             NewAppointmentsV = new NewAppointmentsV();
             //PublicNotifficationsVM = new PublicNotifficationsVM();
             //RequestsVM = new RequestsVM();
-           
+            
 
+
+            var app = System.Windows.Application.Current as App;
+            _userController = app.UserController;
+            
+            
+            this.Window = window;
             CurrentView = DataBaseV;
             RegisterCommand = new RelayCommand(o =>
             {
@@ -120,14 +128,13 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             return true;
         }
 
-
-        UserController _userController;
         private void LogoutCommandExecute()
         {
             _userController.Logout();
-            //window.Close();
+            Window.Close();
             System.Windows.Application.Current.MainWindow.Show();
         }
+
 
     }
 }

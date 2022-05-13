@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" 
         mc:Ignorable="d"
     
         TextElement.FontWeight="Regular"
@@ -39,11 +39,10 @@
 
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Id" Binding="{Binding AppointmentId}" Width="40"  CanUserResize="False" />
-                    <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor}" Width="*"  CanUserResize="False"/>
-                    <DataGridTextColumn Header="Patient" Binding="{Binding Patient.FullName}" Width="120"  CanUserResize="False"/>
-                    <DataGridTextColumn Header="Room" Binding="{Binding Room}" Width="50"  CanUserResize="False"/>
-                    <DataGridTextColumn Header="Moving for" Binding="{Binding ReschedlingFor}" Width="*"  CanUserResize="False"/>
+                    <DataGridTextColumn Header="Appointments date" Binding="{Binding Appointment.Date}" Width="*"  CanUserResize="False" />
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorData}" Width="*"  CanUserResize="False"/>
+                    <DataGridTextColumn Header="Next date" Binding="{Binding PotentialAppointment.Date}" Width="120"  CanUserResize="False"/>
+                   <DataGridTextColumn Header="Moving for" Binding="{Binding TimeSpan}" Width="*"  CanUserResize="False"/>
 
                 </DataGrid.Columns>
 

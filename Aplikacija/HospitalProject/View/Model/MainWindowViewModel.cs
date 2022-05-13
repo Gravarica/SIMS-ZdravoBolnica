@@ -138,6 +138,8 @@ namespace HospitalProject.View.Model
         private void OpenSecretaryView()
         {
             SecretaryMainView sv = new SecretaryMainView();
+
+            sv.DataContext = new SecretaryMainViewVM(sv);
             HideWindow();
             sv.Show();
         }

@@ -48,7 +48,7 @@
                 <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox  x:Name="Specialization"  HorizontalAlignment="Center" DisplayMemberPath="DisplayText" SelectedValuePath="Entity" ItemsSource="{Binding SpecializationComboBox}" SelectedValue = "{Binding SelectedSpecialization}"  VerticalAlignment="Top" Height="37" Width="202" Margin="0,43,0,0" Grid.Row="1" />
+        <ComboBox  x:Name="Specialization"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding SpecializationComboBox}" SelectedValue = "{Binding SelectedSpecialization}"  VerticalAlignment="Top" Height="37" Width="202" Margin="0,43,0,0" Grid.Row="1" />
         <TextBox HorizontalAlignment="Center" 
                   Text="{Binding FindJmbg}"
                  Margin="0,43,0,20"  RenderTransformOrigin="0.5,0.5" Width="202" Grid.Row="1" Grid.Column="1"/>
@@ -91,8 +91,8 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <ComboBox  x:Name="Specialization_Copy"  HorizontalAlignment="Center" DisplayMemberPath="DisplayText" SelectedValuePath="Entity" ItemsSource="{Binding RoomTypeComboBox}" SelectedValue = "{Binding SelectedRoom}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,51,0,0" Grid.Row="2" />
-        <ComboBox  x:Name="Specialization_Copy1"  HorizontalAlignment="Center" DisplayMemberPath="DisplayText" SelectedValuePath="Entity" ItemsSource="{Binding ExaminationTypeComboBox}" SelectedValue = "{Binding SelectedExamination}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,175,0,0" Grid.Row="2" />
+        <ComboBox  x:Name="Specialization_Copy"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding RoomTypeComboBox}" SelectedValue = "{Binding SelectedRoom}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,51,0,0" Grid.Row="2" />
+        <ComboBox  x:Name="Specialization_Copy1"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding ExaminationTypeComboBox}" SelectedValue = "{Binding SelectedExamination}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,175,0,0" Grid.Row="2" />
 
     </Grid>
 
