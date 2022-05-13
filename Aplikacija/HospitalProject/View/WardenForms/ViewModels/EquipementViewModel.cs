@@ -4,7 +4,7 @@ using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
 
-namespace HospitalProject.View.WardenForms
+namespace HospitalProject.View.WardenForms.ViewModels
 {
     public class EquipementViewModel : BaseViewModel
     {

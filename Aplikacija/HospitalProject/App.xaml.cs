@@ -111,7 +111,7 @@ namespace HospitalProject
             
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
 
-//          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+           var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
