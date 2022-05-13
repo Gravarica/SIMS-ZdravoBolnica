@@ -11,25 +11,48 @@ namespace HospitalProject.Service
     public class DoctorService
     {
         private DoctorRepository _doctorRepository;
+        private RoomService _roomService;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(DoctorRepository doctorRepository, RoomService roomService)
         {
             _doctorRepository = doctorRepository;
+            _roomService = roomService;
         }
 
         public IEnumerable<Doctor> getAll()
         {
-            return _doctorRepository.GetAll();
+            List<Doctor> doctors = _doctorRepository.GetAll().ToList();
+            BindDoctorsForOrdinations(doctors);
+            return doctors;
         }
 
         public Doctor GetById(int id)
         {
-            return _doctorRepository.GetById(id);
+            Doctor doc = _doctorRepository.GetById(id);
+            SetRoomForDoctor(doc);
+            return doc;
         }
 
         public Doctor GetLoggedDoctor(string username)
         {
             return _doctorRepository.GetLoggedDoctor(username);   
+        }
+
+        public List<Doctor> GetDoctorsBySpecialization(Specialization specialization)
+        {
+            List<Doctor> doctors = _doctorRepository.GetDoctorsBySpecialization(specialization);
+            BindDoctorsForOrdinations(doctors);
+            return doctors;
+        }
+
+        private void BindDoctorsForOrdinations(List<Doctor> doctors)
+        {
+            doctors.ForEach(doctor => SetRoomForDoctor(doctor));
+        }
+
+        private void SetRoomForDoctor(Doctor doctor)
+        {
+            doctor.Ordination = _roomService.Get(doctor.Ordination.Id);
         }
     }
 }

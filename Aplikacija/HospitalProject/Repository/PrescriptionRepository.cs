@@ -27,13 +27,13 @@ namespace HospitalProject.Repository
         private void InstantiatePrescriptionList()
         {
             prescriptions = prescriptionFileHandler.ReadAll().ToList();
-            prescriptions.ForEach(prescription => SetAppointmentForPrescription(prescription));
+            prescriptions.ForEach(SetAppointmentForPrescription);
             prescriptionMaxId = GetMaxId();
         }
 
         private int GetMaxId()
         {
-            return prescriptions.Count() == 0 ? 0 : prescriptions.Max(prescription => prescription.Id);
+            return !prescriptions.Any() ? 0 : prescriptions.Max(prescription => prescription.Id);
         }        
 
         public IEnumerable<Prescription> GetAll()

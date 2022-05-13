@@ -143,9 +143,9 @@ namespace HospitalProject
             
             var _equipementService = new EquipementService(_equipementRepository);
 
-            var _doctorService = new DoctorService(_doctorRepository);
-            
             var _roomService = new RoomService(_roomRepository);
+            
+            var _doctorService = new DoctorService(_doctorRepository, _roomService);
 
             var _patientService = new PatientService(_patientRepository);
 

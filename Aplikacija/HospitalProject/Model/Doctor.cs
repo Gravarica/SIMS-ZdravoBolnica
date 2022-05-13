@@ -16,6 +16,7 @@ namespace Model
         private List<Appointment> appointments;
         private Specialization specialization;
         private int freeDays;
+        private Room ordination;
         private TimeOnly shiftStart;
         private TimeOnly shiftEnd;
 
@@ -93,8 +94,21 @@ namespace Model
                 OnPropertyChanged(nameof(FreeDays));
             }
         }
+
+        public Room Ordination
+        {
+            get
+            {
+                return ordination;
+            }
+            set
+            {
+                ordination = value;
+                OnPropertyChanged(nameof(Ordination));
+            }
+        }
    
-        public Doctor(int id, String username, String password, string lastName, TimeOnly shiftStart, TimeOnly shiftEnd, Specialization specialization, int freeDays) : base(username,password,lastName)
+        public Doctor(int id, String username, String password, string lastName, TimeOnly shiftStart, TimeOnly shiftEnd, Specialization specialization, int freeDays, int roomId) : base(username,password,lastName)
         {
             this.id = id;
             appointments = new List<Appointment>();
@@ -102,6 +116,7 @@ namespace Model
             ShiftEnd = shiftEnd;    
             Specialization = specialization;
             FreeDays = freeDays;
+            Ordination = new Room(roomId);
         }
 
         public Doctor(int id) : base()

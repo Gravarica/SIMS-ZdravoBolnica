@@ -79,7 +79,7 @@ namespace HospitalProject.Service
                 GenerateAllRenovationAppointments(searchStartDate, searchEndDate, room, duration);
             foreach (RoomRenovation rr in allRenovations)
             {
-                if (_appointmentService.RoomHasApointmentByDay(rr.StartDate, rr.EndDate, rr.Room)
+                if (_appointmentService.RoomHasAppointmentByDay(rr.StartDate, rr.EndDate, rr.Room)
                     && RoomHasReservationsByDay(rr.StartDate, rr.EndDate, rr.Room)
                     )
                 {

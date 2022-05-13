@@ -87,18 +87,18 @@ namespace Service
         // For each appointment, sets its patient field to a certain patient by his id given in the file
         private void BindAppointmentsWithPatients(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => SetPatient(appointment));
+            appointments.ToList().ForEach(SetPatient);
         }
 
         // For each appointment, sets its doctor field to a certain doctor object by his id written in the file
         private void BindAppointmentsWithDoctors(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach (appointment => SetDoctor(appointment));
+            appointments.ToList().ForEach (SetDoctor);
         }
 
         private void BindAppointmentsWithRooms(IEnumerable<Appointment> appointments)
         {
-            appointments.ToList().ForEach(appointment => SetRoom(appointment));
+            appointments.ToList().ForEach(SetRoom);
         }
 
         private void SetPatient(Appointment appointment)
@@ -141,7 +141,7 @@ namespace Service
             return unionAppointments;
         }
 
-        public bool RoomHasApointmentByDay(DateOnly startDate, DateOnly endDate, Room room)
+        public bool RoomHasAppointmentByDay(DateOnly startDate, DateOnly endDate, Room room)
         {
             var allApointments = getAll();
             foreach (Appointment ap in allApointments)
@@ -159,7 +159,7 @@ namespace Service
         // Method that generates available appointments, this method is called in controller
         public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         { 
-            List<Appointment> allAppointments = GenerateAllApointments(StartDate, EndDate, doctor, patient, examType, room);
+            List<Appointment> allAppointments = GenerateAllAppointments(StartDate, EndDate, doctor, patient, examType, room);
             var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
 
             return MinusAppointments(allAppointments, existingAppointments);
@@ -173,13 +173,7 @@ namespace Service
 
             foreach (Appointment generatedAppointment in allAppointments)
             {
-                foreach (Appointment existingAppointment in existingAppointments)
-                {
-                    if (generatedAppointment.Equals(existingAppointment))
-                    {
-                        removeAppointments.Add(generatedAppointment);
-                    }
-                }
+                removeAppointments.AddRange(from existingAppointment in existingAppointments where generatedAppointment.Equals(existingAppointment) select generatedAppointment);
             }
 
             foreach(Appointment appointment in removeAppointments)
@@ -191,13 +185,12 @@ namespace Service
         }
 
         // Method that generates empty appointments
-        private List<Appointment> GenerateAllApointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
+        private List<Appointment> GenerateAllAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         {
-            List<Appointment> retAppointments = new List<Appointment>();     
-            TimeOnly shiftIterator;
+            List<Appointment> retAppointments = new List<Appointment>();
             while(StartDate <= EndDate)
             {
-                shiftIterator = doctor.ShiftStart;
+                var shiftIterator = doctor.ShiftStart;
 
                 while(shiftIterator <= doctor.ShiftEnd)
                 { 
@@ -224,7 +217,7 @@ namespace Service
             appointmentRepository.SetAppointmentFinished(appointment);
         }
 
-        public IEnumerable<Appointment> GetAllUnifinishedAppointmentsForDoctor(int doctorId)
+        public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForDoctor(int doctorId)
         {
             var appointments = appointmentRepository.GetAllUnfinishedAppointmentsForDoctor(doctorId);
             BindDataForAppointments(appointments);
@@ -262,16 +255,13 @@ namespace Service
 
 
             }
-            else
 
-            {
-                DateOnly date4 = startDate;
-                DateOnly date5 = endDate;
+            DateOnly date4 = startDate;
+            DateOnly date5 = endDate;
 
-                return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
-            }
+            return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
 
-           
+
 
 
         }

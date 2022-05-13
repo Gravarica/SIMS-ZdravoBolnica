@@ -56,7 +56,7 @@ namespace Controller
 
         public IEnumerable<Appointment> GetAllUnifinishedAppointmentsForDoctor(int doctorId)
         {
-            return _appointmentService.GetAllUnifinishedAppointmentsForDoctor(doctorId);
+            return _appointmentService.GetAllUnfinishedAppointmentsForDoctor(doctorId);
         }
 
         public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
