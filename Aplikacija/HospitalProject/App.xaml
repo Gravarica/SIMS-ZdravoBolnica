@@ -32,6 +32,10 @@
                 <views:MedicineView/>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewModels:AddingMedicineAlergiesViewModel}">
+                <views:AddingMedicineView/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
                 <views:WardenEquipementView/>
             </DataTemplate>

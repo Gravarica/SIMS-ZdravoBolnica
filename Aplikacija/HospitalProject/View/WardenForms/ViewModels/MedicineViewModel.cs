@@ -3,6 +3,7 @@ using System.Linq;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.WardenForms.Views;
 
 namespace HospitalProject.View.WardenForms.ViewModels
 {
@@ -11,6 +12,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
         public ObservableCollection<Equipement> MedicineItems { get; set; }
         private EquipementController _equipementController;
         private Equipement selectedItem;
+        public RelayCommand AddMedicineCommand { get; set; }
 
         public Equipement SelectedItem
         {
@@ -40,7 +42,17 @@ namespace HospitalProject.View.WardenForms.ViewModels
         private void InsatiateData()
         {
             MedicineItems = new ObservableCollection<Equipement>(_equipementController.GetAllMedicine().ToList());
+            AddMedicineCommand = new RelayCommand(param => ExecuteAddMedicineCommand(), param => true);
+
         }
+        private void ExecuteAddMedicineCommand()
+        {
+            
+            AddingMedicineView addingMedicineView =
+                new AddingMedicineView(MedicineItems);
+            MainViewModel.Instance.MomentalView = addingMedicineView;
+        }
+        
         
         
     }

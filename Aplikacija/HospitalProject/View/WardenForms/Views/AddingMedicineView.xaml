@@ -1,0 +1,74 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:viewModels="clr-namespace:HospitalProject.View.WardenForms.ViewModels"
+             x:Class="HospitalProject.View.WardenForms.Views.AddingMedicineView"
+             mc:Ignorable="d" 
+             Width="1391" Height="883.04">
+   
+    <Grid Width="1391" Height="883.04">
+        <Grid Height="883.04" Width="1391">
+            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30"  FontWeight="UltraBlack" BorderBrush="#FFF3BF09" BorderThickness="1" Margin="0,13,0,800" Content="Adding medicine"/>
+            <Grid Background="#FFF3BF09"   Margin="0,83,0,1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="699*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="744*"></ColumnDefinition>
+                    <ColumnDefinition Width="183*"></ColumnDefinition>
+                    <ColumnDefinition Width="464*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+
+                <Grid Grid.Column="0" Margin="0,100,0,0" Grid.RowSpan="2"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"></ColumnDefinition>
+                        <ColumnDefinition Width="13*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="85*"></RowDefinition>
+                        <RowDefinition Height="87*"></RowDefinition>
+                        <RowDefinition Height="527*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label FontSize="25" FontWeight="Heavy" Margin="131,24,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164">Insert name:</Label>
+                    <Label Grid.Row="1" FontSize="25" FontWeight="Heavy" Margin="107,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="43" Width="204">Insert Quantity:</Label>
+                    <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Grid.Row="1" Margin="21,16,32,24" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedName}" BorderThickness="3" Grid.Row="0" Margin="21,24,32,14" Grid.Column="1"/>
+                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="61,25,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244"/>
+                    <ListView Name="SelectedSupstancessList" ItemsSource="{Binding Path= SelectedAllergies}"   Grid.Row="2" Grid.Column="1"  Margin="40,50,40,50" FontSize="20">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Name}"></Label>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ComboBox TextBoxBase.TextChanged="ddlSupstances_TextChanged" FontSize="20" SelectionChanged="ddlSupstances_SelectionChanged" ItemsSource="{Binding Path = AllergiesList}"  Grid.Column="0" Grid.Row="2" Margin="61,89,29,391" 
+                              Name="ddlSupstances"  IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True"  >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox FontSize="15" VerticalAlignment="Center" Name ="chkSupstance" Checked="AllCheckbocx_CheckedAndUnchecked" Unchecked="AllCheckbocx_CheckedAndUnchecked"
+                                          Content="{Binding Name}" IsChecked="{Binding IsChecked}" CommandParameter="{Binding Id}"></CheckBox>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        
+                        
+                    </ComboBox>
+
+                </Grid>
+                <Button Command="{Binding AddMedicineCommand}" Grid.Column="2" BorderThickness="3" Content="Add" HorizontalAlignment="Left" Margin="74,343,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="30" FontWeight="Heavy" Height="57" Width="142"/>
+
+
+
+            </Grid>
+
+
+
+        </Grid>
+    </Grid>
+</UserControl>

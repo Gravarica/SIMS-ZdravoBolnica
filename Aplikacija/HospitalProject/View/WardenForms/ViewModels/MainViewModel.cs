@@ -32,6 +32,8 @@ namespace HospitalProject.View.WardenForms.ViewModels
         
         public MedicineViewModel MedicineViewModel { get; set; }
         public RelayCommand MedicineViewCommand { get; set; }
+        
+        public AddingMedicineView AddingMedicineView { get; set; }
 
 
 
@@ -60,6 +62,8 @@ namespace HospitalProject.View.WardenForms.ViewModels
             WardenEquipemntRelocationViewModel = new WardenEquipemntRelocationViewModel();
             RoomRenovationViewModel = new RoomRenovationViewModel();
             MedicineViewModel = new MedicineViewModel();
+            AddingMedicineView = new AddingMedicineView();
+            
 
             MomentalView = WardenRoomControl;
             
