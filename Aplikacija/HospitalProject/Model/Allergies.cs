@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HospitalProject.View.WardenForms.ViewModels;
+
 namespace HospitalProject.Model;
 
 public class Allergies  : ViewModelBase
@@ -54,5 +56,11 @@ public class Allergies  : ViewModelBase
         public Allergies(int id)
         {
             this.id = id;
+        }
+
+        public Allergies(AddingMedicineAlergiesViewModel amav)
+        {
+            Name = amav.Name;
+            Id = amav.Id;
         }
 }

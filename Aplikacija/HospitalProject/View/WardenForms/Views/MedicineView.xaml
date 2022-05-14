@@ -1,0 +1,34 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="HospitalProject.View.WardenForms.Views.MedicineView"
+             mc:Ignorable="d"
+             Width="1391" Height="883.04">
+
+    <Grid Height="883.04" Width="1391">
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderBrush="#FFF3BF09" BorderThickness="1" Margin="0,13,0,800" Content="Medicine"/>
+        <Grid Background="#FFF3BF09"   Margin="0,83,0,1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"></RowDefinition>
+                <RowDefinition Height="699*"/>
+            </Grid.RowDefinitions>
+            <DataGrid Grid.Row="1"  Margin="40,30,40,10" IsReadOnly="True" ItemsSource="{Binding Path=MedicineItems}" 
+                      SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Medicine id"  Width="*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity" Width="*" Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Name"  Width="*" Binding="{Binding Name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Command="{Binding AddMedicineCommand}" Content="Add" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="124" Margin="1222,35,0,0"/>
+
+        </Grid>
+        
+
+
+    </Grid>
+
+</UserControl>
