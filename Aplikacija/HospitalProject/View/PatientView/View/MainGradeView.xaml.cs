@@ -16,37 +16,34 @@ using System.Windows.Shapes;
 namespace HospitalProject.View.PatientView.View
 {
     /// <summary>
-    /// Interaction logic for MainPatientView.xaml
+    /// Interaction logic for MainGradeView.xaml
     /// </summary>
-    public partial class MainPatientView : Window
+    public partial class MainGradeView : Window
     {
-        public MainPatientView()
+        public MainGradeView()
         {
             InitializeComponent();
         }
 
-        private void OpenAppointmentsForPatient(object sender, RoutedEventArgs e)
+        private void OpenGradingForHospital(object sender, RoutedEventArgs e)
         {
-            AppointmentsViewPatient avp = new AppointmentsViewPatient();
+            HospitalSurveyView hsw = new HospitalSurveyView();
+            hsw.DataContext = new HospitalSurveyViewModel(hsw);
             this.Close();
-            avp.Show();
+            hsw.Show();
+
         }
 
-        private void OpenGrading(object sender, RoutedEventArgs e)
+        private void OpenGradingForDoctor(object sender, RoutedEventArgs e)
         {
-            MainGradeView mgw = new MainGradeView();
-           
+            AnamnesisViewPatient avp = new AnamnesisViewPatient();
+            avp.DataContext = new AnamnesisViewPatientViewModel(avp);
             
-            mgw.Show();
+            avp.Show();
 
         }
-
-
-        
-
 
     }
 
-
-
+    
 }
