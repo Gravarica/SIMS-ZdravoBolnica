@@ -41,7 +41,9 @@ namespace HospitalProject.FileHandler
             return string.Join(_delimiter,
             user.Username,
             user.Password,
-            user.UserType.ToString());
+            user.UserType.ToString(),
+            user.MovedAppointmentsCount.ToString(),
+            user.IsBlocked.ToString());
         }
 
         public void AppendLineToFile(User user)

@@ -36,6 +36,12 @@ namespace HospitalProject
         private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
         private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
         private string EQUIPMENT_RELOCATION_FILE = _projectPath + "\\Resources\\Data\\equipmentRelocations.csv";
+        private string QUESTIONS_FILE = _projectPath + "\\Resources\\Data\\questions.csv";
+        private string SURVEYS_FILE = _projectPath + "\\Resources\\Data\\surveys.csv";
+        private string SURVEY_REALIZATIONS_FILE = _projectPath + "\\Resources\\Data\\surveyRealizations.csv";
+        private string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
+
+
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
         private const string ONLY_DATE_FORMAT = "MM/dd/yyyy";
@@ -69,6 +75,14 @@ namespace HospitalProject
         
         public EquipmentRelocationController EquipmentRelocationController{ get; set; }
 
+        public QuestionController QuestionController { get; set; }
+
+        public SurveyController SurveyController { get; set; }
+
+        public SurveyRealizationController SurveyRealizationController { get; set; }  
+        
+        public AnswerController AnswerController { get; set; }
+
 
         public App()
         {
@@ -97,6 +111,13 @@ namespace HospitalProject
 
             var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
+            var _questionsFileHandler = new QuestionsFileHandler(QUESTIONS_FILE, CSV_DELIMITER);
+
+            var _surveyFileHandler = new SurveyFileHandler(SURVEYS_FILE, CSV_DELIMITER);
+
+            var _surveyRealizationFileHandler = new SurveyRealizationFileHandler(SURVEY_REALIZATIONS_FILE, CSV_DELIMITER);
+
+            var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
 
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
@@ -127,7 +148,13 @@ namespace HospitalProject
 
             var _userRepository = new UserRepository(_userFileHandler);
 
+            var _questionRepository = new QuestionRepository(_questionsFileHandler);
 
+            var _surveysRepository = new SurveyRepository(_surveyFileHandler,_questionRepository);
+
+            var _answerRepository = new AnswerRepository(_answerFileHandler);
+
+            var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -153,7 +180,15 @@ namespace HospitalProject
 
             var _equipmentRelocationService = new EquipmentRelocationService(_equipmentRelocationRepository,_roomService);
 
-            
+            var _questionService = new QuestionService(_questionRepository);
+
+            var _surveyService = new SurveyService(_surveysRepository);
+
+            var _surveyRealizationService = new SurveyRealizationService(_surveyRealizationRepository);
+
+            var _answerService = new AnswerService(_answerRepository);
+
+
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
             AllergiesController = new AllergiesController(_allergiesService);
@@ -183,6 +218,14 @@ namespace HospitalProject
             PrescriptionController = new PrescriptionController(_prescriptionService);
 
             NotificationController = new NotificationController(_notificationService);
+
+            QuestionController = new QuestionController(_questionService);
+
+            SurveyController = new SurveyController(_surveyService);
+
+            SurveyRealizationController = new SurveyRealizationController(_surveyRealizationService);
+
+            AnswerController = new AnswerController(_answerService);
         }
 
        
