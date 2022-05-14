@@ -183,7 +183,7 @@ namespace HospitalProject.View.PatientView.Model
                                                                                                                               endDateOnly,
                                                                                                                               DoctorData,
                                                                                                                               patient,
-                                                                                                                              ExaminationType.GENERAL, roomController.Get(3)));
+                                                                                                                              ExaminationType.GENERAL, roomController.Get(3),1));
         }
 
         public RelayCommand SaveCommand

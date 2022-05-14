@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MedicalCardButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/LoginButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 
@@ -27,12 +28,12 @@
                 <view:AppointmentsView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:EquipementViewModel}">
-                <wardenForms:WardenEquipementView/>
+            <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
+                <views:WardenEquipementView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:WardenEquipemntRelocationViewModel}">
-                <wardenForms:WardenEquipemntRelocationView/>
+            <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">
+                <views:WardenEquipemntRelocationView/>
             </DataTemplate>
             
 
@@ -54,6 +55,18 @@
 
             <DataTemplate DataType="{x:Type viewModel:PrescriptionHistoryViewModel}">
                 <view:PrescriptionHistoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:RequestsViewModel}">
+                <view:RequestsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewRequestViewModel}">
+                <view:NewRequestView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:InventoryViewModel}">
+                <view:InventoryView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type patientViewModel:RecipesViewModel}">

@@ -40,6 +40,7 @@ namespace HospitalProject.Model
                         AddAlergen(al);
                     }
                 }
+                OnPropertyChanged(nameof(Alergens));
               
             }
         }

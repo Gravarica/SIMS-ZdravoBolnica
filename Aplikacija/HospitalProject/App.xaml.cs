@@ -40,7 +40,8 @@ namespace HospitalProject
         private string SURVEYS_FILE = _projectPath + "\\Resources\\Data\\surveys.csv";
         private string SURVEY_REALIZATIONS_FILE = _projectPath + "\\Resources\\Data\\surveyRealizations.csv";
         private string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
-
+        private string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
+        private string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
 
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
@@ -83,6 +84,10 @@ namespace HospitalProject
         
         public AnswerController AnswerController { get; set; }
 
+        public MedicineReportController MedicineReportController { get; set; }  
+
+        public VacationRequestController VacationRequestController { get; set; }    
+
 
         public App()
         {
@@ -119,12 +124,15 @@ namespace HospitalProject
 
             var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
 
+            var _medicineReportFileHandler = new MedicineReportFileHandler(MEDICINE_REPORT_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
+
+            var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
 
-//          var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
+            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
@@ -156,13 +164,17 @@ namespace HospitalProject
 
             var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
 
+            var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
+
+            var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
+
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
             var _equipementService = new EquipementService(_equipementRepository);
 
-            var _doctorService = new DoctorService(_doctorRepository);
-            
             var _roomService = new RoomService(_roomRepository);
+            
+            var _doctorService = new DoctorService(_doctorRepository, _roomService);
 
             var _patientService = new PatientService(_patientRepository);
 
@@ -188,7 +200,10 @@ namespace HospitalProject
 
             var _answerService = new AnswerService(_answerRepository);
 
+            var _medicineReportService = new MedicineReportService(_medicineReportRepository);
 
+            var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
+            
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
             AllergiesController = new AllergiesController(_allergiesService);
@@ -203,7 +218,7 @@ namespace HospitalProject
 
             DoctorController = new DoctorController(_doctorService);
 
-            PatientController = new PatientController(_patientService,_userService, _medicalRecordService);
+            PatientController = new PatientController(_patientService,_userService, _medicalRecordService, _appointmentService);
 
             RoomController = new RoomControoler(_roomService);
 
@@ -226,6 +241,11 @@ namespace HospitalProject
             SurveyRealizationController = new SurveyRealizationController(_surveyRealizationService);
 
             AnswerController = new AnswerController(_answerService);
+
+            VacationRequestController = new VacationRequestController(_vacationRequestService);
+
+            MedicineReportController = new MedicineReportController(_medicineReportService);
+
         }
 
        

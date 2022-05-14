@@ -44,7 +44,8 @@
                 </Border>
                 <Button Grid.Column="2"
                         Content="New Appointment"
-                        Margin = "30,15,30,15 "/>
+                        Margin = "30,15,30,15"
+                        Style="{StaticResource RoundButton}"/>
             </Grid>
         </Border>
         <DataGrid Grid.Row="1"
@@ -73,7 +74,8 @@
                         <DataTemplate>
                             <Button Content="Record"
                                     Margin="5,10,10,5"
-                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    Style="{StaticResource RoundButton}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

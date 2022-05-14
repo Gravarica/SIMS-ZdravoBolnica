@@ -147,7 +147,8 @@
                                 Style="{StaticResource RoundButton}"
                                 Command="{Binding WritePrescriptionCommand}"/>
                         <Button Content="Write Referal"
-                                Style="{StaticResource RoundButton}"/>
+                                Style="{StaticResource RoundButton}"
+                                Command="{Binding WriteReferalCommand}"/>
                         <Button Content="Write Hospital Referal"
                                 Style="{StaticResource RoundButton}"/>
                     </StackPanel>
