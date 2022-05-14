@@ -33,14 +33,7 @@ namespace HospitalProject.Service
 
         private bool CreateRequestIfDateIntervalIsValid(NewRequestDTO newRequestDTO)
         {
-            if (newRequestDTO.IsUrgent)
-            {
-                return CreateNewRequest(newRequestDTO);
-            }
-            else
-            {
-                return CreateRequestIfNoMoreThanTwoDoctorsAreOnVacation(newRequestDTO);
-            }
+            return newRequestDTO.IsUrgent ? CreateNewRequest(newRequestDTO) : CreateRequestIfNoMoreThanTwoDoctorsAreOnVacation(newRequestDTO);
         }
 
         private bool CreateNewRequest(NewRequestDTO newRequestDTO)
