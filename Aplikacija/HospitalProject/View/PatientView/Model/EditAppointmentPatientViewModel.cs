@@ -204,6 +204,7 @@ namespace HospitalProject.View.PatientView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            userController.IncreaseCounter();
             window.Close();
         }
 

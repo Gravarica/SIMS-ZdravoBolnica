@@ -32,7 +32,7 @@ namespace Controller
 
         public Patient Create(Patient patient)
         {
-           userService.Create(new User(patient.Username, patient.Password, UserType.PATIENT));
+           userService.Create(new User(patient.Username, patient.Password, UserType.PATIENT, false, 0));
           // MedicalRecord NewPatientMR = new MedicalRecord(id, patient.Id);
           // _medicalRecordService.Create(NewPatientMR);
             

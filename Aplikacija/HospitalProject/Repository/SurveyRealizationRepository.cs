@@ -25,11 +25,17 @@ namespace HospitalProject.Repository
         public SurveyRealizationRepository(SurveyRealizationFileHandler _surveyRealizationFileHandler, PatientRepository patientRepository, SurveyRepository surveyRepository, AnswerRepository answerRepository)
         {
             surveyRealizationFileHandler = _surveyRealizationFileHandler;
-           
-            this.patientRepository = patientRepository;
-            this.surveyRepository = surveyRepository;
-            this.answerRepository = answerRepository;
+
+            InstantiateRepositories(patientRepository, surveyRepository, answerRepository);
             InstantiateSurveyRealizationList();
+        }
+
+        private void InstantiateRepositories(PatientRepository _patientRepository,SurveyRepository _surveyRepository, AnswerRepository _answerRepository)
+        {
+            this.patientRepository = _patientRepository;
+            this.surveyRepository = _surveyRepository;
+            this.answerRepository = _answerRepository;
+
         }
 
         private void InstantiateSurveyRealizationList()

@@ -1,4 +1,5 @@
-﻿using HospitalProject.View.PatientView.Model;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,31 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 
 namespace HospitalProject.View.PatientView.View
 {
     /// <summary>
-    /// Interaction logic for AppointmentsViewPatient.xaml
+    /// Interaction logic for RatingViewHCI.xaml
     /// </summary>
-    public partial class AppointmentsViewPatient : Window
+    public partial class RatingViewHCI : Window
     {
-        
-
-        public AppointmentsViewPatient()
+        public RatingViewHCI()
         {
             InitializeComponent();
-            DataContext = new MainPatientViewModel(this);
         }
 
-
         
-
-        
-
-        
-
     }
 }

@@ -31,5 +31,10 @@ namespace HospitalProject.Controller
         {
             userService.Logout();
         }
+
+        public void IncreaseCounter()
+        {
+            userService.IncreaseCounter();
+        }
     }
 }
