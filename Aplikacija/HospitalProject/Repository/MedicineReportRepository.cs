@@ -34,12 +34,12 @@ namespace HospitalProject.Repository
 
         private int GetMaxId()
         {
-            return medicineReports.Count() == 0 ? 0 : medicineReports.Max(medicineReport => medicineReport.Id);
+            return !medicineReports.Any() ? 0 : medicineReports.Max(medicineReport => medicineReport.Id);
         }
 
         private void BindMedicineReportsForMedicinesAndDoctors()
         {
-            medicineReports.ForEach(medicineReport => SetMedicineAndDoctorForReport(medicineReport));    
+            medicineReports.ForEach(SetMedicineAndDoctorForReport);    
         }
 
         private void SetMedicineAndDoctorForReport(MedicineReport medicineReport)
