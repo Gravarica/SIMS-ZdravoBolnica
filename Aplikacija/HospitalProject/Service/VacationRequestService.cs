@@ -23,7 +23,7 @@ namespace HospitalProject.Service
         public bool Create(NewRequestDTO newRequestDTO)
         {
 
-            if(!CheckIfDoctorAlreadyMadeRequestForGivenDateInterval(newRequestDTO.Doctor, newRequestDTO.StartDate, newRequestDTO.EndDate))
+            if(!CheckIfDoctorAlreadyMadeRequestForGivenDateInterval(newRequestDTO.Doctor, newRequestDTO.DateInterval))
             {
                 return CreateRequestIfDateIntervalIsValid(newRequestDTO);
             }
@@ -33,26 +33,19 @@ namespace HospitalProject.Service
 
         private bool CreateRequestIfDateIntervalIsValid(NewRequestDTO newRequestDTO)
         {
-            if (newRequestDTO.IsUrgent)
-            {
-                return CreateNewRequest(newRequestDTO);
-            }
-            else
-            {
-                return CreateRequestIfNoMoreThanTwoDoctorsAreOnVacation(newRequestDTO);
-            }
+            return newRequestDTO.IsUrgent ? CreateNewRequest(newRequestDTO) : CreateRequestIfNoMoreThanTwoDoctorsAreOnVacation(newRequestDTO);
         }
 
         private bool CreateNewRequest(NewRequestDTO newRequestDTO)
         {
-            VacationRequest vacationRequest = new VacationRequest(newRequestDTO.SubmissionDate, newRequestDTO.Doctor, newRequestDTO.StartDate, newRequestDTO.EndDate, newRequestDTO.Description, newRequestDTO.IsUrgent);
+            VacationRequest vacationRequest = new VacationRequest(newRequestDTO);
             vacationRequestRepository.Insert(vacationRequest);
             return true;
         }
 
         private bool CreateRequestIfNoMoreThanTwoDoctorsAreOnVacation(NewRequestDTO newRequestDTO)
         {
-            List<VacationRequest> vacationRequestList = vacationRequestRepository.GetVacationRequestsBySpecializationInDateInterval(newRequestDTO.Doctor,newRequestDTO.Doctor.Specialization, newRequestDTO.StartDate, newRequestDTO.EndDate);
+            List<VacationRequest> vacationRequestList = vacationRequestRepository.GetVacationRequestsBySpecializationInDateInterval(newRequestDTO.Doctor,newRequestDTO.DateInterval);
 
             if (VacationRequestValidation.CanCreateNewVacationRequest(vacationRequestList))
             {
@@ -67,11 +60,11 @@ namespace HospitalProject.Service
             return vacationRequestRepository.GetVacationRequestsForDoctor(doctor);
         }
 
-        private bool CheckIfDoctorAlreadyMadeRequestForGivenDateInterval(Doctor doctor, DateTime StartDate, DateTime EndDate)
+        private bool CheckIfDoctorAlreadyMadeRequestForGivenDateInterval(Doctor doctor, DateInterval dateInterval)
         {
-            List<VacationRequest> doctorsRequests = vacationRequestRepository.GetVacationRequestsByDoctorInDateInterval(doctor, StartDate, EndDate);
+            
+            return vacationRequestRepository.GetVacationRequestsByDoctorInDateInterval(doctor, dateInterval).Any();
 
-            return doctorsRequests.Any();
         }
     }
 }

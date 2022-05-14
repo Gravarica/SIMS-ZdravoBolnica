@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalProject.View.PatientView.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,10 +31,20 @@ namespace HospitalProject.View.PatientView.View
             this.Close();
             avp.Show();
         }
+
+        private void OpenGrading(object sender, RoutedEventArgs e)
+        {
+            MainGradeView mgw = new MainGradeView();
+           
+            
+            mgw.Show();
+
+        }
+
+
         
-    
-    
-    
+
+
     }
 
 

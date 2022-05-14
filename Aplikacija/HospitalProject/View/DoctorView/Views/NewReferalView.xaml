@@ -5,28 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
         Title="NewReferalView" Height="600" Width="950">
     <Window.Resources>
-    <Style x:Key="LabelStyle" TargetType="Grid">
-        <Style.Resources>
-            <Style TargetType="Label">
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="10,15,10,15"/>
-            </Style>
-        </Style.Resources>
-    </Style>
-    <Style TargetType="Button" x:Key="RoundButton">
+        <converters:NameConverter x:Key="NameConverter"/>
+        <Style x:Key="LabelStyle" TargetType="Grid">
             <Style.Resources>
-                <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5" />
-            </Style>
-        </Style.Resources>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Margin" Value="5,17,5,17"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#3e3ece"/>
-    </Style>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Margin" Value="8,15,10,12"/>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -54,7 +47,7 @@
                         Content="Save"
                         Command="{Binding SaveCommand}"
                         Margin="20"
-                        Style="{DynamicResource RoundButton}"/>
+                        Style="{StaticResource RoundButton}"/>
             </Grid>
         </Border>
         <Grid Grid.Row="1">
@@ -91,7 +84,8 @@
                              Grid.Column="1"
                              IsEnabled="False"
                              Margin="5,15,5,15"
-                             Text="{Binding LoggedDoctor, Converter={StaticResource NameConverter}}"/>
+                             FontSize="16"
+                             Text="{Binding SelectedPatient, Converter={StaticResource NameConverter}}"/>
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -99,9 +93,14 @@
 
                     <ComboBox Grid.Row="1"
                               Grid.Column="1"
-                              Text="{Binding Path = PatientData, Converter = {StaticResource NameConverter}}"
+                              ItemsSource="{Binding Path = SpecializationComboBox, UpdateSourceTrigger=PropertyChanged}"
                               IsEnabled="True"
-                             Margin="5,15,5,15"/>
+                              FontSize="16"
+                              Margin="5,15,5,15"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Value"
+                              SelectedValue="{Binding SelectedSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              />
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
@@ -113,15 +112,19 @@
                     </Label>
 
                     <ComboBox Grid.Row="2"
-                             Grid.Column="1"
-                             IsEnabled="False"
-                             Margin="5,15,5,15"
-                             Text="{Binding LoggedDoctor, Converter={StaticResource NameConverter}}"/>
+                              Grid.Column="1"
+                              Margin="5,15,5,15"
+                              FontSize="16"
+                              ItemsSource="{Binding Path = DoctorComboBox,UpdateSourceTrigger=PropertyChanged, Mode = OneWay}"
+                              DisplayMemberPath="Name"
+                              SelectedValue="{Binding SelectedDoctor}"
+                              SelectedValuePath="Value"/>
 
                     <DatePicker Grid.Row="3"
                                 Grid.Column="1"
                                 SelectedDate="{Binding Path = StartDate, Mode=OneWayToSource}"
                                 Margin="5,15,5,15"
+                                FontSize="16"
                                 DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
                     <Label Grid.Row="4"
@@ -132,6 +135,7 @@
                                 Grid.Column="1"
                                 SelectedDate="{Binding Path = EndDate, Mode=OneWayToSource}"
                                 Margin="5,15,5,15"
+                                FontSize="16"
                                 DisplayDateStart="{x:Static sys:DateTime.Today}"/>
 
                     <Label Grid.Row="5"
@@ -150,6 +154,7 @@
                                      Grid.Column="0"
                                      Content="Doctor"
                                      Margin="0,5,20,5"
+                                     VerticalContentAlignment="Center"
                                      FontSize="16"
                                      IsChecked="{Binding Path=FlagForValue1, Mode=TwoWay}"/>
                         <RadioButton GroupName="Search"
@@ -157,6 +162,8 @@
                                      Grid.Column="1"
                                      Content="Date"
                                      FontSize="15"
+                                     Margin="0,5,20,5"
+                                     VerticalContentAlignment="Center"
                                      IsChecked="{Binding Path=FlagForValue2, Mode=TwoWay}"/>
 
                     </Grid>
@@ -170,17 +177,17 @@
                         <Button Grid.Column="0"
                                 Content="Submit"
                                 Command="{Binding SubmitCommand}"
-                                Style="{DynamicResource RoundButton}"/>
+                                Style="{StaticResource RoundButton}"/>
                         <Button Grid.Column="1"
                                 Content="Reset"
-                                Style="{DynamicResource RoundButton}"/>
+                                Style="{StaticResource RoundButton}"/>
                     </Grid>
                 </Grid>
             </GroupBox>
             <DataGrid Grid.Column="1"
                       Margin="20,25,20,45"
                       AutoGenerateColumns="False"
-                      FontSize="25"
+                      FontSize="18"
                       ItemsSource="{Binding Path=GeneratedAppointments}"
                       SelectedItem="{Binding SelectedItem}"
                       IsReadOnly="True"
@@ -193,7 +200,8 @@
                                         Width="*"
                                         Binding="{Binding Duration}"/>
                     <DataGridTextColumn Header="Doctor"
-                                        Width="2*"/>
+                                        Width="2*"
+                                        Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}"/>
                 </DataGrid.Columns>
 
             </DataGrid>

@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalProject.Model;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace HospitalProject.DataTransferObjects
     {
         private DateTime submissionDate;
         private Doctor doctor;
-        private DateTime startDate;
-        private DateTime endDate;
+        private DateInterval dateInterval;
         private string description;
         private bool isUrgent;
 
@@ -20,8 +20,7 @@ namespace HospitalProject.DataTransferObjects
         {
             this.submissionDate=submissionDate;
             this.doctor=doctor;
-            this.startDate=startDate;
-            this.endDate=endDate;
+            this.dateInterval = new DateInterval(startDate, endDate);   
             this.description=description;
             this.isUrgent=isUrgent;
         }
@@ -40,19 +39,10 @@ namespace HospitalProject.DataTransferObjects
                 return doctor;
             }
         }  
-        public DateTime StartDate
+        public DateInterval DateInterval
         {
-            get
-            {
-                return startDate;
-            }
-        }
-        public DateTime EndDate
-        {
-            get
-            {
-                return endDate;
-            }
+            get { return dateInterval; }
+            set { dateInterval = value; }
         }
         public string Description
         {

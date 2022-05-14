@@ -29,12 +29,18 @@ namespace HospitalProject.FileHandler
             return new VacationRequest(int.Parse(tokens[0]),
                                        DateTime.ParseExact(tokens[1], _dateTimeFormat, null),
                                        int.Parse(tokens[2]),
-                                       DateTime.ParseExact(tokens[3], _dateTimeFormat, null),
-                                       DateTime.ParseExact(tokens[4], _dateTimeFormat, null),
+                                       CreateDateInterval(tokens[3], tokens[4]),  
                                        tokens[5],
                                        bool.Parse(tokens[6]),
                                        ConvertTokenToRequestState(tokens[7]));
 
+        }
+
+        private DateInterval CreateDateInterval(string startDateString, string endDateString)
+        {
+            DateTime startDate = DateTime.ParseExact(startDateString, _dateTimeFormat, null);
+            DateTime endDate = DateTime.ParseExact(endDateString, _dateTimeFormat, null);
+            return new DateInterval(startDate, endDate);    
         }
 
         private string ConvertVacationRequestToCSVFormat(VacationRequest vacationRequest)
@@ -43,8 +49,8 @@ namespace HospitalProject.FileHandler
                                vacationRequest.Id,
                                vacationRequest.SubmissionDate.ToString(_dateTimeFormat),
                                vacationRequest.Doctor.Id,
-                               vacationRequest.StartDate.ToString(_dateTimeFormat),
-                               vacationRequest.EndDate.ToString(_dateTimeFormat),
+                               vacationRequest.DateInterval.StartDate.ToString(_dateTimeFormat),
+                               vacationRequest.DateInterval.EndDate.ToString(_dateTimeFormat),
                                vacationRequest.Description,
                                vacationRequest.IsUrgent.ToString(),
                                vacationRequest.RequestState.ToString());
@@ -65,12 +71,10 @@ namespace HospitalProject.FileHandler
 
         public void Save(IEnumerable<VacationRequest> vacationRequests)
         {
-            using (StreamWriter file = new StreamWriter(_path))
+            using StreamWriter file = new StreamWriter(_path);
+            foreach (VacationRequest appointment in vacationRequests)
             {
-                foreach (VacationRequest appointment in vacationRequests)
-                {
-                    file.WriteLine(ConvertVacationRequestToCSVFormat(appointment));
-                }
+                file.WriteLine(ConvertVacationRequestToCSVFormat(appointment));
             }
         }
 

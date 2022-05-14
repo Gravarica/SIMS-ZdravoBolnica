@@ -195,7 +195,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                                                                                                                               doctor,
                                                                                                                               PatientData,
                                                                                                                               ExaminationType.GENERAL,
-                                                                                                                              roomControoler.Get(3)));
+                                                                                                                              roomControoler.Get(3), 0));
         }
 
         public RelayCommand SaveCommand

@@ -240,7 +240,7 @@ namespace HospitalProject.View.DoctorView.Model
                                                                                                                               doctor,
                                                                                                                               PatientData,
                                                                                                                               SelectedExamination,
-                                                                                                                              SelectedRoom));
+                                                                                                                              SelectedRoom, 0));
             if(GeneratedAppointments.Count() == 0)
             {
                 MessageBox.Show("There are not free appointments for the inverval selected. Please try another date", "No appointments", MessageBoxButton.OK, MessageBoxImage.Information);

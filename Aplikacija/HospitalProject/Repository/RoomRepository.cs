@@ -207,5 +207,10 @@ namespace Repository
 
          Save();
       }
+
+      public List<Room> GetByRoomType(RoomType roomType)
+      {
+          return GetAll().Where(room => room._roomType == roomType).ToList();
+      }
    }
 }

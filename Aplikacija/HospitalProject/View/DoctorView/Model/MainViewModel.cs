@@ -27,6 +27,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         public RelayCommand RequestsViewCommand { get; set; }
 
+        public RelayCommand InventoryViewCommand { get; set; }
+
         private RelayCommand logoutCommand;
 
         public MainDoctorViewModel AppVM { get; set; }
@@ -34,6 +36,8 @@ namespace HospitalProject.View.DoctorView.Model
         public PatientsViewModel PatientsVM { get; set; }
 
         public RequestsViewModel RequestsVM { get; set; }
+
+        public InventoryViewModel InventoryVM { get; set; } 
 
         private BaseViewModel _currentView;
 
@@ -96,8 +100,10 @@ namespace HospitalProject.View.DoctorView.Model
             loggedDoctor = _doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
 
             AppVM = new MainDoctorViewModel();
-            PatientsVM = new PatientsViewModel();
+            PatientsVM = new PatientsViewModel(LoggedDoctor);
             RequestsVM = new RequestsViewModel(LoggedDoctor);
+            InventoryVM = new InventoryViewModel(LoggedDoctor);
+
             CurrentView = AppVM;
 
             AppointmentsViewCommand = new RelayCommand(o =>
@@ -113,6 +119,11 @@ namespace HospitalProject.View.DoctorView.Model
             RequestsViewCommand = new RelayCommand(o =>
             {
                 CurrentView = RequestsVM;
+            });
+
+            InventoryViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = InventoryVM;
             });
         }
 

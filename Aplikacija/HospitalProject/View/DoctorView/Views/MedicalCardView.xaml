@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
         mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="950"
+             Height="650" Width="950"
              Background="AliceBlue"
         Style="{StaticResource WinAll}"
             WindowStartupLocation="CenterScreen">
@@ -21,7 +21,7 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Background="#a4a4e8" Grid.Row="0" Grid.ColumnSpan="2">

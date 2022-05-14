@@ -60,7 +60,7 @@
                 <Button Height="100" Width="100" Content="Appointments" Click ="OpenAppointmentsForPatient"/>
                 <Button Grid.Row ="1" Height="100" Width="100" Content="Requests"/>
                 <Button Grid.Column ="1" Height="100" Width="100" Content="Medicines"/>
-                <Button Grid.Column ="1" Grid.Row="1" Height="100" Width="100" Content="Grades"/>
+                <Button Grid.Column ="1" Grid.Row="1" Height="100" Width="100" Content="Grades" Click="OpenGrading"/>
 
 
             </Grid>

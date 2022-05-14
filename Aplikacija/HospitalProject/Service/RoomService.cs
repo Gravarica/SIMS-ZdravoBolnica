@@ -128,5 +128,10 @@ namespace HospitalProject.Service
 
         }
 
+        public List<Room> GetByRoomType(RoomType roomType)
+        {
+            return _roomRepository.GetByRoomType(roomType);
+        }
+
     }
 }

@@ -130,12 +130,13 @@ namespace HospitalProject.View.PatientView.Model
             }
         }
 
-        public MainPatientViewModel()
+        public MainPatientViewModel(Window window)
         {
 
             InstantiateControllers();
             InstantiateData();
             FillComboData();
+            this.window = window;
             ThreadStart ts = new ThreadStart(StartNotificationThread);
             thread = new Thread(ts);
             thread.Start();
@@ -188,6 +189,13 @@ namespace HospitalProject.View.PatientView.Model
             {
                 _appointmentController.Delete(SelectedItem.Id);
                 AppointmentItems.Remove(SelectedItem);
+                _userController.IncreaseCounter();
+                if(_userController.GetLoggedUser().IsBlocked)
+                {
+                    _userController.Logout();
+                    window.Close();
+                    Application.Current.MainWindow.Show();
+                }
             }
 
         }
@@ -236,6 +244,12 @@ namespace HospitalProject.View.PatientView.Model
             EditAppointmentPatientView view = new EditAppointmentPatientView();
             view.DataContext = new EditAppointmentPatientViewModel(SelectedItem, AppointmentItems,view);
             view.ShowDialog();
+            if (_userController.GetLoggedUser().IsBlocked)
+            {
+                _userController.Logout();
+                window.Close();
+                Application.Current.MainWindow.Show();
+            }
         }
 
         public RelayCommand InfoCommand

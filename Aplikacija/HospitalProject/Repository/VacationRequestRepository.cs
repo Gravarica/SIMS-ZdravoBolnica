@@ -27,7 +27,7 @@ namespace HospitalProject.Repository
 
         private int GetMaxId()
         {
-            return vacationRequests.Count() == 0 ? 0 : vacationRequests.Max(prescription => prescription.Id);
+            return !vacationRequests.Any() ? 0 : vacationRequests.Max(prescription => prescription.Id);
         }
 
         private void InstantiateVacationRequestList()
@@ -44,7 +44,7 @@ namespace HospitalProject.Repository
 
         private void BindDoctorsForVacationRequests()
         {
-            vacationRequests.ForEach(vacationRequest => SetDoctorForVacationRequest(vacationRequest));
+            vacationRequests.ForEach(SetDoctorForVacationRequest);
         }
 
         public List<VacationRequest> GetAll()
@@ -59,12 +59,12 @@ namespace HospitalProject.Repository
 
         public List<VacationRequest> GetVacationRequestsForDoctor(Doctor doctor)
         {
-            return vacationRequests.Where(vacationRequest => vacationRequest.Doctor.Id == doctor.Id).ToList();
+            return vacationRequests.Where(vacationRequest => vacationRequest.DoctorMatches(doctor)).ToList();
         }
 
-        public List<VacationRequest> GetVacationRequestByDateInterval(DateTime startDate, DateTime endDate)
+        public List<VacationRequest> GetVacationRequestByDateInterval(DateInterval dateInterval)
         {
-            return vacationRequests.Where(vacationRequests => CheckIfVacationRequestIsInDateInterval(vacationRequests, startDate, endDate)).ToList();
+            return vacationRequests.Where(vacationRequest => vacationRequest.DateInterval.Overlaps(dateInterval)).ToList();
         }
 
         public void Insert(VacationRequest vacationRequest)
@@ -76,45 +76,24 @@ namespace HospitalProject.Repository
 
         public List<VacationRequest> GetVacationRequestByState(RequestState requestState)
         {
-            return vacationRequests.Where(vacationRequest => vacationRequest.RequestState == requestState).ToList();   
+            return vacationRequests.Where(vacationRequest => vacationRequest.RequestStateMatches(requestState)).ToList();   
         }
 
         public List<VacationRequest> GetVacationRequestsBySpecialization(Specialization specialization)
         {
-            return vacationRequests.Where(vacationRequest => vacationRequest.Doctor.Specialization == specialization).ToList();
+            return vacationRequests.Where(vacationRequest => vacationRequest.SpecializationMatches(specialization)).ToList();
         }
 
-        public List<VacationRequest> GetVacationRequestsBySpecializationInDateInterval(Doctor doctor, Specialization specialization, DateTime startDate, DateTime endDate)
+        public List<VacationRequest> GetVacationRequestsBySpecializationInDateInterval(Doctor doctor, DateInterval dateInterval)
         {
-            return GetVacationRequestByDateInterval(startDate,endDate).Where(vacationRequest => vacationRequest.Doctor.Specialization == specialization && vacationRequest.Doctor.Id != doctor.Id).ToList();
+            return GetVacationRequestByDateInterval(dateInterval).Where(vacationRequest => vacationRequest.HasDistinctDoctorForSpecialization(doctor)).ToList();
         }
 
-        public List<VacationRequest> GetVacationRequestsByDoctorInDateInterval(Doctor doctor, DateTime startDate, DateTime endDate)
+        public List<VacationRequest> GetVacationRequestsByDoctorInDateInterval(Doctor doctor, DateInterval dateInterval)
         {
-            return GetVacationRequestByDateInterval(startDate,endDate).Where(vacationRequest => vacationRequest.Doctor.Id == doctor.Id).ToList();
+            return GetVacationRequestByDateInterval(dateInterval).Where(vacationRequest => vacationRequest.DoctorMatches(doctor)).ToList();
         }
 
-        public bool CheckIfVacationRequestIsInDateInterval(VacationRequest vacationRequest, DateTime startDate, DateTime endDate)
-        {
-            if (IsDateBetweenTwoDates(vacationRequest.StartDate, startDate, endDate))
-            {
-                return true;
-            } 
-            else if (IsDateBetweenTwoDates(vacationRequest.EndDate, startDate, endDate))
-            {
-                return true;
-            }
-            else if (vacationRequest.StartDate <= startDate && vacationRequest.EndDate >= endDate)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsDateBetweenTwoDates(DateTime date, DateTime intervalStart, DateTime intervalEnd)
-        {
-            return date >= intervalStart && date <= intervalEnd;
-        }
+        
     }
 }
