@@ -32,7 +32,9 @@ namespace HospitalProject.FileHandler
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new User(tokens[0],
                             tokens[1],
-                            convertStringToUserType(tokens[2]));
+                            convertStringToUserType(tokens[2]),
+                            bool.Parse(tokens[3]),
+                            int.Parse(tokens[4]));
 
         }
 
@@ -42,8 +44,8 @@ namespace HospitalProject.FileHandler
             user.Username,
             user.Password,
             user.UserType.ToString(),
-            user.MovedAppointmentsCount.ToString(),
-            user.IsBlocked.ToString());
+            user.IsBlocked.ToString(),
+            user.MovedAppointmentsCount.ToString());
         }
 
         public void AppendLineToFile(User user)

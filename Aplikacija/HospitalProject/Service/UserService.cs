@@ -39,5 +39,10 @@ namespace HospitalProject.Service
         }
         public void Delete(string username) => userRepository.Delete(username);
 
+        public void IncreaseCounter()
+        {
+            userRepository.IncreaseCounter();
+        }
+
     }
 }

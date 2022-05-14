@@ -32,8 +32,9 @@ namespace HospitalProject.View.PatientView.Model
         public AnamnesisViewPatientViewModel(Window window)
         {
             
-            var app = System.Windows.Application.Current as App;
+            
             this.window = window;
+            var app = System.Windows.Application.Current as App;
             patientController = app.PatientController;
             userController = app.UserController;
             medicalRecord = app.MedicalRecordController.GetMedicalRecordByPatient(patientController.GetLoggedPatient(userController.GetLoggedUser().Username));
@@ -41,6 +42,7 @@ namespace HospitalProject.View.PatientView.Model
             Anamneses = new ObservableCollection<Anamnesis>(anamnesisController.GetAnamnesisByMedicalRecord(medicalRecord.Patient.Id));
         }
 
+        
         public Anamnesis SelectedItem
         {
             get

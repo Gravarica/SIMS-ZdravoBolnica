@@ -166,6 +166,7 @@ namespace HospitalProject.View.PatientView.Model
 
         private void RateCommandExecute()
         {
+
             Answer answer1 = new Answer(Question1.Id, int.Parse(Answer1));
             answerController.Create(answer1);
             Answer answer2 = new Answer(Question2.Id, int.Parse(Answer2));
@@ -175,11 +176,14 @@ namespace HospitalProject.View.PatientView.Model
             _answers.Add(answer1);
             _answers.Add(answer2);
             _answers.Add(answer3);
-            
+
+
 
             SurveyRealization _surveyRealization = new SurveyRealization(patientController.GetLoggedPatient(userController.GetLoggedUser().Username), survey, _answers, doctor);
             surveyRealizationController.Create(_surveyRealization);
             window.Close();
         }
+
+       
     }
 }

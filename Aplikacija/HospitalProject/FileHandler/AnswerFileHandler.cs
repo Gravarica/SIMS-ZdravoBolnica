@@ -38,9 +38,9 @@ public class AnswerFileHandler
     public string ConvertAnswerToCSVFormat(Answer answer)
     {
         return string.Join(_delimiter,
-        answer.Id,
-        answer.Rating,
-        answer.QuestionId);
+                            answer.Id,
+                            answer.Rating,
+                            answer.QuestionId);
     }
 
     public void AppendLineToFile(Answer answer)
