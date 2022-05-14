@@ -38,7 +38,7 @@ namespace HospitalProject.View.DoctorView.Model
         private ExaminationType selectedExamination;
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
-        private List<ComboBoxData<Room>> roomsComboBox = new List<ComboBoxData<Room>>();
+        private ObservableCollection<ComboBoxData<Room>> roomsComboBox = new ObservableCollection<ComboBoxData<Room>>();
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get
@@ -180,7 +180,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public List<ComboBoxData<Room>> RoomComboBox
+        public ObservableCollection<ComboBoxData<Room>> RoomComboBox
         { 
             get
             {
@@ -202,6 +202,7 @@ namespace HospitalProject.View.DoctorView.Model
             set
             {
                 selectedExamination = value;
+                FillRoomComboData(SelectedExamination);
                 OnPropertyChanged(nameof(SelectedExamination));
             }
         }
@@ -246,7 +247,7 @@ namespace HospitalProject.View.DoctorView.Model
                                                                                                                               doctor,
                                                                                                                               PatientData,
                                                                                                                               SelectedExamination,
-                                                                                                                              SelectedRoom));
+                                                                                                                              SelectedRoom, 0));
 
             if (GeneratedAppointments.Count() == 0)
             {
@@ -281,7 +282,6 @@ namespace HospitalProject.View.DoctorView.Model
         {
             FillPatientComboData();
             FillExaminationTypeComboData();
-            FillRoomComboData();
         }
 
         private void FillPatientComboData()
@@ -300,16 +300,34 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        private void FillRoomComboData()
+        private void FillRoomComboData(ExaminationType selectedExamination)
         {
-            foreach (Room room in roomController.GetAll())
+
+            if (selectedExamination == ExaminationType.OPERATION)
             {
-                if(room.RoomType != RoomType.stockroom)
-                {
-                    roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
-                }             
+                GenerateRoomComboBoxByType(RoomType.operation);
+            } 
+            else if (selectedExamination == ExaminationType.GENERAL)
+            {
+                GenerateRoomComboBoxByType(RoomType.examination);
+            }
+            else if (selectedExamination == ExaminationType.IMAGING)
+            {
+                GenerateRoomComboBoxByType(RoomType.meeting);
+            }
+
+            OnPropertyChanged(nameof(RoomComboBox));
+        }
+
+        private void GenerateRoomComboBoxByType(RoomType roomType)
+        {
+            roomsComboBox.Clear();
+
+            foreach (Room room in roomController.GetByRoomType(roomType))
+            {
+                roomsComboBox.Add(new ComboBoxData<Room> { Name = room.Number.ToString(), Value = room });
             }
         }
-        
+
     }
 }

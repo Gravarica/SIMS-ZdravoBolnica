@@ -273,47 +273,6 @@ namespace HospitalProject.View.DoctorView.Model
         }
 
 
-        private DateTime parseTime()
-        {
-            String[] hoursAndMinutes = _time.Split(':');
-            int hours = int.Parse(hoursAndMinutes[0]);
-            int minutes = int.Parse(hoursAndMinutes[1]);
-            return new DateTime(_date.Year, _date.Month, _date.Day, hours, minutes, 0);
-        }
-
-       private bool CanCreate()
-        {
-            TimeSpan timeSpan = new TimeSpan(0, _duration, 0); ;
-            DateTime newAppEndDate = _date + timeSpan;
-            DateTime existingAppointmentEndDate;
-            foreach (Appointment appointment in AppointmentItems)
-            {
-                existingAppointmentEndDate = appointment.Date + new TimeSpan(0, Duration, 0);
-                if (_date.Year == appointment.Date.Year && _date.Month == appointment.Date.Month && _date.Day == appointment.Date.Day)
-                {
-                    if (_date <= appointment.Date && newAppEndDate >= existingAppointmentEndDate)
-                    {
-                        return false;
-                    }
-                    else if (_date >= appointment.Date && newAppEndDate <= existingAppointmentEndDate)
-                    {
-                        return false;
-                    }
-                    else if (_date < appointment.Date && newAppEndDate < existingAppointmentEndDate && newAppEndDate > appointment.Date)
-                    {
-                        return false;
-                    }
-                    else if (_date > appointment.Date && _date < existingAppointmentEndDate && newAppEndDate > existingAppointmentEndDate)
-                    {
-                        return false;
-                    }
-
-
-                }
-
-            }
-
-            return true;
-        }
+       
     }
 }

@@ -157,53 +157,85 @@ namespace Service
         }
 
         // Method that generates available appointments, this method is called in controller
-        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
+        public List<Appointment> GenerateAvailableAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room, int priorityFlag, bool stopRecursion)
         { 
-            List<Appointment> allAppointments = GenerateAllAppointments(StartDate, EndDate, doctor, patient, examType, room);
-            var existingAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
+            List<Appointment> generatedAppointments = GenerateAllAppointments(StartDate, EndDate, doctor, patient, examType, room);
+            List<Appointment> scheduledAppointments = GetAppointmentsByDoctorAndPatient(doctor, patient);
+            List<Appointment> filteredList = RemoveScheduledAppointments(generatedAppointments, scheduledAppointments);
 
-            return MinusAppointments(allAppointments, existingAppointments);
+            if (GeneratedAppointmentListIsNotEmpty(filteredList)) return filteredList;
+
+            return GenerateAppointmentsByPriority(StartDate, EndDate, doctor, patient, priorityFlag, stopRecursion);
+
+        }
+
+        private List<Appointment> GenerateAppointmentsByPriority(DateOnly StartDate, DateOnly EndDate, Doctor doctor,
+            Patient patient, int priorityFlag, bool StopRecursion)
+        {
+            if (StopRecursion) return new List<Appointment>();
+            
+            if (priorityFlag == 1) return GenerateAppointmentsPriorityDoctor(StartDate, EndDate, doctor, patient).ToList();
+
+            if (priorityFlag == 2) return GenerateAppointmentsPriorityDate(StartDate, EndDate, patient, doctor).ToList();
+
+            return new List<Appointment>(); 
+        }
+
+        private bool GeneratedAppointmentListIsNotEmpty(List<Appointment> appointments)
+        {
+            return appointments.Any();
         }
 
         // Method that removes already scheduled appointments
-        private List<Appointment> MinusAppointments(List<Appointment> allAppointments, List<Appointment> existingAppointments)
+        private List<Appointment> RemoveScheduledAppointments(List<Appointment> generatedAppointmentsCollection, List<Appointment> scheduledAppointments)
         {
+            GetAllAppointmentsThatShouldBeRemoved(generatedAppointmentsCollection, scheduledAppointments).ForEach(appointment => RemoveFromCollection(generatedAppointmentsCollection, appointment));
 
-            List<Appointment> removeAppointments = new List<Appointment>();
+            return generatedAppointmentsCollection;
+        }
 
-            foreach (Appointment generatedAppointment in allAppointments)
-            {
-                removeAppointments.AddRange(from existingAppointment in existingAppointments where generatedAppointment.Equals(existingAppointment) select generatedAppointment);
-            }
+        private List<Appointment> GetAllAppointmentsThatShouldBeRemoved(List<Appointment> generatedAppointmentsCollection, List<Appointment> scheduledAppointments)
+        {
+            List<Appointment> appointmentsToRemove = new List<Appointment>();
+            generatedAppointmentsCollection.ForEach(generatedAppointment => appointmentsToRemove.AddRange(SelectExistingAppointmentsToRemove(scheduledAppointments, generatedAppointment)));
+            return appointmentsToRemove;
+        }
 
-            foreach(Appointment appointment in removeAppointments)
-            {
-                allAppointments.Remove(appointment);
-            }
+        private IEnumerable<Appointment> SelectExistingAppointmentsToRemove(List<Appointment> scheduledAppointments, Appointment generatedAppointment)
+        {
+            return from scheduledAppointment in scheduledAppointments where generatedAppointment.Equals(scheduledAppointment) select generatedAppointment;
+        }
 
-            return allAppointments;
+        private void RemoveFromCollection(List<Appointment> appointments, Appointment removeAppointment)
+        {
+            appointments.Remove(removeAppointment);
         }
 
         // Method that generates empty appointments
         private List<Appointment> GenerateAllAppointments(DateOnly StartDate, DateOnly EndDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
         {
-            List<Appointment> retAppointments = new List<Appointment>();
-            while(StartDate <= EndDate)
+            List<Appointment> generatedAppointments = new List<Appointment>();
+            while (StartDate <= EndDate)
             {
-                var shiftIterator = doctor.ShiftStart;
-
-                while(shiftIterator <= doctor.ShiftEnd)
-                { 
-                    Appointment appointment = new Appointment(StartDate.ToDateTime(shiftIterator), 30, doctor, patient, room, examType);
-                    retAppointments.Add(appointment);
-                    shiftIterator = shiftIterator.AddMinutes(30);
-                }
+                GenerateAppointmentsInOneDay(StartDate, doctor, patient, examType, room, generatedAppointments);
                 StartDate = StartDate.AddDays(1);
             }
 
-            return retAppointments;
+            return generatedAppointments;
         }
 
+        private static void GenerateAppointmentsInOneDay(DateOnly StartDate, Doctor doctor, Patient patient,
+            ExaminationType examType, Room room, List<Appointment> retAppointments)
+        {
+            var shiftIterator = doctor.ShiftStart;
+
+            while (shiftIterator <= doctor.ShiftEnd)
+            {
+                Appointment appointment = new Appointment(StartDate.ToDateTime(shiftIterator), 30, doctor, patient, room, examType);
+                retAppointments.Add(appointment);
+                shiftIterator = shiftIterator.AddMinutes(30);
+            }
+        }
 
         public IEnumerable<Appointment> GetAllUnfinishedAppointments()
         { 
@@ -231,56 +263,26 @@ namespace Service
             return appointments;
         }
 
-
         public IEnumerable<Appointment> GenerateAppointmentsPriorityDoctor(DateOnly startDate, DateOnly endDate , Doctor doctor, Patient patient)
         {
-        
-           
-            DateTime date6 = DateTime.Now;
-            TimeOnly time = new TimeOnly(date6.Hour, date6.Minute) ;
-            DateTime date1 = startDate.ToDateTime(time);
-            DateTime date2 = endDate.ToDateTime(time);
-
+            
+            TimeOnly time = new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute) ;
+            DateTime startDateTime = startDate.ToDateTime(time);
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
 
+            if ((startDateTime - DateTime.Now).TotalDays < 5) return GenerateAvailableAppointments(today, endDate.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3), 1, true);
 
-
-
-            if ((date1 - date6).TotalDays < 5)
-            {
-
-                DateOnly date3 = endDate;
-
-                return GenerateAvailableAppointments(today, date3.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
-
-
-            }
-
-            DateOnly date4 = startDate;
-            DateOnly date5 = endDate;
-
-            return GenerateAvailableAppointments(date4.AddDays(-5), date5.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3));
-
-
-
+            return GenerateAvailableAppointments(startDate.AddDays(-5), endDate.AddDays(5), doctor, patient, ExaminationType.GENERAL, FindRoomById(3), 1, true);
 
         }
 
-        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient)
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient, Doctor doctor)
         {
-            IEnumerable<Doctor> allDoctors = _doctorService.getAll();
-            List<Appointment> existingAppointments = appointmentRepository.GetAll().ToList();
             List<Appointment> generatedAppointments = new List<Appointment>();
 
-            foreach (Doctor d in allDoctors) {
-
-
-                generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, d, patient, ExaminationType.GENERAL, FindRoomById(3)));
-
+            foreach (Doctor iteratorDoctor in _doctorService.GetDoctorsBySpecialization(doctor.Specialization)) {
+                generatedAppointments.AddRange(GenerateAvailableAppointments(startDate, endDate, iteratorDoctor, patient, ExaminationType.GENERAL, doctor.Ordination, 2, true));
             }
-
-            //List<Appointment> list3 = generatedAppointments.(existingAppointments).ToList();
-
 
             return generatedAppointments;
 

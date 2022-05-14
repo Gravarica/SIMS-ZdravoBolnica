@@ -34,13 +34,11 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand fillComboDataCommand;
 
         private List<ComboBoxData<Specialization>> specializationComboBox;
-        private List<ComboBoxData<Doctor>> doctorComboBox;
+        private ObservableCollection<ComboBoxData<Doctor>> doctorComboBox;
 
         private Specialization selectedSpecialization;
         private Doctor selectedDoctor;
         private ObservableCollection<Appointment> _generatedAppointments;
-
-        public ObservableCollection<Doctor> SpecializationDoctors { get; set; }
         public ObservableCollection<Appointment> GeneratedAppointments
         {
             get
@@ -63,7 +61,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void InstantiateData(Patient ShowItem, Window window)
         {
             specializationComboBox = new List<ComboBoxData<Specialization>>();
-            doctorComboBox = new List<ComboBoxData<Doctor>>();
+            doctorComboBox = new ObservableCollection<ComboBoxData<Doctor>>();
             FillComboData();
             SelectedPatient = ShowItem;
             this.window = window;
@@ -168,8 +166,9 @@ namespace HospitalProject.View.DoctorView.Model
                 if (selectedSpecialization != value)
                 {
                     selectedSpecialization = value;
-                    OnPropertyChanged(nameof(Specialization));
-                    FillDoctorComboBox(selectedSpecialization);
+                    OnPropertyChanged(nameof(SelectedSpecialization));
+                    FillDoctorComboBox(SelectedSpecialization);
+                    OnPropertyChanged(nameof(DoctorComboBox));
                 }
                 
             }
@@ -188,7 +187,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public List<ComboBoxData<Doctor>> DoctorComboBox
+        public ObservableCollection<ComboBoxData<Doctor>> DoctorComboBox
         {
             get
             {
@@ -196,8 +195,11 @@ namespace HospitalProject.View.DoctorView.Model
             }
             set
             {
-                doctorComboBox = value;
-                OnPropertyChanged(nameof(DoctorComboBox));
+                if (doctorComboBox != value)
+                {
+                    doctorComboBox = value;
+                    OnPropertyChanged(nameof(DoctorComboBox));
+                }
             }
         }
 
@@ -209,8 +211,12 @@ namespace HospitalProject.View.DoctorView.Model
             }
             set
             {
-                specializationComboBox = value;
-                OnPropertyChanged(nameof(SpecializationComboBox));
+                if (specializationComboBox != value)
+                {
+                    specializationComboBox = value;
+                    OnPropertyChanged(nameof(SpecializationComboBox));
+                }
+                
             }
         }
 
@@ -224,11 +230,13 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void FillDoctorComboBox(Specialization selected)
         {
+            DoctorComboBox = new ObservableCollection<ComboBoxData<Doctor>>();
+
             foreach(Doctor doctor in doctorController.GetDoctorsBySpecialization(selected))
             {
-                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = doctor.FirstName + " " + doctor.LastName, Value = doctor });
+                DoctorComboBox.Add(new ComboBoxData<Doctor> { Name = doctor.FirstName + " " + doctor.LastName, Value = doctor });
             }
-            OnPropertyChanged("DoctorComboBox");
+
         }
 
         private void FillComboData()
@@ -260,11 +268,12 @@ namespace HospitalProject.View.DoctorView.Model
                                                                                                                               SelectedDoctor,
                                                                                                                               SelectedPatient,
                                                                                                                               ExaminationType.GENERAL,
-                                                                                                                              SelectedDoctor.Ordination));
+                                                                                                                              SelectedDoctor.Ordination,
+                                                                                                                              _intValue));
 
             if (GeneratedAppointments.Count() == 0)
             {
-                MessageBox.Show("There are not free appointments for the inverval selected. Please try another date", "No appointments", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("There are not free appointments for the interval selected. Please try another date", "No appointments", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
         }

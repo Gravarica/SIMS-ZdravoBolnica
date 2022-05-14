@@ -178,7 +178,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                                                                                                                               doctor,
                                                                                                                               PatientData,
                                                                                                                               ShowItem.ExaminationType,
-                                                                                                                              ShowItem.Room));
+                                                                                                                              ShowItem.Room, 0));
         }
 
         public RelayCommand SaveCommand

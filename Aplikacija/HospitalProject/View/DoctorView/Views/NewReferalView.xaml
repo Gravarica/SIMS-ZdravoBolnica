@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
         Title="NewReferalView" Height="600" Width="950">
@@ -92,14 +93,14 @@
 
                     <ComboBox Grid.Row="1"
                               Grid.Column="1"
-                              ItemsSource="{Binding Path = SpecializationComboBox}"
+                              ItemsSource="{Binding Path = SpecializationComboBox, UpdateSourceTrigger=PropertyChanged}"
                               IsEnabled="True"
                               FontSize="16"
                               Margin="5,15,5,15"
                               DisplayMemberPath="Name"
                               SelectedValuePath="Value"
-                              SelectedValue="{Binding SelectedSpecialization, Mode=TwoWay}">
-                    </ComboBox>
+                              SelectedValue="{Binding SelectedSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              />
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
@@ -114,7 +115,7 @@
                               Grid.Column="1"
                               Margin="5,15,5,15"
                               FontSize="16"
-                              ItemsSource="{Binding DoctorComboBox}"
+                              ItemsSource="{Binding Path = DoctorComboBox,UpdateSourceTrigger=PropertyChanged, Mode = OneWay}"
                               DisplayMemberPath="Name"
                               SelectedValue="{Binding SelectedDoctor}"
                               SelectedValuePath="Value"/>

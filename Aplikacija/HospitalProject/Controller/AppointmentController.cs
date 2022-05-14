@@ -7,6 +7,7 @@ using System;
 using Service;
 using Model;
 using System.Collections.Generic;
+using System.Reflection;
 using HospitalProject.Model;
 
 namespace Controller
@@ -49,9 +50,9 @@ namespace Controller
             _appointmentService.Delete(id);
       }
 
-      public List<Appointment> GenerateAvailableAppointments(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient, ExaminationType examType, Room room)
+      public List<Appointment> GenerateAvailableAppointments(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient, ExaminationType examType, Room room, int priorityFlag)
       {
-          return _appointmentService.GenerateAvailableAppointments(startDate, endDate, doctor, patient, examType, room);
+          return _appointmentService.GenerateAvailableAppointments(startDate, endDate, doctor, patient, examType, room, priorityFlag, false);
       }
 
         public IEnumerable<Appointment> GetAllUnifinishedAppointmentsForDoctor(int doctorId)
@@ -70,9 +71,9 @@ namespace Controller
             return _appointmentService.GenerateAppointmentsPriorityDoctor(startDate,endDate,doctor,patient);
         }
 
-        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient)
+        public IEnumerable<Appointment> GenerateAppointmentsPriorityDate(DateOnly startDate, DateOnly endDate, Patient patient, Doctor doctor)
         {
-            return _appointmentService.GenerateAppointmentsPriorityDate(startDate, endDate,patient);
+            return _appointmentService.GenerateAppointmentsPriorityDate(startDate, endDate,patient, doctor);
         }
     }
 }

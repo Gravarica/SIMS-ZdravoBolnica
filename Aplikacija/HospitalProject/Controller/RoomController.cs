@@ -54,5 +54,10 @@ namespace HospitalProject.Controller
         {
             _roomService.UpdateRoomsEquipment(source,destination,equipmentId,quantity);
         }
+
+        public List<Room> GetByRoomType(RoomType roomType)
+        {
+            return _roomService.GetByRoomType(roomType);
+        }
     }
 }
