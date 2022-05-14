@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <Grid>
+    <Border Background="#FF9592F5" >
+        <Grid>
             
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

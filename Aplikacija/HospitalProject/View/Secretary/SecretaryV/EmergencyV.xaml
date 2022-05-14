@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:EmergencyVM}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <Grid >
+    <Grid Background="#FF9592F5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -18,16 +18,16 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0"  Content="Create emergency appointment"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" Foreground="#f1fa8c" Grid.ColumnSpan="2" Width="468" Height="52" />
+        <Label Grid.Column="0"  Content="Create emergency appointment"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" Foreground="Black" Grid.ColumnSpan="2" Width="468" Height="52" />
         <Grid Grid.Column="0"  Grid.Row="1">
             <StackPanel    Margin="20,0,0,0" >
-                <TextBlock Text="Choose specialization" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"   Foreground="#f1fa8c"/>
+                <TextBlock Text="Choose specialization" FontSize="20"   Foreground="Black"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="0"  Grid.Row="2" Margin="0,2,0,0">
-            <TextBlock Text="Find patient by Jmbg" FontSize="20"   Foreground="#f1fa8c" Margin="497,-98,-305,492"/>
-            <TextBlock Text="Room type" FontSize="20"   Foreground="#f1fa8c" Margin="96,10,96,384"/>
-            <TextBlock Text="Examination type" FontSize="20"   Foreground="#f1fa8c" Margin="96,124,96,270"/>
+            <TextBlock Text="Find patient by Jmbg" FontSize="20"   Foreground="black" Margin="384,-101,-193,495"/>
+            <TextBlock Text="Room type" FontSize="20"   Foreground="black" Margin="10,10,182,384"/>
+            <TextBlock Text="Examination type" FontSize="20"   Foreground="Black" Margin="10,124,182,270"/>
         </Grid>
         <Grid Grid.Column="1"  Grid.Row="1">
             <StackPanel    Margin="10,0,10,169" >
@@ -35,12 +35,12 @@
         </Grid>
 
 
-        <DataGrid Margin="34,5,51,188" AutoGenerateColumns="False"
+        <DataGrid Margin="5,5,72,188" AutoGenerateColumns="False"
             SelectionMode="Single"             
             IsReadOnly="True"  
-            Background="LightGray"
+            Background="#FFBCC1E8"
             ItemsSource="{Binding Patients}" 
-            SelectedItem ="{Binding SelectedItem}" Grid.Row="2" Grid.Column="1">
+            SelectedItem ="{Binding SelectedItem}" Grid.Row="2" Grid.Column="1" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Patient ID" Binding="{Binding Id}" Width="*"/>
                 <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" Width="*"/>
@@ -49,13 +49,12 @@
             </DataGrid.Columns>
         </DataGrid>
         <ComboBox  x:Name="Specialization"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding SpecializationComboBox}" SelectedValue = "{Binding SelectedSpecialization}"  VerticalAlignment="Top" Height="37" Width="202" Margin="0,43,0,0" Grid.Row="1" />
-        <TextBox HorizontalAlignment="Center" 
+        <TextBox HorizontalAlignment="Left" 
                   Text="{Binding FindJmbg}"
-                 Margin="0,43,0,20"  RenderTransformOrigin="0.5,0.5" Width="202" Grid.Row="1" Grid.Column="1"/>
-        <Button x:Name="addGuest" 
-            Background="LightYellow" 
+                 Margin="99,43,0,20"  RenderTransformOrigin="0.5,0.5" Width="202" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="addGuest" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
             Command="{Binding AddGuest}"
-            Content="Or create guest account" HorizontalAlignment="Center" Margin="0,257,0,0" Grid.Row="2" VerticalAlignment="Top" Height="55" RenderTransformOrigin="0.5,0.5" Width="192" Grid.Column="1">
+            Content="Or create guest account" HorizontalAlignment="Left" Margin="175,263,0,0" Grid.Row="2" VerticalAlignment="Top" Height="45" RenderTransformOrigin="0.5,0.5" Width="166" Grid.Column="1">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>
@@ -65,8 +64,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="addGuest_Copy" 
-            Background="Yellow" 
+        <Button x:Name="addGuest_Copy" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6" 
             Command="{Binding CreateEmergency}"
             Content="Create" HorizontalAlignment="Left" Margin="312,339,0,0" Grid.Row="2" VerticalAlignment="Top" Height="56" RenderTransformOrigin="0.5,0.5" Width="138" Grid.ColumnSpan="2">
             <Button.RenderTransform>
@@ -81,7 +79,7 @@
         <Button x:Name="Find" 
             Background="LightYellow" 
             Command="{Binding Search}"
-           HorizontalAlignment="Left" Margin="326,41,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" RenderTransformOrigin="0.5,0.5" Width="56" Grid.Column="1">
+           HorizontalAlignment="Left" Margin="318,47,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" RenderTransformOrigin="0.5,0.5" Width="26" Grid.Column="1">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="-1" ScaleX="-1"/>

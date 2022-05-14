@@ -11,19 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HospitalProject.View.Secretary.SecretaryVM;
 
 namespace HospitalProject.View.Secretary.SecretaryV
 {
     /// <summary>
-    /// Interaction logic for DoctorsList.xaml
+    /// Interaction logic for PatientV.xaml
     /// </summary>
-    public partial class DoctorsList : Window
+    public partial class PatientV : Window
     {
-        public DoctorsList()
+        public PatientV()
         {
             InitializeComponent();
-            this.DataContext = new DoctorsListVM();
         }
+
     }
 }

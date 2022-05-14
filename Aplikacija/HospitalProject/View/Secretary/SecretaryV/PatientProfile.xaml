@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
          d:DesignHeight="600" d:DesignWidth="800"
          ResizeMode ="NoResize"
-        Background="PaleTurquoise">
+       Background="#FF8F8CEC">
     <Window.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="18"/>
@@ -29,8 +29,8 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="207*"/>
-            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="367*"/>
+            <ColumnDefinition Width="433*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -40,7 +40,7 @@
                   FontSize="25"
                   Grid.Row="0"
                   Margin="30,34,60,10" Grid.ColumnSpan="2">
-            <Grid Margin="0,0,164,0" Height="417" >
+            <Grid Margin="0,0,180,0" Height="420" >
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -112,17 +112,25 @@
             IsReadOnly="True"
             ItemsSource="{Binding patientAllergies}" 
             SelectedItem="{Binding SelectedAllergy}"
-            Background="LightYellow" Grid.Column="1"
+            Background="LightYellow" Grid.Column="1" RenderTransformOrigin="0.5,0.5"
              >
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-9.062"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="25.279"/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Margin="374,459,374,73"
+        <Button Margin="23,459,363,73"
             x:Name="Delete_Copy"
             Content="Delete"
-            Command="{Binding DeleteAllergyCommand}" Grid.ColumnSpan="2"
+            Command="{Binding DeleteAllergyCommand}" Grid.Column="1"
             />
         <ComboBox Margin="138,196,76,338"
             ItemsSource="{Binding AllergiesCB}"

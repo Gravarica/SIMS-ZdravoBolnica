@@ -13,7 +13,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
     internal class MoveAppVM : BaseViewModel
     {
         public Appointment appointment;
-        public Doctor doctor;
         public Appointment Potentialappointment;
         public TimeSpan timespan;
 
@@ -68,7 +67,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             Appointment.Patient = Patient;
             Appointment.ExaminationType = Examination;
             Appointment.Room = Room;
-            Appointment.Doctor = Doctor;
 
             appointmentController.Update(Appointment);
         }
@@ -100,18 +98,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
 
        
-        public Doctor DoctorData
-        {
-            get
-            {
-                return doctor;
-            }
-            set
-            {
-                doctor = value;
-                OnPropertyChanged(nameof(Doctor));
-            }
-        }
         public Appointment PotentialAppointment
         {
             get
@@ -205,18 +191,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         }
 
 
-        public Doctor Doctor
-        {
-            get
-            {
-                return doctor;
-            }
-            set
-            {
-                doctor = value;
-                OnPropertyChanged(nameof(Doctor));
-            }
-        }
 
     }
 }

@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
-        Title="Add guest patient" Height="406" Width="490">
+        Title="Add guest patient" Height="415" Width="492">
     <Border Background="#FF8F8CEC" >
         <Grid>
             <Grid.RowDefinitions>
@@ -43,23 +43,24 @@
 
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="251"/>
+                    <ColumnDefinition Width="83.07"/>
+                    <ColumnDefinition Width="167.93"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="First name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Width="77"  />
-                <Label Content="Last name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Width="76" />
+                <Label Content="First name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Width="77" Grid.ColumnSpan="2"  />
+                <Label Content="Last name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Width="76" Grid.ColumnSpan="2" />
                 <Label Content="Jmbg:" HorizontalAlignment="Left" Margin="10,10,0,5" Grid.Column="0" Grid.Row="2" Width="47" />
-                <TextBox x:Name="TextBox1" Text="{Binding FirstName}" Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="#FFC4C4C5" />
-                <TextBox x:Name="TextBox2" Text="{Binding LastName}" Grid.Row="1" Grid.Column="1" Margin="10,2,10,10" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
-                <TextBox x:Name="TextBox3" Text="{Binding Jmbg}" Grid.Row="2" Grid.Column="1" Margin="10,4,10,7" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
-                <Border Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" BorderThickness="0,0,2,0" BorderBrush="#FFEEFF58" Margin="0,-21,10,-42" />
+                <TextBox x:Name="TextBox1" Text="{Binding FirstName}" Grid.Column="2" Margin="10,0,10,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="#FFC4C4C5" />
+                <TextBox x:Name="TextBox2" Text="{Binding LastName}" Grid.Row="1" Grid.Column="2" Margin="10,2,10,10" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
+                <TextBox x:Name="TextBox3" Text="{Binding Jmbg}" Grid.Row="2" Grid.Column="2" Margin="10,4,10,10" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
+                <Border Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" BorderThickness="0,0,2,0" BorderBrush="#FFEEFF58" Margin="0,0,10,10" Grid.ColumnSpan="2" />
 
             </Grid>
 
 
-            <Button Grid.Row="2" Content="Save"  HorizontalAlignment="Left"  Width="80"
-            Margin="356,160,0,10"  Command="{Binding SaveCommand}" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
+            <Button Grid.Row="4" Content="Save"  HorizontalAlignment="Left"  Width="80"
+            Margin="210,5,0,10"  Command="{Binding SaveCommand}" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
 
         </Grid>
     </Border>

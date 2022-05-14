@@ -75,15 +75,15 @@ namespace Controller
             return _appointmentService.GenerateAppointmentsPriorityDate(startDate, endDate,patient);
         }
 
-        public Appointment FirstAvailableWithoutRescheduling(Specialization specialization, Patient patient, ExaminationType examType, Room room)
+        public List<Appointment> FirstAvailableWithoutRescheduling(Specialization specialization, Patient patient, ExaminationType examType, Room room)
         {
             return _appointmentService.FirstAvailableWithoutRescheduling(specialization, patient, examType, room);
         }
 
 
-        public List<AppointmentsDTO> FirstFromEachDoctorWithRescheduling(Specialization specialization)
+        public List<AppointmentsDTO> BestOptionsForRescheduling(Specialization specialization)
         {
-            return _appointmentService.FirstFromEachDoctorWithRescheduling(specialization);
+            return _appointmentService.BestOptionsForRescheduling(specialization);
         }
 
     }

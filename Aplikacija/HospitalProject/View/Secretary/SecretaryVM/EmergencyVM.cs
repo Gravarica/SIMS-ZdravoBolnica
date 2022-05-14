@@ -113,7 +113,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private bool CanExecuteCreateEmergency()
         {
-            return SelectedItem != null && SelectedSpecialization != null && SelectedRoom != null && SelectedExamination != null;
+            return SelectedItem != null && SelectedRoom != null ;
 
         }
         private void ExecuteAddGuestCommand()
@@ -144,18 +144,23 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteCreateEmergencyCommand() 
         {
 
-            appointmentController.FirstAvailableWithoutRescheduling(SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+            List<Appointment> availableAppointments =  appointmentController.FirstAvailableWithoutRescheduling(SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+            if (availableAppointments.Count == 0)
+            {
+                List<AppointmentsDTO> moveAppointments = appointmentController.BestOptionsForRescheduling(SelectedSpecialization);
+                RescheduleAppV view = new RescheduleAppV();
+                view.DataContext = new MoveAppVM(moveAppointments, SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+                view.ShowDialog();
+            }
 
-           
-            List<AppointmentsDTO> moveAppointments = appointmentController.FirstFromEachDoctorWithRescheduling(SelectedSpecialization);
-            RescheduleAppV view = new RescheduleAppV();
-            view.DataContext = new MoveAppVM(moveAppointments, SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
-            view.ShowDialog();
-           
 
-            //premesti onaj pa opet pozoves
-            appointmentController.FirstAvailableWithoutRescheduling(SelectedSpecialization, SelectedItem, SelectedExamination, SelectedRoom);
+            else 
+            {
+                //DateTime date, int duration, Doctor doctor, Patient patient, Room room, ExaminationType examinationType
+                Appointment firstAvailable = availableAppointments.First();
+                appointmentController.Create(new Appointment(firstAvailable.Date, 30, firstAvailable.Doctor, SelectedItem, SelectedRoom, SelectedExamination));
 
+            }
 
         }
 

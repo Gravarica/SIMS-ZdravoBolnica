@@ -206,6 +206,15 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
             window.Close();
+
+            /* DoctorData = SelectedItem.Doctor;
+            List<Notification> notifications = new List<Notification>();
+            notifications = notificationController.GetNotificationsByDoctor(Doctor.Id);
+            
+            Notification notification = new Notification("Appointment with id " + SelectedItem.Id + "is updated", DateTime.Now);
+
+            notificationController.Insert(notification);
+           */
         }
 
         private bool LessThanADayRemainingUntillAppointmentCheck()

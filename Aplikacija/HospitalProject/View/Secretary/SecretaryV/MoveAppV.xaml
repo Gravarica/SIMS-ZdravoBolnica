@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" 
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:MoveAppVM}"
         mc:Ignorable="d"
     
         TextElement.FontWeight="Regular"
@@ -31,16 +31,17 @@
 
 
             <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"  Width="80"
-            Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"/>
+            Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"
+                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
             <DataGrid x:Name="dataAppointment" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
                 SelectionMode="Single" AutoGenerateColumns="False" FontSize="15" 
                 FontStyle="Normal"
-                CanUserResizeRows="False" Background="LightYellow" Margin="0,0,38,0" Grid.Column="1" >
+                CanUserResizeRows="False" Background="#FFBCC1E8" Margin="0,0,38,0" Grid.Column="1" >
 
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Appointments date" Binding="{Binding Appointment.Date}" Width="*"  CanUserResize="False" />
-                    <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorData}" Width="*"  CanUserResize="False"/>
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding Appointment.Doctor}" Width="*"  CanUserResize="False"/>
                     <DataGridTextColumn Header="Next date" Binding="{Binding PotentialAppointment.Date}" Width="120"  CanUserResize="False"/>
                    <DataGridTextColumn Header="Moving for" Binding="{Binding TimeSpan}" Width="*"  CanUserResize="False"/>
 

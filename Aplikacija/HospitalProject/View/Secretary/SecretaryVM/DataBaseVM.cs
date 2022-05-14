@@ -123,7 +123,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteShowProfileCommand()
         {
 
-            PatientProfile view = new PatientProfile();
+            PatientV view = new PatientV();
             view.DataContext = new PatientProfileVM(SelectedPatient, medicalRecordService);
             view.ShowDialog();
         }

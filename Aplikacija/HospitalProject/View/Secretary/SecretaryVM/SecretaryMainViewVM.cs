@@ -47,12 +47,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-      
+
         private static SecretaryMainViewVM _instance;
 
         /*public static SecretaryMainViewVM GetFirstInstance(Window window)
         {
-
             if (_instance == null)
             {
                 _instance = new SecretaryMainViewVM(window);
@@ -73,13 +72,13 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             NewAppointmentsV = new NewAppointmentsV();
             //PublicNotifficationsVM = new PublicNotifficationsVM();
             //RequestsVM = new RequestsVM();
-            
+
 
 
             var app = System.Windows.Application.Current as App;
             _userController = app.UserController;
-            
-            
+
+
             this.Window = window;
             CurrentView = DataBaseV;
             RegisterCommand = new RelayCommand(o =>
@@ -90,7 +89,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             /*PublicNotifficationsCommand = new RelayCommand(o =>
             {
                 CurrentView = PublicNotifficationsVM;
-
             }
             ); */
             DataBaseCommand = new RelayCommand(o =>

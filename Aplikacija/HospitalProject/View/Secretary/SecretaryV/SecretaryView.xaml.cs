@@ -62,13 +62,6 @@ namespace HospitalProject.View.Secretary.SecretaryV
            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            DoctorsList view = new DoctorsList();
-
-            view.ShowDialog();
-        }
-
        
     }
 }

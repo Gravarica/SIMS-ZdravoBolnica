@@ -7,7 +7,8 @@
              xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:NewAppointmentsVM}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <Grid>
+
+    <Grid Background="#FF9592F5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -19,21 +20,27 @@
             <DataGrid x:Name="dataAppointment" Grid.Row="2" ItemsSource="{Binding Appointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
                               SelectionMode="Single" AutoGenerateColumns="False" FontSize="15" 
                               FontStyle="Normal"
-                              CanUserResizeRows="False" Background="#FF8F8CEC" >
+                              CanUserResizeRows="False" Background="#FFBCC1E8" Margin="10,0,10,86" Grid.RowSpan="2" >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"  CanUserResize="False"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"  CanUserResize="False" />
                     <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor.FirstName}" Width="*"  CanUserResize="False"/>
                     <DataGridTextColumn Header="Patient" Binding="{Binding Patient.FirstName}" Width="150"  CanUserResize="False"/>
-                   
+
                 </DataGrid.Columns>
 
             </DataGrid>
 
-            <Button x:Name="NewAppointmemt" Content="New Appointment" HorizontalAlignment="Center" Margin="0,0,150,0" Width="150" Height="50" Grid.Row="3" Command="{Binding NewAppointmentCommand}"/>
-            <Button Grid.Row="3"  x:Name="Delete" Content="Delete"  HorizontalAlignment="Right" Width="150" Height="50"  Command="{Binding DeleteCommand}" Background="Red"/>
-            <Button x:Name="UpdateExamination" Content="Edit"  HorizontalAlignment="Left" Margin="454,5,0,15" Width="150" Height="50"  Grid.Row="3" Command="{Binding EditAppointmentCommand}" />
+            <Button x:Name="NewAppointmemt"
+                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+                    Content="New Appointment" HorizontalAlignment="Left" Margin="67,18,0,18" Width="150" Height="50" Grid.Row="3" Command="{Binding NewAppointmentCommand}"/>
+            <Button Grid.Row="3" 
+                    Foreground="#FFEEEF16"  Background="#FF6668D6"
+                    x:Name="Delete" Content="Delete"  HorizontalAlignment="Left" Width="150" Height="50"  Command="{Binding DeleteCommand}" BorderBrush="Red" Margin="587,18,0,18"/>
+            <Button x:Name="UpdateExamination" 
+                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+                    Content="Edit"  HorizontalAlignment="Center" Margin="0,18,0,18" Width="150" Height="50"  Grid.Row="3" Command="{Binding EditAppointmentCommand}" />
 
         </Grid>
 

@@ -32,6 +32,14 @@ namespace HospitalProject.Model
         
         }
 
+        public Notification(string Name, DateTime time)
+        {
+
+            name = Name;
+            startTime = time;
+
+
+        }
 
         public int Id
         {

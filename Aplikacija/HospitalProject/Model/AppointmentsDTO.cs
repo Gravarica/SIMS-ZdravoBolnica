@@ -10,7 +10,6 @@ namespace HospitalProject.Model
     public class AppointmentsDTO : ViewModelBase
     {
         public Appointment appointment;
-        public Doctor doctor;
         public Appointment Potentialappointment;
         public TimeSpan timespan;
 
@@ -30,18 +29,7 @@ namespace HospitalProject.Model
 
 
 
-        public Doctor DoctorData
-        {
-            get
-            {
-                return doctor;
-            }
-            set
-            {
-                doctor = value;
-                OnPropertyChanged(nameof(Doctor));
-            }
-        }
+       
         public Appointment PotentialAppointment
         {
             get
@@ -70,10 +58,9 @@ namespace HospitalProject.Model
 
         public AppointmentsDTO() { }
 
-        public AppointmentsDTO(Appointment id, Doctor doctor, Appointment Pid, TimeSpan time) {
+        public AppointmentsDTO(Appointment id, Appointment Pid, TimeSpan time) {
 
             Appointment = id;
-            doctor = DoctorData;
             PotentialAppointment = Pid;
             Timespan = time;
         }
