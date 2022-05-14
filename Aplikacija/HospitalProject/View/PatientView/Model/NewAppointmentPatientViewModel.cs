@@ -170,7 +170,7 @@ namespace HospitalProject.View.PatientView.Model
         private void FillComboData()
         {
 
-            foreach (Doctor d in doctorController.GetAll())
+            foreach (Doctor d in doctorController.GetDoctorsBySpecialization(Specialization.GENERAL))
             {
                 doctorComboBox.Add(new ComboBoxData<Doctor> { Name = d.FirstName + " " + d.LastName, Value = d });
             }
@@ -205,8 +205,8 @@ namespace HospitalProject.View.PatientView.Model
                                                                                                                               DoctorData,
                                                                                                                               patient,
                                                                                                                               HospitalProject.Model.ExaminationType.GENERAL,
-                                                                                                                              roomController.Get(3)));
-            if (GeneratedAppointments.Count == 0) {
+                                                                                                                              roomController.Get(3), _intValue));
+           /* if (GeneratedAppointments.Count == 0) {
 
                 if (_intValue == 1) {
 
@@ -216,8 +216,7 @@ namespace HospitalProject.View.PatientView.Model
                 {
                      GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, patient));
                 }
-            
-            }
+            }*/
 
         }
 
@@ -230,8 +229,7 @@ namespace HospitalProject.View.PatientView.Model
 
         private IEnumerable<Appointment> DateIsPriority(DateOnly startDate, DateOnly endDate,Patient patient) {
 
-            return appointmentController.GenerateAppointmentsPriorityDate(startDate,endDate,patient);
-
+            return appointmentController.GenerateAppointmentsPriorityDate(startDate,endDate,patient, DoctorData);
 
         }
 

@@ -183,7 +183,7 @@ namespace HospitalProject.View.PatientView.Model
                                                                                                                               endDateOnly,
                                                                                                                               DoctorData,
                                                                                                                               patient,
-                                                                                                                              ExaminationType.GENERAL, roomController.Get(3)));
+                                                                                                                              ExaminationType.GENERAL, roomController.Get(3),1));
         }
 
         public RelayCommand SaveCommand
@@ -204,6 +204,7 @@ namespace HospitalProject.View.PatientView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            userController.IncreaseCounter();
             window.Close();
         }
 

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
-using HospitalProject.View.Model;
-using HospitalProject.View.WardenForms.ViewModels;
+using HospitalProject.View.WardenForms.Views;
 
-namespace HospitalProject.View.WardenForms
+namespace HospitalProject.View.WardenForms.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
@@ -34,9 +30,15 @@ namespace HospitalProject.View.WardenForms
         public RelayCommand RoomRenovationCommand { get; set; }
         
         
+        public MedicineViewModel MedicineViewModel { get; set; }
+        public RelayCommand MedicineViewCommand { get; set; }
         
-        
-        
+        public AddingMedicineView AddingMedicineView { get; set; }
+
+
+
+
+
 
         public object MomentalView
         {
@@ -59,8 +61,18 @@ namespace HospitalProject.View.WardenForms
             WardenEquipementView = new EquipementViewModel();
             WardenEquipemntRelocationViewModel = new WardenEquipemntRelocationViewModel();
             RoomRenovationViewModel = new RoomRenovationViewModel();
+            MedicineViewModel = new MedicineViewModel();
+            AddingMedicineView = new AddingMedicineView();
+            
 
             MomentalView = WardenRoomControl;
+            
+            MedicineViewCommand =new RelayCommand(o =>
+                {
+                    MomentalView = MedicineViewModel;
+                }
+            );
+            
              RoomViewCommand = new RelayCommand(o =>
                  {
                      MomentalView = WardenRoomControl;

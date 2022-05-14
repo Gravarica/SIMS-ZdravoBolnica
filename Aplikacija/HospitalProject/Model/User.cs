@@ -9,17 +9,19 @@ using System;
 
 public class User : ViewModelBase
 {
-   protected String username;
-   protected String password;
-   protected String firstName;
-   protected String lastName;
-   public UserType userType;
-   protected int jmbg;
-   protected int phoneNumber;
-   protected String email;
-   protected String adress;
-   protected DateTime dateOfBirth;
-   protected Gender gender;
+    protected String username;
+    protected String password;
+    protected String firstName;
+    protected String lastName;
+    public UserType userType;
+    protected int jmbg;
+    protected int phoneNumber;
+     protected String email;
+     protected String adress;
+    protected DateTime dateOfBirth;
+     protected Gender gender;
+    private int movedAppointmentsCount;
+    private bool isBlocked;
 
    public String Username
     {
@@ -86,18 +88,53 @@ public class User : ViewModelBase
         }
     }
 
+    public int MovedAppointmentsCount
+    {
+        get
+        {
+            return movedAppointmentsCount;
+        }
+        set
+        {
+            movedAppointmentsCount = value;
+            OnPropertyChanged(nameof(MovedAppointmentsCount));
+        }
+    }
+
+    public bool IsBlocked
+    {
+        get
+        {
+            return isBlocked;
+        }
+        set
+        {
+            isBlocked = value;
+            OnPropertyChanged(nameof(IsBlocked));
+        }
+    }
+
+
+
+
     public User(String username,String firstName, String lastName) { 
         Username = username;
         FirstName = firstName;
         LastName = lastName;
+        IsBlocked = false;
+        MovedAppointmentsCount = 0;
+        
     }
 
 
-    public User(string username, string password, UserType userType)
+    public User(string username, string password, UserType userType, bool _isBlocked, int _movedAppointmentsCounter)
     {
         Username = username;
         Password = password;
         UserType = userType;
+        IsBlocked = _isBlocked;
+        MovedAppointmentsCount = _movedAppointmentsCounter;
+
 
     }
 
@@ -108,6 +145,9 @@ public class User : ViewModelBase
         FirstName = firstName;
         LastName = lastName;
         UserType = userType;
+        IsBlocked = false;
+        MovedAppointmentsCount = 0;
+
     }
 
     public User(String firstName, String lastName, int jmbg) { 
@@ -123,9 +163,15 @@ public class User : ViewModelBase
         Adress = "guest";
         DateOfBirth = Convert.ToDateTime("10/10/2000 11:00");
         Gender = Gender.female;
+        IsBlocked = false;
+        MovedAppointmentsCount = 0;
 
-}
-    public User() { }
+
+    }
+    public User()
+    {
+       
+    }
     
     public Int32 Jmbg
     {
@@ -203,7 +249,7 @@ public class User : ViewModelBase
                     Gender gender)
           {
               Username = username;
-        Password = password;
+              Password = password;
               FirstName = firstName;
               LastName = lastName;
               Jmbg = jmbg;

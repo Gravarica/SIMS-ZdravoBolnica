@@ -1,0 +1,98 @@
+﻿<Window x:Class="HospitalProject.View.PatientView.View.MainGradeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View.PatientView.View"
+        mc:Ignorable="d"
+        Height="750" Width="430">
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            
+        </Grid.RowDefinitions>
+
+        <Grid Background="Yellow">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+            <Button Height="50" Width="50" HorizontalAlignment="Left"/>
+            <Button Height="50" Width="50" HorizontalAlignment="Center" Grid.Column="1"/>
+            <Button Height="50" Width="50" HorizontalAlignment="Right" Grid.Column="2"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="#FFFF99">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+            <Label
+                VerticalAlignment="Top"
+                Grid.ColumnSpan="2"
+                Content="Who do you want"
+                HorizontalContentAlignment="Center"
+                FontSize="30"
+                Height="50"
+                Margin="0,30,0,0"/>
+            <Label
+                VerticalAlignment="Top"
+                Grid.ColumnSpan="2"
+                Content="to rate?"
+                HorizontalContentAlignment="Center"
+                FontSize="30"
+                Height="50"
+                Margin="0,70,0,0"/>
+
+
+
+            <Button Content="H" Height="100" Width="100" Background="#FF3333"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,30,0"
+                    Click="OpenGradingForHospital"/>
+            <Label Content="Hospital" Foreground="#FF3333"
+                   FontSize="20"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   Margin="0,0,38,220"/>
+
+            <Button Content="D" Height="100" Width="100" Grid.Column="1"
+                    HorizontalAlignment="lEFT"
+                    Background="#FF3333"
+                    Margin="30,0,0,0"
+                    Click="OpenGradingForDoctor"/>
+            <Label Content="Doctor" Grid.Column="1" Foreground="#FF3333"
+                   FontSize="20"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Margin="45,0,0,220"/>
+
+
+            <Button Content="Rate the app?" Foreground="White" Background="#FF3333"
+                    Grid.ColumnSpan="2" Height="30" Width="150"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,80"/>
+
+
+
+        </Grid>
+         
+
+        <Grid Grid.Row="2"  Background="Yellow">
+
+            <Button Height="50" Width="50" HorizontalAlignment="Center"/>
+        </Grid>
+        
+    </Grid>
+</Window>

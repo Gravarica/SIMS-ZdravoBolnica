@@ -25,7 +25,7 @@ namespace HospitalProject.View.PatientView.View
         public AppointmentsViewPatient()
         {
             InitializeComponent();
-            DataContext = new MainPatientViewModel();
+            DataContext = new MainPatientViewModel(this);
         }
 
 

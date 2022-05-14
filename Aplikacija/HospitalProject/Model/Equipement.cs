@@ -132,6 +132,14 @@ namespace HospitalProject.Model
             this.alergens = alergens;
         }
 
+        public Equipement(int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
+        {
+            this.quantity = quantity;
+            this.name = name;
+            this.equipementType = equipementType;
+            this.alergens = alergens;
+        }
+
         public Equipement( int quantity, string name, EquipementType equipementType)
         {
             Quantity = quantity;

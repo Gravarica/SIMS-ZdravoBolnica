@@ -163,7 +163,7 @@
                               SelectedValuePath="Value"
                               DisplayMemberPath="Name"
                               Margin="5,15,5,15"
-                              SelectedValue ="{Binding SelectedRoom}"/>
+                              SelectedValue ="{Binding SelectedRoom, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Grid Grid.Row="6"
                           Grid.ColumnSpan="2">

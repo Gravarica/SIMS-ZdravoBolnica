@@ -9,6 +9,8 @@ namespace Model
        private int id;
        private BloodType bloodType;
        private bool guest;
+        
+       
        public int Id
        {
            get { return id; }
@@ -19,7 +21,8 @@ namespace Model
            }
        }
 
-       public BloodType BloodType
+        
+        public BloodType BloodType
        {
            get { return bloodType; }
            set { this.bloodType = value; OnPropertyChanged(nameof(BloodType)); }
