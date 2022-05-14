@@ -8,9 +8,11 @@
              xmlns:wardenForms="clr-namespace:HospitalProject.View.WardenForms"
              xmlns:patientViewModel="clr-namespace:HospitalProject.View.PatientView.Model"
              xmlns:patientView="clr-namespace:HospitalProject.View.PatientView.View"
-
+             
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:HospitalProject.View.WardenForms.ViewModels"
              xmlns:views="clr-namespace:HospitalProject.View.WardenForms.Views"
+             
 
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -20,6 +22,8 @@
                 <ResourceDictionary Source="Themes/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MedicalCardButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/LoginButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
+                <!-- <ResourceDictionary Source="C:\Users\aleksa\Desktop\fax\SIMS\MaterialDesignInXamlToolkit-master\MaterialDesignThemes.Wpf\Themes\MaterialDesignTheme.ComboBox.xaml"/> -->
 
             </ResourceDictionary.MergedDictionaries>
 
@@ -27,12 +31,18 @@
                 <view:AppointmentsView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:EquipementViewModel}">
-                <wardenForms:WardenEquipementView/>
+            <DataTemplate DataType="{x:Type viewModels:MedicineViewModel}">
+                <views:MedicineView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type wardenForms:WardenEquipemntRelocationViewModel}">
-                <wardenForms:WardenEquipemntRelocationView/>
+           
+            
+            <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
+                <views:WardenEquipementView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">
+                <views:WardenEquipemntRelocationView/>
             </DataTemplate>
             
 
@@ -54,6 +64,18 @@
 
             <DataTemplate DataType="{x:Type viewModel:PrescriptionHistoryViewModel}">
                 <view:PrescriptionHistoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:RequestsViewModel}">
+                <view:RequestsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewRequestViewModel}">
+                <view:NewRequestView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:InventoryViewModel}">
+                <view:InventoryView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type patientViewModel:RecipesViewModel}">

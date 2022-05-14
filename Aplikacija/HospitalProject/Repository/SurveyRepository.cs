@@ -41,6 +41,7 @@ namespace HospitalProject.Repository
 
         private void InstantiateData()
         {
+            
             surveys = surveyFileHandler.ReadAll().ToList();
 
             BindQuestionsForSurvey();

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Automation;
 
 namespace Repository
 {
@@ -138,6 +139,10 @@ namespace Repository
         {
             return _appointments.Where((x) => x.Room.Id == roomId && x.IsDone == false);
         }
+
+        // Method that returns all appointments for give specialization in the next two hours
+
+        
 }
 
 }

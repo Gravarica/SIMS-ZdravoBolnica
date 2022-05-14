@@ -18,7 +18,7 @@
                   ScrollViewer.CanContentScroll="True"
                   AutoGenerateColumns="False"
                   RowHeight="50"
-                  FontSize="20"
+                  FontSize="17"
                   IsReadOnly="True"
                   ItemsSource="{Binding Path = Anamneses}"
                   SelectedItem="{Binding SelectedItem}"
@@ -32,7 +32,14 @@
                                     Binding="{Binding App.Doctor, Converter={StaticResource NameConverter}}"/>
                 <DataGridTextColumn Header="Description"
                                     Width="4*"
-                                    Binding="{Binding Description}"/>
+                                    Binding="{Binding Description}"
+                                    >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

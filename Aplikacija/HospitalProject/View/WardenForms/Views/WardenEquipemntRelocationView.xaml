@@ -1,10 +1,12 @@
-﻿<UserControl x:Class="HospitalProject.View.WardenForms.WardenEquipemntRelocationView"
+﻿<UserControl x:Class="HospitalProject.View.WardenForms.Views.WardenEquipemntRelocationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:HospitalProject.View.WardenForms"
              xmlns:converter="clr-namespace:HospitalProject.View.Converter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
              mc:Ignorable="d" Height="883.04" Width="1391">
 
 
@@ -87,7 +89,11 @@
 
             <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="382,13,0,394" Width="163" Foreground="#FF272537" Content="Insert quantity:" Grid.Row="1"/>
             <TextBox FontSize="20" Text="{Binding Quantity}" Grid.Row="1" Grid.Column="1" Margin="362,54,136,340" BorderBrush="#FF272537" BorderThickness="2"/>
-            <DatePicker FontSize="25" Grid.Column="1"  SelectedDate="{Binding Path = RelocationDate, Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="372,216,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="176"/>
+            <DatePicker   
+                          materialDesign:HintAssist.Hint="Pick Date"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          
+                          FontSize="25" Grid.Column="1"  SelectedDate="{Binding Path = RelocationDate, Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="372,216,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="176"/>
             <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="382,171,0,237" Width="163" Foreground="#FF272537" Content="Insert Date:" Grid.Row="1"/>
             <Button Command="{Binding RelocateEquipmentCommand}" BorderThickness="3" Grid.Column="1" Content="Commit" HorizontalAlignment="Left" Margin="394,427,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="68" Width="138" Foreground="#FF272537" BorderBrush="#FF272537" Grid.RowSpan="2"/>
             <TextBlock FontSize="25" FontWeight="Heavy"  Foreground="#FF272537" HorizontalAlignment="Left" Margin="66,65,0,0" TextWrapping="Wrap" 

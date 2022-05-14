@@ -203,7 +203,11 @@ namespace Model
         }
 
         public int Floor { get; set; }
-        public RoomType RoomType { get; set; }
+
+        public RoomType RoomType
+        {
+            get; set;
+        }
 
     }
 }

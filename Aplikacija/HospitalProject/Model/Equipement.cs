@@ -40,6 +40,7 @@ namespace HospitalProject.Model
                         AddAlergen(al);
                     }
                 }
+                OnPropertyChanged(nameof(Alergens));
               
             }
         }
@@ -125,6 +126,14 @@ namespace HospitalProject.Model
         public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
         {
             this.id = id;
+            this.quantity = quantity;
+            this.name = name;
+            this.equipementType = equipementType;
+            this.alergens = alergens;
+        }
+
+        public Equipement(int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
+        {
             this.quantity = quantity;
             this.name = name;
             this.equipementType = equipementType;

@@ -24,6 +24,7 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand addNewAnamnesis;
         private RelayCommand cancelNewAnamnesis;
         private RelayCommand writePrescriptionCommand;
+        private RelayCommand writeReferalCommand;
 
         public AnamnesisViewModel(Appointment appointment, Window window)
         {
@@ -105,6 +106,8 @@ namespace HospitalProject.View.DoctorView.Model
                 return writePrescriptionCommand ?? (writePrescriptionCommand = new RelayCommand(param => WritePrescriptionCommandExecute(), param => CanWritePrescriptionCommandExecute()));
             }
         }
+
+        
         
         private bool CanWritePrescriptionCommandExecute()
         {
@@ -116,6 +119,26 @@ namespace HospitalProject.View.DoctorView.Model
             NewPrescriptionView view = new NewPrescriptionView();
             view.DataContext = new NewPrescriptionViewModel(view, ShowItem);
             view.ShowDialog();
+        }
+
+        public RelayCommand WriteReferalCommand
+        {
+            get
+            {
+                return writeReferalCommand ?? (writeReferalCommand = new RelayCommand(param => WriteReferalCommandExecute(), param => CanWriteReferalCommandExecute()));
+            }
+        }
+
+        private void WriteReferalCommandExecute()
+        {
+            NewReferalView view = new NewReferalView();
+            view.DataContext = new NewReferalViewModel(ShowItem.Patient, view);
+            view.ShowDialog();
+        }
+
+        private bool CanWriteReferalCommandExecute()
+        {
+            return true;
         }
     }
 }

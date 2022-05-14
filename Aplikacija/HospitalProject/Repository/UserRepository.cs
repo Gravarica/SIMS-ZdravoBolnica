@@ -19,8 +19,13 @@ namespace HospitalProject.Repository
             userFileHandler = userFH;
             users = userFileHandler.ReadAll().ToList();
             _user = null;
+           
         }
-     
+
+       
+
+        
+
         public User Login(String username, String password)
         {
             foreach(User user in users)
@@ -68,6 +73,16 @@ namespace HospitalProject.Repository
             
             updateUser.Password = user.Password;
             
+        }
+
+        public void IncreaseCounter()
+        {
+            _user.MovedAppointmentsCount++;
+            if (_user.MovedAppointmentsCount == 5)
+            {
+                _user.IsBlocked = true;
+            }
+            userFileHandler.Save(users);
         }
 
         public void Logout()

@@ -5,8 +5,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:lm = "clr-namespace:HospitalProject.View.WardenForms"
         xmlns:local="clr-namespace:HospitalProject.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="WardenWindow" Height="900" Width="1600">
+    <Window.Resources>
+        <ResourceDictionary>
+           <ResourceDictionary.MergedDictionaries>
+               <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+               <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datepicker.xaml" />
+               <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+               <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.ComboBox.xaml" /> -->
+               <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" /> -->
+           </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource MaterialDesignDatePicker}" TargetType="{x:Type DatePicker}" /> 
+            <!-- <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}" />  -->
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}" />
+        </ResourceDictionary>
+    </Window.Resources>
 
     <Grid>
         <Border Background="#FF272537" Margin="0,-1,0,0" >
@@ -22,8 +45,10 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF272537" >
-                    <RadioButton  Height="60"  Content="Rooms" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}" Checked="RadioButton_Checked" ClickMode="Release" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5" />
-                    <RadioButton Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
+                    <RadioButton  Style="{StaticResource MenuButtonTheme}" Height="60"  Content="Rooms" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}" Checked="RadioButton_Checked" ClickMode="Release" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5" />
+                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
+                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineViewCommand}" />
+
                 </StackPanel>
                 <ContentControl BorderThickness="15" Margin="209,2,0,0" Content="{Binding MomentalView}" BorderBrush="#FFF2FF00" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
             </Grid>

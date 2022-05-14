@@ -50,11 +50,20 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientsViewCommand}"/>
 
+                <RadioButton Content="Requests"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding RequestsViewCommand}"/>
+                
                 <RadioButton Content="Inventory"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding InventoryViewCommand}"/>
+
 
             </StackPanel>
 

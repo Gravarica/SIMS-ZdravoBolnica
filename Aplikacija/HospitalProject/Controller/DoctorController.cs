@@ -33,5 +33,10 @@ namespace HospitalProject.Controller
             return _doctorService.GetLoggedDoctor(username);
         }
 
+        public List<Doctor> GetDoctorsBySpecialization(Specialization specialization)
+        {
+            return _doctorService.GetDoctorsBySpecialization(specialization);
+        }
+
     }
 }

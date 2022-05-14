@@ -45,7 +45,7 @@ namespace HospitalProject.Service
 
         private void BindAppointmentsWithPrescriptions(List<Prescription> prescriptions)
         {
-            prescriptions.ForEach(prescription => SetAppointmentForPrescription(prescription));
+            prescriptions.ForEach(SetAppointmentForPrescription);
         }
 
         private void SetAppointmentForPrescription(Prescription prescription)
@@ -86,7 +86,7 @@ namespace HospitalProject.Service
       
         private void BindMedicinesWithPrescriptions(List<Prescription> prescriptions)
         {
-            prescriptions.ForEach(prescription => SetMedicineForPrescription(prescription));
+            prescriptions.ForEach(SetMedicineForPrescription);
         }
 
         private void SetMedicineForPrescription(Prescription prescription)

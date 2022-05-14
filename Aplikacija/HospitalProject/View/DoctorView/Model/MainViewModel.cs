@@ -19,9 +19,15 @@ namespace HospitalProject.View.DoctorView.Model
 
         private Window window;
 
+        private static MainViewModel instance;
+
         public RelayCommand AppointmentsViewCommand { get; set; }
         
         public RelayCommand PatientsViewCommand { get; set; }
+
+        public RelayCommand RequestsViewCommand { get; set; }
+
+        public RelayCommand InventoryViewCommand { get; set; }
 
         private RelayCommand logoutCommand;
 
@@ -29,11 +35,15 @@ namespace HospitalProject.View.DoctorView.Model
 
         public PatientsViewModel PatientsVM { get; set; }
 
-        private object _currentView;
+        public RequestsViewModel RequestsVM { get; set; }
+
+        public InventoryViewModel InventoryVM { get; set; } 
+
+        private BaseViewModel _currentView;
 
         private Doctor loggedDoctor;
 
-        public object CurrentView
+        public BaseViewModel CurrentView
         {
             get 
             { 
@@ -67,6 +77,18 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        public static MainViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MainViewModel(Application.Current.MainWindow);
+                }
+                return instance;
+            }
+        }
+
 
         public MainViewModel(Window window)
         {
@@ -78,7 +100,10 @@ namespace HospitalProject.View.DoctorView.Model
             loggedDoctor = _doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
 
             AppVM = new MainDoctorViewModel();
-            PatientsVM = new PatientsViewModel();
+            PatientsVM = new PatientsViewModel(LoggedDoctor);
+            RequestsVM = new RequestsViewModel(LoggedDoctor);
+            InventoryVM = new InventoryViewModel(LoggedDoctor);
+
             CurrentView = AppVM;
 
             AppointmentsViewCommand = new RelayCommand(o =>
@@ -89,6 +114,16 @@ namespace HospitalProject.View.DoctorView.Model
             PatientsViewCommand = new RelayCommand(o =>
             {
                 CurrentView = PatientsVM;
+            });
+
+            RequestsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RequestsVM;
+            });
+
+            InventoryViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = InventoryVM;
             });
         }
 

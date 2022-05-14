@@ -169,5 +169,20 @@ namespace Model
             return obj is Appointment appointment &&
                    Date == appointment.Date;
         }
+
+        public bool InTheNextTwoHoursForSpecialization(Specialization specialization)
+        {
+            return CheckSpecialization(specialization) && CheckIfItIsInTheNextTwoHours();
+        }
+
+        public bool CheckSpecialization(Specialization specialization)
+        {
+            return Doctor.Specialization == specialization;
+        }
+
+        public bool CheckIfItIsInTheNextTwoHours()
+        {
+            return Date >= DateTime.Now && Date <= DateTime.Now.AddHours(2);
+        }
     }
 }

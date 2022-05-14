@@ -114,20 +114,27 @@ public class User : ViewModelBase
         }
     }
 
+
+
+
     public User(String username,String firstName, String lastName) { 
         Username = username;
         FirstName = firstName;
         LastName = lastName;
+        IsBlocked = false;
+        MovedAppointmentsCount = 0;
         
     }
 
 
-    public User(string username, string password, UserType userType)
+    public User(string username, string password, UserType userType, bool _isBlocked, int _movedAppointmentsCounter)
     {
         Username = username;
         Password = password;
         UserType = userType;
-        
+        IsBlocked = _isBlocked;
+        MovedAppointmentsCount = _movedAppointmentsCounter;
+
 
     }
 
@@ -140,6 +147,7 @@ public class User : ViewModelBase
         UserType = userType;
         IsBlocked = false;
         MovedAppointmentsCount = 0;
+
     }
 
     public User(String firstName, String lastName, int jmbg) { 
@@ -155,7 +163,9 @@ public class User : ViewModelBase
         Adress = "guest";
         DateOfBirth = Convert.ToDateTime("10/10/2000 11:00");
         Gender = Gender.female;
-        
+        IsBlocked = false;
+        MovedAppointmentsCount = 0;
+
 
     }
     public User()
@@ -239,7 +249,7 @@ public class User : ViewModelBase
                     Gender gender)
           {
               Username = username;
-        Password = password;
+              Password = password;
               FirstName = firstName;
               LastName = lastName;
               Jmbg = jmbg;
