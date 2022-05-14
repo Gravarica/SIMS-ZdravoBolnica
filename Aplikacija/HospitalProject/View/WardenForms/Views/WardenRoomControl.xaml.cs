@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
@@ -17,7 +16,7 @@ using HospitalProject.View.Model;
 using HospitalProject.View.WardenForms.ViewModels;
 using Model;
 
-namespace HospitalProject.View.WardenForms
+namespace HospitalProject.View.WardenForms.Views
 {
     public partial class WardenRoomControl : UserControl
     {
