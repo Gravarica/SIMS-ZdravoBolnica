@@ -65,7 +65,7 @@ namespace HospitalProject.View.WardenForms.Views
         {
             InitializeComponent();
             DataContext = this;
-            AllergiesList = new DiagramCollection<AddingMedicineAlergiesViewModel>();
+            AllergiesList = new ObservableCollection<AddingMedicineAlergiesViewModel>();
             SelectedAllergies = new ObservableCollection<Allergies>();
             MedicineItems = medicineItems;
             foreach (var alergie in _allergiesController.GetAll())

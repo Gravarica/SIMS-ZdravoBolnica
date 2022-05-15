@@ -9,12 +9,13 @@
     <Grid Width="1391" Margin="2,14,2,0"  >
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="557*"/>
+            <RowDefinition Height="253*"/>
+
         </Grid.RowDefinitions>
 
         <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top" Content="WARDEN VIEW - ROOMS" Foreground="#FFF3BF09" BorderThickness="1" Width="1382" Height="58" Margin="0,8,0,0" BorderBrush="#FFF3BF09" Grid.RowSpan="2" />
-        <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1" Margin="5" 
+        <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1" Margin="5,90,5,1" 
                   AutoGenerateColumns="False" Name ="Rooms" IsReadOnly="True" 
                     ItemsSource="{Binding Path=RoomItems}"
                   SelectedItem="{Binding SelectedItem1}" 
@@ -35,7 +36,7 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" BorderBrush="#FFD4D600" BorderThickness="1" Margin="5">
-                <StackPanel Margin="5,5,4,209" Background="#FFF3BF09">
+                <StackPanel Background="#FFF3BF09">
                     <Label Content="Create new Room" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF272537"/>
                     <Grid Margin="5,20,5,5" Name ="NewRoomGrid">
                         <Grid.ColumnDefinitions>
@@ -70,7 +71,7 @@
                 </StackPanel>
             </Border>
             <Border Grid.Column="1" BorderBrush="#FFD4D600" BorderThickness="1" Margin="5">
-                <StackPanel Margin="-690,189,700,1" Background="#FFF3BF09">
+                <StackPanel Background="#FFF3BF09">
                     <Label Content="Room Information" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF272537"/>
                     <Grid Margin="5,20,5,5" Name ="InfoRoomtGrid" DataContext="{Binding ElementName=Rooms,Path=SelectedItem}" >
                         <Grid.ColumnDefinitions>
@@ -106,7 +107,8 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <Button Content="Delete" HorizontalAlignment="Left" Margin="730,76,0,0" Click = "DeleteEvent_Handler" VerticalAlignment="Top" Height="104" Width="612" Grid.Row="2" />
-        <Button Content="Room renovatoin" Margin="732,243,53,68" Grid.Row="2" Command="{Binding RenovationCommand}"></Button>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="1025,20,0,0" Click = "DeleteEvent_Handler" VerticalAlignment="Top" Height="60" Width="100" Grid.Row="1" />
+        <Button Content="Room renovatoin" Margin="1174,18,64,479" Grid.Row="1" Command="{Binding RenovationCommand}" Height="60" Width="120"></Button>
+        <Button Content="Room reorganisation" Margin="834,18,417,479" Grid.Row="1" Command="{Binding RoomRelocationCommand}" Height="60"/>
     </Grid>
 </UserControl>

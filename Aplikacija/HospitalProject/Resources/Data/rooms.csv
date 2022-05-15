@@ -3,10 +3,14 @@
 3|3|1|operation|1-5
 4|4|0|meeting|1-7
 5|5|0|meeting|1-5
-6|6|0|operation
+6|6|1|operation
 7|7|3|relaxation|1-1
 8|8|1|relaxation
 9|9|1|operation|4-10
 10|10|2|examination
 11|11|2|examination
 12|12|2|examination
+13|111|2|operation
+14|2|2|operation
+15|2|1|operation
+16|22|1|operation
