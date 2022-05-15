@@ -32,7 +32,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Border BorderBrush="#FF272537" BorderThickness="2,2,2,2" Grid.Column="1" Margin="272,90,73,26" Grid.Row="1"/>
-            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="63,124,248,436" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Grid.RowSpan="2" Content="Rooms cointaing selected equipment:">
+            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="63,144,248,437" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Content="Rooms cointaing selected equipment:" Grid.RowSpan="2">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="1"/>
@@ -42,10 +42,10 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="570,125,570,10" Foreground="#FF272537" Grid.ColumnSpan="2" Content="Select destantion room:"/>
+            <Label Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="570,147,570,433" Foreground="#FF272537" Grid.ColumnSpan="2" Content="Select destantion room:" Grid.RowSpan="2"/>
 
 
-            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="63,3,0,94" AutoGenerateColumns="False" x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
+            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="63,32,0,65" AutoGenerateColumns="False" x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
                 ItemsSource="{Binding GeneratedRooms}"
                 SelectedItem="{Binding SelectedRoom}"
                       RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="379"  SelectionChanged="Rooms_SelectionChanged_1" Grid.Column="0" Grid.RowSpan="3" Grid.Row="1">
@@ -66,10 +66,10 @@
 
             </DataGrid>
 
-            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="508,176,0,98" AutoGenerateColumns="False" x:Name ="AllRooms" IsReadOnly="True"   SelectionMode="Single"
+            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="508,32,0,65" AutoGenerateColumns="False" x:Name ="AllRooms" IsReadOnly="True"   SelectionMode="Single"
                 ItemsSource="{Binding AllRooms}"
                 SelectedItem="{Binding DestinationRoom}"
-                      RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="378"  SelectionChanged="Rooms_SelectionChanged" Grid.RowSpan="4" Grid.ColumnSpan="2">
+                      RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="378"  SelectionChanged="Rooms_SelectionChanged" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Row="1">
                 <DataGrid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -96,8 +96,20 @@
                           FontSize="25" Grid.Column="1"  SelectedDate="{Binding Path = RelocationDate, Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="342,310,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="176"/>
             <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="362,265,0,144" Width="164" Foreground="#FF272537" Content="Insert Date:" Grid.Row="1"/>
             <Button Command="{Binding RelocateEquipmentCommand}" BorderThickness="3" Grid.Column="1" Content="Commit" HorizontalAlignment="Left" Margin="542,219,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="68" Width="138" Foreground="#FF272537" BorderBrush="#FF272537"/>
-            <TextBlock FontSize="25" FontWeight="Heavy"  Foreground="#FF272537" HorizontalAlignment="Left" Margin="66,65,0,0" TextWrapping="Wrap" 
+            <TextBlock FontSize="25" FontWeight="Heavy"  Foreground="#FF272537" HorizontalAlignment="Left" Margin="82,11,0,0" TextWrapping="Wrap" 
                        Text="{Binding SelectedEquipment, Converter={StaticResource EquipmentRelocationHeaderConverter}}" VerticalAlignment="Top" Width="384"/>
+            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="66,89,414,47" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Content="Seqrch by quantity:">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox Text="{Binding  SearchQuantity}" FontSize="20"  Margin="278,91,340,48" BorderBrush="#FF272537" BorderThickness="2"/>
+            <Button Command="{Binding SearchQuantityCommand}" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="375,89,0,0" VerticalAlignment="Top" Height="42" Width="103"/>
 
         </Grid>
     </Grid>
