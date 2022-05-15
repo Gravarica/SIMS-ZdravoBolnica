@@ -68,21 +68,23 @@ namespace HospitalProject.View.WardenForms.Views
             AllergiesList = new ObservableCollection<AddingMedicineAlergiesViewModel>();
             SelectedAllergies = new ObservableCollection<Allergies>();
             MedicineItems = medicineItems;
+            LoadAlergies();
+            AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => true);
+        }
+
+        private void LoadAlergies()
+        {
             foreach (var alergie in _allergiesController.GetAll())
             {
                 AllergiesList.Add(new AddingMedicineAlergiesViewModel(alergie));
             }
-            AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => true);
-
-            
         }
         private void ExecuteAddingMedicineComand()
         {
             Equipement newMedicine = new Equipement(SelectedQuantity,SelectedName,EquipementType.MEDICINE,SelectedAllergies.ToList());
             MedicineItems.Add(newMedicine);
             _equipementController.Create(newMedicine);
-            EquipementViewModel wardenEquipemntViewModel =
-                new EquipementViewModel();
+            EquipementViewModel wardenEquipemntViewModel = new EquipementViewModel();
             MainViewModel.Instance.MomentalView = wardenEquipemntViewModel;
         }
         
