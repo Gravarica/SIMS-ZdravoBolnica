@@ -39,6 +39,7 @@ namespace HospitalProject.View.WardenForms.Views
 
         private RoomControoler _roomControoler;
         private RoomRenovationController _roomRenovationController;
+        private EquipmentRelocationController _equipmentRelocationController;
 
         private int destinationRoomsQuantity;
         
@@ -112,15 +113,27 @@ namespace HospitalProject.View.WardenForms.Views
             var app = System.Windows.Application.Current as App;
             _roomControoler = app.RoomController;
             _roomRenovationController = app.RenovationController;
+            _equipmentRelocationController = app.EquipmentRelocationController;
         } 
         
         private void InstantiateData(ObservableCollection<RoomViewModel> rooms)
         {
             InitializeComponent();
             DataContext = this;
-            SourceRooms = new ObservableCollection<Room>();
-            DestinationRooms = new ObservableCollection<RoomCheckBoxModel>();
-            AllRooms = new ObservableCollection<RoomCheckBoxModel>();
+            InitializeCollections();
+            LoadRooms(rooms);
+            InstantiateCommands();
+            
+        }
+
+        private void InstantiateCommands()
+        {
+            InsertDestinationQuantityCommand = new RelayCommand(o => ExecuteInsertDestinationQuantityCommand(), o => CanExecuteInsertDestinationQuantityCommand());
+            CommitReorganisationCommand = new RelayCommand(o => ExecuteCommitReorganisationCommand(), o => CanExecuteInsertDestinationQuantityCommand());
+        }
+
+        private void LoadRooms(ObservableCollection<RoomViewModel> rooms)
+        {
             RoomItems = rooms;
             foreach (Room room in _roomControoler.GetAll())
             {
@@ -130,30 +143,54 @@ namespace HospitalProject.View.WardenForms.Views
                 }
                 
             }
+        }
 
-            InsertDestinationQuantityCommand = new RelayCommand(o => ExecuteInsertDestinationQuantityCommand(),
-                o => CanExecuteInsertDestinationQuantityCommand());
-            
-            CommitReorganisationCommand = new RelayCommand(o => ExecuteCommitReorganisationCommand(),
-                o => CanExecuteInsertDestinationQuantityCommand());
-
+        private void InitializeCollections()
+        {
+            SourceRooms = new ObservableCollection<Room>();
+            DestinationRooms = new ObservableCollection<RoomCheckBoxModel>();
+            AllRooms = new ObservableCollection<RoomCheckBoxModel>();
         }
 
         private void ExecuteCommitReorganisationCommand()
         {
             foreach (RoomCheckBoxModel room in DestinationRooms)
             {
-                Room newRoom = new Room(room);
-                newRoom._floor = SourceRooms[0]._floor;
-                newRoom = CreateRoom(newRoom);
-                UpdateDataViewAdd(newRoom);
-                _roomRenovationController.Create( new RoomRenovation(
-                    new DateOnly(ReorganisationStartDate.Year, ReorganisationStartDate.Month,
-                        ReorganisationStartDate.Day),
-                    new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month, ReorganisationEndDate.Day),
-                    newRoom));
+                SaveRoom(room);
             }
+            
+            ScheduleEquipmentRelocation();
+            SetViewToRoomControl();
+        }
 
+        private void ScheduleEquipmentRelocation()
+        {
+            foreach (Room room in SourceRooms)
+            {
+                foreach (Equipement equipement in room.Equipment)
+                {
+                    _equipmentRelocationController.Create(new EquipmentRelocation(room, new Room(1), equipement,
+                        equipement.Quantity,
+                        new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month,
+                            ReorganisationEndDate.Day)));
+                }
+            }
+            
+        }
+
+        private void SaveRoom(RoomCheckBoxModel room)
+        {
+            Room newRoom = new Room(room);
+            newRoom._floor = SourceRooms[0]._floor;
+            newRoom = CreateRoom(newRoom);
+            UpdateDataViewAdd(newRoom);
+            _roomRenovationController.Create( new RoomRenovation(new DateOnly(ReorganisationStartDate.Year, ReorganisationStartDate.Month, ReorganisationStartDate.Day), 
+                new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month, ReorganisationEndDate.Day),
+                newRoom));
+        }
+
+        private void SetViewToRoomControl()
+        {
             WardenRoomControl wardenRoomControl = new WardenRoomControl(RoomItems);
             MainViewModel.Instance.MomentalView = wardenRoomControl;
         }
@@ -177,6 +214,36 @@ namespace HospitalProject.View.WardenForms.Views
         private void ExecuteInsertDestinationQuantityCommand()
 
         {
+            bool valid = CheckFloors();
+            InitializeDestinationRooms(valid);
+        }
+
+        private void InitializeDestinationRooms(bool valid)
+        {
+            if (valid)
+            {
+                RefreshDestinationRooms();
+            }
+            else
+            {
+                MessageBox.Show("Rooms must be on the same floor", "Warning", MessageBoxButton.OK);
+            }
+        }
+
+        private void RefreshDestinationRooms()
+        {
+            DestinationRooms.Clear();
+            for(int i = 0; i < DestinationRoomsQuantity; i++)
+            {
+                string name = "New Room " + i.ToString();
+                DestinationRooms.Add(new RoomCheckBoxModel(name));
+            }
+        }
+        
+        
+
+        private bool CheckFloors()
+        {
             bool valid = true;
             int floor = SourceRooms[0]._floor;
             foreach (Room room in SourceRooms)
@@ -184,25 +251,10 @@ namespace HospitalProject.View.WardenForms.Views
                 if (floor != room._floor)
                 {
                     valid = false;
-                   
                 }
             }
 
-            if (valid)
-            {
-                DestinationRooms.Clear();
-                for(int i = 0; i < DestinationRoomsQuantity; i++)
-                {
-                    string name = "newRoom" + i.ToString();
-                    DestinationRooms.Add(new RoomCheckBoxModel(name));
-                }
-            }
-            else
-            {
-                MessageBox.Show("Rooms must be on the same floor", "Warning", MessageBoxButton.OK);
-            }
-            
-            
+            return valid;
         }
 
         private bool CanExecuteInsertDestinationQuantityCommand()
@@ -236,19 +288,5 @@ namespace HospitalProject.View.WardenForms.Views
             }  
         }
 
-        private void DestinationRoomCheckbox_CheckedAndUnchecked(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void BindListBoxToDestinationRoom()
-        {
-            
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
