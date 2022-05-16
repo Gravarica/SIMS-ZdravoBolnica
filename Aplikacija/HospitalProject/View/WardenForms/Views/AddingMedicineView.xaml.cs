@@ -68,14 +68,25 @@ namespace HospitalProject.View.WardenForms.Views
         {
             InitializeComponent();
             DataContext = this;
+            InitializeCollections(medicineItems);
+            LoadAlergies();
+            LoadReplacements();
+            InstantiateCommands();
+        }
+
+        private void InitializeCollections(ObservableCollection<Equipement> medicineItems)
+        {
             AllergiesList = new ObservableCollection<AddingMedicineAlergiesViewModel>();
             ReplacmentList = new ObservableCollection<EquipmentCheckBoxModel>();
             SelectedAllergies = new ObservableCollection<Allergies>();
             SelectedReplacements = new ObservableCollection<Equipement>();
             MedicineItems = medicineItems;
-            LoadAlergies();
-            LoadReplacements();
+        }
+
+        private void InstantiateCommands()
+        {
             AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => CanExecuteAddingMedicineComand());
+
         }
 
         private void LoadAlergies()
