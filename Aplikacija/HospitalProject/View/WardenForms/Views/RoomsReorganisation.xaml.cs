@@ -129,7 +129,7 @@ namespace HospitalProject.View.WardenForms.Views
         private void InstantiateCommands()
         {
             InsertDestinationQuantityCommand = new RelayCommand(o => ExecuteInsertDestinationQuantityCommand(), o => CanExecuteInsertDestinationQuantityCommand());
-            CommitReorganisationCommand = new RelayCommand(o => ExecuteCommitReorganisationCommand(), o => CanExecuteInsertDestinationQuantityCommand());
+            CommitReorganisationCommand = new RelayCommand(o => ExecuteCommitReorganisationCommand(), o => CanExecuteCommit());
         }
 
         private void LoadRooms(ObservableCollection<RoomViewModel> rooms)
@@ -259,7 +259,32 @@ namespace HospitalProject.View.WardenForms.Views
 
         private bool CanExecuteInsertDestinationQuantityCommand()
         {
-            return true;
+            return DestinationRoomsQuantity>0;
+        }
+
+        private bool CanExecuteCommit()
+        {
+            bool valid = true;
+            foreach (RoomCheckBoxModel room in DestinationRooms)
+            {
+                if (room.RoomType == null)
+                {
+                    valid = false;
+                }
+
+                if (room.Number <= 0)
+                {
+                    valid = false;
+                }
+
+                if (reorganisationEndDate <= reorganisatoionStartDate)
+                {
+                    valid = false;
+                }
+                
+            }
+
+            return valid && CanExecuteInsertDestinationQuantityCommand();
         }
         
 

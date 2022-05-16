@@ -13,6 +13,7 @@ namespace HospitalProject.Model
         private string name;
         private EquipementType equipementType;
         private List<Allergies> alergens;
+        private List<Equipement> replacements;
 
 
 
@@ -45,6 +46,34 @@ namespace HospitalProject.Model
             }
         }
         
+        public List<Equipement> Replacements
+        {
+            get
+            {
+                if (replacements == null)
+                {
+                    replacements = new System.Collections.Generic.List<Equipement>();
+                }
+                return replacements;
+            }
+            set
+            {
+                if (replacements != null)
+                {
+                    replacements.Clear();
+                }
+                if (value != null)
+                {
+                    foreach (Equipement al in value)
+                    {
+                        AddReplacement(al);
+                    }
+                }
+                OnPropertyChanged(nameof(Replacements));
+              
+            }
+        }
+        
         public void AddAlergen(Allergies al)
         {
             if (al == null)
@@ -60,6 +89,25 @@ namespace HospitalProject.Model
             if (!alergens.Contains(al))
             {
                 alergens.Add(al);
+            }
+           
+        }
+        
+        public void AddReplacement(Equipement medicine)
+        {
+            if (medicine == null)
+            {
+                return;
+            }
+
+            if (replacements == null)
+            {
+                replacements = new System.Collections.Generic.List<Equipement>();
+            }
+
+            if (!replacements.Contains(medicine))
+            {
+                replacements.Add(medicine);
             }
            
         }
@@ -130,6 +178,16 @@ namespace HospitalProject.Model
             this.name = name;
             this.equipementType = equipementType;
             this.alergens = alergens;
+        }
+
+        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens, List<Equipement> replacements)
+        {
+            this.id = id;
+            this.quantity = quantity;
+            this.name = name;
+            this.equipementType = equipementType;
+            this.alergens = alergens;
+            this.replacements = replacements;
         }
 
         public Equipement(int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
