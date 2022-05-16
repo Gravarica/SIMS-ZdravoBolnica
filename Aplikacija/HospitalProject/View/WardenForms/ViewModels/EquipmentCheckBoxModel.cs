@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HospitalProject.View.WardenForms.ViewModels;
+﻿using System.Collections.Generic;
+using HospitalProject.Core;
+using HospitalProject.Model;
 
-namespace HospitalProject.Model
+namespace HospitalProject.View.WardenForms.ViewModels
 {
-    public class Equipement : ViewModelBase
+
+
+
+    public class EquipmentCheckBoxModel : BaseViewModel
     {
         private int id;
         private int quantity;
@@ -15,9 +15,21 @@ namespace HospitalProject.Model
         private EquipementType equipementType;
         private List<Allergies> alergens;
         private List<Equipement> replacements;
+        private bool isChecked;
 
 
-
+        public bool IsChecked
+        {
+            get
+            {
+                return isChecked;
+            }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
 
         public List<Allergies> Alergens
         {
@@ -164,33 +176,7 @@ namespace HospitalProject.Model
             }
         }
 
-        public Equipement(int id, int quantity, string name, EquipementType equipementType)
-        {
-            Id = id;
-            Quantity = quantity;
-            Name = name;
-            EquipementType = equipementType;
-        }
-
-        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
-        {
-            this.id = id;
-            this.quantity = quantity;
-            this.name = name;
-            this.equipementType = equipementType;
-            this.alergens = alergens;
-        }
-
-        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Equipement> replacements)
-        {
-            this.id = id;
-            this.quantity = quantity;
-            this.name = name;
-            this.equipementType = equipementType;
-            this.replacements = replacements;
-        }
-
-        public Equipement(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens, List<Equipement> replacements)
+        public EquipmentCheckBoxModel(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens, List<Equipement> replacements)
         {
             this.id = id;
             this.quantity = quantity;
@@ -198,37 +184,10 @@ namespace HospitalProject.Model
             this.equipementType = equipementType;
             this.alergens = alergens;
             this.replacements = replacements;
+            IsChecked = false;
         }
 
-        public Equipement(int quantity, string name, EquipementType equipementType, List<Allergies> alergens)
-        {
-            this.quantity = quantity;
-            this.name = name;
-            this.equipementType = equipementType;
-            this.alergens = alergens;
-        }
-
-        public Equipement( int quantity, string name, EquipementType equipementType)
-        {
-            Quantity = quantity;
-            Name = name;
-            EquipementType = equipementType;
-        }
-
-        public Equipement(int id, int quantity)
-        {
-            this.id = id;
-            this.quantity = quantity;
-        }
-
-        public Equipement(int id)
-        {
-            this.id = id;
-        }
-
-        public Equipement() { }
-
-        public Equipement(EquipmentCheckBoxModel eq)
+        public EquipmentCheckBoxModel(Equipement eq)
         {
             Id = eq.Id;
             Quantity = eq.Quantity;
@@ -236,18 +195,7 @@ namespace HospitalProject.Model
             EquipementType = eq.EquipementType;
             Alergens = eq.Alergens;
             Replacements = eq.Replacements;
-            
-        }
-
-        public Equipement(int quantity, string name, EquipementType equipementType, List<Allergies> alergens, List<Equipement> replacements)
-        {
-            this.quantity = quantity;
-            this.name = name;
-            this.equipementType = equipementType;
-            this.alergens = alergens;
-            this.replacements = replacements;
+            IsChecked = false;
         }
     }
-
-
 }

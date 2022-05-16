@@ -32,9 +32,9 @@
                     <RowDefinition Height="699*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="278*"/>
+                    <ColumnDefinition Width="850*"/>
+                    <ColumnDefinition Width="263*"/>
 
                 </Grid.ColumnDefinitions>
 
@@ -50,23 +50,21 @@
                         <RowDefinition Height="527*"/>
                     </Grid.RowDefinitions>
 
-                    <Border BorderBrush="Black" BorderThickness="2" Margin="0,-59,-110,53" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                        <Border  BorderBrush="Black" BorderThickness="2" Margin="860,236,-80,258" Background="#FFF3BF09"/>
-                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="2" Margin="-262,-59,-224,53" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
 
-                    <Label FontSize="25" FontWeight="Heavy" Margin="131,24,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Insert name:"/>
-                    <Label Grid.Row="1" FontSize="25" FontWeight="Heavy" Margin="107,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="43" Width="204" Content="Insert Quantity:"/>
-                    <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Grid.Row="1" Margin="39,16,42,24" Grid.Column="1"/>
-                    <TextBox Text="{Binding SelectedName}" BorderThickness="3" Grid.Row="0" Margin="42,24,44,14" Grid.Column="1"/>
-                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="94,41,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244"/>
-                    <ListView x:Name="SelectedSupstancessList" ItemsSource="{Binding SelectedAllergies}"   Grid.Row="2" Grid.Column="1"  Margin="40,50,42,101" FontSize="20" Background="White" BorderThickness="3" BorderBrush="#89130E0E">
+                    <Label FontSize="25" FontWeight="Heavy" Margin="-198,15,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Insert name:"/>
+                    <Label FontSize="25" FontWeight="Heavy" Margin="22,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42" Width="204" Content="Insert Quantity:" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Margin="324,18,-110,20" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedName}" BorderThickness="3" Grid.Row="0" Margin="38,18,108,17"/>
+                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="-230,15,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244"/>
+                    <ListView x:Name="SelectedSupstancessList" ItemsSource="{Binding SelectedAllergies}"   Grid.Row="2"  Margin="38,66,108,239" FontSize="20" Background="White" BorderThickness="3" BorderBrush="#89130E0E">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <ComboBox  TextBoxBase.TextChanged="ddlSupstances_TextChanged" FontSize="20" SelectionChanged="ddlSupstances_SelectionChanged" ItemsSource="{Binding AllergiesList}"  Grid.Column="0" Grid.Row="2" Margin="89,103,29,377" 
+                    <ComboBox  TextBoxBase.TextChanged="ddlSupstances_TextChanged" FontSize="20" SelectionChanged="ddlSupstances_SelectionChanged" ItemsSource="{Binding AllergiesList}"  Grid.Column="0" Grid.Row="2" Margin="-227,69,374,411" 
                                x:Name="ddlSupstances"  IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True"  >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -77,9 +75,28 @@
 
 
                     </ComboBox>
+                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="4,23,0,0" HorizontalAlignment="Left" Content="Select replacements:" VerticalAlignment="Top" Height="43" Width="274" Grid.Column="1"/>
+                    <ListView x:Name="SelectedReplacementList" ItemsSource="{Binding SelectedReplacements}"   Grid.Row="2"  Margin="321,70,-105,248" FontSize="20" Background="White" BorderThickness="3" BorderBrush="#89130E0E" Grid.Column="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ComboBox  TextBoxBase.TextChanged="ddlReplacement_TextChanged" FontSize="20" SelectionChanged="ddlReplacement_SelectionChanged" ItemsSource="{Binding ReplacmentList}"  Grid.Column="1" Grid.Row="2" Margin="13,90,204,390" 
+                        x:Name="ddlReplacements"  IsEditable="True" IsTextSearchEnabled="True" StaysOpenOnEdit="True"  >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox FontSize="15" VerticalAlignment="Center" x:Name ="chkSupstance" Checked="AllCheckbox_Replacements_CheckedAndUnchecked" Unchecked="AllCheckbox_Replacements_CheckedAndUnchecked"
+                                    Content="{Binding Name}" IsChecked="{Binding IsChecked}" CommandParameter="{Binding Id}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+
+                    </ComboBox>
 
                 </Grid>
-                <Button Command="{Binding AddMedicineCommand}" Grid.Column="2" BorderThickness="3" Content="Add" HorizontalAlignment="Left" Margin="54,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="30" FontWeight="Heavy" Height="76" Width="115"/>
+                <Button Command="{Binding AddMedicineCommand}" Grid.Column="2" BorderThickness="3" Content="Add" HorizontalAlignment="Left" Margin="34,515,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="30" FontWeight="Heavy" Height="98" Width="158"/>
 
 
 

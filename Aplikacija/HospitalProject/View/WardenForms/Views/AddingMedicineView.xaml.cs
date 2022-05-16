@@ -31,10 +31,13 @@ namespace HospitalProject.View.WardenForms.Views
         
         public ObservableCollection<Equipement> MedicineItems { get; set; }
         public ObservableCollection<AddingMedicineAlergiesViewModel> AllergiesList { get; set; }
+        
+        public ObservableCollection<EquipmentCheckBoxModel> ReplacmentList { get; set; }
 
         private EquipementController _equipementController;
         private AllergiesController _allergiesController;
         public ObservableCollection<Allergies> SelectedAllergies { get; set; }
+        public ObservableCollection<Equipement> SelectedReplacements { get; set; }
 
         public RelayCommand AddMedicineCommand { get; set; }
 
@@ -66,9 +69,12 @@ namespace HospitalProject.View.WardenForms.Views
             InitializeComponent();
             DataContext = this;
             AllergiesList = new ObservableCollection<AddingMedicineAlergiesViewModel>();
+            ReplacmentList = new ObservableCollection<EquipmentCheckBoxModel>();
             SelectedAllergies = new ObservableCollection<Allergies>();
+            SelectedReplacements = new ObservableCollection<Equipement>();
             MedicineItems = medicineItems;
             LoadAlergies();
+            LoadReplacements();
             AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => CanExecuteAddingMedicineComand());
         }
 
@@ -79,9 +85,17 @@ namespace HospitalProject.View.WardenForms.Views
                 AllergiesList.Add(new AddingMedicineAlergiesViewModel(alergie));
             }
         }
+
+        private void LoadReplacements()
+        {
+            foreach (Equipement replacement in _equipementController.GetAll())
+            {
+                ReplacmentList.Add(new EquipmentCheckBoxModel(replacement));
+            }
+        }
         private void ExecuteAddingMedicineComand()
         {
-            Equipement newMedicine = new Equipement(SelectedQuantity,SelectedName,EquipementType.MEDICINE,SelectedAllergies.ToList());
+            Equipement newMedicine = new Equipement(SelectedQuantity,SelectedName,EquipementType.MEDICINE,SelectedAllergies.ToList(),SelectedReplacements.ToList());
             MedicineItems.Add(newMedicine);
             _equipementController.Create(newMedicine);
             EquipementViewModel wardenEquipemntViewModel = new EquipementViewModel();
@@ -98,14 +112,42 @@ namespace HospitalProject.View.WardenForms.Views
         {  
   
         }  
+        
+        public void ddlReplacement_SelectionChanged(object sender, SelectionChangedEventArgs e)  
+        {  
+  
+        }  
         public void ddlSupstances_TextChanged(object sender, TextChangedEventArgs e)  
         {  
             ddlSupstances.ItemsSource = AllergiesList.Where(x => x.Name.StartsWith(ddlSupstances.Text.Trim()));
+        }  
+        
+        public void ddlReplacement_TextChanged(object sender, TextChangedEventArgs e)  
+        {  
+            ddlReplacements.ItemsSource = ReplacmentList.Where(x => x.Name.StartsWith(ddlSupstances.Text.Trim()));
         }  
         private void AllCheckbocx_CheckedAndUnchecked(object sender, RoutedEventArgs e)  
         {  
             BindListBOX();  
         }  
+        
+        private void AllCheckbox_Replacements_CheckedAndUnchecked(object sender, RoutedEventArgs e)  
+        {  
+            BindListBOXReplacements();  
+        }  
+        
+        private void BindListBOXReplacements()  
+        {  
+            SelectedReplacements.Clear();  
+            foreach(EquipmentCheckBoxModel replacement in ReplacmentList)  
+            {
+                if (replacement.IsChecked)
+                {
+                    SelectedReplacements.Add(new Equipement(replacement));
+                }
+            }  
+        }  
+        
         
         private void BindListBOX()  
         {  
