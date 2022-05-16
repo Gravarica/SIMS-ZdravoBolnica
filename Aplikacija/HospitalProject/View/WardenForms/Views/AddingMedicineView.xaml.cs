@@ -69,7 +69,7 @@ namespace HospitalProject.View.WardenForms.Views
             SelectedAllergies = new ObservableCollection<Allergies>();
             MedicineItems = medicineItems;
             LoadAlergies();
-            AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => true);
+            AddMedicineCommand = new RelayCommand(param => ExecuteAddingMedicineComand(), param => CanExecuteAddingMedicineComand());
         }
 
         private void LoadAlergies()
@@ -86,6 +86,11 @@ namespace HospitalProject.View.WardenForms.Views
             _equipementController.Create(newMedicine);
             EquipementViewModel wardenEquipemntViewModel = new EquipementViewModel();
             MainViewModel.Instance.MomentalView = wardenEquipemntViewModel;
+        }
+
+        private bool CanExecuteAddingMedicineComand()
+        {
+            return SelectedName != null && SelectedQuantity > 0;
         }
         
         
