@@ -8,35 +8,41 @@
              d:DesignHeight="884" Width="1396">
     <Grid Width="1391" Margin="2,14,2,0"  >
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="557*"/>
-            <RowDefinition Height="253*"/>
+            <RowDefinition Height="78*"></RowDefinition>
+            <RowDefinition Height="805*"/>
 
         </Grid.RowDefinitions>
-
-        <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top" Content="WARDEN VIEW - ROOMS" Foreground="#FFF3BF09" BorderThickness="1" Width="1382" Height="58" Margin="0,8,0,0" BorderBrush="#FFF3BF09" Grid.RowSpan="2" />
-        <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1" Margin="5,90,5,1" 
+        <Grid Grid.Row="1" Background="#FFF3BF09">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="503*"></RowDefinition>
+                <RowDefinition Height="290*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="0" Margin="29,90,43,1" 
                   AutoGenerateColumns="False" Name ="Rooms" IsReadOnly="True" 
                     ItemsSource="{Binding Path=RoomItems}"
                   SelectedItem="{Binding SelectedItem1}" 
                   SelectionMode="Single" BorderBrush="#FFD4D600">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Room ID" Binding="{Binding RoomId}" Width="*"/>
-                <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" Width="*"/>
-                <DataGridTextColumn Header="Room Floor" Binding="{Binding RoomFloor}" Width="*"/>
-                <DataGridTextColumn Header="Room Type" Binding="{Binding TypeRoom}" Width="*"/>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Room ID" Binding="{Binding RoomId}" Width="*"/>
+                    <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" Width="*"/>
+                    <DataGridTextColumn Header="Room Floor" Binding="{Binding RoomFloor}" Width="*"/>
+                    <DataGridTextColumn Header="Room Type" Binding="{Binding TypeRoom}" Width="*"/>
 
 
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                </DataGrid.Columns>
+            </DataGrid>
 
-            <Border Grid.Column="0" BorderBrush="#FFD4D600" BorderThickness="1" Margin="5">
-                <StackPanel Background="#FFF3BF09">
+
+            <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top" Content="WARDEN VIEW - ROOMS" Foreground="#FFF3BF09" BorderThickness="1" Width="1382" Height="78" Margin="0,8,0,0" BorderBrush="#FFF3BF09" />
+
+            <Grid Grid.Row="1" Margin="0,15,0,-1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2" Margin="34,0,695,21"></Border>
+                <StackPanel Background="#FFF3BF09" Margin="58,18,30,30">
                     <Label Content="Create new Room" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF272537"/>
                     <Grid Margin="5,20,5,5" Name ="NewRoomGrid">
                         <Grid.ColumnDefinitions>
@@ -66,12 +72,13 @@
                         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding RoomFloor}"/>
 
 
-                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content= "Add" Click="AddEvent_Handler" Margin="115,9,146,-48" />
+                        <Button Grid.Row="3" Content= "Add" Click="AddEvent_Handler" Margin="219,17,262,-90" Grid.ColumnSpan="2" />
                     </Grid>
+
                 </StackPanel>
-            </Border>
-            <Border Grid.Column="1" BorderBrush="#FFD4D600" BorderThickness="1" Margin="5">
-                <StackPanel Background="#FFF3BF09">
+
+                <Border BorderThickness="2" BorderBrush="Black" Grid.Column="1" Margin="18,0,43,22"></Border>
+                <StackPanel Background="#FFF3BF09" Margin="38,8,65,59" Grid.Column="1">
                     <Label Content="Room Information" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF272537"/>
                     <Grid Margin="5,20,5,5" Name ="InfoRoomtGrid" DataContext="{Binding ElementName=Rooms,Path=SelectedItem}" >
                         <Grid.ColumnDefinitions>
@@ -102,13 +109,15 @@
                         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding RoomFloor}"/>
 
 
-                        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content= "Edit" Click="EditEvent_Handler" Foreground="#FF272537" Margin="112,7,148,-43"/>
+                        <Button Grid.Row="4" Content= "Edit" Click="EditEvent_Handler" Foreground="White" Margin="248,9,240,-73" Grid.ColumnSpan="2"/>
                     </Grid>
                 </StackPanel>
-            </Border>
+
+            </Grid>
         </Grid>
-        <Button Content="Delete" HorizontalAlignment="Left" Margin="1025,20,0,0" Click = "DeleteEvent_Handler" VerticalAlignment="Top" Height="60" Width="100" Grid.Row="1" />
-        <Button Content="Room renovatoin" Margin="1174,18,64,479" Grid.Row="1" Command="{Binding RenovationCommand}" Height="60" Width="120"></Button>
-        <Button Content="Room reorganisation" Margin="834,18,417,479" Grid.Row="1" Command="{Binding RoomRelocationCommand}" Height="60"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="1050,19,0,0" Click = "DeleteEvent_Handler" VerticalAlignment="Top" Height="60" Width="100" Grid.Row="1" />
+        <Button Content="Room renovatoin" Margin="1200,18,43,0" Grid.Row="1" Command="{Binding RenovationCommand}" Height="60" VerticalAlignment="Top"/>
+        <Button Content="Room reorganisation" Margin="847,19,0,0" Grid.Row="1" Command="{Binding RoomRelocationCommand}" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1252,8,2,792" Grid.RowSpan="2" Content="Rooms"/>
     </Grid>
 </UserControl>

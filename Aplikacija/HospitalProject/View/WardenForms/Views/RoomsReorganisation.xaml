@@ -43,14 +43,14 @@
 
 
                 <Label FontSize="20" FontWeight="Heavy" Margin="56,221,0,0" HorizontalAlignment="Left" Content="Insert destionation rooms Quantity:" VerticalAlignment="Top" Height="43" Width="448"/>
-                <DatePicker SelectedDate="{Binding Path = ReorganisationStartDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="64,459,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
-                <DatePicker SelectedDate="{Binding Path = ReorganisationEndDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="69,580,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
-                <TextBox Height="70" x:Name="destinationRoomsQuantityBox" Text="{Binding DestinationRoomsQuantity}" BorderThickness="3" Grid.Row="0" Margin="66,278,999,481"/>
+                <DatePicker SelectedDate="{Binding Path = ReorganisationStartDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="64,494,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
+                <DatePicker SelectedDate="{Binding Path = ReorganisationEndDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="69,615,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
+                <TextBox x:Name="destinationRoomsQuantityBox" Text="{Binding DestinationRoomsQuantity}" BorderThickness="3" Grid.Row="0" Margin="135,280,1145,475"/>
 
-                <Label FontSize="20" FontWeight="Heavy" Margin="73,395,0,0" HorizontalAlignment="Left" Content="Starting Date:" VerticalAlignment="Top" Height="42" Width="268"/>
-                <Label FontSize="20" FontWeight="Heavy" Margin="61,534,0,0" HorizontalAlignment="Left" Content="Ending Date:" VerticalAlignment="Top" Height="42" Width="268"/>
-                <Button Command = "{Binding InsertDestinationQuantityCommand}" Content="Insert" HorizontalAlignment="Left" Margin="396,278,0,0" VerticalAlignment="Top" Height="39" Width="68" RenderTransformOrigin="0.308,0.333"/>
-                <Button Command = "{Binding CommitReorganisationCommand}" FontSize="25" Content="Commit" HorizontalAlignment="Left" Margin="1178,626,0,0" VerticalAlignment="Top" Height="70" Width="173"/>
+                <Label FontSize="20" FontWeight="Heavy" Margin="73,430,0,0" HorizontalAlignment="Left" Content="Starting Date:" VerticalAlignment="Top" Height="42" Width="268"/>
+                <Label FontSize="20" FontWeight="Heavy" Margin="61,569,0,0" HorizontalAlignment="Left" Content="Ending Date:" VerticalAlignment="Top" Height="42" Width="268"/>
+                <Button Command = "{Binding InsertDestinationQuantityCommand}" Content="Insert" HorizontalAlignment="Left" Margin="264,279,0,0" VerticalAlignment="Top" Height="45" Width="68" RenderTransformOrigin="0.308,0.333"/>
+                <Button Command = "{Binding CommitReorganisationCommand}" FontSize="25" Content="Commit" HorizontalAlignment="Left" Margin="946,582,0,0" VerticalAlignment="Top" Height="70" Width="173"/>
                 <ComboBox  x:Name="DestinationRoomsComboBox" ItemsSource="{Binding DestinationRooms}" HorizontalAlignment="Left" Margin="670,116,0,0" VerticalAlignment="Top" Width="214" Height="40">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -60,7 +60,7 @@
                 </ComboBox>
 
             </Grid>
-            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1032,4,7,88" Content="Rooms reorganisation"/>
+            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1017,3,22,90" Content="Rooms reorganisation"/>
             <Grid  Margin="805,153,57,250" Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=DestinationRoomsComboBox}" RenderTransformOrigin="0.505,0.495">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="245*"/>
@@ -79,9 +79,9 @@
             <Label FontSize="20" FontWeight="Heavy" Margin="685,221,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Select type:" Grid.Row="1"/>
             <Label FontSize="20" FontWeight="Heavy" Margin="683,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="204" Content="Insert number:" Grid.Row="1"/>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="19,471,854,132"/>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="615,138,246,126"/>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="19,139,854,431"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="19,505,903,98"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="564,130,116,95"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="20,133,906,436"/>
 
     </Grid>
 </UserControl>

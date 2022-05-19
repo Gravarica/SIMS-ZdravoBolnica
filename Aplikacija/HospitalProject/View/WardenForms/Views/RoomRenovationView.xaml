@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" Width="1391" Height="883.04">
     <Grid Height="883.04" Width="1391">
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderBrush="#FFF3BF09" BorderThickness="1" Margin="0,13,0,800" Content="Room Renovation"/>
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1093,13,-1,800" Content="Room Renovation"/>
         <Grid Background="#FFF3BF09"   Margin="0,83,0,1" >
 
             <Grid.ColumnDefinitions>
@@ -18,13 +18,7 @@
             <Border BorderThickness="2" BorderBrush="Black" Margin="15,64,139,52" Grid.ColumnSpan="2"/>
 
 
-            <Border BorderBrush="Black" BorderThickness="2" Margin="69,490,99,124"/>
-
-
-            <Border BorderBrush="Black" BorderThickness="2" Margin="69,307,99,307"/>
-
-
-            <Border BorderBrush="Black" BorderThickness="2" Margin="69,124,99,490"/>
+            <Border BorderBrush="Black" BorderThickness="2" Margin="49,123,65,124"/>
 
 
             <Grid Grid.Column="0">
@@ -57,7 +51,7 @@
 
 
             </Grid>
-            <DataGrid BorderThickness="2" Margin="0,124,283,124" AutoGenerateColumns="False"
+            <DataGrid Style="{StaticResource ResourceKey=grid1}" BorderThickness="2" Margin="0,124,283,124" AutoGenerateColumns="False"
                       FontSize="25" IsReadOnly="True"
                       SelectionMode="Single"
                       ItemsSource="{Binding GeneratedRenovationAppointments}"

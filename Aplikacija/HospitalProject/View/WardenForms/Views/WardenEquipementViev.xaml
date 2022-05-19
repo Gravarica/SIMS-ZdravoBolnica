@@ -12,17 +12,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="463*"/>
+            <RowDefinition Height="152*"/>
+            <RowDefinition Height="731*"/>
         </Grid.RowDefinitions>
-        <Grid Background="#FFF3BF09"   Margin="0,83,0,1" Grid.RowSpan="2" >
+        <Grid Background="#FFF3BF09"   Margin="0,83,0,0" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="100*"/>
-                <RowDefinition Height="699*"/>
+                <RowDefinition Height="96*"/>
+                <RowDefinition Height="703*"/>
             </Grid.RowDefinitions>
 
         </Grid>
-        <DataGrid Grid.RowSpan="2" Margin="40,30,40,10" AutoGenerateColumns="False" 
+        <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="40,30,40,80" AutoGenerateColumns="False" 
                   x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
                   ItemsSource="{Binding EquipementItems}"
                   SelectedItem="{Binding SelectedItem}" Grid.Row="1" >
@@ -40,7 +40,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Grid.Column="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}" Margin="1192,97,45,714" MaxWidth="200" Grid.RowSpan="2"/>
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1195,13,8,56" Content="Equipment"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}" Margin="1182,90,0,4" MaxWidth="200" Height="55" HorizontalAlignment="Left"/>
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1170,13,33,56" Content="Equipment"/>
     </Grid>
 </UserControl>
