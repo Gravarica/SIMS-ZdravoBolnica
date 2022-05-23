@@ -9,13 +9,13 @@
              Width="1391" Height="883.04">
 
     <Grid Height="883.04" Width="1391">
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderBrush="#FFF3BF09" BorderThickness="1" Margin="0,13,0,800" Content="Medicine"/>
-        <Grid Background="#FFF3BF09"   Margin="0,83,0,1" >
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1220,9,11,804" Content="Medicine"/>
+        <Grid Background="#FFF3BF09"   Margin="0,83,0,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"></RowDefinition>
                 <RowDefinition Height="699*"/>
             </Grid.RowDefinitions>
-            <DataGrid Grid.Row="1"  Margin="40,30,40,10" IsReadOnly="True" ItemsSource="{Binding Path=MedicineItems}" 
+            <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1"  Margin="40,30,40,80" IsReadOnly="True" ItemsSource="{Binding Path=MedicineItems}" 
                       SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Medicine id"  Width="*" Binding="{Binding Id}"></DataGridTextColumn>
@@ -23,10 +23,10 @@
                     <DataGridTextColumn Header="Name"  Width="*" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding AddMedicineCommand}" Content="Add" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="124" Margin="1222,35,0,0"/>
+            <Button Command="{Binding AddMedicineCommand}" Content="Add" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="58" Width="124" Margin="1222,35,0,0"/>
 
         </Grid>
-        
+
 
 
     </Grid>

@@ -20,10 +20,12 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
     private DateTime relocationDate;
     private ObservableCollection<EquipmentRoomModel> _generatedRooms;
+    private ObservableCollection<EquipmentRoomModel> _allGeneratedRooms;
     private ObservableCollection<EquipmentRoomModel> _allRooms;
     private int roomNumber;
     private int roomId;
     private int equipmentQuantity;
+    private int searchQuantity;
 
     private int destinationRoomNumber;
     private int destinationRoomId;
@@ -31,6 +33,20 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
     private bool wasZero;
     public RelayCommand RelocateEquipmentCommand { get; set; }
+    public RelayCommand SearchQuantityCommand { get; set; }
+    
+    public ObservableCollection<EquipmentRoomModel> AllGeneratedRooms
+    {
+        get
+        {
+            return _allGeneratedRooms;
+        }
+        set
+        {
+            _allGeneratedRooms = value;
+            OnPropertyChanged(nameof(AllGeneratedRooms));
+        }
+    }
     
     public ObservableCollection<EquipmentRoomModel> GeneratedRooms
     {
@@ -110,6 +126,19 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         }
     }
     
+    public int SearchQuantity
+    {
+        get
+        {
+            return searchQuantity;
+        }
+        set
+        {
+            searchQuantity = value;
+            OnPropertyChanged(nameof(SearchQuantity));
+        }
+    }
+    
     public EquipmentRoomModel DestinationRoom
     {
         get
@@ -143,8 +172,9 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         int equipmentsId = selectedEquipment.Id;
         GeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateEquipementRooms(equipmentsId));
         AllRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
+        AllGeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
         RelocateEquipmentCommand = new RelayCommand( parm=> ExecuteEquipmentRelocation(selectedEquipment), param => CanExecuteRelocation());
-
+        SearchQuantityCommand = new RelayCommand(o => ExecuteSearchQuantityCommand(), o => true);
     }
     public WardenEquipemntRelocationViewModel()
     {
@@ -158,7 +188,18 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         equipmentRelocationController = app.EquipmentRelocationController;
 
     }
-    
+
+    private void ExecuteSearchQuantityCommand()
+    {
+        GeneratedRooms.Clear();
+        foreach (EquipmentRoomModel room in AllGeneratedRooms)
+        {
+            if (room.EquipmentQuantity >= SearchQuantity)
+            {
+                GeneratedRooms.Add(room);
+            }
+        }
+    }
 
     private void ScheduleEquipmentRelocation(Equipement selectedEquipment)
     {

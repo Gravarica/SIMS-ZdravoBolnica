@@ -20,6 +20,9 @@ namespace HospitalProject.View.Converter
         public static IList<RoomViewModel> ConvertRoomListTORoomViewList(IList<Room> rooms)
             => ConvertEntityListToViewList(rooms, ConvertRoomToRoomView);
 
+        public static IList<Room> ConvertRoomVievListTORoomList(IList<RoomViewModel> roomVievModels)
+            => ConvertEntityListToViewList(roomVievModels, ConvertRoomViewtoRoom);
+
 
         public static Room ConvertRoomViewtoRoom(RoomViewModel rvm)
             => new Room
