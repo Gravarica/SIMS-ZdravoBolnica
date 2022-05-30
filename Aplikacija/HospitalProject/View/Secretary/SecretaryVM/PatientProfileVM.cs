@@ -14,15 +14,14 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class PatientProfileVM : BaseViewModel
+    public class PatientProfileVM : BaseViewModel
     {
-       
-
-        MedicalRecord _medicalRecord;
         private Patient _patient;
         private MedicalRecordService _medicalRecordService;
         private RelayCommand showAllergiesCommand;
         private RelayCommand edit;
+        MedicalRecord _medicalRecord;
+        
         public PatientProfileVM(MedicalRecord medicalRecord)
         {
             _medicalRecord = medicalRecord;
@@ -32,7 +31,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             _medicalRecordService = medicalRecordService;
             _patient = patient;
-
         }
 
         public Patient Patient

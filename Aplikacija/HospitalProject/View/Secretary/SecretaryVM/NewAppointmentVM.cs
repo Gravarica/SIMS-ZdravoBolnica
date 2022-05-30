@@ -14,7 +14,7 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class NewAppointmentVM : BaseViewModel
+    public class NewAppointmentVM : BaseViewModel
     {
 
         private AppointmentController appointmentController;

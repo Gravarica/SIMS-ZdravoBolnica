@@ -32,7 +32,8 @@ namespace HospitalProject.FileHandler
                                        CreateDateInterval(tokens[3], tokens[4]),  
                                        tokens[5],
                                        bool.Parse(tokens[6]),
-                                       ConvertTokenToRequestState(tokens[7]));
+                                       ConvertTokenToRequestState(tokens[7]),
+                                       tokens[8]);
 
         }
 
@@ -53,7 +54,8 @@ namespace HospitalProject.FileHandler
                                vacationRequest.DateInterval.EndDate.ToString(_dateTimeFormat),
                                vacationRequest.Description,
                                vacationRequest.IsUrgent.ToString(),
-                               vacationRequest.RequestState.ToString());
+                               vacationRequest.RequestState.ToString(),
+                               vacationRequest.SecretaryDescription);
         }
 
         public IEnumerable<VacationRequest> ReadAll()

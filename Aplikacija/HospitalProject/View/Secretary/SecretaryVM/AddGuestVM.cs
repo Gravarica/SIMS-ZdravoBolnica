@@ -13,24 +13,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 {
     internal class AddGuestVM : BaseViewModel
     {
-        public ObservableCollection<Patient> Patients { get; set; }
-        private RelayCommand saveCommand;
-
-        PatientController _patientController;
-
         private int _jmbg;
-
         private string _firstname;
-
         private string _lastname;
-
         private Patient _patient;
         private bool modalResult;
-
         private Window window;
         private int _id;
         private int _idMR;
-
+        public ObservableCollection<Patient> Patients { get; set; }
+        private RelayCommand saveCommand;
+        PatientController _patientController;
+        
         public AddGuestVM(Window window)
         {
             var app = System.Windows.Application.Current as App;
@@ -53,20 +47,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(ModalResult));
             }
         }
-
-
-
-        // private bool CanExecute() {
-        /* if (!string.IsNullOrEmpty(p.FirstName) &&
-                  !string.IsNullOrEmpty(p.LastName) &&
-                  !string.IsNullOrEmpty(p.Jmbg))
-
-
-          { return true; }*/
-
-        //   return ;
-        // }
-
 
 
         public int Jmbg
@@ -119,10 +99,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteSaveCommand()
         {
             Patient P = _patientController.Create(new Patient(_id, _idMR, FirstName, LastName, Jmbg));
-
             Patients.Add(P);
-           
-
             ModalResult = true;
             window.Close();
         }

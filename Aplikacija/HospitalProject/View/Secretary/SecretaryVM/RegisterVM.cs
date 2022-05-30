@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Core;
+using HospitalProject.Repository;
 using HospitalProject.View.Util;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    public class EditProfileVM : BaseViewModel
+    public class RegisterVM:BaseViewModel
     {
-        public ObservableCollection<Patient> Patients { get; set; }
-        PatientController _patientController;
-
+        private UserRepository _userRepository;
         private string _dateofbirth;
         private int _jmbg;
         private int _id;
+        private int _medicalrecordid;
         private string _firstname;
         private string _username;
         private string _lastname;
@@ -31,23 +31,19 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Patient _patient;
         private string _gender;
         private Gender selectedGender;
-        private RelayCommand saveCommand;
+        public ObservableCollection<Patient> Patients { get; set; }
         List<ComboBoxData<Gender>> genders = new List<ComboBoxData<Gender>>();
-
-        public EditProfileVM(Patient p)
+        private RelayCommand saveCommand;
+        private bool modalResult;
+        
+        PatientController _patientController;
+        public RegisterVM()
         {
-            _patient = p;
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
             FillComboData();
-           
         }
-
-
-
-
-
 
         // private bool CanExecute() {
         /* if (!string.IsNullOrEmpty(p.FirstName) &&
@@ -62,7 +58,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         //   return ;
         // }
-     
+        public bool ModalResult
+        {
+            get
+            {
+                return modalResult;
+            }
+            set
+            {
+                modalResult = value;
+                OnPropertyChanged(nameof(ModalResult));
+            }
+        }
 
         public Gender SelectedGender
         {
@@ -74,18 +81,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             {
                 selectedGender = value;
                 OnPropertyChanged(nameof(SelectedGender));
-            }
-        }
-        public Patient Patient
-        {
-            get
-            {
-                return _patient;
-            }
-            set
-            {
-                _patient = value;
-                OnPropertyChanged(nameof(Patient));
             }
         }
 
@@ -237,18 +232,23 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public String Usernsme
+        public BloodType StringToBloodType(string str)
         {
-            get
+            switch (str)
             {
-                return _username;
-            }
-            set
-            {
-                _username = value;
-                OnPropertyChanged(nameof(Usernsme));
+                case "a":
+                    return global::Model.BloodType.a;
+                case "b":
+                    return global::Model.BloodType.b;
+                case "ab":
+                    return global::Model.BloodType.ab;
+
+                default:
+                    return global::Model.BloodType.o;
             }
         }
+
+
 
 
         public RelayCommand SaveCommand
@@ -261,12 +261,24 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private bool CanExecute()
         {
+            foreach (Patient patient in Patients)
+            {
+                if (UserName == patient.Username)
+                {
+                    MessageBox.Show("Username already taken", "Error", MessageBoxButton.OK);
+                    return false;
+                }
+            }
             return true;
         }
+        
+        
 
         private void ExecuteSaveCommand()
-        {   
-            _patientController.Update(Patient);
+        {
+
+            Patients.Add(_patientController.Create(new Patient(_id, _medicalrecordid, false, UserName, Password, FirstName, LastName, Jmbg, PhoneNumber, Email, Adress, Convert.ToDateTime(Date), SelectedGender)));
+
         }
 
         private void FillComboData()
@@ -279,3 +291,4 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
     }
 }
+
