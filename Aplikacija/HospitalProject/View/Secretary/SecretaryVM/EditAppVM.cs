@@ -4,21 +4,29 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
+using HospitalProject.ValidationRules.PatientValidation;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class EditAppVM : BaseViewModel
+    public class EditAppVM : BaseViewModel
     {
 
-        private AppointmentController appointmentController;
-        private DoctorController doctorController;
-        private PatientController patientController;
-        private UserController userController;
+        private AppointmentController _appointmentController;
+        private DoctorController _doctorController;
+        private PatientController _patientController;
+        private UserController _userController;
+        private RoomControoler _roomController;
+        private Window window;
+
+
+        private NotificationController notificationController;
 
         private DateTime startDate;
         private DateTime endDate;
@@ -44,36 +52,30 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private RelayCommand submitCommand;
         private RelayCommand cancelCommand;
         private RelayCommand saveCommand;
-        private RelayCommand returnCommand;
 
         public EditAppVM(Appointment appointment, ObservableCollection<Appointment> appointmentItems)
         {
             InitializeControllers();
-           // InitializeData();
             showItem = appointment;
             _appointmentItems = appointmentItems;
-            PatientData = showItem.Patient;
             DoctorData = showItem.Doctor;
+            PatientData = showItem.Patient;
         }
 
         private void InitializeControllers()
         {
             var app = System.Windows.Application.Current as App;
 
-            appointmentController = app.AppointmentController;
-            patientController = app.PatientController;
-            doctorController = app.DoctorController;
-            userController = app.UserController;
+            notificationController = app.NotificationController;
+            _appointmentController = app.AppointmentController;
+            _patientController = app.PatientController;
+            _doctorController = app.DoctorController;
+            _userController = app.UserController;
+            _roomController = app.RoomController;
+
         }
 
-       /* private void InitializeData()
-        {
-            doctor = doctorController.Get(id);   // IZMENITI KAD BUDE LOGIN
-        }*/
-
-        // PROPERTY DEFINITION
-
-        public DateTime StartDate
+         public DateTime StartDate
         {
             get
             {
@@ -99,19 +101,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public Patient PatientData
-        {
-            get
-            {
-                return patient;
-            }
-            set
-            {
-                patient = value;
-                OnPropertyChanged(nameof(PatientData));
-            }
-        }
-
         public Doctor DoctorData
         {
             get
@@ -122,6 +111,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             {
                 doctor = value;
                 OnPropertyChanged(nameof(DoctorData));
+            }
+        }
+        public Patient PatientData
+        {
+            get
+            {
+                return patient;
+            }
+            set
+            {
+                patient = value;
+                OnPropertyChanged(nameof(PatientData));
             }
         }
 
@@ -151,7 +152,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        // RELAY COMMAND DEFINITONS
+
 
         public RelayCommand SubmitCommand
         {
@@ -163,24 +164,24 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         }
 
-
         private bool CanSubmitCommandExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) && NewAppointmentValidation.IsComboBoxChecked(PatientData); ;
+            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
+                IsTimeFrameValid() &&
+                NewAppointmentValidation.IsDateAfterNow(StartDate, endDate)
+                ;
         }
 
         private void SubmitCommandExecute()
         {
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
             DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
-            GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
-                                                                                                                              endDateOnly,
-                                                                                                                              doctor,
-                                                                                                                              PatientData,
-                                                                                                                              ShowItem.ExaminationType,
-                                                                                                                              ShowItem.Room, 0));
+            GeneratedAppointments = new ObservableCollection<Appointment>(_appointmentController.GenerateAvailableAppointments(startDateOnly,
+                endDateOnly,
+                DoctorData,
+                patient,
+                ExaminationType.GENERAL, _roomController.Get(3),1));
         }
-
         public RelayCommand SaveCommand
         {
             get
@@ -197,8 +198,27 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public virtual void SaveCommandExecute()
         {
             SelectedItem.Id = showItem.Id;
-            appointmentController.Update(SelectedItem);
+            _appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            window.Close();
+
+            /* DoctorData = SelectedItem.Doctor;
+            List<Notification> notifications = new List<Notification>();
+            notifications = notificationController.GetNotificationsByDoctor(Doctor.Id);
+            
+            Notification notification = new Notification("Appointment with id " + SelectedItem.Id + "is updated", DateTime.Now);
+
+            notificationController.Insert(notification);
+           */
         }
+
+        
+
+        private bool IsTimeFrameValid()
+        {
+            return EditAppointmentValidation.MoreThanFourDaysCheck(StartDate, endDate, showItem.Date);
+
+        }
+
     }
 }

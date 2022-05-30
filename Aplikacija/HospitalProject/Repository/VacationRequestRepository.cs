@@ -93,7 +93,22 @@ namespace HospitalProject.Repository
         {
             return GetVacationRequestByDateInterval(dateInterval).Where(vacationRequest => vacationRequest.DoctorMatches(doctor)).ToList();
         }
-
         
+        public void Accept(VacationRequest vacationRequest)
+        {
+            VacationRequest updateVacationRequest = GetById(vacationRequest.Id);
+            updateVacationRequest.RequestState = RequestState.APPROVED;
+            updateVacationRequest.SecretaryDescription = vacationRequest.SecretaryDescription;
+            vacationRequestFileHandler.Save(vacationRequests);
+        }
+        
+        public void Reject(VacationRequest vacationRequest)
+        {
+            VacationRequest updateVacationRequest = GetById(vacationRequest.Id);
+            updateVacationRequest.RequestState = RequestState.DENIED;
+            updateVacationRequest.SecretaryDescription = vacationRequest.SecretaryDescription;
+            vacationRequestFileHandler.Save(vacationRequests);
+
+        }
     }
 }

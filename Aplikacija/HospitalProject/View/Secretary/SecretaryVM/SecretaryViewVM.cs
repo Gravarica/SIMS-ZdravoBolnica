@@ -164,9 +164,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void ExecuteShowProfileCommand()
         {
 
-            PatientProfile view = new PatientProfile();
-            view.DataContext = new PatientProfileVM(SelectedItem, medicalRecordService);
-            view.ShowDialog();
+            
         }
 
         public RelayCommand LogoutCommand

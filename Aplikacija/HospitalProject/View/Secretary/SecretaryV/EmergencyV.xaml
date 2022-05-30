@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="HospitalProject.View.Secretary.SecretaryV.EmergencyV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:EmergencyVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Background="#FF9592F5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="102"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="383"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0"  Content="Create emergency appointment"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="32" Foreground="Black" Grid.ColumnSpan="2" Width="468" Height="52" />
+        <Grid Grid.Column="0"  Grid.Row="1">
+            <StackPanel    Margin="20,0,0,0" >
+                <TextBlock Text="Choose specialization" FontSize="20"   Foreground="Black"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="0"  Grid.Row="2" Margin="0,2,0,0">
+            <TextBlock Text="Find patient by Jmbg" FontSize="20"   Foreground="black" Margin="384,-101,-193,495"/>
+            <TextBlock Text="Room type" FontSize="20"   Foreground="black" Margin="10,10,182,384"/>
+            <TextBlock Text="Examination type" FontSize="20"   Foreground="Black" Margin="10,124,182,270"/>
+        </Grid>
+        <Grid Grid.Column="1"  Grid.Row="1">
+            <StackPanel    Margin="10,0,10,169" >
+            </StackPanel>
+        </Grid>
+
+
+        <DataGrid Margin="5,5,72,188" AutoGenerateColumns="False"
+            SelectionMode="Single"             
+            IsReadOnly="True"  
+            Background="#FFBCC1E8"
+            ItemsSource="{Binding Patients}" 
+            SelectedItem ="{Binding SelectedItem}" Grid.Row="2" Grid.Column="1" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Patient ID" Binding="{Binding Id}" Width="*"/>
+                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" Width="*"/>
+                <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox  x:Name="Specialization"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding SpecializationComboBox}" SelectedValue = "{Binding SelectedSpecialization}"  VerticalAlignment="Top" Height="37" Width="202" Margin="0,43,0,0" Grid.Row="1" />
+        <TextBox HorizontalAlignment="Left" 
+                  Text="{Binding FindJmbg}"
+                 Margin="99,43,0,20"  RenderTransformOrigin="0.5,0.5" Width="202" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="addGuest" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+            Command="{Binding AddGuest}"
+            Content="Or create guest account" HorizontalAlignment="Left" Margin="175,263,0,0" Grid.Row="2" VerticalAlignment="Top" Height="45" RenderTransformOrigin="0.5,0.5" Width="166" Grid.Column="1">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180.47"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="addGuest_Copy" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6" 
+            Command="{Binding CreateEmergency}"
+            Content="Create" HorizontalAlignment="Left" Margin="312,339,0,0" Grid.Row="2" VerticalAlignment="Top" Height="56" RenderTransformOrigin="0.5,0.5" Width="138" Grid.ColumnSpan="2">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180.47"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Find" 
+            Background="LightYellow" 
+            Command="{Binding Search}"
+           HorizontalAlignment="Left" Margin="318,47,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" RenderTransformOrigin="0.5,0.5" Width="26" Grid.Column="1">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180.47"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <ComboBox  x:Name="Specialization_Copy"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding RoomTypeComboBox}" SelectedValue = "{Binding SelectedRoom}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,51,0,0" Grid.Row="2" />
+        <ComboBox  x:Name="Specialization_Copy1"  HorizontalAlignment="Center"  DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding ExaminationTypeComboBox}" SelectedValue = "{Binding SelectedExamination}"  VerticalAlignment="Top" Height="36" Width="202" Margin="0,175,0,0" Grid.Row="2" />
+
+    </Grid>
+
+</UserControl>
