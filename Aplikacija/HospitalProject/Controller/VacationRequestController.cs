@@ -28,5 +28,20 @@ namespace HospitalProject.Controller
         {
             return vacationRequestService.GetVacationRequestsForDoctor(doctor);
         }
+        
+        public List<VacationRequest> GetVacationRequests()
+        {
+            return vacationRequestService.GetVacationRequests();
+        }
+        
+        public void Accept(VacationRequest vacationRequest)
+        {
+            vacationRequestService.Accept(vacationRequest);
+        }
+        
+        public void Reject(VacationRequest vacationRequest)
+        {
+            vacationRequestService.Reject(vacationRequest);
+        }
     }
 }
