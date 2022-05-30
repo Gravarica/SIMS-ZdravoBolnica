@@ -196,9 +196,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void SaveCommandExecute()
         {
-            DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
-            DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
-            string checkString = prescriptionController.Create(ShowItem, startDateOnly, endDateOnly, Interval, Description, SelectedMedicine);
+            string checkString = prescriptionController.Create(ShowItem, StartDate, EndDate, Interval, Description, SelectedMedicine);
             if(checkString != null)
             {
                 MessageBox.Show("Patient is allergic to " + checkString + " in " + SelectedMedicine.Name, "Cannot create prescription", MessageBoxButton.OK, MessageBoxImage.Warning);

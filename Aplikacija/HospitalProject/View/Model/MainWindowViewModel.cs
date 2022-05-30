@@ -92,14 +92,15 @@ namespace HospitalProject.View.Model
         {
             User user = userController.Login(Username, Password);
             
-            if (user.IsBlocked)
-            {
-                MessageBox.Show("Login failed, user is blocked.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Stop);
-                return;
-            }
              
             if(user != null)
             {
+                if (user.IsBlocked)
+                {
+                    MessageBox.Show("Login failed, user is blocked.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    return;
+                }
+
                 if (user.UserType == UserType.DOCTOR) {
                     OpenDoctorView();
                 }
@@ -138,7 +139,6 @@ namespace HospitalProject.View.Model
         private void OpenPatientView()
         {
             MainPatientView pv = new MainPatientView();
-            pv.DataContext = new MainPatientViewModel(pv);
             HideWindow();
             pv.Show();
         }
