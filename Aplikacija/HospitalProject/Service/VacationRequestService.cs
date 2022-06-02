@@ -66,5 +66,20 @@ namespace HospitalProject.Service
             return vacationRequestRepository.GetVacationRequestsByDoctorInDateInterval(doctor, dateInterval).Any();
 
         }
+        
+        public List<VacationRequest> GetVacationRequests()
+        {
+            return vacationRequestRepository.GetAll();
+        }
+        
+        public void Accept(VacationRequest vacationRequest)
+        {
+            vacationRequestRepository.Accept(vacationRequest);
+        }
+        
+        public void Reject(VacationRequest vacationRequest)
+        {
+            vacationRequestRepository.Reject(vacationRequest);
+        }
     }
 }

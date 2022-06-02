@@ -48,8 +48,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
         private void ExecuteAddMedicineCommand()
         {
             
-            AddingMedicineView addingMedicineView =
-                new AddingMedicineView(MedicineItems);
+            AddingMedicineView addingMedicineView = new AddingMedicineView(MedicineItems);
             MainViewModel.Instance.MomentalView = addingMedicineView;
         }
         

@@ -30,6 +30,9 @@ namespace HospitalProject.View.WardenForms.Views
         private List<Equipement> roomsEquipement;
         private RoomViewModel selectedRoom1;
         public RelayCommand RenovationCommand { get; set; }
+
+        public RelayCommand RoomRelocationCommand { get; set; }
+
         public ObservableCollection<RoomViewModel> RoomItems { get; set; }
         private RoomControoler _roomControoler;
         private RoomRenovationController _roomRenovationController;
@@ -59,9 +62,30 @@ namespace HospitalProject.View.WardenForms.Views
             RoomItems = new ObservableCollection<RoomViewModel>(
                 RoomConverter.ConvertRoomListTORoomViewList(_roomControoler.GetAll().ToList()));
             RenovationCommand = new RelayCommand(param => ExecuteRenovationComand(), param => CanExecuteRenovation());
+            RoomRelocationCommand = new RelayCommand(param => ExecuteRoomRelocationCommand(), param => true);
 
         }
-        
+
+        public WardenRoomControl(ObservableCollection<RoomViewModel> rooms)
+        {
+            InitializeComponent();
+            DataContext = this;
+            var app = Application.Current as App;
+            _roomControoler = app.RoomController;
+            _appointmentController = app.AppointmentController;
+            _roomRenovationController = app.RenovationController;
+            RoomItems = rooms;
+            RenovationCommand = new RelayCommand(param => ExecuteRenovationComand(), param => CanExecuteRenovation());
+            RoomRelocationCommand = new RelayCommand(param => ExecuteRoomRelocationCommand(), param => true);
+
+        }
+
+        private void ExecuteRoomRelocationCommand()
+        {
+            //ObservableCollection<Room> realRooms = new ObservableCollection<Room>(RoomConverter.ConvertRoomVievListTORoomList(RoomItems));
+            RoomsReorganisation roomsReorganisation = new RoomsReorganisation(RoomItems);
+            MainViewModel.Instance.MomentalView = roomsReorganisation;
+        }
         private void ExecuteRenovationComand()
         {
             

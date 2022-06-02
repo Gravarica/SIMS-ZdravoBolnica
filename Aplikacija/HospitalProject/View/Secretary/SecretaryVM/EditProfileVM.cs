@@ -12,7 +12,7 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class EditProfileVM : BaseViewModel
+    public class EditProfileVM : BaseViewModel
     {
         public ObservableCollection<Patient> Patients { get; set; }
         PatientController _patientController;

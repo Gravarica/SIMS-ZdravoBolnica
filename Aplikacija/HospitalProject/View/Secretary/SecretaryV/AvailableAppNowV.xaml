@@ -1,0 +1,52 @@
+﻿<Window x:Class="HospitalProject.View.Secretary.SecretaryV.AvailableAppNowV"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
+        mc:Ignorable="d"
+  
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="14"
+        TextElement.FontFamily="Roboto"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStartupLocation="CenterScreen"
+        Title="Choose appointment" Height="406" Width="490">
+    <Border Background="#FF8F8CEC" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+
+                <RowDefinition/>
+                <RowDefinition Height="59.04"/>
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Choose one from the list" Margin="46,5,0,1"  HorizontalAlignment="Left" FontSize="32"  FontWeight="Light" Foreground="#FF3A338E" Grid.Column="1" Width="329"/>
+
+
+            <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"  Width="80"
+            Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"/>
+            <DataGrid x:Name="dataAppointment" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
+                SelectionMode="Single" AutoGenerateColumns="False" FontSize="15" 
+                FontStyle="Normal"
+                CanUserResizeRows="False" Background="LightYellow" Margin="0,0,38,0" Grid.Column="1" >
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Id" Binding="{Binding AppointmentId}" Width="40"  CanUserResize="False" />
+                    <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor}" Width="*"  CanUserResize="False"/>
+                    <DataGridTextColumn Header="Room" Binding="{Binding Room}" Width="*"  CanUserResize="False"/>
+                   
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Grid>
+    </Border>
+</Window>

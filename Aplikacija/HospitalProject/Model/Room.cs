@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Documents;
 using HospitalProject.Model;
+using HospitalProject.View.WardenForms.ViewModels;
 
 namespace Model
 {
@@ -19,6 +20,14 @@ namespace Model
       
       private System.Collections.Generic.List<Equipement> equipment;
 
+      public Room(int number, int floor, RoomType roomType)
+      {
+         _number = number;
+         _floor = floor;
+         _roomType = roomType;
+         Equipment = new List<Equipement>();
+         Appointments = new List<Appointment>();
+      }
 
       public Room(List<Equipement> equipment, int id, int number, int floor, RoomType roomType)
       {
@@ -209,5 +218,13 @@ namespace Model
             get; set;
         }
 
-    }
+        public Room(RoomCheckBoxModel rcbm)
+        {
+           _id = rcbm.Id;
+           _floor = rcbm.Floor;
+           _number = rcbm.Number;
+           Equipment = rcbm.Equipement;
+           RoomType =(RoomType) Enum.Parse(typeof(RoomType), rcbm.RoomType, true);
+        }
+   }
 }

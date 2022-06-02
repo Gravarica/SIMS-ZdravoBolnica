@@ -18,8 +18,8 @@
             <RowDefinition Height="78*"></RowDefinition>
             <RowDefinition Height="805*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderBrush="#FFF3BF09" BorderThickness="1" Margin="0,13,0,800" Grid.RowSpan="2">Equipement relocation</Label>
-        <Grid Background="#FFF3BF09"   Margin="0,5,0,1" Grid.Row="1" >
+        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1022,7,-5,1">Equipement relocation</Label>
+        <Grid Background="#FFF3BF09" Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="180*"></RowDefinition>
                 <RowDefinition Height="452*"></RowDefinition>
@@ -31,8 +31,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="#FF272537" BorderThickness="2,2,2,2" Grid.Column="1" Margin="276,174,44,98" Grid.RowSpan="4"/>
-            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="63,124,248,436" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Grid.RowSpan="2" Content="Rooms cointaing selected equipment:">
+            <Border BorderBrush="#FF272537" BorderThickness="2,2,2,2" Grid.Column="1" Margin="250,34,85,25" Grid.Row="1" Grid.RowSpan="2"/>
+            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="63,144,248,437" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Content="Rooms cointaing selected equipment:" Grid.RowSpan="2">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="1"/>
@@ -42,10 +42,10 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="570,125,570,10" Foreground="#FF272537" Grid.ColumnSpan="2" Content="Select destantion room:"/>
+            <Label Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="570,147,570,433" Foreground="#FF272537" Grid.ColumnSpan="2" Content="Select destantion room:" Grid.RowSpan="2"/>
 
 
-            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="63,3,0,94" AutoGenerateColumns="False" x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
+            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="63,32,0,65" AutoGenerateColumns="False" x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
                 ItemsSource="{Binding GeneratedRooms}"
                 SelectedItem="{Binding SelectedRoom}"
                       RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="379"  SelectionChanged="Rooms_SelectionChanged_1" Grid.Column="0" Grid.RowSpan="3" Grid.Row="1">
@@ -66,10 +66,10 @@
 
             </DataGrid>
 
-            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="508,176,0,98" AutoGenerateColumns="False" x:Name ="AllRooms" IsReadOnly="True"   SelectionMode="Single"
+            <DataGrid BorderBrush = "#FF272537" BorderThickness="2" Style="{StaticResource ResourceKey=grid1}" Margin="508,32,0,65" AutoGenerateColumns="False" x:Name ="AllRooms" IsReadOnly="True"   SelectionMode="Single"
                 ItemsSource="{Binding AllRooms}"
                 SelectedItem="{Binding DestinationRoom}"
-                      RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="378"  SelectionChanged="Rooms_SelectionChanged" Grid.RowSpan="4" Grid.ColumnSpan="2">
+                      RenderTransformOrigin="0.503,0.487" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" Width="378"  SelectionChanged="Rooms_SelectionChanged" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Row="1">
                 <DataGrid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -87,17 +87,39 @@
 
             </DataGrid>
 
-            <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="382,13,0,394" Width="163" Foreground="#FF272537" Content="Insert quantity:" Grid.Row="1"/>
-            <TextBox FontSize="20" Text="{Binding Quantity}" Grid.Row="1" Grid.Column="1" Margin="362,54,136,340" BorderBrush="#FF272537" BorderThickness="2"/>
+            <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="354,81,0,327" Width="164" Foreground="#FF272537" Content="Insert quantity:" Grid.Row="1"/>
+            <TextBox FontSize="20" Text="{Binding Quantity}" Grid.Row="1" Grid.Column="1" Margin="356,124,187,280" BorderBrush="#FF272537" BorderThickness="2" RenderTransformOrigin="0.5,0.5">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.461"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.738"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
             <DatePicker   
                           materialDesign:HintAssist.Hint="Pick Date"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           
-                          FontSize="25" Grid.Column="1"  SelectedDate="{Binding Path = RelocationDate, Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="372,216,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="176"/>
-            <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="382,171,0,237" Width="163" Foreground="#FF272537" Content="Insert Date:" Grid.Row="1"/>
-            <Button Command="{Binding RelocateEquipmentCommand}" BorderThickness="3" Grid.Column="1" Content="Commit" HorizontalAlignment="Left" Margin="394,427,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="68" Width="138" Foreground="#FF272537" BorderBrush="#FF272537" Grid.RowSpan="2"/>
-            <TextBlock FontSize="25" FontWeight="Heavy"  Foreground="#FF272537" HorizontalAlignment="Left" Margin="66,65,0,0" TextWrapping="Wrap" 
+                          FontSize="25" Grid.Column="1"  SelectedDate="{Binding Path = RelocationDate, Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="342,288,0,0" Grid.Row="1" VerticalAlignment="Top" Height="38" Width="176"/>
+            <Label FontSize="20" FontWeight="Heavy" Grid.Column="1" HorizontalAlignment="Left" Margin="362,247,0,162" Width="164" Foreground="#FF272537" Content="Insert Date:" Grid.Row="1"/>
+            <TextBlock FontSize="25" FontWeight="Heavy"  Foreground="#FF272537" HorizontalAlignment="Left" Margin="82,11,0,0" TextWrapping="Wrap" 
                        Text="{Binding SelectedEquipment, Converter={StaticResource EquipmentRelocationHeaderConverter}}" VerticalAlignment="Top" Width="384"/>
+            <Label Grid.Column="0" Grid.Row="0" FontSize="20" FontWeight="Heavy" Margin="66,89,414,47" RenderTransformOrigin="0.5,0.5" Foreground="#FF272537" Content="Seqrch by quantity:">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox  Text="{Binding  SearchQuantity}" FontSize="20"  Margin="278,93,340,51" BorderBrush="#FF272537" BorderThickness="2"/>
+            <Button Command="{Binding SearchQuantityCommand}" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="375,87,0,0" VerticalAlignment="Top" Height="48" Width="103"/>
+            <Border BorderBrush="#FF272537" BorderThickness="2,2,2,2" Grid.Column="1" Margin="320,422,152,60" Grid.Row="1" Grid.RowSpan="3" Background="#FFF3BF09"/>
+            <Button Command="{Binding RelocateEquipmentCommand}" BorderThickness="3" Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="354,6,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="83" Width="154" Foreground="#FF272537" BorderBrush="#FF272537" Grid.RowSpan="2"/>
 
         </Grid>
     </Grid>
