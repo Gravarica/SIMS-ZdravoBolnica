@@ -325,15 +325,9 @@ namespace HospitalProject.View.PatientView.Model
                 Notification notification = _notificationController.CheckForNotifications(_patient);
                 if (notification != null)
                 {
-
                     MessageBox.Show(notification.Prescription.Description, notification.Name);
-                
                 }
-
-
-                Thread.Sleep(60*1000);
-
-
+                Thread.Sleep(60*100);
 
             }
         
