@@ -18,7 +18,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for NewRequestView.xaml
     /// </summary>
-    public partial class NewRequestView : Window
+    public partial class NewRequestView : UserControl
     {
         public NewRequestView()
         {

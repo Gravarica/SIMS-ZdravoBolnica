@@ -7,6 +7,7 @@
         xmlns:Model="clr-namespace:HospitalProject.View.Model"
         xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainView" Height="720" Width="1180"
         ResizeMode="NoResize"
@@ -15,6 +16,9 @@
     
     <Window.Resources>
         <converters:NameConverter x:Key="Name converter"/>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Verdana"></Setter>
+        </Style>
     </Window.Resources>
     
     <Border Background="#272537">

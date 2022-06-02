@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
@@ -41,31 +42,37 @@
                         Command="{Binding NewRequestCommand}"/>
             </Grid>
         </Border>
-        <DataGrid Grid.Row="1"
-                  Margin="30"
-                  FontSize="15"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  ItemsSource="{Binding VacationRequests}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Submission Date"
-                                    Width="3*"
-                                    Binding="{Binding SubmissionDate, Converter={StaticResource DateConverter}}"/>
-                <DataGridTextColumn Header="Vacation Start"
-                                    Width="3*"
-                                    Binding="{Binding DateInterval.StartDate, Converter={StaticResource DateConverter}}"/>
-                <DataGridTextColumn Header="Vacation End"
-                                    Width="3*"
-                                    Binding="{Binding DateInterval.EndDate, Converter={StaticResource DateConverter}}"/>
-                <DataGridTextColumn Header="Request Status" 
-                                    Width="2*"
-                                    Binding="{Binding RequestState}"/>
-                <DataGridCheckBoxColumn Header="Urgent" 
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding IsUrgent}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border BorderBrush="#3e3ece"
+                BorderThickness="1"
+                Grid.Row="1"
+                Margin="30">
+            <DataGrid 
+                      FontSize="18"
+                      Style ="{StaticResource grid1}"
+                      HeadersVisibility="Column"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding VacationRequests}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Submission Date"
+                                        Width="3*"
+                                        Binding="{Binding SubmissionDate, Converter={StaticResource DateConverter}}"/>
+                    <DataGridTextColumn Header="Vacation Start"
+                                        Width="3*"
+                                        Binding="{Binding DateInterval.StartDate, Converter={StaticResource DateConverter}}"/>
+                    <DataGridTextColumn Header="Vacation End"
+                                        Width="3*"
+                                        Binding="{Binding DateInterval.EndDate, Converter={StaticResource DateConverter}}"/>
+                    <DataGridTextColumn Header="Request Status" 
+                                        Width="2*"
+                                        Binding="{Binding RequestState}"/>
+                    <DataGridCheckBoxColumn Header="Urgent" 
+                                            IsReadOnly="True"
+                                            Width="*"
+                                            Binding="{Binding IsUrgent}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </Grid>
 </UserControl>

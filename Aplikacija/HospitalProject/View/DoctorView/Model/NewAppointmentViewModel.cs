@@ -84,10 +84,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         // PROPERTY DEFINITIONS
 
-        
-        
-        
-        
+
         public List<ComboBoxData<Patient>> PatientComboBox
         {
 

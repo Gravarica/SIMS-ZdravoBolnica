@@ -28,6 +28,7 @@ namespace HospitalProject.View.Model
         private RelayCommand exitCommand;
 
         private UserController userController;
+        public event EventHandler<HarvestPasswordEventArgs> HarvestPassword;
 
         public string Username 
         { 
@@ -90,7 +91,9 @@ namespace HospitalProject.View.Model
 
         private void LoginCommandExecute()
         {
-            User user = userController.Login(Username, Password);
+            var pwargs = new HarvestPasswordEventArgs();
+            HarvestPassword(this, pwargs);
+            User user = userController.Login(Username, pwargs.Password);
             
             if (user.IsBlocked)
             {
@@ -115,6 +118,10 @@ namespace HospitalProject.View.Model
                 {
                     OpenWardenView();
                 }
+
+                HideWindow(pwargs.Password);
+                pwargs.Password = "";
+                HarvestPassword(this, pwargs);
             } 
             else
             {
@@ -124,14 +131,13 @@ namespace HospitalProject.View.Model
 
         private bool CanLoginCommandExecute()
         {
-            return Username != null && Password != null;
+            return Username != null;
         }
 
         private void OpenDoctorView()
         {
             MainView dv = new MainView();
             dv.DataContext = new DoctorView.Model.MainViewModel(dv);
-            HideWindow();
             dv.Show();
         }
 
@@ -139,7 +145,6 @@ namespace HospitalProject.View.Model
         {
             MainPatientView pv = new MainPatientView();
             pv.DataContext = new MainPatientViewModel(pv);
-            HideWindow();
             pv.Show();
         }
 
@@ -147,7 +152,6 @@ namespace HospitalProject.View.Model
         {
             SecretaryMainV sv = new SecretaryMainV();
             sv.DataContext = new SecretaryMainViewVM(sv);
-            HideWindow();
             sv.Show();
         }
 
@@ -158,10 +162,9 @@ namespace HospitalProject.View.Model
             rv.Show();
         }
 
-        private void HideWindow()
+        private void HideWindow(string password1)
         {
             Username = null;
-            Password = null;
             window.Hide();
         }
     }

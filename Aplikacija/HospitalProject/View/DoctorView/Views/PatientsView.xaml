@@ -48,38 +48,47 @@
                         Style="{StaticResource RoundButton}"/>
             </Grid>
         </Border>
-        <DataGrid Grid.Row="1"
-                  Margin="30"
-                  FontSize="15"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  ItemsSource="{Binding Patients}"
-                  SelectedItem="{Binding SelectedItem}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name"
-                                    Width="3*"
-                                    Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Last Name"
-                                    Width="3*"
-                                    Binding="{Binding LastName}"/>
-                <DataGridTextColumn Header="Username"
-                                    Width="2*"
-                                    Binding="{Binding Username}"/>
-                <DataGridTextColumn Header="ID Number" 
-                                    Width="2*"
-                                    Binding="{Binding Id}"/>
-                <DataGridTemplateColumn Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Record"
-                                    Margin="5,10,10,5"
-                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Style="{StaticResource RoundButton}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border BorderBrush="#3e3ece"
+                BorderThickness="1"
+                Grid.Row="1"
+                Margin="30">
+            <DataGrid 
+                      Style ="{StaticResource grid1}"
+                      FontSize="18"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Patients}"
+                      SelectedItem="{Binding SelectedItem}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name"
+                                        Width="4*"
+                                        Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Last Name"
+                                        Width="4*"
+                                        Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Username"
+                                        Width="3*"
+                                        Binding="{Binding Username}"/>
+                    <DataGridTextColumn Header="ID" 
+                                        Width="*"
+                                        Binding="{Binding Id}"/>
+                    <DataGridTemplateColumn Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Record"
+                                        Margin="5,10,10,5"
+                                        Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        Style="{StaticResource RoundButton}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </Grid>
 </UserControl>

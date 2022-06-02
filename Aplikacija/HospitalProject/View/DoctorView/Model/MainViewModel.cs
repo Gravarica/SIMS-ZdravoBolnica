@@ -39,6 +39,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         public InventoryViewModel InventoryVM { get; set; } 
 
+        public PrescriptionHistoryViewModel PrescriptionHistoryVM { get; set; }
+        public NewRequestViewModel NewRequestVM { get; set; } 
+
         private BaseViewModel _currentView;
 
         private Doctor loggedDoctor;
@@ -103,6 +106,7 @@ namespace HospitalProject.View.DoctorView.Model
             PatientsVM = new PatientsViewModel(LoggedDoctor);
             RequestsVM = new RequestsViewModel(LoggedDoctor);
             InventoryVM = new InventoryViewModel(LoggedDoctor);
+            NewRequestVM = new NewRequestViewModel();
 
             CurrentView = AppVM;
 

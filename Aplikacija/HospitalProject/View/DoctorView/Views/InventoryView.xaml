@@ -28,50 +28,57 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
-                           Text="Requests"
+                           Text="Inventory"
                            FontSize="22"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="25,0,0,0"
                            FontWeight="SemiBold"/>
             </Grid>
-        </Border>
+        </Border >
         <Grid Grid.Row="1"
               Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      FontFamily="Verdana"
-                      FontSize = "25"
-                      SelectionMode="Single"
-                      ItemsSource="{Binding Medicines}"
-                      SelectedItem="{Binding SelectedMedicine}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Medicine ID"
-                                        Width="*"
-                                        Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Name"
-                                        Width="*"
-                                        Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Quantity"
-                                        Width="*"
-                                        Binding="{Binding Quantity}"/>
-                    <DataGridTemplateColumn Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Report"
-                                    Margin="5,10,10,5"
-                                    Style="{StaticResource RoundButton}"
-                                    Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Border BorderBrush="#3e3ece"
+                BorderThickness="1">
+                <DataGrid Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionUnit="FullRow"
+                          Style ="{StaticResource grid1}"
+                          HeadersVisibility="Column"
+                          FontFamily="Verdana"
+                          FontSize = "16"
+                          VerticalContentAlignment="Center"
+                          SelectionMode="Single"
+                          ItemsSource="{Binding Medicines}"
+                          SelectedItem="{Binding SelectedMedicine}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Medicine ID"
+                                            Width="*"
+                                            Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Name"
+                                            Width="*"
+                                            Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Quantity"
+                                            Width="*"
+                                            Binding="{Binding Quantity}"/>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Report"
+                                            Margin="5,10,10,5"
+                                            Style="{StaticResource RoundButton}"
+                                            Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />

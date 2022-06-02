@@ -27,11 +27,14 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand sendCommand;
         private RelayCommand cancelCommand;
 
-        public NewRequestViewModel(Doctor doctor, VacationRequestController vacReqContr, Window window)
+        public NewRequestViewModel(Doctor doctor, VacationRequestController vacReqContr)
         {
             loggedDoctor = doctor;
             this.vacationRequestController = vacReqContr;
-            this.window = window;
+        }
+
+        public NewRequestViewModel()
+        {
         }
 
         public RelayCommand SendCommand

@@ -95,6 +95,8 @@
             </Grid.ColumnDefinitions>
             <DataGrid Grid.Column="0"
                       Margin="25"
+                      Style ="{StaticResource grid1}"
+                      HeadersVisibility="Column"
                       AutoGenerateColumns="False"
                       Name ="Appointments"
                       IsReadOnly="True"

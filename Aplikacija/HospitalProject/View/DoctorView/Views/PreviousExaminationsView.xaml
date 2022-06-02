@@ -18,6 +18,8 @@
                   ScrollViewer.CanContentScroll="True"
                   AutoGenerateColumns="False"
                   RowHeight="50"
+                  Style ="{StaticResource grid1}"
+                  HeadersVisibility="Column"
                   FontSize="17"
                   IsReadOnly="True"
                   ItemsSource="{Binding Path = Anamneses}"

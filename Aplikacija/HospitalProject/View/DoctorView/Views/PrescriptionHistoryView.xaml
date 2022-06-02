@@ -17,6 +17,8 @@
         <DataGrid Margin="15"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  Style ="{StaticResource grid1}"
+                  HeadersVisibility="Column"
                   SelectionMode="Single"
                   ItemsSource="{Binding Prescriptions}"
                   FontSize="20"
