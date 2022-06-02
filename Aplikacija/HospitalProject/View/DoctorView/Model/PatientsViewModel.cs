@@ -69,9 +69,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ExecuteShowMedicalCardCommand()
         {
-            MedicalCardView view = new MedicalCardView();
-            view.DataContext = new MedicalCardViewModel(SelectedItem);
-            view.ShowDialog();
+            //MedicalCardView view = new MedicalCardView();
+            MedicalCardViewModel mv = new MedicalCardViewModel(SelectedItem);
+            MainViewModel.Instance.CurrentView = mv;
         }
 
         private bool CanExecuteNewAppointmentCommand()

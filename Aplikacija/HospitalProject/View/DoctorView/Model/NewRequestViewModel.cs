@@ -53,7 +53,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
             else
             {
-                window.Close();
+                MainViewModel.Instance.CurrentView = MainViewModel.Instance.InventoryVM;
             }
            
         }
@@ -73,7 +73,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void CancelCommandExecute()
         {
-            window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.InventoryVM;
         }
 
         private bool CanCancelCommandExecute()

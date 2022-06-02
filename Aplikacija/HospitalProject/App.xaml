@@ -78,6 +78,10 @@
                 <view:InventoryView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:MedicalCardViewModel}">
+                <view:MedicalCardView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type patientViewModel:RecipesViewModel}">
                 <patientView:RecipesView/>
             </DataTemplate>

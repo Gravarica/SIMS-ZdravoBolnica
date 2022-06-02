@@ -187,7 +187,6 @@ namespace HospitalProject.View.DoctorView.Model
         {
             MedicalCardView view = new MedicalCardView();
             view.DataContext = new MedicalCardViewModel(SelectedItem.Patient);
-            view.ShowDialog();
         }
 
         private bool CanCreateAnamnesisCommandExecute()

@@ -84,10 +84,6 @@ namespace HospitalProject.View.DoctorView.Model
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new MainViewModel(Application.Current.MainWindow);
-                }
                 return instance;
             }
         }
@@ -99,7 +95,7 @@ namespace HospitalProject.View.DoctorView.Model
             userController = app.UserController;
             var _doctorController = app.DoctorController;
             this.window = window;
-
+            instance = this;
             loggedDoctor = _doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
 
             AppVM = new MainDoctorViewModel();
