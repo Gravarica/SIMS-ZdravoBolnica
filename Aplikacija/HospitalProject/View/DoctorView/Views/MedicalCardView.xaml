@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
         mc:Ignorable="d" 
-             Height="550" Width="950"
+             Height="600" Width="950"
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:MedicalCardHeaderConverter x:Key="HeaderConverter" />
@@ -58,7 +58,14 @@
 
         </StackPanel>
 
-        <ContentControl Grid.Row="1"
+        <Button Style ="{StaticResource RoundButton}"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin ="30,15,30,15"
+                           Content="Return"
+                           Command="{Binding ReturnCommand}"/>
+
+            <ContentControl Grid.Row="1"
                             Grid.Column="0"
                             Margin="10"
                             Content="{Binding CurrentView}">

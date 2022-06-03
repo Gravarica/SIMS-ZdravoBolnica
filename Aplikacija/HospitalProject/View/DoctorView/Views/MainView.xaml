@@ -67,6 +67,14 @@
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InventoryViewCommand}"/>
+                
+                <RadioButton Content="My Profile"
+                             Height="50"
+                             Margin ="0,350,0,0"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MyProfileViewCommand}"/>
 
 
             </StackPanel>

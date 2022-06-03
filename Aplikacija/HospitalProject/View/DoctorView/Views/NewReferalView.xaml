@@ -1,4 +1,4 @@
-﻿<Window x:Class="HospitalProject.View.DoctorView.Views.NewReferalView"
+﻿<UserControl x:Class="HospitalProject.View.DoctorView.Views.NewReferalView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +9,9 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
         mc:Ignorable="d"
-        Title="NewReferalView" Height="600" Width="950">
-    <Window.Resources>
+        Height="600" Width="950"
+        Background="AliceBlue">
+    <UserControl.Resources>
         <converters:NameConverter x:Key="NameConverter"/>
         <Style x:Key="LabelStyle" TargetType="Grid">
             <Style.Resources>
@@ -20,7 +21,7 @@
                 </Style>
             </Style.Resources>
         </Style>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -32,8 +33,9 @@
                 BorderBrush="#a4a4ef">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock VerticalAlignment="Center"
@@ -48,6 +50,11 @@
                         Command="{Binding SaveCommand}"
                         Margin="20"
                         Style="{StaticResource RoundButton}"/>
+                <Button Grid.Column="3"
+                        Content="Return"
+                        Command="{Binding ReturnCommand}"
+                        Margin="20"
+                        Style="{StaticResource RoundButton}"/>
             </Grid>
         </Border>
         <Grid Grid.Row="1">
@@ -58,7 +65,8 @@
             <GroupBox Grid.Column="0"
                       Margin="25"
                       Header="New Referal"
-                      FontSize="20">
+                      FontSize="20"
+                      Foreground="Black">
                 <Grid Name ="InputForm" Style="{StaticResource LabelStyle}">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -207,4 +215,4 @@
             </DataGrid>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

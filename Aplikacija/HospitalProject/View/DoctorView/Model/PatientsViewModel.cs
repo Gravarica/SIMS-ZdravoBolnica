@@ -70,7 +70,7 @@ namespace HospitalProject.View.DoctorView.Model
         private void ExecuteShowMedicalCardCommand()
         {
             //MedicalCardView view = new MedicalCardView();
-            MedicalCardViewModel mv = new MedicalCardViewModel(SelectedItem);
+            MedicalCardViewModel mv = new MedicalCardViewModel(SelectedItem, ReturnFlag.PATIENT_VIEW);
             MainViewModel.Instance.CurrentView = mv;
         }
 

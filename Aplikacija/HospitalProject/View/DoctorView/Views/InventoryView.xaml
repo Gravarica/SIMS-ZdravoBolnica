@@ -10,6 +10,7 @@
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:AllergyConverter x:Key="AllergyConverter"/>
+        <converters:ReplacementConverter x:Key="ReplacementConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -123,11 +124,9 @@
                                    Margin="5,0,0,0"/>
                         </Border>
                         <ListView FontFamily="Verdana"
-                                  FontSize="18">
-                            <ListViewItem Content="Item One"/>
-                            <ListViewItem Content="Item Two"/>
-                            <ListViewItem Content="Item Three"/>
-                            <ListViewItem Content="Item Four"/>
+                                  FontSize="18"
+                                  ItemsSource ="{Binding SelectedMedicine.Replacements, Converter={StaticResource ReplacementConverter}}">
+                            
                         </ListView>
                     </DockPanel>
                 </Border>

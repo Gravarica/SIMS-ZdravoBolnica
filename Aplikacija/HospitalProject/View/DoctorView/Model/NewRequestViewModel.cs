@@ -73,7 +73,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void CancelCommandExecute()
         {
-            MainViewModel.Instance.CurrentView = MainViewModel.Instance.InventoryVM;
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.RequestsVM;
         }
 
         private bool CanCancelCommandExecute()

@@ -55,11 +55,10 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand submitCommand;
         private RelayCommand resetCommand;
         private RelayCommand saveCommand;
-        private RelayCommand cancelCommand;
+        private RelayCommand returnCommand;
 
-        public NewAppointmentViewModel(ObservableCollection<Appointment> AppointmentItems, Window window)
+        public NewAppointmentViewModel(ObservableCollection<Appointment> AppointmentItems)
         {
-            this.window = window;
             InitializeControllers();
             InitializeData(AppointmentItems);
         }
@@ -261,6 +260,8 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+
+
         private bool CanSaveCommandExecute()
         {
             return SelectedItem != null;
@@ -270,7 +271,26 @@ namespace HospitalProject.View.DoctorView.Model
         {
             _appointmentItems.Add(appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
-            window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AppVM;
+        }
+
+        private bool CanReturnCommandExecute()
+        {
+            return true;
+        }
+
+        private void ReturnCommandExecute()
+        {
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AppVM;
+        }
+
+        public RelayCommand ReturnCommand
+        {
+            get
+            {
+                return returnCommand ?? (returnCommand =
+                    new RelayCommand(param => ReturnCommandExecute(), param => CanReturnCommandExecute()));
+            }
         }
 
         // INTERNAL PRIVATE METHODS

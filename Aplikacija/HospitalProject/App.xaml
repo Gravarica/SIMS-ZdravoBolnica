@@ -35,8 +35,30 @@
                 <views:MedicineView/>
             </DataTemplate>
             
-           
-            
+            <DataTemplate DataType="{x:Type viewModel:NewAppointmentViewModel}">
+                <view:NewAppointmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:EditAppointmentViewModel}">
+                <view:EditAppointmentview/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:AnamnesisViewModel}">
+                <view:ExaminationView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewPrescriptionViewModel}">
+                <view:NewPrescriptionView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:MyProfileViewModel}">
+                <view:MyProfileView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewReferalViewModel}">
+                <view:NewReferalView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
                 <views:WardenEquipementView/>
             </DataTemplate>
@@ -44,7 +66,6 @@
             <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">
                 <views:WardenEquipemntRelocationView/>
             </DataTemplate>
-            
 
             <DataTemplate DataType="{x:Type viewModels:RoomRenovationViewModel}">
                 <views:RoomRenovationView/>

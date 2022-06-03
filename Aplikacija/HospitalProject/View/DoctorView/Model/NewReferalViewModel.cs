@@ -22,6 +22,7 @@ namespace HospitalProject.View.DoctorView.Model
         private DateTime startDate;
         private DateTime endDate;
         private int _intValue;
+        private AnamnesisViewModel returnVM;
 
         private AppointmentController appointmentController;
         private DoctorController doctorController;
@@ -31,6 +32,7 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand submitCommand;
         private RelayCommand resetCommand;
         private RelayCommand saveCommand;
+        private RelayCommand returnCommand;
         private RelayCommand fillComboDataCommand;
 
         private List<ComboBoxData<Specialization>> specializationComboBox;
@@ -52,19 +54,19 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
-        public NewReferalViewModel(Patient ShowItem, Window window)
+        public NewReferalViewModel(Patient ShowItem, AnamnesisViewModel am)
         {
-            InstantiateData(ShowItem, window);
+            returnVM = am;
+            InstantiateData(ShowItem);
             InstantiateControllers();
         }
 
-        private void InstantiateData(Patient ShowItem, Window window)
+        private void InstantiateData(Patient ShowItem)
         {
             specializationComboBox = new List<ComboBoxData<Specialization>>();
             doctorComboBox = new ObservableCollection<ComboBoxData<Doctor>>();
             FillComboData();
             SelectedPatient = ShowItem;
-            this.window = window;
         }
 
         private void InstantiateControllers()
@@ -286,6 +288,25 @@ namespace HospitalProject.View.DoctorView.Model
             }
         }
 
+        private bool CanReturnCommandExecute()
+        {
+            return true;
+        }
+
+        private void ReturnCommandExecute()
+        {
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AnamnesisVM;
+        }
+
+        public RelayCommand ReturnCommand
+        {
+            get
+            {
+                return returnCommand ?? (returnCommand =
+                    new RelayCommand(param => ReturnCommandExecute(), param => CanReturnCommandExecute()));
+            }
+        }
+
         private bool CanSaveCommandExecute()
         {
             return SelectedItem != null;
@@ -295,7 +316,7 @@ namespace HospitalProject.View.DoctorView.Model
         {
             appointmentController.Create(SelectedItem);
             GeneratedAppointments.Remove(SelectedItem);
-            window.Close();
+            MainViewModel.Instance.CurrentView = returnVM;
         }
 
     }

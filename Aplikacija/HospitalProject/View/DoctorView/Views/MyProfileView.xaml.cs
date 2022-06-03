@@ -10,16 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalProject.View.DoctorView.Model;
 
 namespace HospitalProject.View.DoctorView.Views
 {
     /// <summary>
-    /// Interaction logic for NewReferalView.xaml
+    /// Interaction logic for MyProfileView.xaml
     /// </summary>
-    public partial class NewReferalView : UserControl
+    public partial class MyProfileView : UserControl
     {
-        public NewReferalView()
+        public MyProfileView()
         {
             InitializeComponent();
         }

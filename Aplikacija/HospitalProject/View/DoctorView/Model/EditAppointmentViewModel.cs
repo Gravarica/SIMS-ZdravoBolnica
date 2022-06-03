@@ -265,6 +265,26 @@ namespace HospitalProject.View.DoctorView.Model
             SelectedItem.Id = showItem.Id;
             appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AppVM;
+        }
+
+        private bool CanReturnCommandExecute()
+        {
+            return true;
+        }
+
+        private void ReturnCommandExecute()
+        {
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AppVM;
+        }
+
+        public RelayCommand ReturnCommand
+        {
+            get
+            {
+                return returnCommand ?? (returnCommand =
+                    new RelayCommand(param => ReturnCommandExecute(), param => CanReturnCommandExecute()));
+            }
         }
 
         private void FillExaminationTypeComboData()

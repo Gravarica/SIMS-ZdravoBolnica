@@ -146,9 +146,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void EditAppointmentCommandExecute()
         {
-            EditAppointmentview view = new EditAppointmentview();
-            view.DataContext = new EditAppointmentViewModel(SelectedItem, AppointmentItems);
-            view.ShowDialog();
+            EditAppointmentViewModel vm = new EditAppointmentViewModel(SelectedItem, AppointmentItems);
+            MainViewModel.Instance.CurrentView = vm;
         }
 
         private bool CanNewAppointmentCommandExecute()
@@ -158,9 +157,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void NewAppointmentCommandExecute()
         {
-            NewAppointmentView view = new NewAppointmentView();
-            view.DataContext = new NewAppointmentViewModel(AppointmentItems,view);
-            view.ShowDialog();
+            NewAppointmentViewModel vm = new NewAppointmentViewModel(AppointmentItems);
+            MainViewModel.Instance.CurrentView = vm;
         }
 
         private bool CanDeleteCommandExecute()
@@ -185,8 +183,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void MedicalRecordCommandExecute()
         {
-            MedicalCardView view = new MedicalCardView();
-            view.DataContext = new MedicalCardViewModel(SelectedItem.Patient);
+            MedicalCardViewModel vm = new MedicalCardViewModel(SelectedItem.Patient, ReturnFlag.APPOINTMENT_VIEW);
+            MainViewModel.Instance.CurrentView = vm;
         }
 
         private bool CanCreateAnamnesisCommandExecute()
@@ -196,10 +194,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void CreateAnamnesisCommandExecute()
         {
-            ExaminationView view = new ExaminationView();
-            AnamnesisViewModel avm = new AnamnesisViewModel(SelectedItem, view);
-            view.DataContext = avm;
-            view.ShowDialog();
+            AnamnesisViewModel avm = new AnamnesisViewModel(SelectedItem);
+            MainViewModel.Instance.CurrentView = avm;
             if(avm.ModalResult)
             {
                 AppointmentItems.Remove(avm.ShowItem);
