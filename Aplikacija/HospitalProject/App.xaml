@@ -41,6 +41,10 @@
                 <views:WardenEquipementView/>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type viewModels:MedicineReportViewModel}">
+                <views:MedicineReportView/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">
                 <views:WardenEquipemntRelocationView/>
             </DataTemplate>

@@ -22,5 +22,15 @@ namespace HospitalProject.Controller
         {
             return medicineReportService.Create(medicine, description,doctor);
         }
+
+        public List<MedicineReport> GetAll()
+        {
+            return medicineReportService.getAll();
+        }
+
+        public void Delete(MedicineReport medicineReport)
+        {
+            medicineReportService.Delete(medicineReport);
+        }
     }
 }
