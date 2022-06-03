@@ -1,4 +1,4 @@
-﻿1|3|rengen|RENGEN
+1|3|rengen|RENGEN
 2|22|test_tube|TEST_TUBE
 3|34|bed|BED
 4|34|aspirin|MEDICINE|*4-5
@@ -10,7 +10,7 @@
 10|300|brufen|MEDICINE|*4-33
 11|500|KiselaVoda|MEDICINE
 12|50|med|MEDICINE|*1-3-5|$1-2-3
-13|30000|cacacola|MEDICINE|*1-2-3|$1-2-3
+13|30000|cacacolamarlborosuzuki|MEDICINE|*1-2-3-4|$1-2-3-4
 14|300|jabuka|MEDICINE|*1-2
 15|2|kruska|MEDICINE
 16|2|sljiva|MEDICINE|$1-2-3

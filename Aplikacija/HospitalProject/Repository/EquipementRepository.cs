@@ -75,6 +75,8 @@ namespace HospitalProject.Repository
             updatedEquipement.Quantity = equipement.Quantity;
             updatedEquipement.Name = equipement.Name;
             updatedEquipement.EquipementType = equipement.EquipementType;
+            updatedEquipement.Alergens = equipement.Alergens;
+            updatedEquipement.Replacements = equipement.Replacements;
 
             _equipementFileHandler.Save(_equipements);
         }
