@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
@@ -29,14 +30,14 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
-                           Text="Requests"
+                           Text="{model:Loc RequestLabel}"
                            FontSize="22"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="25,0,0,0"
                            FontWeight="SemiBold"/>
                 <Button Grid.Column="2"
-                        Content="New Request"
+                        Content="{model:Loc NewRequestButton}"
                         Margin = "30,15,30,15"
                         Style="{StaticResource RoundButton}"
                         Command="{Binding NewRequestCommand}"/>
@@ -55,19 +56,19 @@
                       SelectionMode="Single"
                       ItemsSource="{Binding VacationRequests}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Submission Date"
+                    <DataGridTextColumn Header="{model:Loc SubmissionDateHeader}"
                                         Width="3*"
                                         Binding="{Binding SubmissionDate, Converter={StaticResource DateConverter}}"/>
-                    <DataGridTextColumn Header="Vacation Start"
+                    <DataGridTextColumn Header="{model:Loc SDHeader}"
                                         Width="3*"
                                         Binding="{Binding DateInterval.StartDate, Converter={StaticResource DateConverter}}"/>
-                    <DataGridTextColumn Header="Vacation End"
+                    <DataGridTextColumn Header="{model:Loc EDHeader}"
                                         Width="3*"
                                         Binding="{Binding DateInterval.EndDate, Converter={StaticResource DateConverter}}"/>
-                    <DataGridTextColumn Header="Request Status" 
+                    <DataGridTextColumn Header="{model:Loc RequestStatusHeader}"
                                         Width="2*"
                                         Binding="{Binding RequestState}"/>
-                    <DataGridCheckBoxColumn Header="Urgent" 
+                    <DataGridCheckBoxColumn Header="{model:Loc UrgentHeader}"
                                             IsReadOnly="True"
                                             Width="*"
                                             Binding="{Binding IsUrgent}"/>

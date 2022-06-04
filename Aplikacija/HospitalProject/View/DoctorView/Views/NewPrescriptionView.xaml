@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Height="600" Width="950"
         Background="AliceBlue">
@@ -51,7 +52,7 @@
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Examination - New Prescription"
+                <TextBlock Text="{model:Loc NewPrescriptionLabel}"
                        FontSize="22"
                        Foreground="White"
                        FontWeight="SemiBold"
@@ -59,11 +60,11 @@
                        VerticalAlignment="Center"
                        Margin="15,0,0,0"/>
                 <Button Grid.Column="1"
-                        Content="Save"
+                        Content="{model:Loc SaveButton}"
                         Style="{StaticResource RoundButton}"
                         Command="{Binding SaveCommand}"/>
                 <Button Grid.Column="2"
-                        Content="Return"
+                        Content="{model:Loc ReturnButton}"
                         Style="{StaticResource RoundButton}"
                         Command="{Binding ReturnCommand}"/>
             </Grid>
@@ -83,27 +84,32 @@
                         IsReadOnly="True"
                         SelectionMode="Single"
                         FontSize="20"
+                        Style ="{StaticResource grid1}"
+                        HeadersVisibility="Column"
+                        SelectionUnit="FullRow"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
                         ItemsSource="{Binding PatientPrescriptions}"
                     >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Start Date" 
-                                            Width="*"
+                        <DataGridTextColumn Header="{model:Loc SDHeader}"
+                                            Width="2*"
                                             Binding="{Binding Appointment.Date, Converter={StaticResource DateConverter}}"/>
-                        <DataGridTextColumn Header="End Date"
-                                            Width="*"
+                        <DataGridTextColumn Header="{model:Loc EDHeader}"
+                                            Width="2*"
                                             Binding="{Binding EndDate, Converter={StaticResource DurationConverter}}"/>
-                        <DataGridTextColumn Header="Medicine"
-                                            Width="*"
+                        <DataGridTextColumn Header="{model:Loc MedicineHeader}"
+                                            Width="3*"
                                             Binding="{Binding Medicine.Name}"/>
-                        <DataGridTextColumn Header="Written By"
-                                            Width="*"
+                        <DataGridTextColumn Header="{model:Loc WrittenByHeader}"
+                                            Width="3*"
                                             Binding="{Binding Appointment.Doctor, Converter={StaticResource NameConverter}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
 
             <GroupBox Grid.Column="1"
-                      Header="New Prescription"
+                      Header="{model:Loc NPLabel}"
                       FontSize="20"
                       BorderBrush="#3e3ece"
                       BorderThickness="0.5"
@@ -125,7 +131,7 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
-                           Content="Patient:"
+                           Content="{model:Loc PLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
@@ -133,7 +139,7 @@
                              Text="{Binding ShowItem.Patient, Converter={StaticResource NameConverter}}"/>
 
                     <Label Grid.Row="1"
-                           Content="Doctor:"
+                           Content="{model:Loc DLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
@@ -142,7 +148,7 @@
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="Medicine:"
+                           Content="{model:Loc MedicineLabel}"
                            Style="{StaticResource LabelStyle}"/>
 
                     <ComboBox Grid.Row="2"
@@ -157,7 +163,7 @@
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="Start Date:"
+                           Content="{model:Loc SDLabel}"
                            Style="{StaticResource LabelStyle}"/>
 
                     <DatePicker Grid.Row="3"
@@ -168,7 +174,7 @@
                                 SelectedDate="{Binding StartDate}"/>
 
                     <Label Grid.Row="4"
-                           Content="End Date:"
+                           Content="{model:Loc EDLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <DatePicker Grid.Row="4"
                                 Grid.Column="1"
@@ -178,7 +184,7 @@
 
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="Interval:"
+                           Content="{model:Loc IntervalLabel}"
                            Style="{StaticResource LabelStyle}"/>
 
                     <ComboBox Grid.Row="5"
@@ -192,7 +198,7 @@
                               SelectedValue="{Binding Interval}"/>
 
                     <Label Grid.Row="6"
-                           Content="Description:"
+                           Content="{model:Loc DescriptionLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="7"
                              Grid.RowSpan="2"

@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddressLabel" xml:space="preserve">
+    <value>Adresa:</value>
+  </data>
+  <data name="AllergiesLabel" xml:space="preserve">
+    <value>Alergije</value>
+  </data>
+  <data name="AlternativesLabel" xml:space="preserve">
+    <value>Zamenski lekovi</value>
+  </data>
+  <data name="AnamnesisLabel" xml:space="preserve">
+    <value>Anamneza</value>
+  </data>
+  <data name="AppointmentLabel" xml:space="preserve">
+    <value>Zakazani termini</value>
+  </data>
+  <data name="BTLabel" xml:space="preserve">
+    <value>Krvna grupa:</value>
+  </data>
+  <data name="CAButton" xml:space="preserve">
+    <value>Otkazi pregled</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ponisti</value>
+  </data>
+  <data name="CEDLabel" xml:space="preserve">
+    <value>Izaberite datum zavrsetka:</value>
+  </data>
+  <data name="CSDLabel" xml:space="preserve">
+    <value>Izaberite datum pocetka:</value>
+  </data>
+  <data name="DateHeader" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Datum:</value>
+  </data>
+  <data name="DescriptionHeader" xml:space="preserve">
+    <value>Opis anamneze</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Opis anamneze:</value>
+  </data>
+  <data name="DetailsLabel" xml:space="preserve">
+    <value>Detalji pregleda</value>
+  </data>
+  <data name="DLabel" xml:space="preserve">
+    <value>Doktor:</value>
+  </data>
+  <data name="DOBLabel" xml:space="preserve">
+    <value>Datum rodjenja:</value>
+  </data>
+  <data name="DoctorHeader" xml:space="preserve">
+    <value>Doktor</value>
+  </data>
+  <data name="DurationHeader" xml:space="preserve">
+    <value>Trajanje</value>
+  </data>
+  <data name="DurationLabel" xml:space="preserve">
+    <value>Trajanje:</value>
+  </data>
+  <data name="EDHeader" xml:space="preserve">
+    <value>Zavrsetak</value>
+  </data>
+  <data name="EditAppointmentLabel" xml:space="preserve">
+    <value>Izmena termina</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Izmeni</value>
+  </data>
+  <data name="EDLabel" xml:space="preserve">
+    <value>Zavrsetak:</value>
+  </data>
+  <data name="ExaminationLabel" xml:space="preserve">
+    <value>Pregled pacijenta</value>
+  </data>
+  <data name="FDRemainingLabel" xml:space="preserve">
+    <value>Broj preostalih slobodnih dana:</value>
+  </data>
+  <data name="FinishLabel" xml:space="preserve">
+    <value>Zavrsi pregled</value>
+  </data>
+  <data name="FirstNameHeader" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="FreeDaysLabel" xml:space="preserve">
+    <value>Slobodnih dana:</value>
+  </data>
+  <data name="GenderLabel" xml:space="preserve">
+    <value>Pol:</value>
+  </data>
+  <data name="IDHeader" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="IngredientsLabel" xml:space="preserve">
+    <value>Sastojci</value>
+  </data>
+  <data name="IntervalLabel" xml:space="preserve">
+    <value>Ucestalost:</value>
+  </data>
+  <data name="InventoryLabel" xml:space="preserve">
+    <value>Lekovi</value>
+  </data>
+  <data name="JMBGLabel" xml:space="preserve">
+    <value>JMBG:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Izaberite jezik:</value>
+  </data>
+  <data name="LastNameHeader" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="MedicalInformationLabel" xml:space="preserve">
+    <value>Medicinske informacije</value>
+  </data>
+  <data name="MedicalRecordLabel" xml:space="preserve">
+    <value>Medicinski karton</value>
+  </data>
+  <data name="MedicineHeader" xml:space="preserve">
+    <value>Lek</value>
+  </data>
+  <data name="MedicineLabel" xml:space="preserve">
+    <value>Lek:</value>
+  </data>
+  <data name="MIDHeader" xml:space="preserve">
+    <value>ID Leka</value>
+  </data>
+  <data name="MRButton" xml:space="preserve">
+    <value>Medicinski karton</value>
+  </data>
+  <data name="MyProfileLabel" xml:space="preserve">
+    <value>Moj profil</value>
+  </data>
+  <data name="NameHeader" xml:space="preserve">
+    <value>Naziv </value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="NewAppointmentLabel" xml:space="preserve">
+    <value>Novi termin</value>
+  </data>
+  <data name="NewPrescriptionLabel" xml:space="preserve">
+    <value>Pregled - Izdavanje recepta</value>
+  </data>
+  <data name="NewReferalLabel" xml:space="preserve">
+    <value>Novi uput</value>
+  </data>
+  <data name="NewRequestButton" xml:space="preserve">
+    <value>Novi zahtev</value>
+  </data>
+  <data name="NewRequestLabel" xml:space="preserve">
+    <value>Zahtevi - Novi zahtev za godisnji</value>
+  </data>
+  <data name="NPLabel" xml:space="preserve">
+    <value>Izdavanje recepta</value>
+  </data>
+  <data name="NVRLabel" xml:space="preserve">
+    <value>Novi zahtev za godisnji</value>
+  </data>
+  <data name="PatientHeader" xml:space="preserve">
+    <value>Pacijent</value>
+  </data>
+  <data name="PatientLabel" xml:space="preserve">
+    <value>Pacijenti</value>
+  </data>
+  <data name="PELabel" xml:space="preserve">
+    <value>Istorija pregleda</value>
+  </data>
+  <data name="PersonalInformationLabel" xml:space="preserve">
+    <value>Licne informacije</value>
+  </data>
+  <data name="PersonalizationLabel" xml:space="preserve">
+    <value>Personalizacija</value>
+  </data>
+  <data name="PHLabel" xml:space="preserve">
+    <value>Istorija recepata</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Broj telefona:</value>
+  </data>
+  <data name="PLabel" xml:space="preserve">
+    <value>Pacijent:</value>
+  </data>
+  <data name="PriorityLabel" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="QHeader" xml:space="preserve">
+    <value>Kolicina</value>
+  </data>
+  <data name="RecordButton" xml:space="preserve">
+    <value>Karton</value>
+  </data>
+  <data name="ReferalLabel" xml:space="preserve">
+    <value>Izdavanje uputa</value>
+  </data>
+  <data name="ReportButton" xml:space="preserve">
+    <value>Prijavi</value>
+  </data>
+  <data name="ReportMedicineLabel" xml:space="preserve">
+    <value>Prijava leka</value>
+  </data>
+  <data name="RequestLabel" xml:space="preserve">
+    <value>Zahtevi</value>
+  </data>
+  <data name="RequestStatusHeader" xml:space="preserve">
+    <value>Status zahteva</value>
+  </data>
+  <data name="ReturnButton" xml:space="preserve">
+    <value>Nazad</value>
+  </data>
+  <data name="RFLabel" xml:space="preserve">
+    <value>Faktori rizika:</value>
+  </data>
+  <data name="RoomLabel" xml:space="preserve">
+    <value>Soba:</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Sacuvaj</value>
+  </data>
+  <data name="SDHeader" xml:space="preserve">
+    <value>Pocetak</value>
+  </data>
+  <data name="SDLabel" xml:space="preserve">
+    <value>Pocetak:</value>
+  </data>
+  <data name="SEButton" xml:space="preserve">
+    <value>Otpocni pregled</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Posalji</value>
+  </data>
+  <data name="SLabel" xml:space="preserve">
+    <value>Specijalizacija:</value>
+  </data>
+  <data name="SpecializationLabel" xml:space="preserve">
+    <value>Specijalizacija</value>
+  </data>
+  <data name="SubmissionDateHeader" xml:space="preserve">
+    <value>Datum podnosenja</value>
+  </data>
+  <data name="SurnameLabel" xml:space="preserve">
+    <value>Prezime:</value>
+  </data>
+  <data name="TerminLabel" xml:space="preserve">
+    <value>Termin</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>Vreme:</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Zdravo Bolnica</value>
+  </data>
+  <data name="TOELabel" xml:space="preserve">
+    <value>Tip pregleda:</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="UrgentHeader" xml:space="preserve">
+    <value>Hitnost</value>
+  </data>
+  <data name="UrgentLabel" xml:space="preserve">
+    <value>Hitan zahtev:</value>
+  </data>
+  <data name="UsernameHeader" xml:space="preserve">
+    <value>Korisnicko ime</value>
+  </data>
+  <data name="WHRLabel" xml:space="preserve">
+    <value>Bolnicko lecenje</value>
+  </data>
+  <data name="WPLabel" xml:space="preserve">
+    <value>Novi recept</value>
+  </data>
+  <data name="WrittenByHeader" xml:space="preserve">
+    <value>Izdao</value>
+  </data>
+  <data name="WRLabel" xml:space="preserve">
+    <value>Novi uput</value>
+  </data>
+</root>

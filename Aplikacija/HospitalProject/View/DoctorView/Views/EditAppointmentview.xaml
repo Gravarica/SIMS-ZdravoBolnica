@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Height="600" Width="950"
         Background="AliceBlue">
@@ -57,17 +58,17 @@
                 <TextBlock VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="15 0 0 0"
-                   Text="Edit appointment"
+                   Text="{model:Loc EditAppointmentLabel}"
                    Foreground="White"
                    FontSize="24"
                    Grid.Column="0"/>
                 <Button Grid.Column="2"
-                        Content="Save"
+                        Content="{model:Loc SaveButton}"
                         Command="{Binding SaveCommand}"
                         Margin="10,13,20,13"
                         Style="{DynamicResource RoundButton}"/>
                 <Button Grid.Column="3"
-                        Content="Return"
+                        Content="{model:Loc ReturnButton}"
                         Command="{Binding ReturnCommand}"
                         Margin="10,13,20,13"
                         Style="{DynamicResource RoundButton}"/>
@@ -80,7 +81,7 @@
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0"
                       Margin="25"
-                      Header="New Appointment"
+                      Header="{model:Loc EditAppointmentLabel}"
                       FontSize="20"
                       Foreground="Black">
                 <Grid Name ="InputForm" Style="{StaticResource LabelStyle}">
@@ -100,7 +101,7 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0">
-                        <TextBlock Text="Doctor:" TextWrapping="Wrap"/>
+                        <TextBlock Text="{model:Loc DLabel}" TextWrapping="Wrap"/>
                     </Label>
 
                     <TextBox Grid.Row="0"
@@ -111,7 +112,7 @@
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="Patient:"/>
+                           Content="{model:Loc PLabel}"/>
 
                     <TextBox Grid.Row="1"
                               Grid.Column="1"
@@ -121,7 +122,7 @@
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="Start Date:"/>
+                           Content="{model:Loc SDLabel}"/>
 
                     <DatePicker Grid.Row="2"
                                 Grid.Column="1"
@@ -131,7 +132,7 @@
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="End Date:"/>
+                           Content="{model:Loc EDLabel}"/>
 
                     <DatePicker Grid.Row="3"
                                 Grid.Column="1"
@@ -141,7 +142,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="Type:"/>
+                           Content="{model:Loc TypeLabel}"/>
 
                     <ComboBox Grid.Row="4"
                               Grid.Column="1"
@@ -154,7 +155,7 @@
 
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="Room:"/>
+                           Content="{model:Loc RoomLabel}"/>
 
                     <ComboBox Grid.Row="5"
                               Grid.Column="1"
@@ -173,11 +174,11 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
-                                Content="Submit"
+                                Content="{model:Loc SendButton}"
                                 Command="{Binding SubmitCommand}"
                                 Style="{DynamicResource RoundButton}"/>
                         <Button Grid.Column="1"
-                                Content="Reset"
+                                Content="{model:Loc CancelButton}"
                                 Style="{DynamicResource RoundButton}"/>
                     </Grid>
                 </Grid>
@@ -192,10 +193,10 @@
                       IsReadOnly="True"
                       SelectionMode="Single">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date"
+                    <DataGridTextColumn Header="{model:Loc DateHeader}"
                                         Width="2*"
                                         Binding="{Binding Date}"/>
-                    <DataGridTextColumn Header="Duration"
+                    <DataGridTextColumn Header="{model:Loc DurationHeader}"
                                         Width="*"
                                         Binding="{Binding Duration}"/>
                 </DataGrid.Columns>

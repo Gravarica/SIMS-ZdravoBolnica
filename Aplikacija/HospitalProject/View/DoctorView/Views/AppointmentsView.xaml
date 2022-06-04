@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters="clr-namespace:HospitalProject.View.Converter" 
              xmlns:doctorvalidation="clr-namespace:HospitalProject.ValidationRules.DoctorValidation"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              Background="AliceBlue"
              d:DesignHeight="600" d:DesignWidth="950">
     <UserControl.Resources>
@@ -44,11 +45,11 @@
                    FontSize ="20" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   Content="Appointments"
+                   Content="{model:Loc AppointmentLabel}"
                    Margin="10 0 0 0"
                    Foreground="White"/>
             <Button Grid.Column="1"
-                    Content="New Appointment"
+                    Content="{model:Loc NewAppointmentLabel}"
                     VerticalAlignment="Center"
                     Width="115"
                     Height="25" 
@@ -61,7 +62,7 @@
                 </Button.Resources>
             </Button>
             <Button Grid.Column="2"
-                    Content="Edit Appointment"
+                    Content="{model:Loc EditAppointmentLabel}"
                     VerticalAlignment="Center"
                     Width="115"
                     Height="25" 
@@ -74,7 +75,7 @@
                 </Button.Resources>
             </Button>
             <Button Grid.Column="3"
-                    Content="Cancel Appointment"
+                    Content="{model:Loc CAButton}"
                     VerticalAlignment="Center"
                     Width="115"
                     Height="25" 
@@ -105,27 +106,25 @@
                       SelectionMode="Single"
                       FontSize="15">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID"
-                                        Binding="{Binding Id}"
-                                        Width="30"/>
-                    <DataGridTextColumn Header="Date"
+                    <DataGridTextColumn Header="{model:Loc DateHeader}"
                                         Binding="{Binding Date}"
                                         Width="180"/>
-                    <DataGridTextColumn Header="Duration"
+                    <DataGridTextColumn Header="{model:Loc DurationHeader}"
                                         Binding="{Binding Duration}"
                                         Width="70"/>
-                    <DataGridTextColumn Header="Patient Name"
+                    <DataGridTextColumn Header="{model:Loc PatientHeader}"
                                         Binding="{Binding Patient, Converter={StaticResource NameConverter}}"
                                         Width="*"/>
-                    <DataGridTextColumn Header="Doctor Name"
+                    <DataGridTextColumn Header="{model:Loc DoctorHeader}"
                                         Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}"
                                         Width="*"/>
               </DataGrid.Columns>
             </DataGrid>
-            <GroupBox Header="Details of an Appointment"
+            <GroupBox Header="{model:Loc DetailsLabel}"
                       Grid.Column="1"
                       Margin="0,25,20,25"
-                      FontSize="16">
+                      FontSize="16"
+                      Foreground="Black">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -143,7 +142,7 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="Patient:"
+                           Content="{model:Loc PLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="0"
                                Grid.Column="1"
@@ -152,7 +151,7 @@
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="Date:"
+                           Content="{model:Loc DateLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="1"
                                Grid.Column="1"
@@ -161,7 +160,7 @@
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="Time:"
+                           Content="{model:Loc TimeLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="2"
                                Grid.Column="1"
@@ -169,7 +168,7 @@
                              Style="{StaticResource TextBoxStyle}"/>
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="Duration:"
+                           Content="{model:Loc DurationLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="3"
                                Grid.Column="1"
@@ -178,7 +177,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="Type:"
+                           Content="{model:Loc TypeLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="4"
                                Grid.Column="1"
@@ -187,7 +186,7 @@
 
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="Room:"
+                           Content="{model:Loc RoomLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="5"
                                Grid.Column="1"
@@ -212,7 +211,7 @@
                                    Height="16"
                                    Width="16"
                                    Margin="0,0,5,0"/>
-                            <TextBlock Text="Start Examination"
+                            <TextBlock Text="{model:Loc SEButton}"
                                        VerticalAlignment="Center"/>
                         </DockPanel>
                     </Button>
@@ -234,7 +233,7 @@
                                        Height="16"
                                        Width="16"
                                        Margin="0,0,5,0"/>
-                                <TextBlock Text="Medical Record"
+                            <TextBlock Text="{model:Loc MRButton}"
                                            VerticalAlignment="Center"/>
                             </DockPanel>
                     </Button>

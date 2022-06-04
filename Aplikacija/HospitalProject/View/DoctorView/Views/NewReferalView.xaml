@@ -8,6 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Height="600" Width="950"
         Background="AliceBlue">
@@ -41,17 +42,17 @@
                 <TextBlock VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="15 0 0 0"
-                   Text="Referal Scheduling"
+                   Text="{model:Loc ReferalLabel}"
                    Foreground="White"
                    FontSize="24"
                    Grid.Column="0"/>
                 <Button Grid.Column="2"
-                        Content="Save"
+                        Content="{model:Loc SaveButton}"
                         Command="{Binding SaveCommand}"
                         Margin="20"
                         Style="{StaticResource RoundButton}"/>
                 <Button Grid.Column="3"
-                        Content="Return"
+                        Content="{model:Loc ReturnButton}"
                         Command="{Binding ReturnCommand}"
                         Margin="20"
                         Style="{StaticResource RoundButton}"/>
@@ -64,7 +65,7 @@
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0"
                       Margin="25"
-                      Header="New Referal"
+                      Header="{model:Loc NewReferalLabel}"
                       FontSize="20"
                       Foreground="Black">
                 <Grid Name ="InputForm" Style="{StaticResource LabelStyle}">
@@ -85,7 +86,7 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0">
-                        <TextBlock Text="Patient:" TextWrapping="Wrap"/>
+                        <TextBlock Text="{model:Loc PLabel}" TextWrapping="Wrap"/>
                     </Label>
 
                     <TextBox Grid.Row="0"
@@ -97,7 +98,7 @@
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="Specialization:"/>
+                           Content="{model:Loc SpecializationLabel}"/>
 
                     <ComboBox Grid.Row="1"
                               Grid.Column="1"
@@ -112,11 +113,11 @@
 
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="Start Date:"/>
+                           Content="{model:Loc SDLabel}"/>
 
                     <Label Grid.Row="2"
                            Grid.Column="0">
-                        <TextBlock Text="Doctor:" TextWrapping="Wrap"/>
+                        <TextBlock Text="{model:Loc DLabel}" TextWrapping="Wrap"/>
                     </Label>
 
                     <ComboBox Grid.Row="2"
@@ -137,7 +138,7 @@
 
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="End Date:"/>
+                           Content="{model:Loc EDLabel}"/>
 
                     <DatePicker Grid.Row="4"
                                 Grid.Column="1"
@@ -148,7 +149,7 @@
 
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="Priority:"/>
+                           Content="{model:Loc PriorityLabel}"/>
 
                     <Grid Grid.Row="5"
                           Grid.Column="1"
@@ -160,7 +161,7 @@
                         <RadioButton GroupName="Search"
                                      Grid.Row="0"
                                      Grid.Column="0"
-                                     Content="Doctor"
+                                     Content="{model:Loc DoctorHeader}"
                                      Margin="0,5,20,5"
                                      VerticalContentAlignment="Center"
                                      FontSize="16"
@@ -168,7 +169,7 @@
                         <RadioButton GroupName="Search"
                                      Grid.Row="0"
                                      Grid.Column="1"
-                                     Content="Date"
+                                     Content="{model:Loc DateHeader}"
                                      FontSize="15"
                                      Margin="0,5,20,5"
                                      VerticalContentAlignment="Center"
@@ -183,11 +184,11 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
-                                Content="Submit"
+                                Content="{model:Loc SendButton}"
                                 Command="{Binding SubmitCommand}"
                                 Style="{StaticResource RoundButton}"/>
                         <Button Grid.Column="1"
-                                Content="Reset"
+                                Content="{model:Loc CancelButton}"
                                 Style="{StaticResource RoundButton}"/>
                     </Grid>
                 </Grid>
@@ -201,13 +202,13 @@
                       IsReadOnly="True"
                       SelectionMode="Single">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date"
+                    <DataGridTextColumn Header="{model:Loc DateHeader}"
                                         Width="2*"
                                         Binding="{Binding Date}"/>
-                    <DataGridTextColumn Header="Duration"
+                    <DataGridTextColumn Header="{model:Loc DurationHeader}"
                                         Width="*"
                                         Binding="{Binding Duration}"/>
-                    <DataGridTextColumn Header="Doctor"
+                    <DataGridTextColumn Header="{model:Loc DoctorHeader}"
                                         Width="2*"
                                         Binding="{Binding Doctor, Converter = {StaticResource NameConverter}}"/>
                 </DataGrid.Columns>

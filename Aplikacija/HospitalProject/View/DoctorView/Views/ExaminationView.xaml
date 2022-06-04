@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Height="600" Width="950"
         Background="AliceBlue">
@@ -42,7 +43,7 @@
         <Border Grid.Row="0"
                 Background="#a4a4e8"
                 BorderBrush="#a4afef">
-            <TextBlock Text="Examination"
+            <TextBlock Text="{model:Loc ExaminationLabel}"
                        FontSize="22"
                        Foreground="White"
                        FontWeight="SemiBold"
@@ -56,7 +57,7 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Grid.Column="0"
-                      Header="Anamnesis"
+                      Header="{model:Loc AnamnesisLabel}"
                       FontSize="20"
                       Margin="50,30,50,30"
                       BorderBrush="#a4a4e8"
@@ -76,7 +77,7 @@
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
-                           Content="Date:"
+                           Content="{model:Loc DateLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <DatePicker Grid.Row="0"
                                 Grid.Column="1"
@@ -86,7 +87,7 @@
                                 IsEnabled="False"/>
 
                     <Label Grid.Row="1"
-                           Content="Patient:"
+                           Content="{model:Loc PLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
@@ -94,7 +95,7 @@
                              Text="{Binding ShowItem.Patient, Converter={StaticResource NameConverter}}"/>
 
                     <Label Grid.Row="2"
-                           Content="Doctor:"
+                           Content="{model:Loc DLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
@@ -103,7 +104,7 @@
 
 
                     <Label Grid.Row="3"
-                           Content="Specialization:"
+                           Content="{model:Loc SLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
@@ -112,7 +113,7 @@
 
 
                     <Label Grid.Row="4"
-                           Content="Type of Examination:"
+                           Content="{model:Loc TOELabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="4"
                              Grid.Column="1"
@@ -121,7 +122,7 @@
 
 
                     <Label Grid.Row="5"
-                           Content="Description:"
+                           Content="{model:Loc DescriptionLabel}"
                            Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="6"
                              Grid.ColumnSpan="2"
@@ -142,21 +143,21 @@
                     </Grid.RowDefinitions>
                 
                     <StackPanel Grid.Row="0">
-                        <Button Content="Medical Record"
+                        <Button Content="{model:Loc MedicalRecordLabel}"
                                 Style="{StaticResource RoundButton}"
                                 Command="{Binding MedicalRecordCommand}"/>
-                        <Button Content="Write Prescription"
+                        <Button Content="{model:Loc WPLabel}"
                                 Style="{StaticResource RoundButton}"
                                 Command="{Binding WritePrescriptionCommand}"/>
-                        <Button Content="Write Referal"
+                        <Button Content="{model:Loc WRLabel}"
                                 Style="{StaticResource RoundButton}"
                                 Command="{Binding WriteReferalCommand}"/>
-                        <Button Content="Write Hospital Referal"
+                        <Button Content="{model:Loc WHRLabel}"
                                 Style="{StaticResource RoundButton}"/>
                     </StackPanel>
 
                     <Button Grid.Row="1"
-                            Content="Finish Examination"
+                            Content="{model:Loc FinishLabel}"
                             Style="{StaticResource RoundButton}"
                             Background="#a4a4e8"
                             Foreground="White"

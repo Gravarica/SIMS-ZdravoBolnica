@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
@@ -29,7 +30,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
-                           Text="Inventory"
+                           Text="{model:Loc InventoryLabel}"
                            FontSize="22"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
@@ -58,20 +59,20 @@
                           ItemsSource="{Binding Medicines}"
                           SelectedItem="{Binding SelectedMedicine}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Medicine ID"
+                        <DataGridTextColumn Header="{model:Loc MIDHeader}"
                                             Width="*"
                                             Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Name"
+                        <DataGridTextColumn Header="{model:Loc NameHeader}"
                                             Width="*"
                                             Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Quantity"
+                        <DataGridTextColumn Header="{model:Loc QHeader}"
                                             Width="*"
                                             Binding="{Binding Quantity}"/>
                         <DataGridTemplateColumn Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Report"
-                                            Margin="5,10,10,5"
+                                    <Button Content="{model:Loc ReportButton}"
+                                            Margin="5,0,5,0"
                                             Style="{StaticResource RoundButton}"
                                             Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                                 </DataTemplate>
@@ -98,7 +99,7 @@
                             <TextBlock Foreground="White"
                                    FontFamily="Verdana"
                                    FontSize="20"
-                                   Text="Ingridients"
+                                   Text="{model:Loc IngredientsLabel}"
                                    Margin="5,0,0,0"/>
                         </Border>
                         <ListView FontFamily="Verdana"
@@ -120,7 +121,7 @@
                             <TextBlock Foreground="White"
                                    FontFamily="Verdana"
                                    FontSize="20"
-                                   Text="Alternatives"
+                                   Text="{model:Loc AlternativesLabel}"
                                    Margin="5,0,0,0"/>
                         </Border>
                         <ListView FontFamily="Verdana"

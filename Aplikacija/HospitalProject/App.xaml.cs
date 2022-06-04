@@ -13,6 +13,7 @@ using Service;
 using HospitalProject.Service;
 using HospitalProject.FileHandler;
 using HospitalProject.Repository;
+using HospitalProject.View.DoctorView.Model;
 
 namespace HospitalProject
 {
@@ -248,6 +249,17 @@ namespace HospitalProject
 
         }
 
-       
+        public void ChangeLanguage(string currLang)
+        {
+            if (currLang.Equals("en-US"))
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            }
+            else
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            }
+        }
+
     }
 }

@@ -7,6 +7,7 @@
         xmlns:Model="clr-namespace:HospitalProject.View.Model"
         xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainView" Height="720" Width="1180"
@@ -31,7 +32,7 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Zdravo Hospital"
+            <TextBlock Text="{model:Loc TitleLabel}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="White"
@@ -39,7 +40,7 @@
 
             <StackPanel Grid.Row="1">
 
-                <RadioButton Content="Appointments"
+                <RadioButton Content="{model:Loc AppointmentLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
@@ -47,28 +48,28 @@
                              IsChecked="True"
                              Command="{Binding AppointmentsViewCommand}"/>
 
-                <RadioButton Content="Patients"
+                <RadioButton Content="{model:Loc PatientLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding PatientsViewCommand}"/>
 
-                <RadioButton Content="Requests"
+                <RadioButton Content="{model:Loc RequestLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding RequestsViewCommand}"/>
-                
-                <RadioButton Content="Inventory"
+
+                <RadioButton Content="{model:Loc InventoryLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding InventoryViewCommand}"/>
-                
-                <RadioButton Content="My Profile"
+
+                <RadioButton Content="{model:Loc MyProfileLabel}"
                              Height="50"
                              Margin ="0,350,0,0"
                              Foreground="White"

@@ -135,6 +135,9 @@
   <data name="MyProfileLabel" xml:space="preserve">
     <value>My Profile</value>
   </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>First Name</value>
+  </data>
   <data name="NewAppointmentLabel" xml:space="preserve">
     <value>New appointment</value>
   </data>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
-             xmlns:Model="clr-namespace:HospitalProject.View.Model"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
              xmlns:viewModel="clr-namespace:HospitalProject.View.DoctorView.Model" d:DataContext="{d:DesignInstance Type=viewModel:AnamnesisViewModel}"
         mc:Ignorable="d" 
@@ -34,7 +34,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Background="#a4a4e8">
 
-            <RadioButton Content="Patient Information"
+            <RadioButton Content="{model:Loc PersonalInformationLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
@@ -42,14 +42,14 @@
                              IsChecked="True"
                              Command="{Binding PatientInformationViewCommand}"/>
 
-            <RadioButton Content="Previous Examinations"
+            <RadioButton Content="{model:Loc PELabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MedicalCardButtonTheme}"
                              Command="{Binding  PreviousExaminationViewCommand}"/>
 
-            <RadioButton Content="Prescription History"
+            <RadioButton Content="{model:Loc PHLabel}"
                              Height="50"
                              Foreground="White"
                              FontSize="14"

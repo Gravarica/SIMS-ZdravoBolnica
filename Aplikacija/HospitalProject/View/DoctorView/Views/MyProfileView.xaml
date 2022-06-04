@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+             xmlns:ns="clr-namespace:HospitalProject"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
@@ -35,7 +37,7 @@
                 BorderThickness="1"
                 BorderBrush="#a4a4ff">
             <TextBlock Foreground="White"
-                       Text="My Profile"
+                       Text="{model:Loc MyProfileLabel}"
                        FontSize="22"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -49,7 +51,7 @@
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0"
                       Foreground="Black"
-                      Header="Personal Information"
+                      Header="{model:Loc PersonalInformationLabel}"
                       FontSize ="20"
                       Margin="50,30,50,30"
                       BorderThickness="1">
@@ -69,7 +71,7 @@
 
                     <Label Grid.Row="0"
                        Grid.Column="0"
-                       Content="First Name: "
+                       Content="{model:Loc NameLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                     <TextBlock Grid.Row="0"
                            Grid.Column="1"
@@ -78,7 +80,7 @@
 
                     <Label Grid.Row="1"
                        Grid.Column="0"
-                       Content="Last Name: "
+                       Content="{model:Loc SurnameLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                     <TextBlock Grid.Row="1"
                            Grid.Column="1"
@@ -87,7 +89,7 @@
 
                     <Label Grid.Row="2"
                        Grid.Column="0"
-                       Content="Date of Birth:"
+                       Content="{model:Loc DOBLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                     <TextBlock Grid.Row="2"
                            Grid.Column="1"
@@ -96,7 +98,7 @@
 
                     <Label Grid.Row="2"
                        Grid.Column="2"
-                       Content="Gender: "
+                       Content="{model:Loc GenderLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                     <TextBlock Grid.Row="2"
                            Grid.Column="3"
@@ -105,7 +107,7 @@
 
                     <Label Grid.Row="3"
                        Grid.Column="0"
-                       Content="JMBG: "
+                       Content="{model:Loc JMBGLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                     <TextBlock Grid.Row="4"
                            Grid.Column="1"
@@ -114,7 +116,7 @@
 
                     <Label Grid.Row="0"
                        Grid.Column="2"
-                       Content="Address: "
+                       Content="{model:Loc AddressLabel}"
                        Style = "{StaticResource LabelStyle}"/>
 
                     <TextBlock Grid.Row="0"
@@ -124,7 +126,7 @@
 
                     <Label Grid.Row="1"
                        Grid.Column="2"
-                       Content="Phone Number: "
+                       Content="{model:Loc PhoneLabel}"
                        Style = "{StaticResource LabelStyle}"/>
 
                     <TextBlock Grid.Row="1"
@@ -134,7 +136,7 @@
 
                     <Label Grid.Row="3"
                            Grid.Column="2"
-                           Content="Free days: "
+                           Content="{model:Loc FreeDaysLabel}"
                            Style = "{StaticResource LabelStyle}"/>
 
                     <TextBlock Grid.Row="3"
@@ -145,11 +147,35 @@
             </GroupBox>
             <GroupBox Grid.Row="1"
                       Foreground="Black"
-                      Header="Personalization"
+                      Header="{model:Loc PersonalizationLabel}"
                       FontSize ="20"
                       Margin="50,10,50,30"
                       BorderThickness="1">
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content ="{model:Loc LanguageLabel}"
+                           Style ="{StaticResource LabelStyle}"/>
+                    <ComboBox Grid.Row ="0"
+                              Grid.Column="1"
+                              Margin ="20"
+                              FontSize="16"
+                              DisplayMemberPath ="Name"
+                              SelectedValuePath="Value"
+                              ItemsSource="{Binding Path = LanguageComboBox}"
+                              SelectedValue = "{Binding Path = CurrentLanguage}"/>
+                </Grid>
+                
             </GroupBox>
         </Grid>
     </Grid>

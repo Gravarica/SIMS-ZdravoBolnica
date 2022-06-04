@@ -81,7 +81,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ExecuteNewAppointmentCommand()
         {
-            return;
+            NewAppointmentViewModel vm = new NewAppointmentViewModel(MainViewModel.Instance.AppVM.AppointmentItems);
+            vm.PatientData = SelectedItem;
+            MainViewModel.Instance.CurrentView = vm;
         }
     }
 }
