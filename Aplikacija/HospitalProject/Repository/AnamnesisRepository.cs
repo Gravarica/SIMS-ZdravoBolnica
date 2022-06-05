@@ -56,9 +56,6 @@ namespace HospitalProject.Repository
         public void Update(Anamnesis anamnesis)
         {
             Anamnesis updateAnamnesis = GetById(anamnesis.Id);
-
-            updateAnamnesis.App = anamnesis.App;
-            updateAnamnesis.Date = anamnesis.Date;
             updateAnamnesis.Description = anamnesis.Description;
 
             _fileHandler.Save(_anamneses);
@@ -66,17 +63,7 @@ namespace HospitalProject.Repository
 
         public List<Anamnesis> GetAnamnesesByMedicalRecord(int patientId)
         {
-            List<Anamnesis> anamnesisReturnList = new List<Anamnesis>();
-
-            foreach(Anamnesis anamnesis in _anamneses)
-            {
-                if(patientId == anamnesis.App.Patient.Id)
-                {
-                    anamnesisReturnList.Add(anamnesis);
-                }
-            }
-
-            return anamnesisReturnList;
+            return _anamneses.Where(anamnesis => patientId == anamnesis.App.Patient.Id).ToList();
         }
     }
 }

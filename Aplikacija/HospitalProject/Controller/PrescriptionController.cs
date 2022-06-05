@@ -29,7 +29,7 @@ namespace HospitalProject.Controller
             return prescriptionService.GetPrescriptionsForPatient(patientId);
         }
 
-        public string Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
+        public string Create(Appointment appointment, DateTime startDate, DateTime endDate, int interval, string description, Equipement medicine)
         {
             return prescriptionService.Create(appointment, startDate, endDate, interval, description, medicine);
         }

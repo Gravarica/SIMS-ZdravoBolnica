@@ -95,14 +95,15 @@ namespace HospitalProject.View.Model
             HarvestPassword(this, pwargs);
             User user = userController.Login(Username, pwargs.Password);
             
-            if (user.IsBlocked)
-            {
-                MessageBox.Show("Login failed, user is blocked.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Stop);
-                return;
-            }
              
             if(user != null)
             {
+                if (user.IsBlocked)
+                {
+                    MessageBox.Show("Login failed, user is blocked.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    return;
+                }
+
                 if (user.UserType == UserType.DOCTOR) {
                     OpenDoctorView();
                 }

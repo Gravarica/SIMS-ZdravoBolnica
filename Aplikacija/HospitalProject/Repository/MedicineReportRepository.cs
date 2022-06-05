@@ -70,6 +70,16 @@ namespace HospitalProject.Repository
             return medicineReports.FirstOrDefault(medicineReport => medicineReport.Medicine == medicine);
         }
 
-        
+        public List<MedicineReport> GetAll()
+        {
+            return medicineReports;
+        }
+
+        public void Delete(MedicineReport medicineReport)
+        {
+            medicineReports.Remove(medicineReport);
+            medicineReportFileHandler.Save(medicineReports);
+        }
+
     }
 }

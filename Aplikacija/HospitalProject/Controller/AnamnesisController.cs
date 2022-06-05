@@ -15,9 +15,7 @@ namespace HospitalProject.Controller
 
         public AnamnesisController(AnamnesisService anamnesisService)
         {
-
             _anamnesisService=anamnesisService;
-
         }
 
         public void Create(Anamnesis anamnesis)

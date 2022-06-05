@@ -49,10 +49,8 @@ namespace HospitalProject.Service
                 }
                 
             }
-
             return todaysRelocations;
         }
-        
     }
 }
 
