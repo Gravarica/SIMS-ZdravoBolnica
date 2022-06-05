@@ -12,7 +12,7 @@ namespace HospitalProject.View.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DateOnly date = (DateOnly)value;
+            DateTime date = (DateTime)value;
 
             if(date == null)
             {

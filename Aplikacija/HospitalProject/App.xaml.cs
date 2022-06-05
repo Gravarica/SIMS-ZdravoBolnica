@@ -99,13 +99,7 @@ namespace HospitalProject
             
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
 
-            var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
-
-            var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
-
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
-
-            var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
@@ -123,7 +117,7 @@ namespace HospitalProject
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
-            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
+            var _appointmentRepository = new AppointmentRepository(); 
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
@@ -131,7 +125,7 @@ namespace HospitalProject
 
             var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
 
-            var _doctorRepository = new DoctorRepository(_doctorFileHandler);
+            var _doctorRepository = new DoctorRepository();
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
@@ -145,7 +139,7 @@ namespace HospitalProject
 
             var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
 
-            var _userRepository = new UserRepository(_userFileHandler);
+            var _userRepository = new UserRepository();
 
             var _questionRepository = new QuestionRepository(_questionsFileHandler);
 

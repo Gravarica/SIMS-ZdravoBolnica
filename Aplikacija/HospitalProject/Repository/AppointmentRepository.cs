@@ -16,15 +16,15 @@ namespace Repository
 
     public class AppointmentRepository
     {
-        private AppointmentFileHandler _appointmentFileHandler;
+        private IHandleData<Appointment> _appointmentFileHandler;
 
         private int _appointmentMaxId;
 
         private List<Appointment> _appointments = new List<Appointment>();
 
-        public AppointmentRepository(AppointmentFileHandler appointmentFileHandler)
+        public AppointmentRepository()
         {
-            _appointmentFileHandler=appointmentFileHandler;
+            _appointmentFileHandler = new AppointmentFileHandler(FilePathStorage.APPOINTMENT_FILE);
             _appointments = _appointmentFileHandler.ReadAll().ToList();
             _appointmentMaxId = GetMaxId();
         }
@@ -40,7 +40,7 @@ namespace Repository
         public Appointment Insert(Appointment appointment)
         {
                 appointment.Id = ++_appointmentMaxId;
-                _appointmentFileHandler.AppendLineToFile(appointment);
+                _appointmentFileHandler.SaveOneEntity(appointment);
                 _appointments.Add(appointment);
                 return appointment;
         }
