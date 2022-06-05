@@ -12,14 +12,14 @@ namespace HospitalProject.Repository
 {
     public class AnamnesisRepository
     {
-        private AnamnesisFileHandler _fileHandler;
+        private IHandleData<Anamnesis> _fileHandler;
         private List<Anamnesis> _anamneses;
         private int _anamnesesMaxId;
     
 
-        public AnamnesisRepository(AnamnesisFileHandler anamnesisFileHandler)
+        public AnamnesisRepository()
         {
-            _fileHandler = anamnesisFileHandler;
+            _fileHandler = new AnamnesisFileHandler(FilePathStorage.ANAMNESIS_FILE);
             _anamneses = _fileHandler.ReadAll().ToList();
             _anamnesesMaxId = GetMaxId();
         }
@@ -43,7 +43,7 @@ namespace HospitalProject.Repository
         {
             anamnesis.Id = ++_anamnesesMaxId;
             _anamneses.Add(anamnesis);
-            _fileHandler.AppendLineToFile(anamnesis);
+            _fileHandler.SaveOneEntity(anamnesis);
         }
 
         public void Delete(int id)

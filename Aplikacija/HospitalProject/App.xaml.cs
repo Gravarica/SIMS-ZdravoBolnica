@@ -147,11 +147,11 @@ namespace HospitalProject
 
             var _patientRepository = new PatientRepository(_patientFileHandler);
 
-            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler);
+            var _anamnesisRepository = new AnamnesisRepository();
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
 
-            var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
+            var _prescriptionRepository = new PrescriptionRepository(_appointmentRepository);
 
             var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
 

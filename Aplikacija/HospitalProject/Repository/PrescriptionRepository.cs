@@ -12,14 +12,14 @@ namespace HospitalProject.Repository
     public class PrescriptionRepository
     {
 
-        private PrescriptionFileHandler prescriptionFileHandler;
+        private IHandleData<Prescription> prescriptionFileHandler;
         private AppointmentRepository appointmentRepository;
         private int prescriptionMaxId;
         private List<Prescription> prescriptions;
 
-        public PrescriptionRepository(PrescriptionFileHandler prescriptionFileHandler, AppointmentRepository appointmentRepository)
+        public PrescriptionRepository(AppointmentRepository appointmentRepository)
         {
-            this.prescriptionFileHandler = prescriptionFileHandler;
+            this.prescriptionFileHandler = new PrescriptionFileHandler(FilePathStorage.PRESCRIPTION_FILE);
             this.appointmentRepository = appointmentRepository;
             InstantiatePrescriptionList();
         }
@@ -46,17 +46,11 @@ namespace HospitalProject.Repository
             return prescriptions.FirstOrDefault(prescription => prescription.Id == prescriptionId);
         }
 
-        // Ovde je problem sto lista recepata nema instanciran appointment
-        // Jedno resenje je da nemam vezu sa appointmentom nego sa pacijentom direktno
-        // Drugo resenje je da nekako instanciram appointment, tj da povezem 
         public IEnumerable<Prescription> GetPrescriptionsForPatient(int patientId)
         {
             return prescriptions.Where(prescription => prescription.Appointment.Patient.Id == patientId);
         }
 
-        // Osiguraj se da je pre ovoga appointment bindovan sa svojim doktorom i pacijentom
-        // Za pregled u njegovom repozitorijumu je setovan pacijent i samo njegov id sto je okej
-        // Problem je sto cu opet morati da vrsim bind u servisu da bih pristupio pacijentu doktoru i datumu
         private void SetAppointmentForPrescription(Prescription prescription)
         {
             prescription.Appointment = appointmentRepository.GetById(prescription.Appointment.Id);
@@ -66,7 +60,7 @@ namespace HospitalProject.Repository
         {
             prescription.Id = ++prescriptionMaxId;
             prescriptions.Add(prescription);
-            prescriptionFileHandler.AppendLineToFile(prescription);
+            prescriptionFileHandler.SaveOneEntity(prescription);
         }
 
         public void Delete(int prescriptionId)

@@ -11,5 +11,7 @@ namespace HospitalProject.FileHandler
         public IEnumerable<T> ReadAll();
 
         public void Save(IEnumerable<T> entities);
+
+        public void SaveOneEntity(T entity);
     }
 }

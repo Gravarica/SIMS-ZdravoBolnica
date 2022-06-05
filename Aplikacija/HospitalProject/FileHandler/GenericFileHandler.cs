@@ -50,5 +50,10 @@ namespace HospitalProject.FileHandler
                 }
             }
         }
+
+        public void SaveOneEntity(T entity)
+        {
+            AppendLineToFile(entity);
+        }
     }
 }
