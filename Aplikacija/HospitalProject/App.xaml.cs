@@ -121,13 +121,9 @@ namespace HospitalProject
 
             var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
 
-            var _medicineReportFileHandler = new MedicineReportFileHandler(MEDICINE_REPORT_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
-
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
-
-            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
@@ -159,7 +155,7 @@ namespace HospitalProject
 
             var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
 
-            var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
+            var _medicineReportRepository = new MedicineReportRepository(_equipementRepository, _doctorRepository);
 
             var _vacationRequestRepository = new VacationRequestRepository(_doctorRepository);
 

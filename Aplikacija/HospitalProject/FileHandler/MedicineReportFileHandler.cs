@@ -8,22 +8,38 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class MedicineReportFileHandler
+    public class MedicineReportFileHandler : GenericFileHandler<MedicineReport>
     {
-        string _path;
-        string _delimiter;
         string _dateTimeFormat;
 
-        public MedicineReportFileHandler(string path, string delimiter, string dateTimeFormat)
+        public MedicineReportFileHandler(string path) : base(path)
         {
-            _path=path;
-            _delimiter=delimiter;
-            _dateTimeFormat=dateTimeFormat;
+            _dateTimeFormat=FormatStorage.ONLY_DATE_FORMAT;
         }
 
-        private string ConvertReportToCSVFormat(MedicineReport medicineReport)
+        protected override MedicineReport ConvertCSVToEntity(string csv)
         {
-            return string.Join(_delimiter,
+            string[] tokens = csv.Split(CSV_DELIMITER);
+            return new MedicineReport(int.Parse(tokens[0]),
+                int.Parse(tokens[1]),
+                DateTime.ParseExact(tokens[2], _dateTimeFormat, null),
+                int.Parse(tokens[3]),
+                tokens[4]);
+        }
+
+        protected override string ConvertEntityToCSV(MedicineReport medicineReport)
+        {
+            return string.Join(CSV_DELIMITER,
+                medicineReport.Id,
+                medicineReport.Doctor.Id,
+                medicineReport.SubmissionDate.ToString(_dateTimeFormat),
+                medicineReport.Medicine.Id,
+                medicineReport.Description);
+        }
+
+        /*private string ConvertReportToCSVFormat(MedicineReport medicineReport)
+        {
+            return string.Join(CSV_DELIMITER,
                                medicineReport.Id,
                                medicineReport.Doctor.Id,
                                medicineReport.SubmissionDate.ToString(_dateTimeFormat),
@@ -33,28 +49,28 @@ namespace HospitalProject.FileHandler
 
         private MedicineReport ConvertCSVFormatToReport(string CSVFormat)
         {
-            string[] tokens = CSVFormat.Split(_delimiter);
+            string[] tokens = CSVFormat.Split(CSV_DELIMITER);
             return new MedicineReport(int.Parse(tokens[0]),
                                       int.Parse(tokens[1]),
                                       DateTime.ParseExact(tokens[2], _dateTimeFormat, null),
                                       int.Parse(tokens[3]),
                                       tokens[4]);
-        }
+        }*/
 
-        public void AppendLineToFile(MedicineReport medicineReport)
+        /*public void AppendLineToFile(MedicineReport medicineReport)
         {
             string line = ConvertReportToCSVFormat(medicineReport);
             File.AppendAllText(_path, line + Environment.NewLine);
-        }
+        }*/
 
-        public IEnumerable<MedicineReport> ReadAll()
+       /* public IEnumerable<MedicineReport> ReadAll()
         {
             return File.ReadAllLines(_path)
                    .Select(ConvertCSVFormatToReport)
                    .ToList();
-        }
+        }*/
 
-        public void Save(IEnumerable<MedicineReport> medicineReports)
+        /*public void Save(IEnumerable<MedicineReport> medicineReports)
         {
             using (StreamWriter file = new StreamWriter(_path))
             {
@@ -63,6 +79,6 @@ namespace HospitalProject.FileHandler
                     file.WriteLine(ConvertReportToCSVFormat(medicineReport));
                 }
             }
-        }
+        }*/
     }
 }
