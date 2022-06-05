@@ -8,76 +8,44 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class MedicalRecordFileHandler
+    public class MedicalRecordFileHandler : GenericFileHandler<MedicalRecord>
     {
-        private readonly string _path;
-
-        private readonly string _delimiter;
 
         private const string ALLERGY_CSV = "-";
        
-        public MedicalRecordFileHandler(string path, string delimiter)
-        {
-            _path=path;
+        public MedicalRecordFileHandler(string path) : base(path) {}
 
-            _delimiter=delimiter;
+        protected override MedicalRecord ConvertCSVToEntity(string csv)
+        {
+            string[] tokens = csv.Split(CSV_DELIMITER.ToCharArray());
+
+            if (tokens.Length == 3)
+            {
+                return new MedicalRecord(int.Parse(tokens[0]),
+                    int.Parse(tokens[1]),
+                    GetAllergiesFromCSV(tokens[2]));
+            }
+
+            return new MedicalRecord(int.Parse(tokens[0]),
+                int.Parse(tokens[1]),
+                new List<Allergies>());
         }
 
-        // I only want to save ID | patientID
-        public string ConvertMedicalRecordToCSVFormat(MedicalRecord medicalRecord)
+        protected override string ConvertEntityToCSV(MedicalRecord medicalRecord)
         {
             if (medicalRecord.Allergies.Count == 0)
             {
-                return string.Join(_delimiter,
+                return string.Join(CSV_DELIMITER,
                     medicalRecord.Id,
                     medicalRecord.Patient.Id);
             }
 
-            return string.Join(_delimiter,
+            return string.Join(CSV_DELIMITER,
                 medicalRecord.Id,
                 medicalRecord.Patient.Id,
                 ConvertAllergensToCSV(medicalRecord.Allergies));
         }
 
-        public MedicalRecord ConvertCSVFormatToMedicalRecord(string CSVFormat)
-        {
-            string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
-
-            if (tokens.Length == 3)
-            {
-                return new MedicalRecord(int.Parse(tokens[0]), 
-                    int.Parse(tokens[1]),
-                    GetAllergiesFromCSV(tokens[2]));
-            }
-            
-            return new MedicalRecord(int.Parse(tokens[0]), 
-                                     int.Parse(tokens[1]),
-                                     new List<Allergies>());
-        }
-
-        public IEnumerable<MedicalRecord> ReadAll()
-        {
-            return File.ReadAllLines(_path)                 
-                   .Select(ConvertCSVFormatToMedicalRecord)   
-                   .ToList();
-        }
-
-        public void Save(IEnumerable<MedicalRecord> medicalRecords)
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (MedicalRecord medicalRecord in medicalRecords)
-                {
-                    file.WriteLine(ConvertMedicalRecordToCSVFormat(medicalRecord));
-                }
-            }
-        }
-
-        public void AppendLineToFile(MedicalRecord medicalRecord)
-        {
-            string line = ConvertMedicalRecordToCSVFormat(medicalRecord);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
 
         private List<Allergies> GetAllergiesFromCSV(string CSVToken)
         {
@@ -94,7 +62,6 @@ namespace HospitalProject.FileHandler
            return allergies;
            
         }
-
 
         private void AddAllergenToList(List<Allergies> allergens, int allergenId)
         {

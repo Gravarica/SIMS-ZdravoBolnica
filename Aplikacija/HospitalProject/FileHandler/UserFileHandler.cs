@@ -20,7 +20,7 @@ namespace HospitalProject.FileHandler
             string[] tokens = csv.Split(CSV_DELIMITER.ToCharArray());
             return new User(tokens[0],
                 tokens[1],
-                EnumConverter.convertStringToUserType(tokens[2]),
+                EnumConverter.ConvertStringToUserType(tokens[2]),
                 bool.Parse(tokens[3]),
                 int.Parse(tokens[4]));
         }

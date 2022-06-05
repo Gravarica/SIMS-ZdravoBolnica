@@ -42,7 +42,7 @@ namespace HospitalProject.DataUtility
             return RequestState.PENDING;
         }
 
-        public static UserType convertStringToUserType(string userType)
+        public static UserType ConvertStringToUserType(string userType)
         {
             if (userType.Equals("PATIENT"))
             {
@@ -58,6 +58,21 @@ namespace HospitalProject.DataUtility
             }
 
             return UserType.WARDEN;
+        }
+
+        public static Category ConvertStringToCategory(string _category)
+        {
+            if (_category.Equals("DOCTOR_SURVEY"))
+            {
+                return Category.DOCTOR_SURVEY;
+            }
+            else if (_category.Equals("HOSPITAL_SURVEY"))
+            {
+                return Category.HOSPITAL_SURVEY;
+            }
+            
+            return Category.APPLICATION_SURVEY;
+            
         }
     }
 }

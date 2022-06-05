@@ -12,12 +12,12 @@ public class AllergiesRepository
 {
       
         private List<Allergies> _allergies;
-        private AllergiesFileHandler _allergiesFileHandler;
+        private IHandleData<Allergies> _allergiesFileHandler;
         private int _allergiesMaxId;
 
-        public AllergiesRepository(AllergiesFileHandler allergiesFileHandler)
+        public AllergiesRepository()
         {
-            _allergiesFileHandler = allergiesFileHandler;
+            _allergiesFileHandler = new AllergiesFileHandler(FilePathStorage.ALLERGIES_FILE);
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
 
@@ -30,7 +30,7 @@ public class AllergiesRepository
         {
             allergy.Id = ++_allergiesMaxId;
             _allergies.ToList().Add(allergy);
-            _allergiesFileHandler.AppendLineToFile(allergy);
+            _allergiesFileHandler.SaveOneEntity(allergy);
         }
 
         public Allergies GetById(int id)

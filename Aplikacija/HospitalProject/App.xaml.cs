@@ -70,7 +70,6 @@ namespace HospitalProject
 
         public AnamnesisController AnamnesisController { get; set; }
 
-
         public MedicalRecordController MedicalRecordController { get; set; }    
 
         public UserController UserController { get; set; }
@@ -97,37 +96,21 @@ namespace HospitalProject
         public App()
         {
 
-            var _allergiesFileHandler = new AllergiesFileHandler(ALLERGIES_FILE, CSV_DELIMITER);
-
             var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
             
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
-
-            var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
            
             var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
-            var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
-
-            var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
-
             var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
-            var _questionsFileHandler = new QuestionsFileHandler(QUESTIONS_FILE, CSV_DELIMITER);
-
-            var _surveyFileHandler = new SurveyFileHandler(SURVEYS_FILE, CSV_DELIMITER);
-
-            var _surveyRealizationFileHandler = new SurveyRealizationFileHandler(SURVEY_REALIZATIONS_FILE, CSV_DELIMITER);
-
-            var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
+            var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
             var _appointmentRepository = new AppointmentRepository(); 
 
-            var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
-
-            var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
+            var _allergiesRepository = new AllergiesRepository();
 
             var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
 
@@ -135,25 +118,25 @@ namespace HospitalProject
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
-            var _patientRepository = new PatientRepository(_patientFileHandler, _medicalRecordRepository);
+            var _medicalRecordRepository = new MedicalRecordRepository(_allergiesRepository);
+
+            var _patientRepository = new PatientRepository(_medicalRecordRepository);
 
             var _anamnesisRepository = new AnamnesisRepository();
 
-            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
-
             var _prescriptionRepository = new PrescriptionRepository(_appointmentRepository);
 
-            var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
+            var _notificationRepository = new NotificationRepository(_prescriptionRepository);
 
             var _userRepository = new UserRepository();
 
-            var _questionRepository = new QuestionRepository(_questionsFileHandler);
+            var _questionRepository = new QuestionRepository();
 
-            var _surveysRepository = new SurveyRepository(_surveyFileHandler,_questionRepository);
+            var _surveysRepository = new SurveyRepository(_questionRepository);
 
-            var _answerRepository = new AnswerRepository(_answerFileHandler);
+            var _answerRepository = new AnswerRepository();
 
-            var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
+            var _surveyRealizationRepository = new SurveyRealizationRepository(_patientRepository, _surveysRepository, _answerRepository);
 
             var _medicineReportRepository = new MedicineReportRepository(_equipementRepository, _doctorRepository);
 

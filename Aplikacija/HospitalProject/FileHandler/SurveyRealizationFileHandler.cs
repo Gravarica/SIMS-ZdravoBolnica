@@ -8,80 +8,42 @@ using Model;
 
 namespace HospitalProject.FileHandler;
 
-public class SurveyRealizationFileHandler
+public class SurveyRealizationFileHandler : GenericFileHandler<SurveyRealization>
 {
-    private string _path;
-
-    private string _delimiter;
-    
-
-
     private const string SURVEY_CSV = "-";
 
-    //path allergy.csv
-    public SurveyRealizationFileHandler(String path, String delimiter)
-    {
-        _path = path;
-        _delimiter = delimiter;
-    }
+    public SurveyRealizationFileHandler(string path) : base(path) {}
 
-    public IEnumerable<SurveyRealization> ReadAll()
-    {
-        return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-               .Select(ConvertCSVFormatToSurveyRealization)        // 1 | Polen 
-               .ToList();
-    }
-
-
-    public SurveyRealization ConvertCSVFormatToSurveyRealization(string CSVFormat)
-    {
-        var tokens = CSVFormat.Split(_delimiter.ToCharArray());
-        return new SurveyRealization(int.Parse(tokens[0]),
-                                     int.Parse(tokens[1]),
-                                    int.Parse(tokens[2]),
-                                    GetAnswersFromCSV(tokens[3]),
-                                    int.Parse(tokens[4]));
-    }
-
-    public string ConvertSurveyRealizationToCSVFormat(SurveyRealization surveyRealization)
+    protected override string ConvertEntityToCSV(SurveyRealization surveyRealization)
     {
         if (surveyRealization.Doctor != null)
         {
-            return string.Join(_delimiter,
-             surveyRealization.Id,
-             surveyRealization.Survey.Id,
-             surveyRealization.Patient.Id,
-             ConvertAnswersToCSV(surveyRealization.Answers),
-             surveyRealization.Doctor.Id);
+            return string.Join(CSV_DELIMITER,
+                surveyRealization.Id,
+                surveyRealization.Survey.Id,
+                surveyRealization.Patient.Id,
+                ConvertAnswersToCSV(surveyRealization.Answers),
+                surveyRealization.Doctor.Id);
         }
         else
         {
-            return string.Join(_delimiter,
-             surveyRealization.Id,
-             surveyRealization.Survey.Id,
-             surveyRealization.Patient.Id,
-             ConvertAnswersToCSV(surveyRealization.Answers),
-             -1);
+            return string.Join(CSV_DELIMITER,
+                surveyRealization.Id,
+                surveyRealization.Survey.Id,
+                surveyRealization.Patient.Id,
+                ConvertAnswersToCSV(surveyRealization.Answers),
+                -1);
         }
-
-        
     }
 
-    public void AppendLineToFile(SurveyRealization surveyRealization)
+    protected override SurveyRealization ConvertCSVToEntity(string csv)
     {
-        string line = ConvertSurveyRealizationToCSVFormat(surveyRealization);
-        File.AppendAllText(_path, line + Environment.NewLine);
-    }
-
-    public void Save(IEnumerable<SurveyRealization> surveyRealizations)
-    {
-        using (StreamWriter file = new StreamWriter(_path))
-        {
-            foreach (SurveyRealization surveyRealization in surveyRealizations)
-            {
-                file.WriteLine(ConvertSurveyRealizationToCSVFormat(surveyRealization));
-            }
-        }
+        var tokens = csv.Split(CSV_DELIMITER.ToCharArray());
+        return new SurveyRealization(int.Parse(tokens[0]),
+            int.Parse(tokens[1]),
+            int.Parse(tokens[2]),
+            GetAnswersFromCSV(tokens[3]),
+            int.Parse(tokens[4]));
     }
 
     private string ConvertAnswersToCSV(List<Answer> answers)

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HospitalProject.DataUtility;
 
 namespace HospitalProject.FileHandler
 {
@@ -25,10 +26,10 @@ namespace HospitalProject.FileHandler
             return new VacationRequest(int.Parse(tokens[0]),
                 DateTime.ParseExact(tokens[1], _dateTimeFormat, null),
                 int.Parse(tokens[2]),
-                CreateDateInterval(tokens[3], tokens[4]),
+                DateIntervalCreator.CreateDateInterval(tokens[3], tokens[4]),
                 tokens[5],
                 bool.Parse(tokens[6]),
-                ConvertTokenToRequestState(tokens[7]),
+                EnumConverter.ConvertTokenToRequestState(tokens[7]),
                 tokens[8]);
         }
 
@@ -44,27 +45,6 @@ namespace HospitalProject.FileHandler
                 vacationRequest.IsUrgent.ToString(),
                 vacationRequest.RequestState.ToString(),
                 vacationRequest.SecretaryDescription);
-        }
-
-        private RequestState ConvertTokenToRequestState(string token)
-        {
-            if (token.Equals("APPROVED"))
-            {
-                return RequestState.APPROVED;
-            }
-            else if (token.Equals("DENIED"))
-            {
-                return RequestState.DENIED;
-            }
-
-            return RequestState.PENDING;
-        }
-
-        private DateInterval CreateDateInterval(string startDateString, string endDateString)
-        {
-            DateTime startDate = DateTime.ParseExact(startDateString, _dateTimeFormat, null);
-            DateTime endDate = DateTime.ParseExact(endDateString, _dateTimeFormat, null);
-            return new DateInterval(startDate, endDate);
         }
 
     }

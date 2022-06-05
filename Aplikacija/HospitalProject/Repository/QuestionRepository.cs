@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HospitalProject.DataUtility;
 
 namespace HospitalProject.Repository
 {
@@ -12,20 +13,19 @@ namespace HospitalProject.Repository
     {
 
         private List<Question> questions;
-        private QuestionsFileHandler questionsFileHandler;
+        private IHandleData<Question> questionsFileHandler;
         private int maxId;
 
-        public QuestionRepository(QuestionsFileHandler _questionsFileHandler)
+        public QuestionRepository()
         {
-            questionsFileHandler = _questionsFileHandler;
+            questionsFileHandler = new QuestionsFileHandler(FilePathStorage.QUESTIONS_FILE);
             questions = questionsFileHandler.ReadAll().ToList();
             maxId = GetMaxId();
-            
         }
 
         public List<Question> GetQuestionsByCategory(string category)
         {
-            Category _category = questionsFileHandler.ConvertStringToCategory(category);
+            Category _category = EnumConverter.ConvertStringToCategory(category);
 
             return questionsFileHandler.ReadAll().Where(question => question.Category == _category).ToList();
 
