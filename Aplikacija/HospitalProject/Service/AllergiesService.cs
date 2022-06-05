@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using HospitalProject.Model;
 using HospitalProject.Repository;
-using Model;
 
 namespace HospitalProject.Service;
 
@@ -40,14 +39,5 @@ public class AllergiesService
     {
         _allergiesRepository.Update(allergies);
     }
-
-    public IEnumerable<Allergies> GetAllergiesByMedicalRecord(int medicalRecordId)
-    {
-        return _allergiesRepository.GetAllergiesByMedicalRecord(medicalRecordId);
-    }
-
-    public IEnumerable<Allergies> GetAllergiesByPatientID(int patientId)
-    {
-        return _allergiesRepository.GetAllergiesByPatientID(patientId);
-    }
+    
 }

@@ -15,7 +15,7 @@ namespace HospitalProject.FileHandler
         private readonly string _delimiter;
 
         private const string ALLERGY_CSV = "-";
-
+       
         public MedicalRecordFileHandler(string path, string delimiter)
         {
             _path=path;
@@ -26,18 +26,33 @@ namespace HospitalProject.FileHandler
         // I only want to save ID | patientID
         public string ConvertMedicalRecordToCSVFormat(MedicalRecord medicalRecord)
         {
+            if (medicalRecord.Allergies.Count == 0)
+            {
+                return string.Join(_delimiter,
+                    medicalRecord.Id,
+                    medicalRecord.Patient.Id);
+            }
+
             return string.Join(_delimiter,
-                               medicalRecord.Id,
-                               medicalRecord.Patient.Id,
-                               ConvertAllergensToCSV(medicalRecord.Allergies));
+                medicalRecord.Id,
+                medicalRecord.Patient.Id,
+                ConvertAllergensToCSV(medicalRecord.Allergies));
         }
 
         public MedicalRecord ConvertCSVFormatToMedicalRecord(string CSVFormat)
         {
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
+
+            if (tokens.Length == 3)
+            {
+                return new MedicalRecord(int.Parse(tokens[0]), 
+                    int.Parse(tokens[1]),
+                    GetAllergiesFromCSV(tokens[2]));
+            }
+            
             return new MedicalRecord(int.Parse(tokens[0]), 
                                      int.Parse(tokens[1]),
-                                     GetAllergiesFromCSV(tokens[2]));
+                                     new List<Allergies>());
         }
 
         public IEnumerable<MedicalRecord> ReadAll()
@@ -66,16 +81,18 @@ namespace HospitalProject.FileHandler
 
         private List<Allergies> GetAllergiesFromCSV(string CSVToken)
         {
+            
             string[] allergyIds = CSVToken.Split(ALLERGY_CSV);
             List<Allergies> allergies = new List<Allergies>();
             int lenght = allergyIds.Length;
-
-            for(int i = 0; i < lenght; i++)
+            
+             for(int i = 0; i < lenght; i++)
             {
-                AddAllergenToList(allergies, int.Parse(allergyIds[i]));
-            }
-
-            return allergies;
+              AddAllergenToList(allergies, int.Parse(allergyIds[i]));
+            } 
+               
+           return allergies;
+           
         }
 
 

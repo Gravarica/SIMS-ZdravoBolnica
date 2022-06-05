@@ -6,6 +6,7 @@
 using HospitalProject.Model;
 using Model;
 using System;
+using HospitalProject.DataTransferObjects;
 
 public class User : ViewModelBase
 {
@@ -16,10 +17,10 @@ public class User : ViewModelBase
     public UserType userType;
     protected int jmbg;
     protected int phoneNumber;
-     protected String email;
-     protected String adress;
+    protected String email;
+    protected String adress;
     protected DateTime dateOfBirth;
-     protected Gender gender;
+    protected Gender gender;
     private int movedAppointmentsCount;
     private bool isBlocked;
 
@@ -157,7 +158,6 @@ public class User : ViewModelBase
         Username = Convert.ToString(jmbg);
         Password = "guest";
         UserType = UserType.PATIENT;
-
         PhoneNumber = 0000;
         Email = "guest@gmail.com";
         Adress = "guest";
@@ -210,7 +210,7 @@ public class User : ViewModelBase
     }
             
             
-            //kad se cita
+          //bez passworda
           public User(String username,
                       String firstName,
                       String lastName,
@@ -259,4 +259,23 @@ public class User : ViewModelBase
               DateOfBirth = dateOfBirth;
               Gender = this.gender;
           }
+
+    public bool CredentialsMatch(string username, string password)
+    {
+        return Username.Equals(username) && Password.Equals(password);
+    }
+
+    private void InstantiateFields(NewUserDTO newUserDto)
+    {
+        Username = newUserDto.Username;
+        Password = newUserDto.Password;
+        FirstName = newUserDto.FirstName;
+        LastName = newUserDto.LastName;
+        Jmbg = newUserDto.Jmbg;
+        PhoneNumber = newUserDto.PhoneNumber;
+        Email = newUserDto.Email;
+        Adress = newUserDto.Adress;
+        DateOfBirth = newUserDto.DateOfBirth;
+        Gender = newUserDto.Gender;
+    }
 }

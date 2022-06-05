@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Controller;
+using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.Service;
@@ -17,20 +18,23 @@ namespace HospitalProject.View.Secretary.SecretaryVM
     public class PatientProfileVM : BaseViewModel
     {
         private Patient _patient;
-        private MedicalRecordService _medicalRecordService;
-        private RelayCommand showAllergiesCommand;
-        private RelayCommand edit;
-        MedicalRecord _medicalRecord;
+        private MedicalRecord _medicalRecord;
+        private Allergies _selectedAllergy;
+        private MedicalRecordController _medicalRecordController;
         
+        private RelayCommand _editProfileCommand;
         public PatientProfileVM(MedicalRecord medicalRecord)
         {
             _medicalRecord = medicalRecord;
         }
 
-        public PatientProfileVM(Patient patient, MedicalRecordService medicalRecordService)
+        public PatientProfileVM(Patient patient)
         {
-            _medicalRecordService = medicalRecordService;
+            
+            var app = System.Windows.Application.Current as App;
+            _medicalRecordController = app.MedicalRecordController;
             _patient = patient;
+            _medicalRecord = _medicalRecordController.GetMedicalRecordByPatient(_patient);
         }
 
         public Patient Patient
@@ -45,37 +49,47 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(Patient));
             }
         }
-        public RelayCommand ShowAllergiesCommand
+        public Allergies SelectedAllergy
         {
             get
             {
-                return showAllergiesCommand ?? (showAllergiesCommand = new RelayCommand(param => ExecuteShowAllergiesCommand()));
+                return _selectedAllergy;
+            }
+            set
+            {
+                _selectedAllergy = value;
+                OnPropertyChanged(nameof(SelectedAllergy));
             }
         }
 
-        public void ExecuteShowAllergiesCommand()
-        {
-            PatientAllergies view = new PatientAllergies();
-            view.DataContext = new PatientAllergiesVM(Patient, _medicalRecordService);
-            view.ShowDialog();
-        }
 
-        public RelayCommand Edit
+        public MedicalRecord MedicalRecord
         {
             get
             {
-                return edit ?? (edit = new RelayCommand(param => ExecuteEditCommand()));
+                return _medicalRecord;
+            }
+            set
+            {
+                _medicalRecord = value;
+                OnPropertyChanged(nameof(MedicalRecord));
+            }
+        }
+        
+        public RelayCommand EditProfile
+        {
+            get
+            {
+                return _editProfileCommand ?? (_editProfileCommand = new RelayCommand(param => EditProfileCommandExecute()));
             }
         }
 
-        public void ExecuteEditCommand()
+        private void EditProfileCommandExecute()
         {
-            EditProfile view = new EditProfile();
+            EditPatientProfileV view = new EditPatientProfileV();
             view.DataContext = new EditProfileVM(Patient);
-            view.ShowDialog();
+            SecretaryMainViewVM.Instance.CurrentView = view;
         }
-
-
     }
 }
 

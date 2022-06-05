@@ -82,15 +82,10 @@ namespace HospitalProject.Repository
             //_medicalRecordFileHandler.Save(_medicalRecords);
         }
         
-        public void AddNewAllergiesToMedicalRecord(Allergies allergies, int PatientID)
+        public void AddNewAllergiesToMedicalRecord(Allergies allergy, Patient patient)
         {   
-            List<Patient> patients = _patientFileHandler.ReadAll().ToList();
-
-            Patient p = patients.SingleOrDefault(r => r.Id.Equals(PatientID));
-            int s = p.MedicalRecordId;
-            MedicalRecord updateMedicalRecord = GetById(s);
-            updateMedicalRecord.Allergies.Add(allergies);
-          
+            MedicalRecord updateMedicalRecord = GetById(patient.MedicalRecordId);
+            updateMedicalRecord.Allergies.Add(allergy);
         }
 
         private void BindAllergensForMedicalRecord()

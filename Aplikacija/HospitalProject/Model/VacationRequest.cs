@@ -32,7 +32,7 @@ namespace HospitalProject.Model
         public VacationRequest(NewRequestDTO newRequestDTO)
         {
             Doctor = newRequestDTO.Doctor;
-            InstantiateData(newRequestDTO.SubmissionDate, newRequestDTO.DateInterval, newRequestDTO.Description, newRequestDTO.IsUrgent, RequestState.PENDING, "");
+            InstantiateData(newRequestDTO.SubmissionDate, newRequestDTO.DateInterval, newRequestDTO.Description, newRequestDTO.IsUrgent, RequestState.PENDING,  secretaryDescription);
         }
 
         private void InstantiateDoctor(int doctorId)

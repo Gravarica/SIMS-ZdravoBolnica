@@ -41,15 +41,15 @@
                     <ColumnDefinition/>
 
                 </Grid.ColumnDefinitions>
-                <Label Content="Gender" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Width="49"  />
-                <Label Content="Jmbg" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Width="39" />
-                <Label Content="Date of brth:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="2" Width="77" />
-                <Label Content="E-mail:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Height="26" Width="46"/>
-                <Label Content="First name:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="67"/>
-                <Label Content="Last name:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Height="26" Width="66"/>
-                <Label Content="Adress:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="48"/>
-                <Label Content="Phone number:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Height="26" Width="91"/>
-                <Label Content="Username:" HorizontalAlignment="Left" Margin="11,0,0,0" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Height="25" Width="66"/>
+                <Label Content="Gender" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Height="25" Width="120" />
+                <Label Content="Jmbg" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Height="27" Width="120"/>
+                <Label Content="Date of brth" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="2" Height="25" Width="120"/>
+                <Label Content="E-mail" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="First name"  FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Last name" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Adress" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Phone number" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Username"  FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Height="25" Width="120"/>
 
                 <TextBlock
                 Grid.Row="0" Grid.Column="1" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10"
@@ -71,14 +71,14 @@
                 <Border Grid.Row="0" Grid.RowSpan="9" Grid.Column="0" BorderThickness="0,0,2,0" Margin="0,0,0,43" />
               
             </Grid>
-            <Button Grid.Row="2" Content="Delete allergy"  HorizontalAlignment="Left"  Width="80"
-                Margin="710,283,0,81"  Command ="{Binding DeleteAllergyCommand}"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
-            <DataGrid Margin="543,13,10,116" AutoGenerateColumns="False"
+            
+            <DataGrid Margin="450,13,100,116"
+                      FontSize="16"  FontFamily=" Miriam"
+                      AutoGenerateColumns="False"
                 SelectionMode="Single"             
                 x:Name ="Patients_Copy"
                 IsReadOnly="True"
-                ItemsSource="{Binding patientAllergies}" 
+                ItemsSource="{Binding MedicalRecord.Allergies}" 
                 SelectedItem="{Binding SelectedAllergy}"
                 Background="LightYellow" Grid.Row="1" Grid.RowSpan="2"
              >
@@ -87,17 +87,14 @@
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <ComboBox Margin="543,318,10,39"
-                ItemsSource="{Binding AllergiesCB}"
-                SelectedItem="{Binding SelectedAllergyCB}"  
-                DisplayMemberPath="Name" SelectedValuePath="Value"
-                  Grid.Row="2"
-                  />
-            <Button Margin="710,367,10,0"
-                     Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
-                x:Name="Delete_Copy1"
-                Content="Add"
-                Command="{Binding AddAllergyCommand}" Grid.Row="2"
+ 
+            
+            <Button Margin="400,367,200,0"
+                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+                    x:Name="Edit"
+                    Content="Edit"
+                    FontSize="16" FontFamily="Miriam"
+                    Command="{Binding EditProfile}" Grid.Row="2"
             />
         </Grid>
     </Border>

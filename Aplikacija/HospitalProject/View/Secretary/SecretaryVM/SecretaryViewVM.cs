@@ -187,30 +187,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             System.Windows.Application.Current.MainWindow.Show();
         }
 
-
-
-        /*public RelayCommand NewAppointmentCommand
-        {
-            get
-            {
-                return newAppointmentCommand ?? (newAppointmentCommand = new RelayCommand(param => ExecuteNewAppointmentCommand(),
-                    param => CanExecute()));
-            }
-        }
-        private bool CanExecuteNewAppointmentCommand()
-        {
-            return SelectedItem != null;
-        }
-
-        private void ExecuteNewAppointmentCommand()
-        {
-            return;
-        } 
-        */
-        // Definiton of methods for Relay commands
-
-
-
         public string AllergyName {
             get { return allergyName; }
             set
@@ -229,8 +205,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(Id));
             }
         }
-
-      
+        
     }
     }
 
