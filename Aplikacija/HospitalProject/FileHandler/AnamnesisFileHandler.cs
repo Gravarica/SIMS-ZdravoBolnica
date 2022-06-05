@@ -8,26 +8,21 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class AnamnesisFileHandler
+    public class AnamnesisFileHandler : GenericFileHandler<Anamnesis>
     {
-        private string _path;
 
-        private string _delimiter;
-
-        public AnamnesisFileHandler(String path, String delimiter)
+        public AnamnesisFileHandler(string path) : base(path)
         {
-            _path = path;
-            _delimiter = delimiter;
         }
 
-        public IEnumerable<Anamnesis> ReadAll()
+        /*public IEnumerable<Anamnesis> ReadAll()
         {
             return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
                    .Select(ConvertCSVFormatToAnamnesis)   // 1 | 20.01.2000 12:15| 20 | 2 | 3 => app1(...) 
                    .ToList();
-        }
+        }*/
 
-        private Anamnesis ConvertCSVFormatToAnamnesis(string CSVFormat)
+        /*private Anamnesis ConvertCSVFormatToAnamnesis(string CSVFormat)
         {
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new Anamnesis(int.Parse(tokens[0]),
@@ -35,18 +30,36 @@ namespace HospitalProject.FileHandler
                                    DateTime.Parse(tokens[2]),
                                    tokens[3]);
                                    
+        }*/
+
+        protected override string ConvertEntityToCSV(Anamnesis anamnesis)
+        {
+            return string.Join(CSV_DELIMITER,
+                anamnesis.Id,
+                anamnesis.App.Id,
+                anamnesis.Date,
+                anamnesis.Description);
         }
 
-        private string ConvertAnamnesisToCSVFormat(Anamnesis anamnesis)
+        protected override Anamnesis ConvertCSVToEntity(string csv)
+        {
+            string[] tokens = csv.Split(CSV_DELIMITER.ToCharArray());
+            return new Anamnesis(int.Parse(tokens[0]),
+                int.Parse(tokens[1]),
+                DateTime.Parse(tokens[2]),
+                tokens[3]);
+        }
+
+        /*private string ConvertAnamnesisToCSVFormat(Anamnesis anamnesis)
         {
             return string.Join(_delimiter,
             anamnesis.Id,
             anamnesis.App.Id,
             anamnesis.Date,
             anamnesis.Description);
-        }
+        }*/
 
-        public void AppendLineToFile(Anamnesis anamnesis)
+        /*public void AppendLineToFile(Anamnesis anamnesis)
         {
             string line = ConvertAnamnesisToCSVFormat(anamnesis);
             File.AppendAllText(_path, line + Environment.NewLine);
@@ -61,7 +74,7 @@ namespace HospitalProject.FileHandler
                     file.WriteLine(ConvertAnamnesisToCSVFormat(anamnesis));
                 }
             }
-        }
+        }*/
 
     }
 }

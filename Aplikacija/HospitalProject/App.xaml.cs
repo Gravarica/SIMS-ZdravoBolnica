@@ -103,13 +103,13 @@ namespace HospitalProject
 
             var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
 
-            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
+            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE);
 
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
 
             var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
 
-            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
+            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
