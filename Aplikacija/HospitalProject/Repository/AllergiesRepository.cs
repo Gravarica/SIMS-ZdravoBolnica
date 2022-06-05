@@ -13,17 +13,11 @@ public class AllergiesRepository
       
         private List<Allergies> _allergies;
         private AllergiesFileHandler _allergiesFileHandler;
-        private PatientFileHandler _patientFileHandler;
-        private MedicalRecordFileHandler _medicalRecordFileHandler;
         private int _allergiesMaxId;
 
-        public PatientRepository _patientRepository;
-        public MedicalRecordRepository _medicalRecordRepository;
-        
         public AllergiesRepository(AllergiesFileHandler allergiesFileHandler)
         {
             _allergiesFileHandler = allergiesFileHandler;
-            
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
 
@@ -32,25 +26,16 @@ public class AllergiesRepository
             return _allergies.Count() == 0 ? 0 : _allergies.Max(Allergy => Allergy.Id);
         }
         
-        public void Insert(Allergies a)
+        public void Insert(Allergies allergy)
         {
-            a.Id = ++_allergiesMaxId;
-            _allergies.ToList().Add(a);
-            _allergiesFileHandler.AppendLineToFile(a);
+            allergy.Id = ++_allergiesMaxId;
+            _allergies.ToList().Add(allergy);
+            _allergiesFileHandler.AppendLineToFile(allergy);
         }
 
-    //dpbavi alergije po ID
         public Allergies GetById(int id)
         {
-            _allergies = (List<Allergies>)_allergiesFileHandler.ReadAll();
-            foreach (Allergies allergy in _allergies)
-            {
-                if (allergy.Id==id)
-                {
-                    return allergy;
-                }
-            }
-            return null;
+            return _allergies.FirstOrDefault(allergy => allergy.Matches(id));
         }
 
         public List<Allergies> GetAll()
@@ -58,76 +43,28 @@ public class AllergiesRepository
          return _allergies;
         }
 
-        public void Update(Allergies a)
+        public void Update(Allergies updateAllergen)
         {
-            _allergies = (List<Allergies>)_allergiesFileHandler.ReadAll();
-            foreach (Allergies allergy in _allergies)
-            {
-                if (allergy.Id == a.Id)
-                {
-                    allergy.Name = a.Name;
-                    _allergiesFileHandler.Save(_allergies);
-                   
-                }
-            }
-           
+            _allergies.ForEach(allergy => UpdateNameIfMatches(allergy, updateAllergen));
         }
 
-        
-
-        public Boolean Delete(int id)
+        private void UpdateNameIfMatches(Allergies allergy, Allergies updateAllergen)
         {
-            _allergies = (List<Allergies>)_allergiesFileHandler.ReadAll();
-            foreach (Allergies allergy in _allergies)
-            {
-                if (allergy.Id==id)
-                {
-                    _allergies.Remove(allergy);
-                    _allergiesFileHandler.Save(_allergies);
-                    return true;
-                }
-            }
-            return false;
+            if (!allergy.Matches(updateAllergen)) return;
+            allergy.UpdateAllergy(updateAllergen);
+            _allergiesFileHandler.Save(_allergies);
         }
 
-    public List<Allergies> GetAllergiesByMedicalRecord(int medicalRecordId)
-    {
-        List<Allergies> allergiesReturnList = new List<Allergies>();
-
-        //pronadjemo pacijenta po ID 
-        IEnumerable<MedicalRecord> Mrecords = _medicalRecordFileHandler.ReadAll();
-
-        MedicalRecord m = Mrecords.SingleOrDefault(r => r.Id.Equals(medicalRecordId));
-
-        foreach (Allergies allergy in m.Allergies)
+        public void Delete(int id)
         {
-            allergiesReturnList.Add(allergy);
+            _allergies.ForEach(allergy => RemoveAllergenIfMatches(allergy, id));
         }
 
-        return allergiesReturnList;
-    }
-
-
-    public List<Allergies> GetAllergiesByPatientID(int patientId)
+        private void RemoveAllergenIfMatches(Allergies allergy, int id)
         {
-            List<Allergies> allergiesReturnList = new List<Allergies>();
-            
-//pronadjemo pacijenta po ID 
-            IEnumerable<Patient> patients = _patientFileHandler.ReadAll();
-            
-            Patient p = patients.SingleOrDefault(r => r.Id.Equals(patientId));
-            int s = p.MedicalRecordId;
-           
-            MedicalRecord MedRec = _medicalRecordRepository.GetById(s);
-            
-            foreach(Allergies allergy in MedRec.Allergies)
-            {
-                allergiesReturnList.Add(allergy);
-              //   allergy.PatientsID.Add(p.Id);
-            }
-
-            return allergiesReturnList;
+            if (!allergy.Matches(id)) return;
+            _allergies.Remove(allergy);
+            _allergiesFileHandler.Save(_allergies);
         }
-        
-    
+
 }

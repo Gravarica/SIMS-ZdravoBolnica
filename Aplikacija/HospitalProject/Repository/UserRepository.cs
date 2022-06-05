@@ -23,15 +23,7 @@ namespace HospitalProject.Repository
 
         public User Login(String username, String password)
         {
-            foreach(User user in users)
-            {
-                if(user.Username.Equals(username) && user.Password.Equals(password))
-                {
-                    _user = user;
-                    break;
-                }
-            }
-
+            _user = users.Find(user => user.CredentialsMatch(username, password));
             return _user;
         }
 
@@ -65,21 +57,21 @@ namespace HospitalProject.Repository
         public void Update(User user)
         {
             User updateUser = GetUser(user.Username);
-            
             updateUser.Password = user.Password;
-            
         }
 
         public void IncreaseCounter()
         {
             _user.MovedAppointmentsCount++;
-            if (_user.MovedAppointmentsCount == 5)
-            {
-                _user.IsBlocked = true;
-            }
+            CheckIfUserCanBeBlocked();
             userFileHandler.Save(users);
         }
 
+        private void CheckIfUserCanBeBlocked()
+        {
+            if (_user.MovedAppointmentsCount == 5) _user.IsBlocked = true;
+        }
+        
         public void Logout()
         {
             _user = null;

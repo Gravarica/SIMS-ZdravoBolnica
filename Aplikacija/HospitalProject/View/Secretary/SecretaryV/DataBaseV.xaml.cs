@@ -10,4 +10,6 @@ public partial class DataBaseV : UserControl
         InitializeComponent();
         this.DataContext = new DataBaseVM();
     }
+
+  
 }

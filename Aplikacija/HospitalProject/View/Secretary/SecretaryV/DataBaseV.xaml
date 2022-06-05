@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+            
              xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
-             xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" 
+             xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
              d:DataContext="{d:DesignInstance Type=secretaryvm:DataBaseVM}"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
@@ -27,7 +31,6 @@
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"  DataGridColumn.CanUserResize="False"/>
-
                             <DataGridTextColumn Header="First name" Binding="{Binding FirstName,StringFormat=d}" Width="2*"  DataGridColumn.CanUserResize="False"/>
                             <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" Width="2*"  DataGridColumn.CanUserResize="False"/>
                             <DataGridTextColumn Header="Jmbg" Binding="{Binding Jmbg}" Width="*"  DataGridColumn.CanUserResize="False"/>
@@ -35,17 +38,46 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-                <TabItem Header="Doctors">
+                <TabItem Header="Meetings">
+                    <DataGrid  ItemsSource="{Binding Path = Meetings}"  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeColumns="False" Background="#FFBCC1E8">
+                        <DataGrid.Columns>
 
-                    <DataGrid ItemsSource="{Binding Path = Doctors}" SelectedItem="{Binding SelectedDoctor}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeColumns="False" Background="#FFBCC1E8">
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"  DataGridColumn.CanUserResize="False"/>
 
+                            <DataGridTextColumn Header="Duration" Binding="{Binding Duration,StringFormat=d}" Width="2*"  DataGridColumn.CanUserResize="False"/>
+                            <DataGridTextColumn Header="Room id" Binding="{Binding RoomId}" Width="2*"  DataGridColumn.CanUserResize="False"/>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    </TabItem>
+                <TabItem Header="Doctors"
+                         
+                         >
+
+                    <DataGrid ItemsSource="{Binding Path = Doctors}"
+                              SelectionMode="Single" 
+                              SelectedItem="{Binding  SelectedDoctor}"
+                              IsReadOnly="True" AutoGenerateColumns="False" 
+                              CanUserResizeColumns="False" Background="#FFBCC1E8"
+                              
+                  >
+                       
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" Width="*"  DataGridColumn.CanUserResize="False"/>
                             <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" Width="1.5*"  DataGridColumn.CanUserResize="False"/>
                             <DataGridTextColumn Header="Specialization" Binding="{Binding Specialization}" Width="*"  DataGridColumn.CanUserResize="False"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"  DataGridColumn.CanUserResize="False"/>
-
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Add"
+                                                Margin="5,10,10,5"
+                                                Command="{Binding DataContext.AddToList, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                Style="{StaticResource RoundButton}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -82,11 +114,17 @@
                 <Button Grid.Column="0" Content="Preview"
                         Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
                         Command="{Binding ShowProfileCommand}" Grid.ColumnSpan="2" Margin="325,10,347,26" RenderTransformOrigin="0.516,0.279"/>
-                <Button x:Name="Delete_Copy"
-            Content="Delete allergy"
-            Command="{Binding DeleteAllergyCommand}"
+                
+                <Button Grid.Column="0" Content="Add to meeting"
                         Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
-            HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.463,0.637" Grid.Column="1" Height="38" Width="98">
+                        Command="{Binding AddToMeeting}" Grid.ColumnSpan="1" Margin="100,10,100,26" RenderTransformOrigin="0.516,0.279"/>
+
+                
+                <Button x:Name="Delete_Copy"
+                        Content="Delete allergy"
+                        Command="{Binding DeleteAllergyCommand}"
+                        Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+                        HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.463,0.637" Grid.Column="1" Height="38" Width="98">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="1" ScaleY="1"/>

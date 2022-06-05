@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
@@ -17,6 +18,7 @@ public class PreviewRequestVM : ViewModelBase
     private string _description;
     private string _secretaryDescription;
     private bool _urgent;
+    
     private VacationRequest _vacationRequest;
     private RelayCommand _acceptCommand;
     private RelayCommand _rejectCommand;
@@ -30,56 +32,7 @@ public class PreviewRequestVM : ViewModelBase
         ThisVacationRequest = vacationRequest;
     }
     
-    public DateTime StartDate
-    {
-        get
-        {
-            return _startDate;
-        }
-        set
-        {
-            _startDate = value;
-            OnPropertyChanged(nameof(StartDate));
-        }
-    }
-    public DateTime SubmissionDate
-    {
-        get
-        {
-            return _date;
-        }
-        set
-        {
-            _date = value;
-            OnPropertyChanged(nameof(SubmissionDate));
-        }
-    }
-
-    public DateTime EndDate
-    {
-        get
-        {
-            return _endDate;
-        }
-        set
-        {
-            _endDate = value;
-            OnPropertyChanged(nameof(EndDate));
-        }
-    }
-
-    public Doctor DoctorData
-    {
-        get
-        {
-            return _doctor;
-        }
-        set
-        {
-            _doctor = value;
-            OnPropertyChanged(nameof(DoctorData));
-        }
-    }
+    
     
     public VacationRequest ThisVacationRequest
     {
@@ -94,35 +47,6 @@ public class PreviewRequestVM : ViewModelBase
         }
     }
 
-    public bool Urgent
-    {
-        get { return _urgent; }
-        set
-        {
-            _urgent = value;
-            OnPropertyChanged(nameof(Urgent));
-        }
-    }
-    
-    public string Description 
-    {
-        get { return _description; }
-        set
-        {
-            _description = value;
-            OnPropertyChanged(nameof(Description));
-        }
-    }
-
-    public string SecretaryDescription 
-    {
-        get { return _secretaryDescription; }
-        set
-        {
-            _secretaryDescription = value;
-            OnPropertyChanged(nameof(SecretaryDescription));
-        }
-    }
     public RelayCommand AcceptCommand
         {
             get
@@ -140,16 +64,25 @@ public class PreviewRequestVM : ViewModelBase
         {
             get
             {
-                return _rejectCommand ?? (_rejectCommand = new RelayCommand(param => ExecuteRejectCommand()));
+                return _rejectCommand ?? (_rejectCommand = new RelayCommand(param => ExecuteRejectCommand(), param => CanRejectCommandExecute() ));
             }
         }
         private bool CanRejectCommandExecute()
         {
-            return !string.IsNullOrEmpty(ThisVacationRequest.SecretaryDescription);
+            return true;
         }
 
         public void ExecuteRejectCommand()
         {
-            _vacationRequestController.Reject(ThisVacationRequest);
+            if ( String.IsNullOrEmpty(ThisVacationRequest.SecretaryDescription))
+            {
+                MessageBox.Show("Add description!", "warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                _vacationRequestController.Reject(ThisVacationRequest);
+            }
+
+           
         }
     }

@@ -25,6 +25,8 @@ namespace HospitalProject
         private static string _projectPath = System.Reflection.Assembly.GetExecutingAssembly().Location
             .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
         private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\doctors.csv";
+        
+        private string MEETINGS_FILE = _projectPath + "\\Resources\\Data\\meetings.csv";
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
         private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string EQUIPEMENT_FILE = _projectPath + "\\Resources\\Data\\equipement.csv";
@@ -50,6 +52,8 @@ namespace HospitalProject
         
         
         public AllergiesController AllergiesController { get; set; }
+        
+        public MeetingsController MeetingsController { get; set; }
         public RoomRenovationController RenovationController { get; set; }
 
         public DoctorController DoctorController { get; set; }
@@ -100,6 +104,8 @@ namespace HospitalProject
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
 
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
+           
+            var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
@@ -129,7 +135,7 @@ namespace HospitalProject
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
-            var _patientRepository = new PatientRepository(_patientFileHandler);
+            var _patientRepository = new PatientRepository(_patientFileHandler, _medicalRecordRepository);
 
             var _anamnesisRepository = new AnamnesisRepository();
 
@@ -160,7 +166,11 @@ namespace HospitalProject
             var _roomService = new RoomService(_roomRepository);
             
             var _doctorService = new DoctorService(_doctorRepository, _roomService);
-
+            
+            var _meetingsRepository = new MeetingsRepository(_meetingsFileHandler, _doctorService);
+            
+            var _meetingsService = new MeetingsService(_meetingsRepository);
+           
             var _patientService = new PatientService(_patientRepository);
 
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService, _roomService);
@@ -210,6 +220,8 @@ namespace HospitalProject
             AnamnesisController = new AnamnesisController(_anamnesisService);
 
             AllergiesController = new AllergiesController(_allergiesService);
+            
+            MeetingsController = new MeetingsController(_meetingsService);
 
             MedicalRecordController = new MedicalRecordController(_medicalRecordService);
 

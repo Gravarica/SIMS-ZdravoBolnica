@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
-using HospitalProject.Service;
 using HospitalProject.View.Secretary.SecretaryV;
 using Model;
 
@@ -18,45 +13,34 @@ namespace HospitalProject.View.Secretary.SecretaryVM
     public class DataBaseVM : BaseViewModel
     {
        
+        //mozda selectedItem i selectedItem.getType
+        private Patient _selectedPatient;
+        private Doctor _selectedDoctor;
+        private Allergies _selectedAllergy;
+        private Equipement _selectedEquipment;
+        
         private RelayCommand _showProfileCommand;
+        private RelayCommand _addToMeeting;
+        private RelayCommand _addToList;
         private RelayCommand _deleteAllergyCommand;
-        EquipementController _equipmentController;
-        AllergiesController _allergiesController;
-        PatientController _patientController;
-        DoctorController _doctorController;
+        
+        private EquipementController _equipmentController;
+        private AllergiesController _allergiesController;
+        private PatientController _patientController;
+        private DoctorController _doctorController;
+        private MeetingsController _meetingsController;
         public ObservableCollection<Patient> Patients { get; set; }
         public ObservableCollection<Doctor> Doctors { get; set; }
         public ObservableCollection<Equipement> Equipment { get; set; }
-        public ObservableCollection<Allergies> Allergies { get; set; }
+        public ObservableCollection<Allergies> Allergies { get; set; } 
+        public ObservableCollection<Meetings> Meetings { get; set; }
 
-        private Doctor _doctor;
-
-        private Patient _patient;
-        private string _firstname;
-        private string _lastname;
-
-        private string _name;
-        private Specialization _specialization;
-
-        private int _jmbg;
-        private int _quantity;
-        private Room _room;
-        private int _id;
-        private Equipement _equipment;
-
-        private Allergies _allergies;
-        private Patient selectedPatient;
-        private Doctor selectedDoctor;
-        private Allergies selectedAllergy;
-        private Equipement selectedEquipment;
+        private ObservableCollection<Doctor> _selectedDoctors = new ObservableCollection<Doctor>();
 
         public DataBaseVM()
         {
-
             InstantiateControllers();
             InstantiateData();
-          
-
         }
 
         private void InstantiateControllers()
@@ -66,7 +50,10 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
             _equipmentController = app.EquipementController;
+            _meetingsController = app.MeetingsController;
         }
+
+       
 
         private void InstantiateData()
         {
@@ -74,204 +61,168 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             Doctors = new ObservableCollection<Doctor>(_doctorController.GetAll().ToList());
             Allergies = new ObservableCollection<Allergies>(_allergiesController.GetAll().ToList());
             Equipment = new ObservableCollection<Equipement>(_equipmentController.GetAll().ToList());
-
-
+            Meetings = new ObservableCollection<Meetings>(_meetingsController.GetAll().ToList());
         }
-        public Doctor SelectedDoctor
-        {
-            get
-            {
-                return selectedDoctor;
-            }
-            set
-            {
-                selectedDoctor = value;
-                OnPropertyChanged(nameof(SelectedDoctor));
-            }
-        }
+     
 
-
+   
+                
         public Patient SelectedPatient
         {
             get
             {
-                return selectedPatient;
+                return _selectedPatient;
             }
             set
             {
-                selectedPatient = value;
+                _selectedPatient = value;
                 OnPropertyChanged(nameof(SelectedPatient));
             }
         }
 
-        public RelayCommand ShowProfileCommand
+        public ObservableCollection<Doctor> SelectedDoctors
         {
             get
             {
-                return _showProfileCommand ?? (_showProfileCommand = new RelayCommand(param => ExecuteShowProfileCommand(),
-                                                                                     param => CanExecute()));
+                return _selectedDoctors;
+                
             }
-        }
-
-        private bool CanExecute()
-        {
-            return SelectedPatient!= null;
-        }
-
-        private MedicalRecordService medicalRecordService;
-        private void ExecuteShowProfileCommand()
-        {
-
-            PatientV view = new PatientV();
-            view.DataContext = new PatientProfileVM(SelectedPatient, medicalRecordService);
-           // view.ShowDialog();
+            set
+            {
+                _selectedDoctors = value;
+                OnPropertyChanged(nameof(SelectedDoctors));
+            }
         }
 
         public Allergies SelectedAllergy
         {
             get
             {
-                return selectedAllergy;
+                return _selectedAllergy;
             }
             set
             {
-                selectedAllergy = value;
+                _selectedAllergy = value;
                 OnPropertyChanged(nameof(SelectedAllergy));
             }
         }
 
-        public RelayCommand DeleteAllergyCommand
+        public Doctor SelectedDoctor
         {
             get
             {
-                return _deleteAllergyCommand ?? (_deleteAllergyCommand = new RelayCommand(param => ExecuteDeleteAllergyCommand(),
-                                                                                     param => CanExecuteA()));
+                return _selectedDoctor;
             }
-        }
-
-
-        private void ExecuteDeleteAllergyCommand()
-        {
-
-            if (MessageBox.Show("Are you sure you want to delete?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            set
             {
-
-                _allergiesController.Delete(SelectedAllergy.Id);
-                Allergies.Remove(SelectedAllergy);
-
+                _selectedDoctor = value;
+                OnPropertyChanged(nameof(SelectedDoctor));
             }
-
-        }
-
-        private bool CanExecuteA()
-        {
-            return SelectedAllergy != null;
         }
         public Equipement SelectedEquipment
         {
             get
             {
-                return selectedEquipment;
+                return _selectedEquipment;
             }
             set
             {
-                selectedEquipment = value;
+                _selectedEquipment = value;
                 OnPropertyChanged(nameof(SelectedEquipment));
             }
         }
 
-        public String FirstName
+
+        public RelayCommand ShowProfileCommand
         {
             get
             {
-                return _firstname;
-            }
-            set
-            {
-                _firstname = value;
-                OnPropertyChanged(nameof(FirstName));
+                return _showProfileCommand ?? (_showProfileCommand = new RelayCommand(param => ExecuteShowProfileCommand(),
+                                                                                     param => CanExecuteShowPatientProfileCommand()));
             }
         }
 
-        public String LastName
+        public RelayCommand AddToMeeting
         {
             get
             {
-                return _lastname;
-            }
-            set
-            {
-                _lastname = value;
-                OnPropertyChanged(nameof(LastName));
+                return _addToMeeting ?? (_addToMeeting = new RelayCommand(param => ExecuteAddToMeeting(),
+                    param => CanExecuteAddToMeeting()));
             }
         }
-        public String Name
+        public RelayCommand AddToList
         {
             get
             {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                return _addToList ?? (_addToList = new RelayCommand(param => ExecuteAddToList(),
+                    param => CanExecuteAddToList()));
             }
         }
-
-        public int Id
+      
+        private void ExecuteAddToMeeting()
         {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-                OnPropertyChanged(nameof(Id));
-            }
+            MeetingV view = new MeetingV();
+            view.DataContext = new MeetingVM(SelectedDoctors);
+            SecretaryMainViewVM.Instance.CurrentView = view;
         }
 
-        public int Jmbg
+
+        private void ExecuteAddToList()
         {
-            get
-            {
-                return _jmbg;
-            }
-            set
-            {
-                _jmbg = value;
-                OnPropertyChanged(nameof(Jmbg));
-            }
+           _selectedDoctors.Add(SelectedDoctor);
         }
 
-        public int Quantity
+        
+        private void ExecuteShowProfileCommand()
         {
-            get
-            {
-                return _quantity;
-            }
-            set
-            {
-                _quantity= value;
-                OnPropertyChanged(nameof(Quantity));
-            }
+            PatientV view = new PatientV();
+            view.DataContext = new PatientProfileVM(SelectedPatient); 
+            SecretaryMainViewVM.Instance.CurrentView = view;
         }
-        public Room Room
+
+
+        
+        private void ExecuteDeleteAllergyCommand()
+        {
+
+            if (MessageBox.Show("Are you sure you want to delete?", "Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _allergiesController.Delete(SelectedAllergy.Id);
+                Allergies.Remove(SelectedAllergy);
+            }
+
+        }
+     
+        public RelayCommand DeleteAllergyCommand
         {
             get
             {
-                return _room;
-            }
-            set
-            {
-                _room = value;
-                OnPropertyChanged(nameof(Room));
+                return _deleteAllergyCommand ?? (_deleteAllergyCommand = new RelayCommand(param => ExecuteDeleteAllergyCommand(),
+                                                                                     param => CanExecuteDeleteAllergyCommand()));
             }
         }
 
 
+
+        private bool CanExecuteDeleteAllergyCommand()
+        {
+            return SelectedAllergy != null;
+        }
+ 
+         
+        private bool CanExecuteShowPatientProfileCommand()
+        {
+            return SelectedPatient!= null;
+        }
+
+        private bool CanExecuteAddToList()
+        {
+            return _selectedDoctor!= null;
+        }
+        private bool CanExecuteAddToMeeting()
+        {
+            return SelectedDoctors.Count!= 0;
+        }
 
     }
-
-
 }

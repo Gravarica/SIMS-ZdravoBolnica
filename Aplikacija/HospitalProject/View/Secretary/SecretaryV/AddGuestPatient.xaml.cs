@@ -18,7 +18,7 @@ namespace HospitalProject.View.Secretary.SecretaryV
     /// <summary>
     /// Interaction logic for AddGuestPatient.xaml
     /// </summary>
-    public partial class AddGuestPatient : Window
+    public partial class AddGuestPatient : UserControl
     {
         public AddGuestPatient()
         {
