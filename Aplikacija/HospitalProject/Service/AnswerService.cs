@@ -23,6 +23,11 @@ namespace HospitalProject.Service
             return answerRepository.GetAll().ToList();
         }
 
+        public Answer GetById(int id)
+        {
+            return answerRepository.GetById(id);
+        }
+
         public void Create(Answer answer)
         {
             answerRepository.Create(answer);

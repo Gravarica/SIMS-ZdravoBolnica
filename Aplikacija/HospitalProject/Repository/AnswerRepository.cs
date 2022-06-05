@@ -38,6 +38,10 @@ namespace HospitalProject.Repository
 
         }
 
+        public Answer GetById(int id)
+        {
+            return answers.FirstOrDefault(x => x.Id == id);
+        }
 
         public List<Answer> GetAll()
         {

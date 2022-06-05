@@ -105,6 +105,12 @@ namespace Repository
       {
          var tokens = roomCSVFormat.Split(_delimiter.ToCharArray());
          int equipementSize = tokens.Length - 4;
+         List<Equipement> roomsEquipement = ConvertCSVToRoomsEquipment(equipementSize, tokens);
+         return new Room(roomsEquipement,int.Parse(tokens[0]), int.Parse(tokens[1]), int.Parse(tokens[2]),(RoomType) Enum.Parse(typeof(RoomType), tokens[3], true));
+      }
+
+      private List<Equipement> ConvertCSVToRoomsEquipment(int equipementSize, string[] tokens)
+      {
          List<Equipement> roomsEquipement = new List<Equipement>();
          for (int i = 0; i < equipementSize; i++)
          {
@@ -113,8 +119,8 @@ namespace Repository
             int quantity = int.Parse(eqToken[1]);
             Equipement eq = new Equipement(id,quantity);
             roomsEquipement.Add(eq);
-         } 
-         return new Room(roomsEquipement,int.Parse(tokens[0]), int.Parse(tokens[1]), int.Parse(tokens[2]),(RoomType) Enum.Parse(typeof(RoomType), tokens[3], true));
+         }
+         return roomsEquipement;
       }
       
       public Room Get(int id)
@@ -162,7 +168,6 @@ namespace Repository
            
             wantedRooms.Add(RoomEquipmentConverter.ConvertRoomToEquipementRoom(room,equipmentId));
          }
-
          return wantedRooms;
       }
 

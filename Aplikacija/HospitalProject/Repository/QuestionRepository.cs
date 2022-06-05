@@ -49,5 +49,30 @@ namespace HospitalProject.Repository
             return questions.Count() == 0 ? 0 : questions.Max(question => question.Id);
         }
 
+        public List<Question> GetQuestionsByType(Category type)
+        {
+            List<Question> wantedQuestions = new List<Question>();
+            foreach (Question question in questions)
+            {
+                if (question.Category == type)
+                {
+                    wantedQuestions.Add(question);
+                }
+            }
+
+            return wantedQuestions;
+        }
+
+        public bool CheckQuestionType(Category category, int id)
+        {
+            Question question = GetQuestionById(id);
+            if (question.Category == category)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

@@ -49,6 +49,7 @@
                     <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
                     <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineViewCommand}" />
                     <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine reports" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineReportCommand}" />
+                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Grades" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding GradesCommand}" />
 
                     
                 </StackPanel>
