@@ -13,14 +13,14 @@ namespace HospitalProject.Repository
     public class VacationRequestRepository
     {
 
-        private VacationRequestFileHandler vacationRequestFileHandler;
+        private IHandleData<VacationRequest> vacationRequestFileHandler;
         private DoctorRepository doctorRepository;
         private List<VacationRequest> vacationRequests;
         private int vacationRequestMaxId;
 
-        public VacationRequestRepository(VacationRequestFileHandler vacationRequestFileHandler, DoctorRepository doctorRepository)
+        public VacationRequestRepository(DoctorRepository doctorRepository)
         {
-            this.vacationRequestFileHandler = vacationRequestFileHandler;
+            this.vacationRequestFileHandler = new VacationRequestFileHandler(FilePathStorage.VACATION_REQUEST_FILE);
             this.doctorRepository=doctorRepository;
             InstantiateVacationRequestList();
         }
@@ -71,7 +71,7 @@ namespace HospitalProject.Repository
         {
             vacationRequest.Id = ++vacationRequestMaxId;
             vacationRequests.Add(vacationRequest);
-            vacationRequestFileHandler.AppendLineToFile(vacationRequest);
+            vacationRequestFileHandler.SaveOneEntity(vacationRequest);
         }
 
         public List<VacationRequest> GetVacationRequestByState(RequestState requestState)
