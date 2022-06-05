@@ -11,15 +11,15 @@ namespace HospitalProject.Repository
 {
     public class MedicineReportRepository
     {
-        private MedicineReportFileHandler medicineReportFileHandler;
+        private IHandleData<MedicineReport> medicineReportFileHandler;
         private EquipementRepository equipementRepository;
         private DoctorRepository doctorRepository;
         private List<MedicineReport> medicineReports;
         private int medicineReportMaxId;
 
-        public MedicineReportRepository(MedicineReportFileHandler medicineReportFileHandler, EquipementRepository equipementRepository, DoctorRepository doctorRepository)
+        public MedicineReportRepository(EquipementRepository equipementRepository, DoctorRepository doctorRepository)
         {
-            this.medicineReportFileHandler=medicineReportFileHandler;
+            this.medicineReportFileHandler=new MedicineReportFileHandler(FilePathStorage.MEDICINE_REPORT_FILE);
             this.equipementRepository=equipementRepository;
             this.doctorRepository=doctorRepository;
             InstantiateData();
@@ -62,7 +62,7 @@ namespace HospitalProject.Repository
         {
             medicineReport.Id = ++medicineReportMaxId;
             medicineReports.Add(medicineReport);
-            medicineReportFileHandler.AppendLineToFile(medicineReport);
+            medicineReportFileHandler.SaveOneEntity(medicineReport);
         }
 
         public MedicineReport GetMedicineReportByMedicine(Equipement medicine)

@@ -8,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class VacationRequestFileHandler
+    public class VacationRequestFileHandler : GenericFileHandler<VacationRequest>
     {
 
         private string _path;
-        private string _delimiter;
         private string _dateTimeFormat;
 
-        public VacationRequestFileHandler(string path, string delimiter, string dateTimeFormat)
+        public VacationRequestFileHandler(string path) : base(path)
         {
             _path = path;
-            _delimiter = delimiter;
-            _dateTimeFormat = dateTimeFormat;
+            _dateTimeFormat = FormatStorage.ONLY_DATE_FORMAT;
         }
 
-        private VacationRequest ConvertCSVFormatToVacationRequest(string csvString)
+        /*private VacationRequest ConvertCSVFormatToVacationRequest(string csvString)
         {
-            string[] tokens = csvString.Split(_delimiter);
+            string[] tokens = csvString.Split(CSV_DELIMITER);
 
             return new VacationRequest(int.Parse(tokens[0]),
                                        DateTime.ParseExact(tokens[1], _dateTimeFormat, null),
@@ -35,6 +33,20 @@ namespace HospitalProject.FileHandler
                                        ConvertTokenToRequestState(tokens[7]),
                                        tokens[8]);
 
+        }*/
+
+        protected override VacationRequest ConvertCSVToEntity(string csv)
+        {
+            string[] tokens = csv.Split(CSV_DELIMITER);
+
+            return new VacationRequest(int.Parse(tokens[0]),
+                DateTime.ParseExact(tokens[1], _dateTimeFormat, null),
+                int.Parse(tokens[2]),
+                CreateDateInterval(tokens[3], tokens[4]),
+                tokens[5],
+                bool.Parse(tokens[6]),
+                ConvertTokenToRequestState(tokens[7]),
+                tokens[8]);
         }
 
         private DateInterval CreateDateInterval(string startDateString, string endDateString)
@@ -44,9 +56,9 @@ namespace HospitalProject.FileHandler
             return new DateInterval(startDate, endDate);    
         }
 
-        private string ConvertVacationRequestToCSVFormat(VacationRequest vacationRequest)
+        /*private string ConvertVacationRequestToCSVFormat(VacationRequest vacationRequest)
         {
-            return string.Join(_delimiter,
+            return string.Join(CSV_DELIMITER,
                                vacationRequest.Id,
                                vacationRequest.SubmissionDate.ToString(_dateTimeFormat),
                                vacationRequest.Doctor.Id,
@@ -56,16 +68,30 @@ namespace HospitalProject.FileHandler
                                vacationRequest.IsUrgent.ToString(),
                                vacationRequest.RequestState.ToString(),
                                vacationRequest.SecretaryDescription);
+        }*/
+
+        protected override string ConvertEntityToCSV(VacationRequest vacationRequest)
+        {
+            return string.Join(CSV_DELIMITER,
+                vacationRequest.Id,
+                vacationRequest.SubmissionDate.ToString(_dateTimeFormat),
+                vacationRequest.Doctor.Id,
+                vacationRequest.DateInterval.StartDate.ToString(_dateTimeFormat),
+                vacationRequest.DateInterval.EndDate.ToString(_dateTimeFormat),
+                vacationRequest.Description,
+                vacationRequest.IsUrgent.ToString(),
+                vacationRequest.RequestState.ToString(),
+                vacationRequest.SecretaryDescription);
         }
 
-        public IEnumerable<VacationRequest> ReadAll()
+        /*public IEnumerable<VacationRequest> ReadAll()
         {
             return File.ReadAllLines(_path)
                    .Select(ConvertCSVFormatToVacationRequest)
                    .ToList();
-        }
+        }*/
 
-        public void AppendLineToFile(VacationRequest vacationRequest)
+        /*public void AppendLineToFile(VacationRequest vacationRequest)
         {
             string line = ConvertVacationRequestToCSVFormat(vacationRequest);
             File.AppendAllText(_path, line + Environment.NewLine);
@@ -78,7 +104,7 @@ namespace HospitalProject.FileHandler
             {
                 file.WriteLine(ConvertVacationRequestToCSVFormat(appointment));
             }
-        }
+        }*/
 
         private RequestState ConvertTokenToRequestState(string token)
         {

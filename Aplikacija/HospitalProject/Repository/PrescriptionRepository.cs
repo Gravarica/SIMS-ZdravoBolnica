@@ -12,14 +12,14 @@ namespace HospitalProject.Repository
     public class PrescriptionRepository
     {
 
-        private PrescriptionFileHandler prescriptionFileHandler;
+        private IHandleData<Prescription> prescriptionFileHandler;
         private AppointmentRepository appointmentRepository;
         private int prescriptionMaxId;
         private List<Prescription> prescriptions;
 
-        public PrescriptionRepository(PrescriptionFileHandler prescriptionFileHandler, AppointmentRepository appointmentRepository)
+        public PrescriptionRepository(AppointmentRepository appointmentRepository)
         {
-            this.prescriptionFileHandler = prescriptionFileHandler;
+            this.prescriptionFileHandler = new PrescriptionFileHandler(FilePathStorage.PRESCRIPTION_FILE);
             this.appointmentRepository = appointmentRepository;
             InstantiatePrescriptionList();
         }
@@ -60,7 +60,7 @@ namespace HospitalProject.Repository
         {
             prescription.Id = ++prescriptionMaxId;
             prescriptions.Add(prescription);
-            prescriptionFileHandler.AppendLineToFile(prescription);
+            prescriptionFileHandler.SaveOneEntity(prescription);
         }
 
         public void Delete(int prescriptionId)
