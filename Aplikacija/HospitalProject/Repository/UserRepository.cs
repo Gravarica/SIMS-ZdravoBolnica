@@ -10,17 +10,17 @@ namespace HospitalProject.Repository
     public class UserRepository
     {
 
-        private UserFileHandler userFileHandler;
+        private IHandleData<User> userFileHandler;
         private User _user;
         private List<User> users;
 
-        public UserRepository(UserFileHandler userFH)
+        public UserRepository()
         {
-            userFileHandler = userFH;
+            userFileHandler = new UserFileHandler(FilePathStorage.USER_FILE);
             users = userFileHandler.ReadAll().ToList();
             _user = null;
         }
-        
+
         public User Login(String username, String password)
         {
             _user = users.Find(user => user.CredentialsMatch(username, password));
@@ -45,7 +45,7 @@ namespace HospitalProject.Repository
         public void Create(User user)
         {
             users.Add(user);
-            userFileHandler.AppendLineToFile(user);
+            userFileHandler.SaveOneEntity(user);
         }
 
         public void Delete(String username)

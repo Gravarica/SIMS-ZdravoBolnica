@@ -10,14 +10,14 @@ namespace HospitalProject.Repository
 {
     public class NotificationRepository
     {
-        private NotificationFileHandler notificationFileHandler;
+        private IHandleData<Notification> notificationFileHandler;
         private PrescriptionRepository prescriptionRepository;
         private List<Notification> notifications;
         private int notificationMaxId;
 
-        public NotificationRepository(NotificationFileHandler notificationFileHandler, PrescriptionRepository prescriptionRepository)
+        public NotificationRepository(PrescriptionRepository prescriptionRepository)
         {
-            this.notificationFileHandler = notificationFileHandler;
+            this.notificationFileHandler = new NotificationFileHandler(FilePathStorage.NOTIFICATION_FILE);
             this.prescriptionRepository = prescriptionRepository;
             InstantiateNotificationList();
         }      
@@ -53,7 +53,7 @@ namespace HospitalProject.Repository
         {
             notification.Id = ++notificationMaxId;
             notifications.Add(notification);
-            notificationFileHandler.AppendLineToFile(notification);
+            notificationFileHandler.SaveOneEntity(notification);
         }
     }
 }

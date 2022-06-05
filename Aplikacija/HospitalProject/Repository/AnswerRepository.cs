@@ -13,12 +13,12 @@ namespace HospitalProject.Repository
 
         private int id;
         private List<Answer> answers;
-        private AnswerFileHandler answerFileHandler;
+        private IHandleData<Answer> answerFileHandler;
         private int maxId;
 
-        public AnswerRepository(AnswerFileHandler _answerFileHandler)
+        public AnswerRepository()
         {
-            answerFileHandler = _answerFileHandler;
+            answerFileHandler = new AnswerFileHandler(FilePathStorage.ANSWERS_FILE);
             InstantiateData();
             maxId = GetMaxId();
 
@@ -33,9 +33,6 @@ namespace HospitalProject.Repository
         private void InstantiateData()
         {
             answers = answerFileHandler.ReadAll().ToList();
-
-            
-
         }
 
         public Answer GetById(int id)
@@ -51,7 +48,7 @@ namespace HospitalProject.Repository
         public void Create(Answer answer)
         {
             answer.Id = ++maxId;
-            answerFileHandler.AppendLineToFile(answer);
+            answerFileHandler.SaveOneEntity(answer);
         }
 
        

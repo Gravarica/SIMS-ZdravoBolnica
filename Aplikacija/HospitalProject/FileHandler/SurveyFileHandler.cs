@@ -7,61 +7,26 @@ using HospitalProject.Model;
 
 namespace HospitalProject.FileHandler;
 
-public class SurveyFileHandler
+public class SurveyFileHandler : GenericFileHandler<Survey>
 {
-    private string _path;
-
-    private string _delimiter;
-    
-
     private const string SURVEY_CSV = "-";
 
-    //path allergy.csv
-    public SurveyFileHandler(String path, String delimiter)
+    public SurveyFileHandler(string path) : base(path) {}
+
+    protected override string ConvertEntityToCSV(Survey survey)
     {
-        _path = path;
-        _delimiter = delimiter;
+        return string.Join(CSV_DELIMITER,
+            survey.Id,
+            survey.Name,
+            ConvertQuestionsToCSV(survey.Questions));
     }
 
-    public IEnumerable<Survey> ReadAll()
+    protected override Survey ConvertCSVToEntity(string csv)
     {
-        return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-               .Select(ConvertCSVFormatToSurvey)   // 1 | Polen 
-               .ToList();
-    }
-
-
-    public Survey ConvertCSVFormatToSurvey(string CSVFormat)
-    {
-        var tokens = CSVFormat.Split(_delimiter.ToCharArray());
+        var tokens = csv.Split(CSV_DELIMITER.ToCharArray());
         return new Survey(int.Parse(tokens[0]),
-                            tokens[1],
-                           GetQuestionsFromCSV(tokens[2]));
-    }
-
-    public string ConvertSurveyToCSVFormat(Survey survey)
-    {
-        return string.Join(_delimiter,
-        survey.Id,
-        survey.Name,
-        ConvertQuestionsToCSV(survey.Questions));
-    }
-
-    public void AppendLineToFile(Survey survey)
-    {
-        string line = ConvertSurveyToCSVFormat(survey);
-        File.AppendAllText(_path, line + Environment.NewLine);
-    }
-
-    public void Save(IEnumerable<Survey> surveys)
-    {
-        using (StreamWriter file = new StreamWriter(_path))
-        {
-            foreach (Survey survey in surveys)
-            {
-                file.WriteLine(ConvertSurveyToCSVFormat(survey));
-            }
-        }
+            tokens[1],
+            GetQuestionsFromCSV(tokens[2]));
     }
 
     private string ConvertQuestionsToCSV(List<Question> questions)

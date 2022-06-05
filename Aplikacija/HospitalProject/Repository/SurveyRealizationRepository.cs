@@ -11,7 +11,7 @@ namespace HospitalProject.Repository
 {
     public class SurveyRealizationRepository
     {
-        private SurveyRealizationFileHandler surveyRealizationFileHandler;
+        private IHandleData<SurveyRealization> surveyRealizationFileHandler;
         private PatientRepository patientRepository;
         private SurveyRepository surveyRepository;
         private AnswerRepository answerRepository;
@@ -22,9 +22,9 @@ namespace HospitalProject.Repository
 
 
 
-        public SurveyRealizationRepository(SurveyRealizationFileHandler _surveyRealizationFileHandler, PatientRepository patientRepository, SurveyRepository surveyRepository, AnswerRepository answerRepository)
+        public SurveyRealizationRepository(PatientRepository patientRepository, SurveyRepository surveyRepository, AnswerRepository answerRepository)
         {
-            surveyRealizationFileHandler = _surveyRealizationFileHandler;
+            surveyRealizationFileHandler = new SurveyRealizationFileHandler(FilePathStorage.SURVEY_REALIZATIONS_FILE);
 
             InstantiateRepositories(patientRepository, surveyRepository, answerRepository);
             InstantiateSurveyRealizationList();
@@ -72,7 +72,7 @@ namespace HospitalProject.Repository
         public void Create(SurveyRealization surveyRealization)
         {
             surveyRealization.Id = ++maxId;
-            surveyRealizationFileHandler.AppendLineToFile(surveyRealization);
+            surveyRealizationFileHandler.SaveOneEntity(surveyRealization);
         }
 
         public int GetMaxId()

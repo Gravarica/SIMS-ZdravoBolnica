@@ -9,32 +9,32 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class AppointmentFileHandler
+    public class AppointmentFileHandler : GenericFileHandler<Appointment>
     {
-
-        private readonly string _path;
-
-        private readonly string _delimiter;
 
         private readonly string _datetimeFormat;
 
-        public AppointmentFileHandler(string path, string delimiter, string dateTimeFormat)
+        public AppointmentFileHandler(string path) : base(path)
         {
-            _path=path;
-            _delimiter=delimiter;
-            _datetimeFormat=dateTimeFormat;
-        }
-        
-        public IEnumerable<Appointment> ReadAll()
-        {
-            return File.ReadAllLines(_path)                 
-                   .Select(ConvertCSVFormatToAppointment)   
-                   .ToList();
+            _datetimeFormat=FormatStorage.ONLY_DATE_FORMAT;
         }
 
-        private Appointment ConvertCSVFormatToAppointment(string CSVFormat)
+        protected override Appointment ConvertCSVToEntity(string csv)
         {
-            string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
+            string[] tokens = csv.Split(CSV_DELIMITER.ToCharArray());
+            return new Appointment(int.Parse(tokens[0]),
+                DateTime.Parse(tokens[1]),
+                int.Parse(tokens[2]),
+                int.Parse(tokens[3]),
+                int.Parse(tokens[4]),
+                int.Parse(tokens[5]),
+                convertToExaminationType(tokens[6]),
+                bool.Parse(tokens[7]));
+        }
+
+       /* private Appointment ConvertCSVFormatToAppointment(string CSVFormat)
+        {
+            string[] tokens = CSVFormat.Split(CSV_DELIMITER.ToCharArray());
             return new Appointment(int.Parse(tokens[0]),
                                    DateTime.Parse(tokens[1]),
                                    int.Parse(tokens[2]),
@@ -43,11 +43,24 @@ namespace HospitalProject.FileHandler
                                    int.Parse(tokens[5]),
                                    convertToExaminationType(tokens[6]),
                                    bool.Parse(tokens[7]));
+        }*/
+
+       protected override string ConvertEntityToCSV(Appointment appointment)
+       {
+           return string.Join(CSV_DELIMITER,
+               appointment.Id,
+               appointment.Date.ToString(_datetimeFormat),
+               appointment.Duration,
+               appointment.Patient.Id,
+               appointment.Doctor.Id,
+               appointment.Room.Id,
+               appointment.ExaminationType.ToString(),
+               appointment.IsDone.ToString());
         }
 
-        private string ConvertAppointmentToCSVFormat(Appointment appointment)
+      /* private string ConvertAppointmentToCSVFormat(Appointment appointment)
         {
-            return string.Join(_delimiter,
+            return string.Join(CSV_DELIMITER,
                 appointment.Id,
                 appointment.Date.ToString(_datetimeFormat),
                 appointment.Duration,
@@ -56,24 +69,7 @@ namespace HospitalProject.FileHandler
                 appointment.Room.Id,
                 appointment.ExaminationType.ToString(),
                 appointment.IsDone.ToString());
-        }
-
-        public void AppendLineToFile(Appointment appointment)
-        {
-            string line = ConvertAppointmentToCSVFormat(appointment);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
-
-        public void Save(IEnumerable<Appointment> _appointments)
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (Appointment appointment in _appointments)
-                {
-                    file.WriteLine(ConvertAppointmentToCSVFormat(appointment));
-                }
-            }
-        }
+        }*/
 
         private ExaminationType convertToExaminationType(string examinationTypeString)
         {

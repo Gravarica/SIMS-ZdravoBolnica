@@ -8,25 +8,32 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class PatientFileHandler
+    public class PatientFileHandler : GenericFileHandler<Patient>
     {
-        private List<Patient> _patients = new List<Patient>();
-        private string _path;
-
-        private string _delimiter;
-        
-        private readonly string _datetimeFormat;
-        
-        public PatientFileHandler(string path, string delimiter, string dateTimeFormat)
+        public PatientFileHandler(string path) : base(path)
         {
-            _path = path;
-            _delimiter=delimiter;
-            _datetimeFormat=dateTimeFormat;
         }
 
-        private Patient ConvertCSVFormatToPatient(string acountCSVFormat)                   
+        protected override string ConvertEntityToCSV(Patient patient)
         {
-            string[] tokens = acountCSVFormat.Split(_delimiter.ToCharArray());
+            return string.Join(CSV_DELIMITER,
+                patient.Id,
+                patient.MedicalRecordId,
+                patient.Guest,
+                patient.Username,
+                patient.FirstName,
+                patient.LastName,
+                patient.Jmbg,
+                patient.PhoneNumber,
+                patient.Email,
+                patient.Adress,
+                patient.DateOfBirth.ToString(FormatStorage.DATETIME_FORMAT),
+                patient.Gender);
+        }
+
+        protected override Patient ConvertCSVToEntity(string csv)
+        {
+            string[] tokens = csv.Split(CSV_DELIMITER.ToCharArray());
             return new Patient(
                 int.Parse(tokens[0]),
                 int.Parse(tokens[1]),
@@ -41,47 +48,5 @@ namespace HospitalProject.FileHandler
                 DateTime.Parse(tokens[10]),
                 (Gender)Enum.Parse(typeof(Gender), tokens[11], true));
         }
-
-        public IEnumerable<Patient> ReadAll()
-        {
-            return File.ReadAllLines(_path)             
-                .Select(ConvertCSVFormatToPatient)   
-                .ToList();
-        }
-
-        public void Save()
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (Patient patient in _patients)
-                {
-                    file.WriteLine(ConvertPatientToCSVFormat(patient));
-                }
-            }
-        }
-
-        public string ConvertPatientToCSVFormat(Patient patient)
-        { 
-            return string.Join(_delimiter,
-                patient.Id,
-                patient.MedicalRecordId,
-                patient.Guest,
-                patient.Username,
-                patient.FirstName,
-                patient.LastName,
-                patient.Jmbg,
-                patient.PhoneNumber,
-                patient.Email,
-                patient.Adress,
-                patient.DateOfBirth.ToString(_datetimeFormat),
-                patient.Gender);
-        }
-
-        public void AppendLineToFile(Patient Patient)
-        {
-            string line = ConvertPatientToCSVFormat(Patient);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
-        
     }
 }

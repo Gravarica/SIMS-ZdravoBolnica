@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.DataUtility
 {
-    public class DataUtility
+    public static class EnumConverter
     {
         public static Specialization ConvertTokenToSpecialization(string token)
         {
@@ -40,6 +40,39 @@ namespace HospitalProject.DataUtility
             }
 
             return RequestState.PENDING;
+        }
+
+        public static UserType ConvertStringToUserType(string userType)
+        {
+            if (userType.Equals("PATIENT"))
+            {
+                return UserType.PATIENT;
+            }
+            else if (userType.Equals("DOCTOR"))
+            {
+                return UserType.DOCTOR;
+            }
+            else if (userType.Equals("SECRETARY"))
+            {
+                return UserType.SECRETARY;
+            }
+
+            return UserType.WARDEN;
+        }
+
+        public static Category ConvertStringToCategory(string _category)
+        {
+            if (_category.Equals("DOCTOR_SURVEY"))
+            {
+                return Category.DOCTOR_SURVEY;
+            }
+            else if (_category.Equals("HOSPITAL_SURVEY"))
+            {
+                return Category.HOSPITAL_SURVEY;
+            }
+            
+            return Category.APPLICATION_SURVEY;
+            
         }
     }
 }

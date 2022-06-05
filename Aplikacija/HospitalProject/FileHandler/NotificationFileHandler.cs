@@ -8,57 +8,28 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class NotificationFileHandler
+    public class NotificationFileHandler : GenericFileHandler<Notification>
     {
 
-        private string path;
-        private string delimiter;
+        public NotificationFileHandler(string path) : base(path) {}
 
-        public NotificationFileHandler(string path, string delimiter)
+        protected override string ConvertEntityToCSV(Notification notification)
         {
-            this.path = path;
-            this.delimiter = delimiter;
+            return string.Join(CSV_DELIMITER,
+                notification.Id,
+                notification.Name,
+                notification.Prescription.Id,
+                notification.StartTime.ToString("HH:mm")
+            );
         }
 
-        public IEnumerable<Notification> ReadAll()
+        protected override Notification ConvertCSVToEntity(string csv)
         {
-            return File.ReadAllLines(path).Select(ConvertCSVToNotification).ToList();
-        }
-
-        private string ConvertNotificationToCSV(Notification notification)
-        {
-            return string.Join(delimiter,
-                               notification.Id,
-                               notification.Name,
-                               notification.Prescription.Id,
-                               notification.StartTime.ToString("HH:mm")
-                               ) ;
-        }
-
-        private Notification ConvertCSVToNotification(string csv)
-        {
-            string[] tokens = csv.Split(delimiter);
+            string[] tokens = csv.Split(CSV_DELIMITER);
             return new Notification(int.Parse(tokens[0]),
-                                    tokens[1],
-                                    int.Parse(tokens[2]),
-                                    DateTime.ParseExact(tokens[3], "HH:mm", null));
-        }
-
-        public void AppendLineToFile(Notification notification)
-        {
-            string line = ConvertNotificationToCSV(notification);
-            File.AppendAllText(path, line + Environment.NewLine);
-        }
-
-        public void Save(List<Notification> notifications) 
-        {
-            using (StreamWriter file = new StreamWriter(path))
-            {
-                foreach (Notification notification in notifications)
-                {
-                    file.WriteLine(ConvertNotificationToCSV(notification));
-                }
-            }
+                tokens[1],
+                int.Parse(tokens[2]),
+                DateTime.ParseExact(tokens[3], "HH:mm", null));
         }
     }
 }

@@ -19,8 +19,8 @@ namespace HospitalProject.FileHandler
             string[] tokens = CSVFormat.Split(CSV_DELIMITER.ToCharArray());
             return new Prescription(int.Parse(tokens[0]),
                                    int.Parse(tokens[1]),
-                                   DateTime.ParseExact(tokens[2], _dateTimeFormat, null),
-                                   DateTime.ParseExact(tokens[3], _dateTimeFormat, null),
+                                   DateTime.ParseExact(tokens[2], FormatStorage.ONLY_DATE_FORMAT, null),
+                                   DateTime.ParseExact(tokens[3], FormatStorage.ONLY_DATE_FORMAT, null),
                                    int.Parse(tokens[4]),
                                    tokens[5],
                                    int.Parse(tokens[6]));

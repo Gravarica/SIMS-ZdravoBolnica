@@ -14,16 +14,14 @@ namespace Repository
    public class PatientRepository
    {
         private const string NOT_FOUND_ERROR = "Account with {0}:{1} can not be found!";
-        private string _path;       // Putanja do fajla 
-        private string _delimiter;  // Delimiter za CSV format
         private int _patientMaxId;
-        public PatientFileHandler _patientFileHandler;
+        public IHandleData<Patient> _patientFileHandler;
         private MedicalRecordRepository _medicalRecordRepository;
         private List<Patient> _patients;
 
-        public PatientRepository(PatientFileHandler patientFileHandler, MedicalRecordRepository medicalRecordRepository)
+        public PatientRepository(MedicalRecordRepository medicalRecordRepository)
         {
-            _patientFileHandler = patientFileHandler;
+            _patientFileHandler = new PatientFileHandler(FilePathStorage.PATIENT_FILE);
             _medicalRecordRepository = medicalRecordRepository;
             _patients =  _patientFileHandler.ReadAll().ToList();
             _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
@@ -43,7 +41,7 @@ namespace Repository
         {
             patient.Id = ++_patientMaxId;
             patient.MedicalRecordId = _medicalRecordRepository.GetMaxId() + 1;
-            _patientFileHandler.AppendLineToFile(patient);
+            _patientFileHandler.SaveOneEntity(patient);
             return patient;
         }
         
@@ -64,7 +62,7 @@ namespace Repository
             updatedPatient.DateOfBirth = patient.DateOfBirth;
             updatedPatient.Gender = patient.Gender;
             
-            _patientFileHandler.Save();
+            _patientFileHandler.Save(_patients);
         }
         public void Delete(int id)
         {
@@ -73,7 +71,7 @@ namespace Repository
             if (patient != null)
             {
                 _patients.Remove(patient);
-                _patientFileHandler.Save();
+                _patientFileHandler.Save(_patients);
             }
 
         }
