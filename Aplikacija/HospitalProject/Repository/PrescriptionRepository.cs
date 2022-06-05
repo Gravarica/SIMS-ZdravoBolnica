@@ -46,17 +46,11 @@ namespace HospitalProject.Repository
             return prescriptions.FirstOrDefault(prescription => prescription.Id == prescriptionId);
         }
 
-        // Ovde je problem sto lista recepata nema instanciran appointment
-        // Jedno resenje je da nemam vezu sa appointmentom nego sa pacijentom direktno
-        // Drugo resenje je da nekako instanciram appointment, tj da povezem 
         public IEnumerable<Prescription> GetPrescriptionsForPatient(int patientId)
         {
             return prescriptions.Where(prescription => prescription.Appointment.Patient.Id == patientId);
         }
 
-        // Osiguraj se da je pre ovoga appointment bindovan sa svojim doktorom i pacijentom
-        // Za pregled u njegovom repozitorijumu je setovan pacijent i samo njegov id sto je okej
-        // Problem je sto cu opet morati da vrsim bind u servisu da bih pristupio pacijentu doktoru i datumu
         private void SetAppointmentForPrescription(Prescription prescription)
         {
             prescription.Appointment = appointmentRepository.GetById(prescription.Appointment.Id);

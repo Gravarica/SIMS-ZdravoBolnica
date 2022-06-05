@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace HospitalProject.Service
 {
@@ -33,6 +34,16 @@ namespace HospitalProject.Service
         private bool CheckIfMedicineReportAlreadyExists(Equipement medicine)
         {
             return medicineReportRepository.GetMedicineReportByMedicine(medicine) != null;
+        }
+
+        public List<MedicineReport> getAll()
+        {
+            return medicineReportRepository.GetAll();
+        }
+
+        public void Delete(MedicineReport medicineReport)
+        {
+            medicineReportRepository.Delete(medicineReport);
         }
     }
 }

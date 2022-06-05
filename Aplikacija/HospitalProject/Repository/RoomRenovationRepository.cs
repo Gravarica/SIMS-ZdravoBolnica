@@ -13,9 +13,14 @@ public class RoomRenovationRepository
 
     public RoomRenovationRepository(RoomRenovationFileHandler roomRenovationFileHandler)
     {
+        InitialiseData(roomRenovationFileHandler);
+        _renovationsMaxId = GetMaxId();
+    }
+
+    private void InitialiseData(RoomRenovationFileHandler roomRenovationFileHandler)
+    {
         _renovationFileHandler = roomRenovationFileHandler;
         _renovations = _renovationFileHandler.ReadAll().ToList();
-        _renovationsMaxId = GetMaxId();
     }
     private int GetMaxId() {
         return _renovations.Count() == 0 ? 0 : _renovations.Max(renovation => renovation.Id);

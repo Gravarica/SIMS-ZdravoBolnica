@@ -22,6 +22,11 @@ namespace HospitalProject.Controller
             return answerService.GetAll().ToList();
         }
 
+        public Answer GetById(int id)
+        {
+            return answerService.GetById(id);
+        }
+
         public void Create(Answer answer)
         {
             answerService.Create(answer);

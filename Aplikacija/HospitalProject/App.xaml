@@ -59,8 +59,16 @@
                 <view:NewReferalView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:WardenGradesViewModel}">
+                <views:WardenGradesView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModels:EquipementViewModel}">
                 <views:WardenEquipementView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModels:MedicineReportViewModel}">
+                <views:MedicineReportView/>
             </DataTemplate>
             
             <DataTemplate DataType="{x:Type viewModels:WardenEquipemntRelocationViewModel}">

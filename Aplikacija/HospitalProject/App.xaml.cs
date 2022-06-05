@@ -109,7 +109,7 @@ namespace HospitalProject
 
             var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
 
-            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
+            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 

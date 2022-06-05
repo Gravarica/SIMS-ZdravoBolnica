@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.View.WardenForms.Views;
+using Syncfusion.Data.Extensions;
 
 namespace HospitalProject.View.WardenForms.ViewModels
 {
@@ -13,10 +16,14 @@ namespace HospitalProject.View.WardenForms.ViewModels
     {
 
         private EquipmentRelocationController _equipmentRelocationController;
+        private EquipementController _equipementController;
         private Thread thread;
         private object _momentalView { get; set; }
         public WardenRoomControl WardenRoomControl { get; set; }
         public RelayCommand RoomViewCommand { get; set; }
+        
+        public MedicineReportViewModel MedicineReportViewModel { get; set; }
+        public RelayCommand MedicineReportCommand { get; set; }
         
         public EquipementViewModel WardenEquipementView { get; set; }
         public RelayCommand EquipementCommand { get; set; }
@@ -37,6 +44,10 @@ namespace HospitalProject.View.WardenForms.ViewModels
 
 
 
+        private ObservableCollection<Equipement> MedicineItems { get; set; }
+        
+        public RelayCommand GradesCommand { get; set; }
+        public WardenGradesViewModel WardenGradesViewModel { get; set; }
 
 
 
@@ -52,20 +63,38 @@ namespace HospitalProject.View.WardenForms.ViewModels
 
         private static MainViewModel instance;
         public static MainViewModel Instance => instance;
-        public MainViewModel()
+
+        private void InstantiateControllers()
         {
             var app = System.Windows.Application.Current as App;
             _equipmentRelocationController = app.EquipmentRelocationController;
-            instance = this;
+            _equipementController = app.EquipementController;
+        }
+
+        private void InitialiseItems()
+        {
+            MedicineItems = _equipementController.GetAll().ToObservableCollection();
+        }
+
+        private void InstantiateVievModels()
+        {
             WardenRoomControl = new WardenRoomControl();
             WardenEquipementView = new EquipementViewModel();
             WardenEquipemntRelocationViewModel = new WardenEquipemntRelocationViewModel();
             RoomRenovationViewModel = new RoomRenovationViewModel();
             MedicineViewModel = new MedicineViewModel();
             AddingMedicineView = new AddingMedicineView();
-            
+            MedicineReportViewModel = new MedicineReportViewModel();
+            WardenGradesViewModel = new WardenGradesViewModel();
+        }
 
-            MomentalView = WardenRoomControl;
+        private void InstaliseComamnds()
+        {
+            MedicineReportCommand =new RelayCommand(o =>
+                {
+                    MomentalView = MedicineReportViewModel;
+                }
+            );
             
             MedicineViewCommand =new RelayCommand(o =>
                 {
@@ -73,27 +102,48 @@ namespace HospitalProject.View.WardenForms.ViewModels
                 }
             );
             
-             RoomViewCommand = new RelayCommand(o =>
-                 {
-                     MomentalView = WardenRoomControl;
-                 }
-                 );
-             EquipementCommand = new RelayCommand(o =>
-                 {
-                     MomentalView = WardenEquipementView;
-                 }
-             );
-             EquipementRelocationCommand = new RelayCommand(o
-                 =>
-             {
-                 MomentalView = WardenEquipemntRelocationViewModel;
-             });
-             RoomRenovationCommand = new RelayCommand(o => { MomentalView = RoomRenovationViewModel; });
+            GradesCommand =new RelayCommand(o =>
+                {
+                    MomentalView = WardenGradesViewModel;
+                }
+            );
+            
+            RoomViewCommand = new RelayCommand(o =>
+                {
+                    MomentalView = WardenRoomControl;
+                }
+            );
+            EquipementCommand = new RelayCommand(o =>
+                {
+                    MomentalView = WardenEquipementView;
+                }
+            );
+            EquipementRelocationCommand = new RelayCommand(o
+                =>
+            {
+                MomentalView = WardenEquipemntRelocationViewModel;
+            });
+            RoomRenovationCommand = new RelayCommand(o => { MomentalView = RoomRenovationViewModel; });
+        }
 
-             ThreadStart threadStart = new ThreadStart(StartRelocationThread);
-             thread = new Thread(threadStart);
-             thread.Start();
+        private void initialiseThread()
+        {
+            ThreadStart threadStart = new ThreadStart(StartRelocationThread);
+            thread = new Thread(threadStart);
+            thread.Start();
+        }
+        
+        public MainViewModel()
+        {
+            instance = this;
+            InstantiateControllers();
+            InitialiseItems();
+            InstantiateVievModels();
+            InstaliseComamnds();
+            
+            MomentalView = WardenRoomControl;
 
+            initialiseThread();
         }
 
         public void StartRelocationThread()
