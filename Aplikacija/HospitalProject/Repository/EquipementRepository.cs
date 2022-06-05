@@ -17,11 +17,17 @@ namespace HospitalProject.Repository
 
         public EquipementRepository(EquipementFileHandler equipementFileHandler, AllergiesRepository allergiesRepository)
         {
+            InitialiseData(equipementFileHandler,allergiesRepository);
+            BindAllergensForMedicine();
+            _equipementMaxId = GetMaxId(_equipements);
+        }
+
+        private void InitialiseData(EquipementFileHandler equipementFileHandler,
+            AllergiesRepository allergiesRepository)
+        {
             this.allergiesRepository = allergiesRepository;
             _equipementFileHandler = equipementFileHandler;
             _equipements = _equipementFileHandler.ReadAll().ToList();
-            BindAllergensForMedicine();
-            _equipementMaxId = GetMaxId(_equipements);
         }
 
         private int GetMaxId(IEnumerable<Equipement> equipements)
@@ -46,21 +52,7 @@ namespace HospitalProject.Repository
         {
             return _equipements;
         }
-
-        public IEnumerable<Equipement> GetByType(EquipementType equipementType)
-        {
-            IEnumerable<Equipement> equipements = new List<Equipement>();
-            foreach (Equipement equipement in _equipements)
-            {
-                if (equipement.EquipementType == equipementType)
-                {
-                    equipements.Append(equipement);
-                }
-            }
-
-            return equipements;
-        }
-
+        
         public void Delete(int id)
         {
             Equipement removeEquipement = GetById(id);
@@ -75,6 +67,8 @@ namespace HospitalProject.Repository
             updatedEquipement.Quantity = equipement.Quantity;
             updatedEquipement.Name = equipement.Name;
             updatedEquipement.EquipementType = equipement.EquipementType;
+            updatedEquipement.Alergens = equipement.Alergens;
+            updatedEquipement.Replacements = equipement.Replacements;
 
             _equipementFileHandler.Save(_equipements);
         }

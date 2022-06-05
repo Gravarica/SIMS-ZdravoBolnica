@@ -27,11 +27,14 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand sendCommand;
         private RelayCommand cancelCommand;
 
-        public NewRequestViewModel(Doctor doctor, VacationRequestController vacReqContr, Window window)
+        public NewRequestViewModel(Doctor doctor, VacationRequestController vacReqContr)
         {
             loggedDoctor = doctor;
             this.vacationRequestController = vacReqContr;
-            this.window = window;
+        }
+
+        public NewRequestViewModel()
+        {
         }
 
         public RelayCommand SendCommand
@@ -50,7 +53,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
             else
             {
-                window.Close();
+                MainViewModel.Instance.CurrentView = MainViewModel.Instance.InventoryVM;
             }
            
         }
@@ -70,7 +73,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void CancelCommandExecute()
         {
-            window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.RequestsVM;
         }
 
         private bool CanCancelCommandExecute()

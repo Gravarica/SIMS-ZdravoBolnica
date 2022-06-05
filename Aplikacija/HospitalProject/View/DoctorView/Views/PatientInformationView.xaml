@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="750"
              Background="AliceBlue"
@@ -20,8 +21,9 @@
         </Style>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
-            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value ="Center"></Setter>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -29,13 +31,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="210"/>
         </Grid.RowDefinitions>
-        <GroupBox Header="General Information" 
-                  FontSize="25"
+        <GroupBox Header="{model:Loc PersonalInformationLabel}"
+                  FontSize="20"
                   Grid.Row="0"
-                  Margin="20">
+                  Margin="20"
+                  Foreground ="Black">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
@@ -50,7 +52,7 @@
 
                 <Label Grid.Row="0"
                        Grid.Column="0"
-                       Content="First Name: "
+                       Content="{model:Loc NameLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
@@ -59,7 +61,7 @@
                 
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       Content="Last Name: "
+                       Content="{model:Loc SurnameLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
@@ -68,25 +70,25 @@
                 
                 <Label Grid.Row="2"
                        Grid.Column="0"
-                       Content="Date of Birth:"
+                       Content="{model:Loc DOBLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="2"
                            Grid.Column="1"
                            Style="{StaticResource TextBlockStyle}"
                            Text="{Binding MedicalRecord.Patient.DateOfBirth, Converter = {StaticResource DateConverter}}"/>
                 
-                <Label Grid.Row="3"
-                       Grid.Column="0"
-                       Content="Gender: "
+                <Label Grid.Row="2"
+                       Grid.Column="2"
+                       Content="{model:Loc GenderLabel}"
                        Style = "{StaticResource LabelStyle}"/>
-                <TextBlock Grid.Row="3"
-                           Grid.Column="1"
+                <TextBlock Grid.Row="2"
+                           Grid.Column="3"
                            Text="{Binding MedicalRecord.Patient.Gender}"
                            Style="{StaticResource TextBlockStyle}"/>
 
-                <Label Grid.Row="4"
+                <Label Grid.Row="3"
                        Grid.Column="0"
-                       Content="JMBG: "
+                       Content="{model:Loc JMBGLabel}"
                        Style = "{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="4"
                            Grid.Column="1"
@@ -95,7 +97,7 @@
 
                 <Label Grid.Row="0"
                        Grid.Column="2"
-                       Content="Address: "
+                       Content="{model:Loc AddressLabel}"
                        Style = "{StaticResource LabelStyle}"/>
 
                 <TextBlock Grid.Row="0"
@@ -105,7 +107,7 @@
 
                 <Label Grid.Row="1"
                        Grid.Column="2"
-                       Content="Phone Number: "
+                       Content="{model:Loc PhoneLabel}"
                        Style = "{StaticResource LabelStyle}"/>
 
                 <TextBlock Grid.Row="1"
@@ -114,10 +116,11 @@
                            Style="{StaticResource TextBlockStyle}"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Medical Information"
+        <GroupBox Header="{model:Loc MedicalInformationLabel}"
                   Grid.Row="1"
-                  Margin="20"
-                  FontSize="25">
+                  Margin="20,5,20,20"
+                  FontSize="20"
+                  Foreground ="Black">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -132,7 +135,7 @@
 
                 <Label Grid.Row="0"
                        Grid.Column="0"
-                       Content="Blood Type:"
+                       Content="{model:Loc BTLabel}"
                        Style="{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="0"
                            Grid.Column="1"
@@ -141,7 +144,7 @@
 
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       Content="Risk Factors:"
+                       Content="{model:Loc RFLabel}"
                        Style="{StaticResource LabelStyle}"/>
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
@@ -162,7 +165,7 @@
                         <TextBlock Foreground="White"
                                    FontFamily="Verdana"
                                    FontSize="20"
-                                   Text="Allergies"
+                                   Text="{model:Loc AllergiesLabel}"
                                    Margin="5,0,0,0"/>
                     </Border>
                     <ListView FontSize="16"

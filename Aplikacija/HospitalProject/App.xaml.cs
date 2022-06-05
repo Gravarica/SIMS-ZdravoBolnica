@@ -13,6 +13,7 @@ using Service;
 using HospitalProject.Service;
 using HospitalProject.FileHandler;
 using HospitalProject.Repository;
+using HospitalProject.View.DoctorView.Model;
 
 namespace HospitalProject
 {
@@ -106,16 +107,12 @@ namespace HospitalProject
 
             var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
 
-            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
-
             var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
            
             var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
            
             var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
-
-            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
@@ -131,15 +128,9 @@ namespace HospitalProject
 
             var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
 
-            var _medicineReportFileHandler = new MedicineReportFileHandler(MEDICINE_REPORT_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
-
-            var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
-
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
             var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
-
-            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
 
             var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
@@ -147,20 +138,17 @@ namespace HospitalProject
 
             var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
 
-            
-
             var _doctorRepository = new DoctorRepository(_doctorFileHandler);
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
-            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler);
+            var _patientRepository = new PatientRepository(_patientFileHandler, _medicalRecordRepository);
+
+            var _anamnesisRepository = new AnamnesisRepository();
 
             var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
 
-            var _patientRepository = new PatientRepository(_patientFileHandler, _medicalRecordRepository);
-
-
-            var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
+            var _prescriptionRepository = new PrescriptionRepository(_appointmentRepository);
 
             var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
 
@@ -174,9 +162,9 @@ namespace HospitalProject
 
             var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
 
-            var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
+            var _medicineReportRepository = new MedicineReportRepository(_equipementRepository, _doctorRepository);
 
-            var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
+            var _vacationRequestRepository = new VacationRequestRepository(_doctorRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -187,7 +175,6 @@ namespace HospitalProject
             var _doctorService = new DoctorService(_doctorRepository, _roomService);
             
             var _meetingsRepository = new MeetingsRepository(_meetingsFileHandler, _doctorService);
-
             
             var _meetingsService = new MeetingsService(_meetingsRepository);
            
@@ -265,6 +252,17 @@ namespace HospitalProject
 
         }
 
-       
+        public void ChangeLanguage(string currLang)
+        {
+            if (currLang.Equals("en-US"))
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            }
+            else
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            }
+        }
+
     }
 }

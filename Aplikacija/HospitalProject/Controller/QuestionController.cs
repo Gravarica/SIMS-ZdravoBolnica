@@ -33,5 +33,15 @@ namespace HospitalProject.Controller
         {
             return questionService.GetMaxId();
         }
+
+        public List<Question> GetQuestionsByType(Category type)
+        {
+            return questionService.GetQuestionsByType(type);
+        }
+
+        public bool CheckQuestionType(Category category, int id)
+        {
+            return questionService.CheckQuestionType(category, id);
+        }
     }
 }

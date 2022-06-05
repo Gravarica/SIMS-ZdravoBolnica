@@ -20,6 +20,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private RelayCommand returnCommand;
         private RelayCommand saveCommand;
+        private AnamnesisViewModel returnVM;
 
         public ObservableCollection<Prescription> PatientPrescriptions { get; set; }
         private List<ComboBoxData<int>> intervals = new List<ComboBoxData<int>>();
@@ -35,9 +36,8 @@ namespace HospitalProject.View.DoctorView.Model
         private PrescriptionController prescriptionController;
         private EquipementController equipementController;
 
-        public NewPrescriptionViewModel(Window window, Appointment showItem)
+        public NewPrescriptionViewModel(Appointment showItem)
         {
-            _window = window;
             InstantiateControllers();
             InstantiateData(showItem);
         }
@@ -178,7 +178,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ReturnCommandExecute()
         {
-            _window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AnamnesisVM;
         }
 
         public RelayCommand SaveCommand
@@ -196,16 +196,14 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void SaveCommandExecute()
         {
-            DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
-            DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
-            string checkString = prescriptionController.Create(ShowItem, startDateOnly, endDateOnly, Interval, Description, SelectedMedicine);
+            string checkString = prescriptionController.Create(ShowItem, StartDate, EndDate, Interval, Description, SelectedMedicine);
             if(checkString != null)
             {
                 MessageBox.Show("Patient is allergic to " + checkString + " in " + SelectedMedicine.Name, "Cannot create prescription", MessageBoxButton.OK, MessageBoxImage.Warning);
             } 
             else
             {
-                _window.Close();
+                MainViewModel.Instance.CurrentView = MainViewModel.Instance.AnamnesisVM;
             }
             
         }

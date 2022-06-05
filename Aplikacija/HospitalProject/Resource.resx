@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddressLabel" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="AllergiesLabel" xml:space="preserve">
+    <value>Allergies</value>
+  </data>
+  <data name="AlternativesLabel" xml:space="preserve">
+    <value>Alternatives</value>
+  </data>
+  <data name="AnamnesisLabel" xml:space="preserve">
+    <value>Anamnesis</value>
+  </data>
+  <data name="AppointmentLabel" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="BTLabel" xml:space="preserve">
+    <value>Blood Type:</value>
+  </data>
+  <data name="CAButton" xml:space="preserve">
+    <value>Cancel Appointment</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CEDLabel" xml:space="preserve">
+    <value>Choose an End Date:</value>
+  </data>
+  <data name="CSDLabel" xml:space="preserve">
+    <value>Choose a Start Date:</value>
+  </data>
+  <data name="DateHeader" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="DescriptionHeader" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="DetailsLabel" xml:space="preserve">
+    <value>Details of an Appointment</value>
+  </data>
+  <data name="DLabel" xml:space="preserve">
+    <value>Doctor:</value>
+  </data>
+  <data name="DOBLabel" xml:space="preserve">
+    <value>Date of Birth:</value>
+  </data>
+  <data name="DoctorHeader" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="DurationHeader" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="DurationLabel" xml:space="preserve">
+    <value>Duration:</value>
+  </data>
+  <data name="EDHeader" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="EditAppointmentLabel" xml:space="preserve">
+    <value>Edit appointment</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EDLabel" xml:space="preserve">
+    <value>End Date:</value>
+  </data>
+  <data name="ExaminationLabel" xml:space="preserve">
+    <value>Examination</value>
+  </data>
+  <data name="FDRemainingLabel" xml:space="preserve">
+    <value>Number of Free Days Remaining:</value>
+  </data>
+  <data name="FinishLabel" xml:space="preserve">
+    <value>Finish Examination</value>
+  </data>
+  <data name="FirstNameHeader" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FreeDaysLabel" xml:space="preserve">
+    <value>Free days:</value>
+  </data>
+  <data name="GenderLabel" xml:space="preserve">
+    <value>Gender:</value>
+  </data>
+  <data name="IDHeader" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="IngredientsLabel" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="IntervalLabel" xml:space="preserve">
+    <value>Interval:</value>
+  </data>
+  <data name="InventoryLabel" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="JMBGLabel" xml:space="preserve">
+    <value>SSN:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Choose a Language:</value>
+  </data>
+  <data name="LastNameHeader" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="MedicalInformationLabel" xml:space="preserve">
+    <value>Medical Information</value>
+  </data>
+  <data name="MedicalRecordLabel" xml:space="preserve">
+    <value>Medical Record</value>
+  </data>
+  <data name="MedicineHeader" xml:space="preserve">
+    <value>Medicine</value>
+  </data>
+  <data name="MedicineLabel" xml:space="preserve">
+    <value>Medicine:</value>
+  </data>
+  <data name="MIDHeader" xml:space="preserve">
+    <value>Medicine ID</value>
+  </data>
+  <data name="MRButton" xml:space="preserve">
+    <value>Medical Record</value>
+  </data>
+  <data name="MyProfileLabel" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="NameHeader" xml:space="preserve">
+    <value>Naziv </value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>First Name:</value>
+  </data>
+  <data name="NewAppointmentLabel" xml:space="preserve">
+    <value>New appointment</value>
+  </data>
+  <data name="NewPrescriptionLabel" xml:space="preserve">
+    <value>Examination - New Prescription</value>
+  </data>
+  <data name="NewReferalLabel" xml:space="preserve">
+    <value>New Referal</value>
+  </data>
+  <data name="NewRequestButton" xml:space="preserve">
+    <value>New Request</value>
+  </data>
+  <data name="NewRequestLabel" xml:space="preserve">
+    <value>Requests - New Request</value>
+  </data>
+  <data name="NPLabel" xml:space="preserve">
+    <value>New Prescription</value>
+  </data>
+  <data name="NVRLabel" xml:space="preserve">
+    <value>New Vacation Request</value>
+  </data>
+  <data name="PatientHeader" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="PatientLabel" xml:space="preserve">
+    <value>Patients</value>
+  </data>
+  <data name="PELabel" xml:space="preserve">
+    <value>Previous Examinations</value>
+  </data>
+  <data name="PersonalInformationLabel" xml:space="preserve">
+    <value>Personal Information</value>
+  </data>
+  <data name="PersonalizationLabel" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="PHLabel" xml:space="preserve">
+    <value>Prescription History</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Phone number:</value>
+  </data>
+  <data name="PLabel" xml:space="preserve">
+    <value>Patient:</value>
+  </data>
+  <data name="PrescriptionLabel" xml:space="preserve">
+    <value>New prescription</value>
+  </data>
+  <data name="PriorityLabel" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="QHeader" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="RecordButton" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="ReferalLabel" xml:space="preserve">
+    <value>Referal scheduling</value>
+  </data>
+  <data name="ReportButton" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="ReportMedicineLabel" xml:space="preserve">
+    <value>Report Medicine</value>
+  </data>
+  <data name="RequestLabel" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="RequestStatusHeader" xml:space="preserve">
+    <value>Request Status</value>
+  </data>
+  <data name="ReturnButton" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="RFLabel" xml:space="preserve">
+    <value>Risk factors:</value>
+  </data>
+  <data name="RoomLabel" xml:space="preserve">
+    <value>Room:</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SDHeader" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="SDLabel" xml:space="preserve">
+    <value>Start Date:</value>
+  </data>
+  <data name="SEButton" xml:space="preserve">
+    <value>Start Examination</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="SLabel" xml:space="preserve">
+    <value>Specialization:</value>
+  </data>
+  <data name="SpecializationLabel" xml:space="preserve">
+    <value>Specialization</value>
+  </data>
+  <data name="SubmissionDateHeader" xml:space="preserve">
+    <value>Submission Date</value>
+  </data>
+  <data name="SurnameLabel" xml:space="preserve">
+    <value>Last Name:</value>
+  </data>
+  <data name="TerminLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>Time:</value>
+  </data>
+  <data name="TitleLabel" xml:space="preserve">
+    <value>Zdravo Hospital</value>
+  </data>
+  <data name="TOELabel" xml:space="preserve">
+    <value>Type of Examination:</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="UrgentHeader" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="UrgentLabel" xml:space="preserve">
+    <value>Urgent:</value>
+  </data>
+  <data name="UsernameHeader" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="WHRLabel" xml:space="preserve">
+    <value>Write Hospital Referal</value>
+  </data>
+  <data name="WPLabel" xml:space="preserve">
+    <value>Write Prescription</value>
+  </data>
+  <data name="WrittenByHeader" xml:space="preserve">
+    <value>Written By</value>
+  </data>
+  <data name="WRLabel" xml:space="preserve">
+    <value>Write Referal</value>
+  </data>
+</root>

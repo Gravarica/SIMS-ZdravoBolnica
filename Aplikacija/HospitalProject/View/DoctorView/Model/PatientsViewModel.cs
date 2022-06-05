@@ -69,9 +69,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ExecuteShowMedicalCardCommand()
         {
-            MedicalCardView view = new MedicalCardView();
-            view.DataContext = new MedicalCardViewModel(SelectedItem);
-            view.ShowDialog();
+            //MedicalCardView view = new MedicalCardView();
+            MedicalCardViewModel mv = new MedicalCardViewModel(SelectedItem, ReturnFlag.PATIENT_VIEW);
+            MainViewModel.Instance.CurrentView = mv;
         }
 
         private bool CanExecuteNewAppointmentCommand()
@@ -81,7 +81,9 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ExecuteNewAppointmentCommand()
         {
-            return;
+            NewAppointmentViewModel vm = new NewAppointmentViewModel(MainViewModel.Instance.AppVM.AppointmentItems);
+            vm.PatientData = SelectedItem;
+            MainViewModel.Instance.CurrentView = vm;
         }
     }
 }

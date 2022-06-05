@@ -18,19 +18,21 @@
                   ScrollViewer.CanContentScroll="True"
                   AutoGenerateColumns="False"
                   RowHeight="50"
+                  Style ="{StaticResource grid1}"
+                  HeadersVisibility="Column"
                   FontSize="17"
                   IsReadOnly="True"
                   ItemsSource="{Binding Path = Anamneses}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date"
+                <DataGridTextColumn Header="{model:Loc DateHeader}"
                                     Width="200"
                                     Binding="{Binding App.Date, Converter={StaticResource DateConverter}}"/>
-                <DataGridTextColumn Header="Doctor" 
+                <DataGridTextColumn Header="{model:Loc DoctorHeader}"
                                     Width="2*"
                                     Binding="{Binding App.Doctor, Converter={StaticResource NameConverter}}"/>
-                <DataGridTextColumn Header="Description"
+                <DataGridTextColumn Header="{model:Loc DescriptionHeader}"
                                     Width="4*"
                                     Binding="{Binding Description}"
                                     >
@@ -46,8 +48,8 @@
                             <Border BorderThickness="1"
                                     BorderBrush="#afafef"
                                     CornerRadius="2"
-                                    Margin="10">
-                                <Button Content="Edit"
+                                    Margin="5">
+                                <Button Content="{model:Loc EditButton}"
                                         FontSize="12"
                                         Foreground="White"
                                     Command="{Binding DataContext.EditAnamnesisCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"

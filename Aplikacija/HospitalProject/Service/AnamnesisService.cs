@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Syncfusion.Linq;
 
 namespace HospitalProject.Service
 {
@@ -55,13 +56,12 @@ namespace HospitalProject.Service
 
         private void LinkAnamnesisWithAppointments()
         {
-            int id;
+            GetAll().ForEach(SetAppointmentForAnamnesis);
+        }
 
-            foreach (Anamnesis anamnesis in GetAll())
-            {
-                id = anamnesis.App.Id;
-                anamnesis.App = _appointmentService.GetById(id);
-            }
+        private void SetAppointmentForAnamnesis(Anamnesis anamnesis)
+        {
+            anamnesis.App = _appointmentService.GetById(anamnesis.App.Id);
         }
 
     }

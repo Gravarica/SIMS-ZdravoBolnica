@@ -25,6 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
@@ -154,5 +159,18 @@
       <Page Remove="View\Secretary\SecretaryV\PatientAllergies.xaml" />
       <Page Remove="View\Secretary\SecretaryV\AddPatient.xaml" />
       <Page Remove="View\Secretary\SecretaryV\EditProfile.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resource.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Localization\strings.en-US.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Localization\strings.sr-LATN-CS.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
     </ItemGroup>
 </Project>
