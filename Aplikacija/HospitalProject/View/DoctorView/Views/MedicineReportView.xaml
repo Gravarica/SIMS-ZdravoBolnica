@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
+        xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
         mc:Ignorable="d"
         Title="MedicineReportView"
         Height="600" Width="450"
@@ -46,7 +47,7 @@
                 <GradientStop Color="#516395" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <GroupBox Header="Medicine Report"
+        <GroupBox Header="{model:Loc ReportMedicineLabel}"
                   Foreground="White"
                   FontFamily="Verdana"
                   FontSize="20"
@@ -67,7 +68,7 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
                        Grid.Column="0"
-                       Content="Date:"
+                       Content="{model:Loc DateLabel}"
                        Style="{StaticResource LabelStyle}"/>
                     <DatePicker Grid.Row="0"
                             Grid.Column="1"
@@ -78,7 +79,7 @@
 
                     <Label Grid.Row="1"
                        Grid.Column="0"
-                       Content="Doctor:"
+                       Content="{model:Loc DLabel}"
                        Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="1"
                          Grid.Column="1"
@@ -88,7 +89,7 @@
 
                     <Label Grid.Row="2"
                        Grid.Column="0"
-                       Content="Medicine:"
+                       Content="{model:Loc MedicineLabel}"
                        Style="{StaticResource LabelStyle}"/>
                 <TextBox Grid.Row="2"
                          Grid.Column="1"
@@ -98,7 +99,7 @@
 
                 <Label Grid.Row="3"
                        Grid.Column="0"
-                       Content="Description:"
+                       Content="{model:Loc DescriptionLabel}"
                        Style="{StaticResource LabelStyle}"/>
                     <TextBox Grid.Row="4"
                          Grid.ColumnSpan="2"
@@ -110,7 +111,7 @@
 
                     <Button Grid.Row="5"
                         Grid.Column="0"
-                        Content="Close"
+                        Content="{model:Loc CancelButton}"
                         VerticalAlignment="Center"
                         Margin="10"
                         FontSize="18"
@@ -125,7 +126,7 @@
                     </Button>
                     <Button Grid.Row="5"
                         Grid.Column="1"
-                        Content="Submit"
+                        Content="{model:Loc SendButton}"
                         VerticalAlignment="Center"
                         Margin="10,5,10,5"
                         FontSize="18"

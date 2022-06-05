@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:AllergyConverter x:Key="AllergyConverter"/>
+        <converters:ReplacementConverter x:Key="ReplacementConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,50 +30,57 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
-                           Text="Requests"
+                           Text="{model:Loc InventoryLabel}"
                            FontSize="22"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="25,0,0,0"
                            FontWeight="SemiBold"/>
             </Grid>
-        </Border>
+        </Border >
         <Grid Grid.Row="1"
               Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      FontFamily="Verdana"
-                      FontSize = "25"
-                      SelectionMode="Single"
-                      ItemsSource="{Binding Medicines}"
-                      SelectedItem="{Binding SelectedMedicine}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Medicine ID"
-                                        Width="*"
-                                        Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Name"
-                                        Width="*"
-                                        Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Quantity"
-                                        Width="*"
-                                        Binding="{Binding Quantity}"/>
-                    <DataGridTemplateColumn Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Report"
-                                    Margin="5,10,10,5"
-                                    Style="{StaticResource RoundButton}"
-                                    Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Border BorderBrush="#3e3ece"
+                BorderThickness="1">
+                <DataGrid Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionUnit="FullRow"
+                          Style ="{StaticResource grid1}"
+                          HeadersVisibility="Column"
+                          FontFamily="Verdana"
+                          FontSize = "16"
+                          VerticalContentAlignment="Center"
+                          SelectionMode="Single"
+                          ItemsSource="{Binding Medicines}"
+                          SelectedItem="{Binding SelectedMedicine}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{model:Loc MIDHeader}"
+                                            Width="*"
+                                            Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="{model:Loc NameHeader}"
+                                            Width="*"
+                                            Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="{model:Loc QHeader}"
+                                            Width="*"
+                                            Binding="{Binding Quantity}"/>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="{model:Loc ReportButton}"
+                                            Margin="5,0,5,0"
+                                            Style="{StaticResource RoundButton}"
+                                            Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -90,7 +99,7 @@
                             <TextBlock Foreground="White"
                                    FontFamily="Verdana"
                                    FontSize="20"
-                                   Text="Ingridients"
+                                   Text="{model:Loc IngredientsLabel}"
                                    Margin="5,0,0,0"/>
                         </Border>
                         <ListView FontFamily="Verdana"
@@ -112,15 +121,13 @@
                             <TextBlock Foreground="White"
                                    FontFamily="Verdana"
                                    FontSize="20"
-                                   Text="Alternatives"
+                                   Text="{model:Loc AlternativesLabel}"
                                    Margin="5,0,0,0"/>
                         </Border>
                         <ListView FontFamily="Verdana"
-                                  FontSize="18">
-                            <ListViewItem Content="Item One"/>
-                            <ListViewItem Content="Item Two"/>
-                            <ListViewItem Content="Item Three"/>
-                            <ListViewItem Content="Item Four"/>
+                                  FontSize="18"
+                                  ItemsSource ="{Binding SelectedMedicine.Replacements, Converter={StaticResource ReplacementConverter}}">
+                            
                         </ListView>
                     </DockPanel>
                 </Border>

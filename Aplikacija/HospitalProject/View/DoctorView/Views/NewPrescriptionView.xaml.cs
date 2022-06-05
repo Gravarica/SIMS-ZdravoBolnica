@@ -17,7 +17,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for NewPrescriptionView.xaml
     /// </summary>
-    public partial class NewPrescriptionView : Window
+    public partial class NewPrescriptionView : UserControl
     {
         public NewPrescriptionView()
         {

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="950"
              Background="AliceBlue">
@@ -24,7 +25,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Foreground="White"
-                           Text="Patients"
+                           Text="{model:Loc PatientLabel}"
                            FontSize="22"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
@@ -43,43 +44,53 @@
                              Padding="5,5,5,5"/>
                 </Border>
                 <Button Grid.Column="2"
-                        Content="New Appointment"
+                        Content="{model:Loc NewAppointmentLabel}"
                         Margin = "30,15,30,15"
-                        Style="{StaticResource RoundButton}"/>
+                        Style="{StaticResource RoundButton}"
+                        Command ="{Binding NewAppointmentCommand}"/>
             </Grid>
         </Border>
-        <DataGrid Grid.Row="1"
-                  Margin="30"
-                  FontSize="15"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  SelectionMode="Single"
-                  ItemsSource="{Binding Patients}"
-                  SelectedItem="{Binding SelectedItem}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name"
-                                    Width="3*"
-                                    Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Last Name"
-                                    Width="3*"
-                                    Binding="{Binding LastName}"/>
-                <DataGridTextColumn Header="Username"
-                                    Width="2*"
-                                    Binding="{Binding Username}"/>
-                <DataGridTextColumn Header="ID Number" 
-                                    Width="2*"
-                                    Binding="{Binding Id}"/>
-                <DataGridTemplateColumn Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Record"
-                                    Margin="5,10,10,5"
-                                    Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Style="{StaticResource RoundButton}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border BorderBrush="#3e3ece"
+                BorderThickness="1"
+                Grid.Row="1"
+                Margin="30">
+            <DataGrid 
+                      FontSize="18"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Style ="{StaticResource grid1}"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
+                      SelectionUnit="FullRow"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False"
+                      ItemsSource="{Binding Patients}"
+                      SelectedItem="{Binding SelectedItem}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{model:Loc FirstNameHeader}"
+                                        Width="4*"
+                                        Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="{model:Loc LastNameHeader}"
+                                        Width="4*"
+                                        Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="{model:Loc UsernameHeader}"
+                                        Width="3*"
+                                        Binding="{Binding Username}"/>
+                    <DataGridTextColumn Header="ID" 
+                                        Width="*"
+                                        Binding="{Binding Id}"/>
+                    <DataGridTemplateColumn Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{model:Loc RecordButton}"
+                                        Margin="5,0,5,0"
+                                        Command="{Binding DataContext.ShowMedicalCardCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        Style="{StaticResource RoundButton}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </Grid>
 </UserControl>

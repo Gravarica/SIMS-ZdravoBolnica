@@ -29,6 +29,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         public RelayCommand InventoryViewCommand { get; set; }
 
+        public RelayCommand MyProfileViewCommand { get; set; }
+
         private RelayCommand logoutCommand;
 
         public MainDoctorViewModel AppVM { get; set; }
@@ -38,6 +40,13 @@ namespace HospitalProject.View.DoctorView.Model
         public RequestsViewModel RequestsVM { get; set; }
 
         public InventoryViewModel InventoryVM { get; set; } 
+
+        public AnamnesisViewModel AnamnesisVM { get; set; } 
+
+        public MyProfileViewModel MyProfileVM { get; set; } 
+
+        public PrescriptionHistoryViewModel PrescriptionHistoryVM { get; set; }
+        public NewRequestViewModel NewRequestVM { get; set; } 
 
         private BaseViewModel _currentView;
 
@@ -81,10 +90,6 @@ namespace HospitalProject.View.DoctorView.Model
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new MainViewModel(Application.Current.MainWindow);
-                }
                 return instance;
             }
         }
@@ -96,13 +101,15 @@ namespace HospitalProject.View.DoctorView.Model
             userController = app.UserController;
             var _doctorController = app.DoctorController;
             this.window = window;
-
+            instance = this;
             loggedDoctor = _doctorController.GetLoggedDoctor(userController.GetLoggedUser().Username);
 
             AppVM = new MainDoctorViewModel();
             PatientsVM = new PatientsViewModel(LoggedDoctor);
             RequestsVM = new RequestsViewModel(LoggedDoctor);
             InventoryVM = new InventoryViewModel(LoggedDoctor);
+            NewRequestVM = new NewRequestViewModel();
+            MyProfileVM = new MyProfileViewModel(loggedDoctor);
 
             CurrentView = AppVM;
 
@@ -125,6 +132,13 @@ namespace HospitalProject.View.DoctorView.Model
             {
                 CurrentView = InventoryVM;
             });
+
+            MyProfileViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = MyProfileVM;
+            });
+
+
         }
 
 

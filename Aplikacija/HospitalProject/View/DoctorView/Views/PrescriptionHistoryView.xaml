@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.DoctorView.Views"
              xmlns:converters ="clr-namespace:HospitalProject.View.Converter"
+             xmlns:model="clr-namespace:HospitalProject.View.DoctorView.Model"
              mc:Ignorable="d" 
              d:DesignHeight="525" d:DesignWidth="750"
              Background="AliceBlue">
@@ -17,21 +18,23 @@
         <DataGrid Margin="15"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
+                  Style ="{StaticResource grid1}"
+                  HeadersVisibility="Column"
                   SelectionMode="Single"
                   ItemsSource="{Binding Prescriptions}"
                   FontSize="20"
                   SelectedItem="{Binding SelectedItem}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Start Date"
+                <DataGridTextColumn Header="{model:Loc SDHeader}"
                                     Width="*"
                                     Binding="{Binding Appointment.Date, Converter={StaticResource DateConverter}}"/>
-                <DataGridTextColumn Header="End Date"
+                <DataGridTextColumn Header="{model:Loc EDHeader}"
                                     Width="*"
                                     Binding="{Binding EndDate, Converter={StaticResource PrescriptionDateConverter}}"/>
-                <DataGridTextColumn Header="Medicine"
+                <DataGridTextColumn Header="{model:Loc MedicineHeader}"
                                     Width="*"
                                     Binding="{Binding Medicine.Name}"/>
-                <DataGridTextColumn Header="Written By"
+                <DataGridTextColumn Header="{model:Loc WrittenByHeader}"
                                     Width="*"
                                     Binding="{Binding Appointment.Doctor, Converter={StaticResource NameConverter}}"/>
                 

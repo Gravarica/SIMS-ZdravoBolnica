@@ -52,9 +52,11 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void NewRequestCommandExecute()
         {
-            NewRequestView view = new NewRequestView();
-            view.DataContext = new NewRequestViewModel(loggedDoctor,vacationRequestController,view);
-            view.ShowDialog();
+            /*NewRequestView view = new NewRequestView();
+            view.DataContext = new NewRequestViewModel(loggedDoctor,vacationRequestController,view);*/
+            NewRequestViewModel newRequestVM = new NewRequestViewModel(loggedDoctor, vacationRequestController);
+            MainViewModel.Instance.CurrentView = newRequestVM;
+            //view.ShowDialog();
         }
 
         private bool NewRequestCommandCanExecute()

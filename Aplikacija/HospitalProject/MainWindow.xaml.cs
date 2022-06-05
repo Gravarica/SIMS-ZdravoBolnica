@@ -30,7 +30,10 @@ namespace HospitalProject
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
+            MainWindowViewModel mv = new MainWindowViewModel(this);
+            this.DataContext = mv;
+            mv.HarvestPassword += (sender, args) => args.Password = passwordBox1.Password;
+
         }
 
 
