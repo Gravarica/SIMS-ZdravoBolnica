@@ -45,6 +45,9 @@ namespace HospitalProject.View.WardenForms.ViewModels
 
 
         private ObservableCollection<Equipement> MedicineItems { get; set; }
+        
+        public RelayCommand GradesCommand { get; set; }
+        public WardenGradesViewModel WardenGradesViewModel { get; set; }
 
 
 
@@ -82,6 +85,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
             MedicineViewModel = new MedicineViewModel();
             AddingMedicineView = new AddingMedicineView();
             MedicineReportViewModel = new MedicineReportViewModel();
+            WardenGradesViewModel = new WardenGradesViewModel();
         }
 
         private void InstaliseComamnds()
@@ -95,6 +99,12 @@ namespace HospitalProject.View.WardenForms.ViewModels
             MedicineViewCommand =new RelayCommand(o =>
                 {
                     MomentalView = MedicineViewModel;
+                }
+            );
+            
+            GradesCommand =new RelayCommand(o =>
+                {
+                    MomentalView = WardenGradesViewModel;
                 }
             );
             

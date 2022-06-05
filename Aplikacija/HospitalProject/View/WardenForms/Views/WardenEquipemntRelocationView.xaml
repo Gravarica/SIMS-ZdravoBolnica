@@ -117,7 +117,7 @@
                 </Label.RenderTransform>
             </Label>
             <TextBox  Text="{Binding  SearchQuantity}" FontSize="20"  Margin="278,93,340,51" BorderBrush="#FF272537" BorderThickness="2"/>
-            <Button Command="{Binding SearchQuantityCommand}" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="375,87,0,0" VerticalAlignment="Top" Height="48" Width="103"/>
+            <Button Command="{Binding SearchQuantityCommand}" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="377,89,0,0" VerticalAlignment="Top" Height="44" Width="94"/>
             <Border BorderBrush="#FF272537" BorderThickness="2,2,2,2" Grid.Column="1" Margin="320,422,152,60" Grid.Row="1" Grid.RowSpan="3" Background="#FFF3BF09"/>
             <Button Command="{Binding RelocateEquipmentCommand}" BorderThickness="3" Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="354,6,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="83" Width="154" Foreground="#FF272537" BorderBrush="#FF272537" Grid.RowSpan="2"/>
 
