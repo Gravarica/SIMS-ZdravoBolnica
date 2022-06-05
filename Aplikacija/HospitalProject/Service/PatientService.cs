@@ -3,13 +3,13 @@ using System;
 using Repository;
 using Model;
 using System.Collections.Generic;
+using HospitalProject.Service;
 
 namespace Service
 {
    public class PatientService
    {
-      private PatientRepository _patientRepository;
-
+        private PatientRepository _patientRepository;
         public PatientService(PatientRepository patientRepository)
         {
             this._patientRepository = patientRepository;
@@ -38,16 +38,17 @@ namespace Service
             return _patientRepository.Insert(patient);
         }
 
-
+        public void SetPatientMedicalRecord(int patientId, int medicalRecordId)
+        {
+            _patientRepository.GetById(patientId).MedicalRecordId = medicalRecordId;
+        }
+        
+        
         public Patient GetById(int id)
         {
             return _patientRepository.GetById(id);
         }
-
-        public void SetPatientMedicalRecord(int patientId, int medicalRecordId)
-        {
-            GetById(patientId).MedicalRecordId = medicalRecordId;
-        }
+        
 
         public Patient GetLoggedPatient(string username)
         {

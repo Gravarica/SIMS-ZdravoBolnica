@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Controller;
 using HospitalProject.Controller;
@@ -14,28 +11,69 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class AddNewAppointmentVM : BaseViewModel
+    public class AddNewAppointmentVM : BaseViewModel
     {
 
-        private AppointmentController appointmentController;
-        private DoctorController doctorController;
-        private PatientController patientController;
-        private UserController userController;
-        private RoomControoler roomController;
-        private Window window;
+        private Window _window;
 
-        private DateTime startDate;
-        private DateTime endDate;
-        private Patient patient;
-        private Doctor doctor;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private Patient _patient;
+        private Doctor _doctor;
+        private Appointment _selectedItem;
+        private int _priority = 0;
+        
+        private AppointmentController _appointmentController; 
+        private DoctorController _doctorController;
+        private PatientController _patientController;
+        
+        private RelayCommand _submitCommand;
+        private RelayCommand _resetCommand;
+        private RelayCommand _saveCommand;
+        private RelayCommand _cancelCommand;
+
+        private List<ComboBoxData<Doctor>> _doctorComboBox = new List<ComboBoxData<Doctor>>();
+        private List<ComboBoxData<Patient>> _patientComboBox = new List<ComboBoxData<Patient>>();
+        
+        
         private ObservableCollection<Appointment> _generatedAppointments;
-        private Appointment selectedItem;
         private ObservableCollection<Appointment> _appointmentItems;
-        private int _intValue = 0;
 
+        public AddNewAppointmentVM(ObservableCollection<Appointment> AppointmentItems)
+        {
+            _appointmentItems = AppointmentItems;
+            InitializeControllers();
+            InitializeData();
+        }
 
-        private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
-        private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
+        private void InitializeControllers()
+        {
+            var app = System.Windows.Application.Current as App;
+            _appointmentController = app.AppointmentController;
+            _patientController = app.PatientController;
+            _doctorController = app.DoctorController;
+        }
+
+        private void InitializeData()
+        {
+            FillComboData();
+        }
+
+        private void FillComboData()
+        {
+
+            foreach (Doctor doctor in _doctorController.GetAll())
+            {
+                    _doctorComboBox.Add(new ComboBoxData<Doctor> 
+                    { Name = doctor.FirstName + " " + doctor.LastName, Value = doctor });
+            }
+
+            foreach (Patient patient in _patientController.GetAll())
+            {
+                    _patientComboBox.Add(new ComboBoxData<Patient> 
+                    { Name = patient.FirstName + " " + patient.LastName, Value = patient });
+            }
+        }
 
 
         public ObservableCollection<Appointment> GeneratedAppointments
@@ -54,49 +92,41 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         public List<ComboBoxData<Doctor>> DoctorComboBox
         {
-
             get
             {
-                return doctorComboBox;
+                return _doctorComboBox;
 
             }
             set
             {
-                doctorComboBox = value;
+                _doctorComboBox = value;
                 OnPropertyChanged(nameof(DoctorComboBox));
-
             }
-
-
         }
 
         public List<ComboBoxData<Patient>> PatientComboBox
         {
-
             get
             {
-                return patientComboBox;
+                return _patientComboBox;
 
             }
             set
             {
-                patientComboBox = value;
+                _patientComboBox = value;
                 OnPropertyChanged(nameof(PatientComboBox));
-
             }
-
-
         }
 
         public DateTime StartDate
         {
             get
             {
-                return startDate;
+                return _startDate;
             }
             set
             {
-                startDate = value;
+                _startDate = value;
                 OnPropertyChanged(nameof(StartDate));
             }
         }
@@ -105,11 +135,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return endDate;
+                return _endDate;
             }
             set
             {
-                endDate = value;
+                _endDate = value;
                 OnPropertyChanged(nameof(EndDate));
             }
         }
@@ -118,11 +148,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return patient;
+                return _patient;
             }
             set
             {
-                patient = value;
+                _patient = value;
                 OnPropertyChanged(nameof(PatientData));
             }
         }
@@ -131,11 +161,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return doctor;
+                return _doctor;
             }
             set
             {
-                doctor = value;
+                _doctor = value;
                 OnPropertyChanged(nameof(DoctorData));
             }
         }
@@ -144,121 +174,71 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return selectedItem;
+                return _selectedItem;
             }
             set
             {
-                selectedItem = value;
+                _selectedItem = value;
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
 
-        private RelayCommand submitCommand;
-        private RelayCommand resetCommand;
-        private RelayCommand saveCommand;
-        private RelayCommand cancelCommand;
-
-        public AddNewAppointmentVM(ObservableCollection<Appointment> AppointmentItems)
-        {
-
-            _appointmentItems = AppointmentItems;
-            InitializeControllers();
-            InitializeData();
-        }
-
-        private void InitializeControllers()
-        {
-            var app = System.Windows.Application.Current as App;
-
-
-            appointmentController = app.AppointmentController;
-            patientController = app.PatientController;
-            doctorController = app.DoctorController;
-            userController = app.UserController;
-            roomController = app.RoomController;
-        }
-
-        private void InitializeData()
-        {
-            FillComboData();
-        }
-
-        private void FillComboData()
-        {
-
-            foreach (Doctor d in doctorController.GetAll())
-            {
-                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = d.FirstName + " " + d.LastName, Value = d });
-            }
-
-            foreach (Patient p in patientController.GetAll())
-            {
-                patientComboBox.Add(new ComboBoxData<Patient> { Name = p.FirstName + " " + p.LastName, Value = p });
-            }
-        }
-
-
         public RelayCommand SubmitCommand
         {
-
             get
             {
-                return submitCommand ?? (submitCommand = new RelayCommand(param => SubmitCommandExecute(), param => CanSubmitCommandExecute()));
+                return _submitCommand ?? (_submitCommand = new RelayCommand(param => SubmitCommandExecute(), param => CanSubmitCommandExecute()));
             }
-
         }
 
         private bool CanSubmitCommandExecute()
         {
             return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
-                   //NewAppointmentValidation.IsComboBoxCheckedDoctor(DoctorData) &&
                    NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate) &&
-                   (_intValue == 1 || _intValue == 2);
+                   (_priority == 1 || _priority == 2);
         }
 
         private void SubmitCommandExecute()
         {
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
             DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
-         //   GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
-                                                                                                                             
+
             {
-
-                if (_intValue == 1)
-                {
-
-                    GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly, endDateOnly, DoctorData, PatientData));
-                }
-              /*  else if (_intValue == 2)
-                {
-                    GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, PatientData));
-                }
-*/
+                GenerateAppointmentsForPriority(startDateOnly, endDateOnly);
             }
 
         }
 
+        private void GenerateAppointmentsForPriority(DateOnly startDateOnly, DateOnly endDateOnly)
+        {
+            
+            if (_priority == 1)
+            {
+                GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly, endDateOnly, DoctorData, PatientData));
+            }
+            else if (_priority == 2)
+            {
+                GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, PatientData));
+            }
+            
+        }
+        
+
         private IEnumerable<Appointment> DoctorIsPriority(DateOnly startDate, DateOnly endDate, Doctor doctor, Patient patient)
         {
-
-            return appointmentController.GenerateAppointmentsPriorityDoctor(startDate, endDate, DoctorData, PatientData);
-
-
+            return _appointmentController.GenerateAppointmentsPriorityDoctor(startDate, endDate, DoctorData, PatientData);
         }
 
-      /*  private IEnumerable<Appointment> DateIsPriority(DateOnly startDate, DateOnly endDate, Patient patient)
+        private IEnumerable<Appointment> DateIsPriority(DateOnly startDate, DateOnly endDate, Patient patient)
         {
-
-            return appointmentController.GenerateAppointmentsPriorityDate(startDate, endDate, PatientData);
-
-
-        }*/
+            return _appointmentController.GenerateAppointmentsPriorityDate(startDate, endDate, PatientData, DoctorData);
+        }
 
         public RelayCommand SaveCommand
         {
             get
             {
-                return saveCommand ?? (saveCommand = new RelayCommand(param => SaveCommandExecute(), param => CanSaveCommandExecute()));
+                return _saveCommand ?? (_saveCommand = new RelayCommand(param => SaveCommandExecute(), param => CanSaveCommandExecute()));
             }
         }
 
@@ -269,44 +249,26 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         public virtual void SaveCommandExecute()
         {
-            _appointmentItems.Add(appointmentController.Create(SelectedItem));
+            _appointmentItems.Add(_appointmentController.Create(SelectedItem));
             _generatedAppointments.Remove(SelectedItem);
-            window.Close();
-        }
-
-        public RelayCommand CancelCommand
-        {
-
-            get
-            {
-                return cancelCommand ?? (cancelCommand = new RelayCommand(param => CancelCommandExecute(), param => CanCancelCommandExecute()));
-            }
-
         }
 
         private bool CanCancelCommandExecute()
         {
             return true;
         }
-
-        private void CancelCommandExecute()
-        {
-            window.Close();
-        }
+        
 
         public bool FlagForValue1
         {
             get
             {
-                return (_intValue == 1) ? true : false;
+                return (_priority == 1) ? true : false;
             }
             set
             {
-                _intValue = 1;
-
-                //RaisePropertyChanged("FlagForValue2");
+                _priority = 1;
                 OnPropertyChanged(nameof(FlagForValue2));
-
 
             }
         }
@@ -315,12 +277,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return (_intValue == 2) ? true : false;
+                return (_priority == 2) ? true : false;
             }
             set
             {
-                _intValue = 2;
-                //RaisePropertyChanged("FlagForValue1");
+                _priority = 2;
                 OnPropertyChanged(nameof(FlagForValue1));
 
             }

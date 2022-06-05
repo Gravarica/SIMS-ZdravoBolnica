@@ -52,13 +52,8 @@ namespace HospitalProject.View.Secretary.SecretaryV
         {
             var app = System.Windows.Application.Current as App;
             AddGuestPatient view = new AddGuestPatient();
-            AddGuestVM viewModel = new AddGuestVM(view);
-            view.DataContext = viewModel;
-            view.ShowDialog();
-            if (viewModel.ModalResult == true)
-            {
-                secretaryVM.Patients = new ObservableCollection<Patient>(app.PatientController.GetAll());
-            }
+           // AddGuestVM viewModel = new AddGuestVM(view);
+           
            
         }
     }

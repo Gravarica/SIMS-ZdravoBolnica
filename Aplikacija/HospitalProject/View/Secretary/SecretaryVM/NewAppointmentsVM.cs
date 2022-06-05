@@ -19,10 +19,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
     {
 
         private Appointment selectedItem;
-
-        private IList<Doctor> _doctors;
-
-        private IList<Patient> _patients;
         private DateTime _date;
         private int _duration;
         private String _time;
@@ -37,14 +33,14 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public ObservableCollection<Appointment> Appointments { get; set; }
         public ObservableCollection<int> DoctorIds { get; set; }
 
-        AppointmentController _appointmentController;
-        PatientController _patientController;
-        DoctorController _doctorController;
-
+        private AppointmentController _appointmentController;
+        private PatientController _patientController;
+        private DoctorController _doctorController;
+        
+        private IList<Doctor> _doctors;
+        private IList<Patient> _patients;
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
-
-
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
         public Appointment SelectedItem
         {
@@ -59,70 +55,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public Doctor DoctorData
-        {
-            get
-            {
-                return _doctor;
-            }
-            set
-            {
-                _doctor = value;
-                OnPropertyChanged(nameof(DoctorData));
-            }
-        }
-
-        public Patient PatientData
-        {
-            get
-            {
-                return _patient;
-            }
-            set
-            {
-                _patient = value;
-                OnPropertyChanged(nameof(PatientData));
-            }
-        }
-        public DateTime Date
-        {
-            get
-            {
-                return _date;
-            }
-            set
-            {
-                _date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-        }
-
-        public int Duration
-        {
-            get
-            {
-                return _duration;
-            }
-            set
-            {
-                _duration = value;
-                OnPropertyChanged(nameof(Duration));
-            }
-        }
-
-        public String Time
-        {
-            get
-            {
-                return _time;
-            }
-            set
-            {
-                _time = value;
-                OnPropertyChanged(nameof(Time));
-            }
-        }
-
+       
         public List<ComboBoxData<Doctor>> DoctorComboBox
         {
 
@@ -231,6 +164,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             AddNewAppointmentV view = new AddNewAppointmentV();
             view.DataContext = new AddNewAppointmentVM(Appointments);
+            SecretaryMainViewVM.Instance.CurrentView = view;
         }
 
 
@@ -252,7 +186,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             EditAppV view = new EditAppV();
             view.DataContext = new EditAppVM(SelectedItem, Appointments);
-            //SecretaryMainViewVM.CurrentView = view;
+            SecretaryMainViewVM.Instance.CurrentView = view;
         }
 
     }

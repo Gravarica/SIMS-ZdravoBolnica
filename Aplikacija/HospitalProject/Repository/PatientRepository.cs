@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using HospitalProject.Exception;
 using HospitalProject.FileHandler;
+using HospitalProject.Model;
+using HospitalProject.Repository;
 using Model;
 
 namespace Repository
@@ -15,78 +17,62 @@ namespace Repository
         private string _path;       // Putanja do fajla 
         private string _delimiter;  // Delimiter za CSV format
         private int _patientMaxId;
-        private int _patientMRMaxId;
         public PatientFileHandler _patientFileHandler;
+        private MedicalRecordRepository _medicalRecordRepository;
+        private List<Patient> _patients;
 
-        private List<Patient> _patients = new List<Patient>();
-
-        public PatientRepository(PatientFileHandler patientFileHandler)
+        public PatientRepository(PatientFileHandler patientFileHandler, MedicalRecordRepository medicalRecordRepository)
         {
             _patientFileHandler = patientFileHandler;
-            _patients = (List<Patient>) _patientFileHandler.ReadAll();
-             _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
-            
-
+            _medicalRecordRepository = medicalRecordRepository;
+            _patients =  _patientFileHandler.ReadAll().ToList();
+            _patientMaxId = GetMaxId(patients: _patientFileHandler.ReadAll());
         }
 
         private int GetMaxId(IEnumerable<Patient> patients)
         {
-            return patients.Count() == 0 ? 0 : patients.Max(patient => patient.Id);
+            return !patients.Any() ? 0 : patients.Max(patient => patient.Id);
         }
-
-        
-
-        public List<Patient> Patients
-        { get { return _patients; } }
-
-       
 
         public Patient GetById(int id)
         {
-            return _patients.FirstOrDefault(p => p.Id == id);
+            return _patients.FirstOrDefault(patient => patient.Id == id);
         }
 
         public Patient Insert(Patient patient)
         {
             patient.Id = ++_patientMaxId;
-            
+            patient.MedicalRecordId = _medicalRecordRepository.GetMaxId() + 1;
             _patientFileHandler.AppendLineToFile(patient);
             return patient;
         }
         
         public void Update(Patient patient)
         {
-            foreach (Patient p in _patients)
-            {
-                if (patient.Id == p.Id)
-                {
-                    p.DateOfBirth = patient.DateOfBirth;
-                    p.BloodType = patient.BloodType;
-                    p.Password = patient.Password;
-                    p.Gender = patient.Gender;
-                    p.Guest = patient.Guest;
-                    p.Email = patient.Email;
-                    p.Adress = patient.Adress;
-                    p.Jmbg = patient.Jmbg;
-                    p.PhoneNumber = patient.PhoneNumber;
-                    p.FirstName = patient.FirstName;
-                    p.LastName = patient.LastName;
-                    p.Username = patient.Username;
-                    break;
-                }
-            }
 
+            Patient updatedPatient = GetById(patient.Id);
+
+            updatedPatient.MedicalRecordId = patient.MedicalRecordId;
+            updatedPatient.Guest = patient.Guest;
+            updatedPatient.Username = patient.Username;
+            updatedPatient.FirstName = patient.FirstName;
+            updatedPatient.LastName = patient.LastName;
+            updatedPatient.Jmbg = patient.Jmbg;
+            updatedPatient.PhoneNumber = patient.PhoneNumber;
+            updatedPatient.Email = patient.Email;
+            updatedPatient.Adress = patient.Adress;
+            updatedPatient.DateOfBirth = patient.DateOfBirth;
+            updatedPatient.Gender = patient.Gender;
+            
             _patientFileHandler.Save();
         }
         public void Delete(int id)
         {
-            List<Patient> patients = _patientFileHandler.ReadAll().ToList();
+            Patient patient = _patients.SingleOrDefault(r => r.Id.Equals(id));
 
-            Patient p = patients.SingleOrDefault(r => r.Id.Equals(id));
-
-            if (p != null)
+            if (patient != null)
             {
-                patients.Remove(p);
+                _patients.Remove(patient);
                 _patientFileHandler.Save();
             }
 

@@ -9,10 +9,8 @@ namespace HospitalProject.FileHandler;
 public class AllergiesFileHandler
 {
             private string _path;
-    
             private string _delimiter;
     
-     //path allergy.csv
             public  AllergiesFileHandler(String path, String delimiter)
             {
                 _path = path;
@@ -21,8 +19,8 @@ public class AllergiesFileHandler
     
             public IEnumerable<Allergies> ReadAll()
             {
-                return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-                       .Select(ConvertCSVFormatToAllergies)   // 1 | Polen 
+                return File.ReadAllLines(_path)              
+                       .Select(ConvertCSVFormatToAllergies)   
                        .ToList();
             }
     
@@ -33,7 +31,7 @@ public class AllergiesFileHandler
                 return new Allergies(int.Parse(tokens[0]),tokens[1]);
              }
 
-        public string ConvertAllergiesToCSVFormat(Allergies allergies)
+             public string ConvertAllergiesToCSVFormat(Allergies allergies)
             {
                 return string.Join(_delimiter,
                 allergies.Id,

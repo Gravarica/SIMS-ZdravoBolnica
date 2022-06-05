@@ -32,8 +32,9 @@
             Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"
                     Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
             <DataGrid x:Name="dataAppointment" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
-                SelectionMode="Single" AutoGenerateColumns="False" FontSize="15" 
+                SelectionMode="Single" AutoGenerateColumns="False" FontSize="16" 
                 FontStyle="Normal"
+                FontFamily="Miriam"
                 CanUserResizeRows="False" Background="#FFBCC1E8" Margin="0,0,38,0" Grid.Column="1" >
 
                 <DataGrid.Columns>

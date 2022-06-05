@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,89 +16,64 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 {
     public class RegisterVM:BaseViewModel
     {
-        private UserRepository _userRepository;
-        private string _dateofbirth;
+        
+        private int _intValue = 0;
         private int _jmbg;
         private int _id;
         private int _medicalrecordid;
+        private int _phonenumber;
         private string _firstname;
         private string _username;
         private string _lastname;
         private string _email;
         private string _adress;
         private string _password;
-        private int _phonenumber;
-        private bool _guest;
-        private Patient _patient;
+        private DateTime _dateofbirth;
         private string _gender;
-        private Gender selectedGender;
-        public ObservableCollection<Patient> Patients { get; set; }
-        List<ComboBoxData<Gender>> genders = new List<ComboBoxData<Gender>>();
-        private RelayCommand saveCommand;
-        private bool modalResult;
+        private bool _guest;
         
-        PatientController _patientController;
+        private Patient _patient;
+        private Gender selectedGender;
+        
+        
+        private UserRepository _userRepository;
+        private RelayCommand _saveCommand;
+        
+        private PatientController _patientController;
         public RegisterVM()
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
-            Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
-            FillComboData();
+          
         }
 
-        // private bool CanExecute() {
-        /* if (!string.IsNullOrEmpty(p.FirstName) &&
-                  !string.IsNullOrEmpty(p.Username) &&
-                  !string.IsNullOrEmpty(p.LastName) &&
-                  !string.IsNullOrEmpty(p.Email) &&
-                  !string.IsNullOrEmpty(p.Adress) &&
-                  !string.IsNullOrEmpty(p.Password))
-
-
-          { return true; }*/
-
-        //   return ;
-        // }
-        public bool ModalResult
+        public bool Female
         {
             get
             {
-                return modalResult;
+                return (_intValue == 1) ? true : false;;
             }
             set
             {
-                modalResult = value;
-                OnPropertyChanged(nameof(ModalResult));
+                _intValue = 1 ;
+                OnPropertyChanged(nameof(Male));
             }
         }
 
-        public Gender SelectedGender
+        public bool Male
         {
             get
             {
-                return selectedGender;
+                return (_intValue == 2) ? true : false;
             }
             set
             {
-                selectedGender = value;
-                OnPropertyChanged(nameof(SelectedGender));
+                _intValue = 2 ;
+                OnPropertyChanged(nameof(Female));
             }
         }
 
-        public List<ComboBoxData<Gender>> Genders
-        {
-            get
-            {
-                return genders;
-            }
-            set
-            {
-                genders = value;
-                OnPropertyChanged(nameof(Genders));
-            }
-        }
-
-        public string Date
+        public DateTime Date
         {
             get
             {
@@ -109,20 +85,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(Date));
             }
         }
-
-        public string Gender
-        {
-            get
-            {
-                return _gender;
-            }
-            set
-            {
-                _gender = value;
-                OnPropertyChanged(nameof(Gender));
-            }
-        }
-
+        
         public int Jmbg
         {
             get
@@ -212,12 +175,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-
-        public bool Guest
+        private bool CanExecute()
         {
-            get { return _guest; }
-            set { _guest = value; }
+
+          return  (!string.IsNullOrEmpty(FirstName) &&
+                  !string.IsNullOrEmpty(UserName) &&
+                  !string.IsNullOrEmpty(LastName) &&
+                  !string.IsNullOrEmpty(Email) &&
+                  !string.IsNullOrEmpty(Adress) &&
+                  !string.IsNullOrEmpty(Password));
+
         }
+
 
         public String Password
         {
@@ -232,62 +201,58 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        public BloodType StringToBloodType(string str)
-        {
-            switch (str)
-            {
-                case "a":
-                    return global::Model.BloodType.a;
-                case "b":
-                    return global::Model.BloodType.b;
-                case "ab":
-                    return global::Model.BloodType.ab;
-
-                default:
-                    return global::Model.BloodType.o;
-            }
-        }
-
-
+   
 
 
         public RelayCommand SaveCommand
         {
             get
             {
-                return saveCommand ?? (saveCommand = new RelayCommand(param => ExecuteSaveCommand(), param => CanExecute()));
+                return _saveCommand ?? (_saveCommand = new RelayCommand(param => ExecuteSaveCommand(), param => CanExecute()));
             }
         }
 
-        private bool CanExecute()
-        {
-            foreach (Patient patient in Patients)
-            {
-                if (UserName == patient.Username)
-                {
-                    MessageBox.Show("Username already taken", "Error", MessageBoxButton.OK);
-                    return false;
-                }
-            }
-            return true;
-        }
         
-        
+
 
         private void ExecuteSaveCommand()
         {
 
-            Patients.Add(_patientController.Create(new Patient(_id, _medicalrecordid, false, UserName, Password, FirstName, LastName, Jmbg, PhoneNumber, Email, Adress, Convert.ToDateTime(Date), SelectedGender)));
-
-        }
-
-        private void FillComboData()
-        {
-            foreach (Gender g in Enum.GetValues(typeof(Gender)))
+               
+            if (_intValue == 1)
             {
-                genders.Add(new ComboBoxData<Gender> { Name = g.ToString(), Value = g });
-            }
+                _patientController.Create(new Patient(_id,
+                    _medicalrecordid,
+                    false,
+                    UserName, 
+                    Password,
+                    FirstName,
+                    LastName,
+                    Jmbg,
+                    PhoneNumber, 
+                    Email, 
+                    Adress, 
+                    Date,
+                    Gender.female));}
+            else if (_intValue == 2)
+            {
+                _patientController.Create(new Patient(_id,
+                    _medicalrecordid,
+                    false, 
+                    UserName,
+                    Password,
+                    FirstName,
+                    LastName,
+                    Jmbg,
+                    PhoneNumber, 
+                    Email, 
+                    Adress, 
+                    Date,
+                    Gender.male)); }
+         
+
         }
+        
 
     }
 }

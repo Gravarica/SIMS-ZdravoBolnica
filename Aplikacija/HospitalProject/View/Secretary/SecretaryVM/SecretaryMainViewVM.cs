@@ -15,33 +15,90 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 {
     public class SecretaryMainViewVM : BaseViewModel
     {
-        private Window window;
-        private object currentView;
+       
         public RelayCommand RegisterCommand { get; set; }
         public RelayCommand logoutCommand { get; set; }
         public RelayCommand DataBaseCommand { get; set; }
         public RelayCommand EmergencyCommand { get; set; }
-        public RelayCommand PublicNotifficationsCommand { get; set; }
-        public RegisterVM RegisterVM { get; set; }
-        public RegisterV RegisterV { get; set; } 
-        public NewAppointmentsVM NewAppointmentsVM { get; set; }
-
-        public NewAppointmentsV NewAppointmentsV { get; set; }
+        public RelayCommand MeetingCommand { get; set; }
         public RelayCommand NewAppointmentCommand { get; set; }
-        public DataBaseVM DataBaseVM { get; set; }
-        public DataBaseV DataBaseV { get; set; }
-        public EmergencyVM EmergencyVM { get; set; }
-        public RequestsV RequestsV { get; set; }
-        
-        public RequestsVM RequestsVM { get; set; }
-        public EmergencyV EmergencyV { get; set; }
-
         public RelayCommand RequestsCommand { get; set; }
-        public DashBoardVM DashBoardVM { get; set; }
-
-        UserController _userController;
+        
+        public RegisterV RegisterV { get; set; }
+        public NewAppointmentsV NewAppointmentsV { get; set; }
+        public DataBaseV DataBaseV { get; set; }
+        public RequestsV RequestsV { get; set; }
+        public EmergencyV EmergencyV { get; set; }
+        public MeetingV MeetingV { get; set; }
+        
+        
         private Window Window;
+        private object currentView;
+        private static SecretaryMainViewVM _instance; 
+        
+        UserController _userController;
+        
+        public static SecretaryMainViewVM Instance => _instance;
+    
+        public SecretaryMainViewVM(Window window)
+        {
+            NewViews();
+            NewCommands();
 
+            var app = System.Windows.Application.Current as App;
+            _userController = app.UserController;
+             _instance = this;
+             
+            Window = window;
+            CurrentView = DataBaseV;
+        }
+
+        private void NewViews()
+        {
+            //DashBoard = new DashBoardV();
+            RegisterV = new RegisterV();
+            DataBaseV = new DataBaseV();
+            EmergencyV = new EmergencyV();
+            NewAppointmentsV = new NewAppointmentsV();
+            MeetingV  = new MeetingV();
+            RequestsV = new RequestsV();
+        }
+
+        private void NewCommands()
+        {
+            RegisterCommand = new RelayCommand(o =>
+                {
+                    CurrentView = RegisterV;
+                }
+            );
+            MeetingCommand = new RelayCommand(o =>
+                {
+                    CurrentView = MeetingV;
+                }
+            ); 
+            DataBaseCommand = new RelayCommand(o =>
+                {
+                    CurrentView = DataBaseV;
+                }
+            );
+            EmergencyCommand = new RelayCommand(o =>
+                {
+                    CurrentView = EmergencyV;
+                }
+            );
+            NewAppointmentCommand = new RelayCommand(o =>
+            {
+                CurrentView = NewAppointmentsV;
+            });
+             
+            RequestsCommand = new RelayCommand(o =>
+            {
+                CurrentView = RequestsV;
+            });
+
+        }
+        
+            
         public object CurrentView
         {
             get => currentView;
@@ -51,62 +108,10 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(CurrentView));
             }
         }
-
-
-        private static SecretaryMainViewVM _instance;
         
         public static SecretaryMainViewVM GetInstance()
         {
             return _instance;
-        }
-        public SecretaryMainViewVM(Window window)
-        {
-            //DashBoard = new DashBoardV();
-            RegisterV = new RegisterV();
-            DataBaseV = new DataBaseV();
-            EmergencyV = new EmergencyV();
-            NewAppointmentsV = new NewAppointmentsV();
-            //PublicNotifficationsVM = new PublicNotifficationsVM();
-            RequestsV = new RequestsV();
-
-
-
-            var app = System.Windows.Application.Current as App;
-            _userController = app.UserController;
-
-
-            this.Window = window;
-            CurrentView = DataBaseV;
-            RegisterCommand = new RelayCommand(o =>
-            {
-                CurrentView = RegisterV;
-            }
-            );
-            /*PublicNotifficationsCommand = new RelayCommand(o =>
-            {
-                CurrentView = PublicNotifficationsVM;
-            }
-            ); */
-            DataBaseCommand = new RelayCommand(o =>
-            {
-                CurrentView = DataBaseV;
-            }
-            );
-            EmergencyCommand = new RelayCommand(o =>
-            {
-                CurrentView = EmergencyV;
-            }
-            );
-            NewAppointmentCommand = new RelayCommand(o =>
-            {
-                CurrentView = NewAppointmentsV;
-            });
-             
-            RequestsCommand = new RelayCommand(o =>
-                {
-                  CurrentView = RequestsV;
-              });
-
         }
 
         public RelayCommand LogoutCommand
