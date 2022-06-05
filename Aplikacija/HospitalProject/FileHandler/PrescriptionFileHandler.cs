@@ -12,13 +12,14 @@ namespace HospitalProject.FileHandler
     {
 
         private string _path;
-
         private string _delimiter;
+        private string _dateTimeFormat;
 
-        public PrescriptionFileHandler(String path, String delimiter)
+        public PrescriptionFileHandler(String path, String delimiter, string dateTimeFormat)
         {
             _path = path;
             _delimiter = delimiter;
+            _dateTimeFormat = dateTimeFormat;
         }
 
         public IEnumerable<Prescription> ReadAll()
@@ -33,8 +34,8 @@ namespace HospitalProject.FileHandler
             string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
             return new Prescription(int.Parse(tokens[0]),
                                    int.Parse(tokens[1]),
-                                   DateOnly.Parse(tokens[2]),
-                                   DateOnly.Parse(tokens[3]),
+                                   DateTime.ParseExact(tokens[2], _dateTimeFormat, null),
+                                   DateTime.ParseExact(tokens[3], _dateTimeFormat, null),
                                    int.Parse(tokens[4]),
                                    tokens[5],
                                    int.Parse(tokens[6]));

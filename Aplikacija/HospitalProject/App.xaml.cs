@@ -42,6 +42,8 @@ namespace HospitalProject
         private string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
         private string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
         private string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
+        private string CUSTOM_NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\customNotifications.csv";
+        private string NOTE_FILE = _projectPath + "\\Resources\\Data\\notes.csv";
 
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
@@ -73,7 +75,9 @@ namespace HospitalProject
         public PrescriptionController PrescriptionController { get; set; }
 
         public NotificationController NotificationController { get; set; }
-        
+
+        public CustomNotificationController CustomNotificationController { get; set; }
+
         public EquipmentRelocationController EquipmentRelocationController{ get; set; }
 
         public QuestionController QuestionController { get; set; }
@@ -86,7 +90,9 @@ namespace HospitalProject
 
         public MedicineReportController MedicineReportController { get; set; }  
 
-        public VacationRequestController VacationRequestController { get; set; }    
+        public VacationRequestController VacationRequestController { get; set; }
+
+        public NoteController NoteController { get; set; }
 
 
         public App()
@@ -108,11 +114,15 @@ namespace HospitalProject
 
             var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
 
-            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER);
+            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
+
+            var _noteFileHandler = new NoteFileHandler(NOTE_FILE, CSV_DELIMITER);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
             var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
+
+            var _customNotificationFileHandler = new CustomNotificationFileHandler(CUSTOM_NOTIFICATION_FILE, CSV_DELIMITER);
 
             var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
@@ -154,6 +164,8 @@ namespace HospitalProject
 
             var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
 
+            var _customNotificationRepository = new CustomNotificationRepository(_customNotificationFileHandler);
+
             var _userRepository = new UserRepository(_userFileHandler);
 
             var _questionRepository = new QuestionRepository(_questionsFileHandler);
@@ -167,6 +179,8 @@ namespace HospitalProject
             var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
 
             var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
+
+            var _noteRepository = new NoteRepository(_noteFileHandler, _anamnesisRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -203,7 +217,9 @@ namespace HospitalProject
             var _medicineReportService = new MedicineReportService(_medicineReportRepository);
 
             var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
-            
+
+            var _noteService = new NoteService(_noteRepository, _anamnesisService);
+
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
             AllergiesController = new AllergiesController(_allergiesService);
@@ -211,6 +227,8 @@ namespace HospitalProject
             RenovationController = new RoomRenovationController(_roomRenovationService);
 
             var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
+
+            var _customNotificationService = new CustomNotificationService(_customNotificationRepository);
 
             EquipementController = new EquipementController(_equipementService);
 
@@ -234,6 +252,8 @@ namespace HospitalProject
 
             NotificationController = new NotificationController(_notificationService);
 
+            CustomNotificationController = new CustomNotificationController(_customNotificationService);
+
             QuestionController = new QuestionController(_questionService);
 
             SurveyController = new SurveyController(_surveyService);
@@ -245,6 +265,8 @@ namespace HospitalProject
             VacationRequestController = new VacationRequestController(_vacationRequestService);
 
             MedicineReportController = new MedicineReportController(_medicineReportService);
+
+            NoteController = new NoteController(_noteService);
 
         }
 

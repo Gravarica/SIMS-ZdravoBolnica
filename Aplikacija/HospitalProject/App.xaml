@@ -82,8 +82,16 @@
                 <patientView:RecipesView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type patientViewModel:NotificationsViewModel}">
-                <patientView:NotificationsView/>
+            <DataTemplate DataType="{x:Type patientViewModel:NotesViewModel}">
+                <patientView:NotesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type patientViewModel:MedicalCardViewModel}">
+                <patientView:MedicalCardView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type patientViewModel:MakeNoteViewModel}">
+                <patientView:MakeNoteView/>
             </DataTemplate>
 
             <Style x:Key="WinAll" TargetType="{x:Type Window}">

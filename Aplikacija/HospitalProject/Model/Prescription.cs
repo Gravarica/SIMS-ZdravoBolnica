@@ -12,8 +12,8 @@ namespace HospitalProject.Model
         private int id;
         private Appointment appointment;
         // Ovde treba i lek cuvati 
-        private DateOnly startDate;
-        private DateOnly endDate;
+        private DateTime startDate;
+        private DateTime endDate;
         private int interval;
         private Equipement medicine;
         private TimeOnly startTime;
@@ -23,7 +23,7 @@ namespace HospitalProject.Model
 
         public Prescription() { }
 
-        public Prescription(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
+        public Prescription(Appointment appointment, DateTime startDate, DateTime endDate, int interval, string description, Equipement medicine)
         {
             Appointment = appointment;
             Medicine = medicine;
@@ -32,14 +32,14 @@ namespace HospitalProject.Model
 
         // Dodati lek u konstruktor kada zakela ubaci entitet
         // // Constructor that is called when reading from a file
-        public Prescription(int id, int appointmentId, DateOnly startDate, DateOnly endDate, int interval, string description, int medicineId)
+        public Prescription(int id, int appointmentId, DateTime startDate, DateTime endDate, int interval, string description, int medicineId)
         {
             Id = id;
             SetIds(appointmentId, medicineId);
             SetFieldsForConstructor(startDate, endDate, interval, description);
         }
 
-        private void SetFieldsForConstructor(DateOnly startDate, DateOnly endDate, int interval, string description)
+        private void SetFieldsForConstructor(DateTime startDate, DateTime endDate, int interval, string description)
         {
             StartDate = startDate;
             EndDate = endDate;
@@ -86,7 +86,7 @@ namespace HospitalProject.Model
             }
         }
 
-        public DateOnly StartDate
+        public DateTime StartDate
         {
             get
             {
@@ -99,7 +99,7 @@ namespace HospitalProject.Model
             }
         }
 
-        public DateOnly EndDate
+        public DateTime EndDate
         {
             get
             {

@@ -10,7 +10,7 @@
         Title="RecipesAndNotificationsView" Height="450" Width="800">
 
     <Window.DataContext>
-        <viewModel:NotificationsViewModel/>
+        <viewModel:NotesViewModel/>
 
     </Window.DataContext>
     
@@ -36,21 +36,26 @@
         </Grid>
 
         <Grid Grid.Column="1" Background="IndianRed">
-            
+
+            <Button Height="25" Width="150" HorizontalAlignment="Right"
+                    Margin="0,0,20,0"
+                    Content="Make Notification"
+                    Command="{Binding MakeCustomNotificationCommand}"/>
+
         </Grid>
 
         <Grid Background="IndianRed" Grid.Row="1">
 
             <StackPanel Grid.Row="1" Grid.Column="1" Background="IndianRed">
 
-                <RadioButton Content="Notifications"
+                <RadioButton Content="Notes"
                              Height="50"
                              Foreground="White"
                              Background="IndianRed"
                              FontSize="14"
                              Style="{StaticResource MedicalCardButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding NotificationsViewCommand}"/>
+                             Command="{Binding NotesViewCommand}"/>
 
                 <RadioButton Content="Recipes"
                              Height="50"

@@ -38,6 +38,7 @@ namespace HospitalProject.View.PatientView.Model
 
         private Window window;
         private Thread thread;
+        private Thread thread1;
 
         public ObservableCollection<Appointment> AppointmentItems { get; set; }
         public ObservableCollection<int> DoctorIds { get; set; }
@@ -47,6 +48,7 @@ namespace HospitalProject.View.PatientView.Model
         DoctorController _doctorController;
         UserController _userController;
         NotificationController _notificationController;
+        CustomNotificationController _customNotificationController;
 
 
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
@@ -138,8 +140,11 @@ namespace HospitalProject.View.PatientView.Model
             FillComboData();
             this.window = window;
             ThreadStart ts = new ThreadStart(StartNotificationThread);
+            ThreadStart ts1 = new ThreadStart(StartCustomNotificationThread);
             thread = new Thread(ts);
+            thread1 = new Thread(ts1);
             thread.Start();
+            thread1.Start();
         }
 
         private void InstantiateControllers()
@@ -150,6 +155,7 @@ namespace HospitalProject.View.PatientView.Model
             _doctorController = app.DoctorController;
             _userController = app.UserController;
             _notificationController = app.NotificationController;
+            _customNotificationController = app.CustomNotificationController;
         }
 
         private void InstantiateData()
@@ -338,6 +344,28 @@ namespace HospitalProject.View.PatientView.Model
             }
         
         
+        }
+
+        public void StartCustomNotificationThread()
+        {
+            while (true)
+            {
+                CustomNotification customNotification = _customNotificationController.CheckForCustomNotifications(_patient);
+                if (customNotification != null)
+                {
+
+                    MessageBox.Show(customNotification.Text);
+
+                }
+
+
+                Thread.Sleep(60 * 1000);
+
+
+
+            }
+
+
         }
 
     }

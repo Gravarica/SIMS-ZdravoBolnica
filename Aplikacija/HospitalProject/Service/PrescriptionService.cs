@@ -53,7 +53,7 @@ namespace HospitalProject.Service
             prescription.Appointment = appointmentService.GetById(prescription.Appointment.Id);
         }
 
-        public string Create(Appointment appointment, DateOnly startDate, DateOnly endDate, int interval, string description, Equipement medicine)
+        public string Create(Appointment appointment, DateTime startDate, DateTime endDate, int interval, string description, Equipement medicine)
         {
             Prescription prescription;
             Allergies returnAllergen = AllergensValidation.CheckIfPatientIsAllergicToMedicine(medicalRecordService.GetById(appointment.Patient.MedicalRecordId).Allergies, medicine);
@@ -63,12 +63,8 @@ namespace HospitalProject.Service
                 prescriptionRepository.Insert(prescription);
                 return null;
             } 
-            else
-            {
-                return returnAllergen.Name;
-            }
-            //Prescription prescription = new Prescription(appointment, startDate, endDate, interval, description, medicine);
-            //prescriptionRepository.Insert(prescription);
+
+            return returnAllergen.Name;
         }
 
         public void Delete(int prescriptionId)
@@ -78,7 +74,6 @@ namespace HospitalProject.Service
 
 
         public Prescription GetById(int id) {
-
             var prescription = prescriptionRepository.GetById(id);
             SetAppointmentForPrescription(prescription);
             return prescription;

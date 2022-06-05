@@ -52,34 +52,44 @@ namespace HospitalProject.Service
 
         public Notification CheckIfThereAreNotificationsForUser(Patient patient)
         {
-            IEnumerable<Notification> notifications = GetNotificationsByPatient(patient.Id);
-            Notification returnNotification;
-
-            DateTime startDate;
-            DateTime endDate;
-            int checkCounter;
-
-            foreach(Notification notification in notifications)
+            foreach(Notification notification in GetNotificationsByPatient(patient.Id))
             {
-                startDate = new DateTime(notification.Prescription.StartDate.Year, notification.Prescription.StartDate.Month, notification.Prescription.StartDate.Day);
-                endDate = new DateTime(notification.Prescription.EndDate.Year, notification.Prescription.EndDate.Month, notification.Prescription.EndDate.Day);
-                checkCounter = 24 / notification.Prescription.Interval;
-
-                for(int i = 0; i < checkCounter; i++)
-                {
-                    if (DateTime.Now >= startDate && DateTime.Now <= endDate)
-                    {
-                        if (notification.StartTime.AddHours(i*notification.Prescription.Interval).Hour == DateTime.Now.Hour &&
-                            notification.StartTime.Minute == DateTime.Now.Minute)
-                        {
-                            return notification;
-                        }
-                    }
-                }
-                
+                if (GetNotificationIfTimeMatches(notification)) return notification;
             }
 
             return null;
         }
+        private int GetFrequency(Notification notification)
+        {
+            return 24 / notification.Prescription.Interval;
+        }
+
+        private bool GetNotificationIfTimeMatches(Notification notification)
+        {
+            for (int i = 0; i < GetFrequency(notification); i++)
+            {
+                if (TimeMatches(notification, i)) return true;
+            }
+
+            return false;
+        }
+
+        private bool TimeMatches(Notification notification,int frequency)
+        {
+            return DateIsInDateInterval(notification.Prescription.StartDate, notification.Prescription.EndDate) &&
+                   IntervalMatches(notification, frequency);
+        }
+
+        private bool DateIsInDateInterval(DateTime startDate, DateTime endDate)
+        {
+            return DateTime.Now >= startDate && DateTime.Now <= endDate;
+        }
+
+        private bool IntervalMatches(Notification notification, int frequency)
+        {
+            return notification.StartTime.AddHours(frequency * notification.Prescription.Interval).Hour == DateTime.Now.Hour &&
+                   notification.StartTime.Minute == DateTime.Now.Minute;
+        }
     }
+
 }
