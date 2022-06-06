@@ -94,7 +94,18 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanMakeNoteCommandExecute()
         {
-           return SelectedItem !=null;
+           return SelectedItem !=null && DoesNoteExist();
+        }
+
+        private bool DoesNoteExist()
+        {
+            List<Note> notes = _noteController.GetAll().ToList();
+            foreach(Note note in notes)
+            {
+                if (SelectedItem.Id == note.Anamnesis.Id)
+                    return false;
+            }
+            return true;
         }
 
         private void MakeNoteCommandExecute()

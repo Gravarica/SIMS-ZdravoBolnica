@@ -66,26 +66,34 @@ namespace HospitalProject.View.PatientView.Model
             window = _window;
             InitializeControllers();
             doctor = anamnesis.App.Doctor;
-            
+            InstantiateAnswersToNull();
 
 
         }
 
+        private void InstantiateAnswersToNull()
+        {
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null; 
+        }
+
         private void InitializeControllers()
         {
-            var app = System.Windows.Application.Current as App;
+            
+            InstantiateControllers();
+            survey = surveyController.GetAll().ToList()[1];
+            questions = survey.Questions;
+         }
 
+        private void InstantiateControllers()
+        {
+            var app = System.Windows.Application.Current as App;
             surveyController = app.SurveyController;
             answerController = app.AnswerController;
             patientController = app.PatientController;
             userController = app.UserController;
             surveyRealizationController = app.SurveyRealizationController;
-            survey = surveyController.GetAll().ToList()[1];
-            questions = survey.Questions;
-
-
-
-
         }
 
         public string Star1
@@ -740,7 +748,7 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanRateCommandExecute()
         {
-            return true;
+            return Answer1 != null && Answer2 != null && Answer3 != null;
         }
 
         private bool DoesSurveyRealizationExists()
@@ -757,6 +765,14 @@ namespace HospitalProject.View.PatientView.Model
         private void RateCommandExecute()
         {
 
+            InsertAnswers();
+            SurveyRealization _surveyRealization = new SurveyRealization(patientController.GetLoggedPatient(userController.GetLoggedUser().Username), survey, _answers, doctor);
+            surveyRealizationController.Create(_surveyRealization);
+            window.Close();
+        }
+
+        private void InsertAnswers()
+        {
             Answer answer1 = new Answer(Question1.Id, int.Parse(Answer1));
             answerController.Create(answer1);
             Answer answer2 = new Answer(Question2.Id, int.Parse(Answer2));
@@ -767,13 +783,8 @@ namespace HospitalProject.View.PatientView.Model
             _answers.Add(answer2);
             _answers.Add(answer3);
 
-
-
-            SurveyRealization _surveyRealization = new SurveyRealization(patientController.GetLoggedPatient(userController.GetLoggedUser().Username), survey, _answers, doctor);
-            surveyRealizationController.Create(_surveyRealization);
-            window.Close();
         }
 
-       
+
     }
 }
