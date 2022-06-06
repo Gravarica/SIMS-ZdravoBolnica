@@ -754,6 +754,15 @@ namespace HospitalProject {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Response:.
+        /// </summary>
+        public static string SecLabel {
+            get {
+                return ResourceManager.GetString("SecLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string SendButton {

@@ -12,11 +12,18 @@
              Background="AliceBlue">
     <UserControl.Resources>
         <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="#a4a4e8"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition />
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
                 Background="#a4a4e8" 
@@ -54,7 +61,8 @@
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       SelectionMode="Single"
-                      ItemsSource="{Binding VacationRequests}">
+                      ItemsSource="{Binding VacationRequests}"
+                      SelectedItem ="{Binding SelectedRequest}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{model:Loc SubmissionDateHeader}"
                                         Width="3*"
@@ -75,5 +83,57 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
+        <Grid Grid.Row="2"
+              Margin="30,0,30,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,30,0"
+                    BorderBrush="#3e3ece"
+                    BorderThickness="1">
+                <DockPanel>
+                    <Border Height="30"
+                            BorderBrush="#aaaaff"
+                            BorderThickness="1"
+                            Background="#a4a4e8"
+                            DockPanel.Dock="Top">
+                        <TextBlock Foreground="White"
+                                   FontFamily="Verdana"
+                                   FontSize="20"
+                                   Text="{model:Loc DescriptionLabel}"
+                                   Margin="5,0,0,0"/>
+                    </Border>
+                    <TextBox IsReadOnly="True"
+                             Text ="{Binding SelectedRequest.Description}"
+                             FontSize="18"/>
+                </DockPanel>
+            </Border>
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="30,0,0,0"
+                    BorderBrush="#3e3ece"
+                    BorderThickness="1">
+                <DockPanel>
+                    <Border Height="30"
+                            BorderBrush="#aaaaff"
+                            BorderThickness="1"
+                            Background="#a4a4e8"
+                            DockPanel.Dock="Top">
+                        <TextBlock Foreground="White"
+                                   FontFamily="Verdana"
+                                   FontSize="20"
+                                   Text="{model:Loc SecLabel}"
+                                   Margin="5,0,0,0"/>
+                    </Border>
+                    <TextBox IsReadOnly="True"
+                             Text ="{Binding SelectedRequest.SecretaryDescription}"
+                             FontSize="18"/>
+                </DockPanel>
+            </Border>
+        </Grid>
+        
     </Grid>
 </UserControl>

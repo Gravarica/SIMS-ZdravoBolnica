@@ -53,7 +53,7 @@ namespace HospitalProject.View.DoctorView.Model
             }
             else
             {
-                MainViewModel.Instance.CurrentView = MainViewModel.Instance.InventoryVM;
+                MainViewModel.Instance.CurrentView = MainViewModel.Instance.RequestsVM;
             }
            
         }
