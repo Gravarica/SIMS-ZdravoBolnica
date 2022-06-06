@@ -23,6 +23,8 @@ namespace HospitalProject.View.DoctorView.Model
 
         private RelayCommand newRequestCommand;
 
+        private VacationRequest selectedRequest;
+
         public RequestsViewModel(Doctor loggedDoctor)
         {
             InstantiateControllers();
@@ -39,6 +41,19 @@ namespace HospitalProject.View.DoctorView.Model
         {
             this.loggedDoctor = loggedDoctor;
             VacationRequests = new ObservableCollection<VacationRequest>(vacationRequestController.GetVacationRequestsForDoctor(loggedDoctor));
+        }
+
+        public VacationRequest SelectedRequest
+        {
+            get
+            {
+                return selectedRequest;
+            }
+            set
+            {
+                selectedRequest = value;
+                OnPropertyChanged(nameof(SelectedRequest));
+            }
         }
 
         public RelayCommand NewRequestCommand

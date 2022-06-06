@@ -345,6 +345,9 @@
   <data name="SEButton" xml:space="preserve">
     <value>Otpocni pregled</value>
   </data>
+  <data name="SecLabel" xml:space="preserve">
+    <value>Odgovor:</value>
+  </data>
   <data name="SendButton" xml:space="preserve">
     <value>Posalji</value>
   </data>
