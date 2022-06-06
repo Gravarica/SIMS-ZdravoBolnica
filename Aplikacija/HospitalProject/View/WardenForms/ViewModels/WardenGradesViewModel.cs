@@ -289,12 +289,9 @@ public class WardenGradesViewModel : ViewModelBase
                     foreach (Answer answer in surveyRealisation.Answers)
                     {
                         Answer ans = _answerController.GetById(answer.Id);
-                        if (ans.QuestionId == SelectedQuestion.Id)
+                        if (ans.QuestionId == SelectedQuestion.Id && grade == ans.Rating)
                         {
-                            if (grade == ans.Rating)
-                            {
-                                number = number + 1;
-                            }
+                            number = number + 1;
                         }
                     }
                 }
@@ -314,7 +311,6 @@ public class WardenGradesViewModel : ViewModelBase
                     }
                 }
             }
-
             return number;
         }
     }
@@ -339,7 +335,6 @@ public class WardenGradesViewModel : ViewModelBase
                     }
                 }
             }
-
             DoctorsAvg = grade / number;
         }
     }
@@ -356,24 +351,34 @@ public class WardenGradesViewModel : ViewModelBase
         
         if (SelectedCategory == Category.DOCTOR_SURVEY)
         {
-            foreach (SurveyRealization srr in SurveyRealisationItems)
+            return CalculateDoctorsAvg(number, grade);
+        }
+
+        return CalculateHospitalsAvg(number,  grade,  question);
+    }
+
+    private double CalculateDoctorsAvg(double number, double grade)
+    {
+        foreach (SurveyRealization srr in SurveyRealisationItems)
+        {
+            if (srr.Doctor.Id == SelectedDoctor.Id)
             {
-                if (srr.Doctor.Id == SelectedDoctor.Id)
+                foreach (Answer answer in srr.Answers)
                 {
-                    foreach (Answer answer in srr.Answers)
+                    Answer ans = _answerController.GetById(answer.Id);
+                    if (ans.QuestionId == SelectedQuestion.Id)
                     {
-                        Answer ans = _answerController.GetById(answer.Id);
-                        if (ans.QuestionId == SelectedQuestion.Id)
-                        {
-                            number = number + 1 ;
-                            grade = grade + ans.Rating;
-                        }
+                        number = number + 1 ;
+                        grade = grade + ans.Rating;
                     }
                 }
             }
-            return grade / number;
         }
-        
+        return grade / number;
+    }
+
+    private double CalculateHospitalsAvg(double number, double grade,Question question)
+    {
         foreach (Answer answer in AnswersItems)
         { 
             if (answer.QuestionId == question.Id)
@@ -382,10 +387,6 @@ public class WardenGradesViewModel : ViewModelBase
                 grade = grade + answer.Rating;
             }
         }
-
         return grade / number;
-        
-        
     }
-
 }

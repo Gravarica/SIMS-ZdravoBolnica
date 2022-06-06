@@ -119,6 +119,11 @@ namespace HospitalProject.View.WardenForms.Views
                 EquipementType.MEDICINE, SelectedAllergies.ToList(), SelectedReplacements.ToList());
             _equipementController.Update(editMedicine);
             _medicineReportController.Delete(medicineReport);
+            SetMainViewToMedicineReportViewModel();
+        }
+
+        private void SetMainViewToMedicineReportViewModel()
+        {
             MedicineReportViewModel mrvm = new MedicineReportViewModel();
             MainViewModel.Instance.MomentalView = mrvm;
         }
@@ -166,6 +171,14 @@ namespace HospitalProject.View.WardenForms.Views
 
         private void InitaliseCheckBocxes(MedicineReport medicineReport)
         {
+            InitialiseAlergiesCheckBoxes(medicineReport);
+            InitialiseReplacementsCheckBoxes(medicineReport);
+            BindListBOXReplacements();
+
+        }
+
+        private void InitialiseAlergiesCheckBoxes(MedicineReport medicineReport)
+        {
             foreach (AddingMedicineAlergiesViewModel alergie in AllergiesList)
             {
                 foreach (var al in medicineReport.Medicine.Alergens)
@@ -176,7 +189,10 @@ namespace HospitalProject.View.WardenForms.Views
                     }
                 }
             }
-            
+        }
+
+        private void InitialiseReplacementsCheckBoxes(MedicineReport medicineReport)
+        {
             foreach (EquipmentCheckBoxModel replacement in ReplacmentList)
             {
                 foreach (Equipement equipment in medicineReport.Medicine.Replacements)
@@ -187,9 +203,6 @@ namespace HospitalProject.View.WardenForms.Views
                     }
                 }
             }
-
-            BindListBOXReplacements();
-
         }
         
         public void ddlSupstances_SelectionChanged(object sender, SelectionChangedEventArgs e)  
