@@ -91,13 +91,13 @@ namespace HospitalProject.Service
         private bool RoomHasReservationsByDay(DateOnly startDate, DateOnly endDate, Room room)
         {
             var allReservations = getAll();
-            foreach (RoomRenovation rr in allReservations)
+            foreach (RoomRenovation roomRenovation in allReservations)
             {
-                if (startDate >= rr.StartDate && startDate <= rr.EndDate && rr.Room.Id == room.Id)
+                if ((startDate >= roomRenovation.StartDate && startDate <= roomRenovation.EndDate && roomRenovation.Room.Id == room.Id))
                 {
                     return false;
                 }
-                if (endDate >= rr.StartDate && endDate <= rr.EndDate && rr.Room.Id == room.Id)
+                if (endDate >= roomRenovation.StartDate && endDate <= roomRenovation.EndDate && roomRenovation.Room.Id == room.Id)
                 {
                     return false;
                 }
@@ -105,7 +105,8 @@ namespace HospitalProject.Service
 
             return true;
         }
-
+        
+        
         private List<RoomRenovation> GenerateAllRenovationAppointments(DateOnly searchStartDate, DateOnly
             searchEndDate, Room room, int duration)
         {

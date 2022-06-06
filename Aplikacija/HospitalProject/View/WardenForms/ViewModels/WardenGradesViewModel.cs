@@ -273,6 +273,42 @@ public class WardenGradesViewModel : ViewModelBase
         AvgGrade = CalculateAvg(SelectedQuestion);
     }
 
+    private int CountDoctorsGrades(int grade)
+    {
+        int number = 0;
+        foreach (SurveyRealization surveyRealisation in SurveyRealisationItems)
+        {
+            if (SelectedDoctor.Id == surveyRealisation.Doctor.Id)
+            {
+                foreach (Answer answer in surveyRealisation.Answers)
+                {
+                    Answer ans = _answerController.GetById(answer.Id);
+                    if (ans.QuestionId == SelectedQuestion.Id && grade == ans.Rating)
+                    {
+                        number = number + 1;
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
+    private int CountHospitalsGrades(int grade, Question question)
+    {
+        int number = 0;
+        foreach (Answer ans in AnswersItems)
+        {
+            if (question.Id == ans.QuestionId)
+            {
+                if (grade == ans.Rating)
+                {
+                    number = number + 1;
+                }
+            }
+        }
+        return number;
+    }
+
     private int CountGrades(Question question, int grade)
     {
         int number = 0;
@@ -280,39 +316,13 @@ public class WardenGradesViewModel : ViewModelBase
         {
             return 0;
         }
-        else if (SelectedCategory == Category.DOCTOR_SURVEY)
+        if (SelectedCategory == Category.DOCTOR_SURVEY)
         {
-            foreach (SurveyRealization surveyRealisation in SurveyRealisationItems)
-            {
-                if (SelectedDoctor.Id == surveyRealisation.Doctor.Id)
-                {
-                    foreach (Answer answer in surveyRealisation.Answers)
-                    {
-                        Answer ans = _answerController.GetById(answer.Id);
-                        if (ans.QuestionId == SelectedQuestion.Id && grade == ans.Rating)
-                        {
-                            number = number + 1;
-                        }
-                    }
-                }
-            }
-            return number;
+            return CountDoctorsGrades(grade);
         }
-        else
-        {
-
-            foreach (Answer ans in AnswersItems)
-            {
-                if (question.Id == ans.QuestionId)
-                {
-                    if (grade == ans.Rating)
-                    {
-                        number = number + 1;
-                    }
-                }
-            }
-            return number;
-        }
+        
+        return CountHospitalsGrades(grade,question);
+        
     }
 
 
@@ -351,13 +361,13 @@ public class WardenGradesViewModel : ViewModelBase
         
         if (SelectedCategory == Category.DOCTOR_SURVEY)
         {
-            return CalculateDoctorsAvg(number, grade);
+            return CalculateDoctorsQuestionAvg(number, grade);
         }
 
         return CalculateHospitalsAvg(number,  grade,  question);
     }
 
-    private double CalculateDoctorsAvg(double number, double grade)
+    private double CalculateDoctorsQuestionAvg(double number, double grade)
     {
         foreach (SurveyRealization srr in SurveyRealisationItems)
         {
