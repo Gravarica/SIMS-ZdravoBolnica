@@ -17,25 +17,22 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class PatientAllergiesVM : BaseViewModel
+    public class PatientAllergiesVM : BaseViewModel
     {
-        public ObservableCollection<Allergies> Allergies { get; set; }
         private Patient patient;
-
-        private RelayCommand deleteAllergyCommand;
-        private RelayCommand addAllergyCommand;
-
         private Allergies selectedAllergy;
-
         private String allergyName;
         private MedicalRecord MR;
         private int id;
         private MedicalRecordService medicalRecordService;
-        PatientController _patientController;
-        AllergiesController _allergiesController;
+        private PatientController _patientController;
+        private AllergiesController _allergiesController;
         MedicalRecordController _medicalRecordController;
-        public ObservableCollection<Allergies> patientAllergies { get; set; }
         
+        private RelayCommand deleteAllergyCommand;
+        private RelayCommand addAllergyCommand;
+        public ObservableCollection<Allergies> patientAllergies { get; set; }
+        public ObservableCollection<Allergies> Allergies { get; set; }
         private List<ComboBoxData<Allergies>> allergije = new List<ComboBoxData<Allergies>>();
         public PatientAllergiesVM(Patient _patient, MedicalRecordService medicalRecordService)
         {

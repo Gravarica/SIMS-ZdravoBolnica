@@ -65,9 +65,9 @@
 
                 <StackPanel Orientation="Horizontal"
                             Margin="0,20,0,0">
-                    <TextBox FontFamily="Helvetica"
-                         FontWeight="Light"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                    <PasswordBox FontFamily="Helvetica"
+                                 Name="passwordBox1"
+                                 FontWeight="Light"
                          FontSize="20"
                          HorizontalAlignment="Center"
                          Foreground="White"

@@ -6,55 +6,21 @@ using HospitalProject.Model;
 
 namespace HospitalProject.FileHandler;
 
-public class AllergiesFileHandler
+public class AllergiesFileHandler : GenericFileHandler<Allergies>
 {
-            private string _path;
-    
-            private string _delimiter;
-    
-     //path allergy.csv
-            public  AllergiesFileHandler(String path, String delimiter)
-            {
-                _path = path;
-                _delimiter = delimiter;
-            }
-    
-            public IEnumerable<Allergies> ReadAll()
-            {
-                return File.ReadAllLines(_path)                 // Radi tako sto, procitamo sve linije iz fajla, i svaku od tih linija prebacimo iz CSV formata u entitet i toList()
-                       .Select(ConvertCSVFormatToAllergies)   // 1 | Polen 
-                       .ToList();
-            }
-    
-            
-            public Allergies ConvertCSVFormatToAllergies(string CSVFormat)
-            {
-              var tokens = CSVFormat.Split(_delimiter.ToCharArray());
-                return new Allergies(int.Parse(tokens[0]),tokens[1]);
-             }
 
-        public string ConvertAllergiesToCSVFormat(Allergies allergies)
-            {
-                return string.Join(_delimiter,
-                allergies.Id,
-                allergies.Name);
-            }
-    
-            public void AppendLineToFile(Allergies allergies)
-            {
-                string line = ConvertAllergiesToCSVFormat(allergies);
-                File.AppendAllText(_path, line + Environment.NewLine);
-            }
-    
-            public void Save(IEnumerable<Allergies> allergies)
-            {
-                using (StreamWriter file = new StreamWriter(_path))
-                {
-                    foreach (Allergies allergy in allergies)
-                    {
-                        file.WriteLine(ConvertAllergiesToCSVFormat(allergy));
-                    }
-                }
-            }
-    
-        }
+    public  AllergiesFileHandler(string path) : base(path) {}
+
+    protected override string ConvertEntityToCSV(Allergies allergies)
+    {
+        return string.Join(CSV_DELIMITER,
+                           allergies.Id,
+                           allergies.Name);
+    }
+
+    protected override Allergies ConvertCSVToEntity(string csv)
+    {
+        var tokens = csv.Split(CSV_DELIMITER.ToCharArray());
+        return new Allergies(int.Parse(tokens[0]), tokens[1]);
+    }
+}

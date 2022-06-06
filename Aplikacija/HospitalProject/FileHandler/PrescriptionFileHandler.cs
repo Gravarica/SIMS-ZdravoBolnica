@@ -8,42 +8,27 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class PrescriptionFileHandler
+    public class PrescriptionFileHandler : GenericFileHandler<Prescription>
     {
 
-        private string _path;
-        private string _delimiter;
-        private string _dateTimeFormat;
+        public PrescriptionFileHandler(string path) : base(path) { }
 
-        public PrescriptionFileHandler(String path, String delimiter, string dateTimeFormat)
-        {
-            _path = path;
-            _delimiter = delimiter;
-            _dateTimeFormat = dateTimeFormat;
-        }
 
-        public IEnumerable<Prescription> ReadAll()
+        protected override Prescription ConvertCSVToEntity(string CSVFormat)
         {
-            return File.ReadAllLines(_path)                 
-                   .Select(ConvertCSVFormatToPrescription)  
-                   .ToList();
-        }
-
-        public Prescription ConvertCSVFormatToPrescription(string CSVFormat)
-        {
-            string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
+            string[] tokens = CSVFormat.Split(CSV_DELIMITER.ToCharArray());
             return new Prescription(int.Parse(tokens[0]),
                                    int.Parse(tokens[1]),
-                                   DateTime.ParseExact(tokens[2], _dateTimeFormat, null),
-                                   DateTime.ParseExact(tokens[3], _dateTimeFormat, null),
+                                   DateTime.ParseExact(tokens[2], FormatStorage.ONLY_DATE_FORMAT, null),
+                                   DateTime.ParseExact(tokens[3], FormatStorage.ONLY_DATE_FORMAT, null),
                                    int.Parse(tokens[4]),
                                    tokens[5],
                                    int.Parse(tokens[6]));
         }
 
-        public string ConvertPrescriptionToCSVFormat(Prescription prescription)
+        protected override string ConvertEntityToCSV(Prescription prescription)
         {
-            return string.Join(_delimiter,
+            return string.Join(CSV_DELIMITER,
             prescription.Id,
             prescription.Appointment.Id,
             prescription.StartDate.ToString(),
@@ -51,23 +36,6 @@ namespace HospitalProject.FileHandler
             prescription.Interval,
             prescription.Description,
             prescription.Medicine.Id);
-        }
-
-        public void AppendLineToFile(Prescription prescription)
-        {
-            string line = ConvertPrescriptionToCSVFormat(prescription);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
-
-        public void Save(IEnumerable<Prescription> prescriptions)
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (Prescription prescription in prescriptions)
-                {
-                    file.WriteLine(ConvertPrescriptionToCSVFormat(prescription));
-                }
-            }
         }
 
     }

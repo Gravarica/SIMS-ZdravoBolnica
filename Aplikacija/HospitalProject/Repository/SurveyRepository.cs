@@ -13,15 +13,15 @@ namespace HospitalProject.Repository
 
         private int id;
         private List<Question> questions;
-        private SurveyFileHandler surveyFileHandler;
+        private IHandleData<Survey> surveyFileHandler;
         private List<Survey> surveys;
         private QuestionRepository questionRepository;
         private int maxId;
         
 
-        public SurveyRepository(SurveyFileHandler _surveyFileHandler, QuestionRepository _questionRepository)
+        public SurveyRepository(QuestionRepository _questionRepository)
         {
-            surveyFileHandler = _surveyFileHandler;
+            surveyFileHandler = new SurveyFileHandler(FilePathStorage.SURVEYS_FILE);
             questionRepository = _questionRepository;
             InstantiateData();
             maxId = GetMaxId();

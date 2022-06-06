@@ -33,7 +33,7 @@ namespace HospitalProject.Service
 
         private void BindPrescriptionsWithNotifications(List<Notification> notifications)
         {
-            notifications.ForEach(notification => SetPrescriptionForNotification(notification));
+            notifications.ForEach(SetPrescriptionForNotification);
         }
 
         public List<Notification> GetAll()
@@ -52,13 +52,9 @@ namespace HospitalProject.Service
 
         public Notification CheckIfThereAreNotificationsForUser(Patient patient)
         {
-            foreach(Notification notification in GetNotificationsByPatient(patient.Id))
-            {
-                if (GetNotificationIfTimeMatches(notification)) return notification;
-            }
-
-            return null;
+            return GetNotificationsByPatient(patient.Id).FirstOrDefault(GetNotificationIfTimeMatches);
         }
+
         private int GetFrequency(Notification notification)
         {
             return 24 / notification.Prescription.Interval;
@@ -74,7 +70,7 @@ namespace HospitalProject.Service
             return false;
         }
 
-        private bool TimeMatches(Notification notification,int frequency)
+        private bool TimeMatches(Notification notification, int frequency)
         {
             return DateIsInDateInterval(notification.Prescription.StartDate, notification.Prescription.EndDate) &&
                    IntervalMatches(notification, frequency);

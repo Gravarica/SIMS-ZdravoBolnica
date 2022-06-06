@@ -17,20 +17,22 @@ namespace HospitalProject.Model
         private string description;
         private bool isUrgent;
         private RequestState requestState;
+        
+        private string secretaryDescription;
 
         // Konstruktor za kreiranje objekta iz file handlera
-        public VacationRequest(int id, DateTime submissionDate, int doctorId, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState)
+        public VacationRequest(int id, DateTime submissionDate, int doctorId, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState, string secretaryDescription)
         {
             Id = id;
             InstantiateDoctor(doctorId);
-            InstantiateData(submissionDate,dateInterval,description,isUrgent,requestState);
+            InstantiateData(submissionDate,dateInterval,description,isUrgent,requestState, secretaryDescription);
         }
 
         // Konstruktor za kreiranje objekta sa fronta
         public VacationRequest(NewRequestDTO newRequestDTO)
         {
             Doctor = newRequestDTO.Doctor;
-            InstantiateData(newRequestDTO.SubmissionDate, newRequestDTO.DateInterval, newRequestDTO.Description, newRequestDTO.IsUrgent, RequestState.PENDING);
+            InstantiateData(newRequestDTO.SubmissionDate, newRequestDTO.DateInterval, newRequestDTO.Description, newRequestDTO.IsUrgent, RequestState.PENDING,  secretaryDescription);
         }
 
         private void InstantiateDoctor(int doctorId)
@@ -39,13 +41,14 @@ namespace HospitalProject.Model
             Doctor.Id = doctorId;
         }
 
-        private void InstantiateData(DateTime submissionDate, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState)
+        private void InstantiateData(DateTime submissionDate, DateInterval dateInterval, string description, bool isUrgent, RequestState requestState, string secretaryDescription)
         {
             SubmissionDate = submissionDate;
             DateInterval = dateInterval;   
             Description = description;
             IsUrgent = isUrgent;
             RequestState = requestState;
+            SecretaryDescription = secretaryDescription;
         }
 
         public int Id
@@ -113,6 +116,18 @@ namespace HospitalProject.Model
             }
         }
 
+        public string SecretaryDescription
+        {
+            get
+            {
+                return secretaryDescription;
+            }
+            set
+            {
+                secretaryDescription = value;
+                OnPropertyChanged(nameof(SecretaryDescription));
+            }
+        }
         public bool IsUrgent
         {
             get

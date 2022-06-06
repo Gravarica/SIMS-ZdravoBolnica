@@ -16,42 +16,38 @@ namespace Repository
 
     public class AppointmentRepository
     {
-        private AppointmentFileHandler _appointmentFileHandler;
+        private IHandleData<Appointment> _appointmentFileHandler;
 
         private int _appointmentMaxId;
 
         private List<Appointment> _appointments = new List<Appointment>();
 
-        public AppointmentRepository(AppointmentFileHandler appointmentFileHandler)
+        public AppointmentRepository()
         {
-            _appointmentFileHandler=appointmentFileHandler;
+            _appointmentFileHandler = new AppointmentFileHandler(FilePathStorage.APPOINTMENT_FILE);
             _appointments = _appointmentFileHandler.ReadAll().ToList();
             _appointmentMaxId = GetMaxId();
         }
 
         public List<Appointment> Appointments { get; set; }
 
-        // Method that calculates what is max id of an appointment in the system 
         private int GetMaxId() {
             return _appointments.Count() == 0 ? 0 : _appointments.Max(appointment => appointment.Id);
         }
 
-        // Method that inserts new appointment in the system
         public Appointment Insert(Appointment appointment)
         {
                 appointment.Id = ++_appointmentMaxId;
-                _appointmentFileHandler.AppendLineToFile(appointment);
+                _appointmentFileHandler.SaveOneEntity(appointment);
                 _appointments.Add(appointment);
                 return appointment;
         }
 
-        // Method that returns appointment by his given id 
         public Appointment GetById(int id)
         {
             return _appointments.FirstOrDefault(x => x.Id == id); 
         }
 
-        // Method that returns all appointments in the system
         public IEnumerable<Appointment> GetAllUnfinishedAppointments()
         {
                 return _appointments.Where(x=> x.IsDone==false);  
@@ -67,7 +63,6 @@ namespace Repository
             return _appointments;
         }
 
-        // Method that deletes an appointment by given id
         public void Delete(int id)
         {
             Appointment removeAppointment = GetById(id);
@@ -78,18 +73,9 @@ namespace Repository
         public bool DeleteApointmentsByRoomId(int id)
         {
             var apointments = GetAllByRoomId(id);
-            if (apointments.Count() != 0)
-            {
-                return false;
-            }
-            return true;
-            // foreach (Appointment app in apointments)
-            // {
-            //     Delete(app.Id);
-            // }
+            return apointments.Count() == 0;
         }
 
-        // Method that updates certain appointment
         public void Update(Appointment appointment)
         {
                 Appointment updatedAppointment = GetById(appointment.Id);
@@ -102,7 +88,6 @@ namespace Repository
                 _appointmentFileHandler.Save(_appointments);
         }
 
-        // Method that sets appointment as finished after examination
         public void SetAppointmentFinished(Appointment appointment)
         {
             Appointment updatedAppointment = GetById(appointment.Id);
@@ -122,27 +107,21 @@ namespace Repository
             return _appointments.Where(appointment => appointment.Patient.Id == patientId);
         }
 
-        // Method that returns all appointments for a given doctor
         public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForDoctor(int doctorId)
         {
             return _appointments.Where(appointment => appointment.IsDone == false && appointment.Doctor.Id == doctorId);
         }
 
-        // Method that returns all appointments for a given patient
         public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForPatient(int patientId)
         {
             return _appointments.Where(x => x.Patient.Id == patientId && x.IsDone == false);
         }
 
-        // Method that returns all appointments for a given room 
         public IEnumerable<Appointment> GetAllUnfinishedAppointmentsForRoom(int roomId)
         {
             return _appointments.Where((x) => x.Room.Id == roomId && x.IsDone == false);
         }
 
-        // Method that returns all appointments for give specialization in the next two hours
-
-        
-}
+    }
 
 }

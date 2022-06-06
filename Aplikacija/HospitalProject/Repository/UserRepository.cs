@@ -10,33 +10,20 @@ namespace HospitalProject.Repository
     public class UserRepository
     {
 
-        private UserFileHandler userFileHandler;
+        private IHandleData<User> userFileHandler;
         private User _user;
         private List<User> users;
 
-        public UserRepository(UserFileHandler userFH)
+        public UserRepository()
         {
-            userFileHandler = userFH;
+            userFileHandler = new UserFileHandler(FilePathStorage.USER_FILE);
             users = userFileHandler.ReadAll().ToList();
             _user = null;
-           
         }
-
-       
-
-        
 
         public User Login(String username, String password)
         {
-            foreach(User user in users)
-            {
-                if(user.Username.Equals(username) && user.Password.Equals(password))
-                {
-                    _user = user;
-                    break;
-                }
-            }
-
+            _user = users.Find(user => user.CredentialsMatch(username, password));
             return _user;
         }
 
@@ -58,7 +45,7 @@ namespace HospitalProject.Repository
         public void Create(User user)
         {
             users.Add(user);
-            userFileHandler.AppendLineToFile(user);
+            userFileHandler.SaveOneEntity(user);
         }
 
         public void Delete(String username)
@@ -70,21 +57,21 @@ namespace HospitalProject.Repository
         public void Update(User user)
         {
             User updateUser = GetUser(user.Username);
-            
             updateUser.Password = user.Password;
-            
         }
 
         public void IncreaseCounter()
         {
             _user.MovedAppointmentsCount++;
-            if (_user.MovedAppointmentsCount == 5)
-            {
-                _user.IsBlocked = true;
-            }
+            CheckIfUserCanBeBlocked();
             userFileHandler.Save(users);
         }
 
+        private void CheckIfUserCanBeBlocked()
+        {
+            if (_user.MovedAppointmentsCount == 5) _user.IsBlocked = true;
+        }
+        
         public void Logout()
         {
             _user = null;

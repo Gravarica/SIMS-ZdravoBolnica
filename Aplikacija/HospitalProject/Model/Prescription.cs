@@ -11,7 +11,6 @@ namespace HospitalProject.Model
     {
         private int id;
         private Appointment appointment;
-        // Ovde treba i lek cuvati 
         private DateTime startDate;
         private DateTime endDate;
         private int interval;
@@ -30,8 +29,6 @@ namespace HospitalProject.Model
             SetFieldsForConstructor(startDate, endDate, interval, description);
         }
 
-        // Dodati lek u konstruktor kada zakela ubaci entitet
-        // // Constructor that is called when reading from a file
         public Prescription(int id, int appointmentId, DateTime startDate, DateTime endDate, int interval, string description, int medicineId)
         {
             Id = id;

@@ -15,64 +15,30 @@ namespace Repository
 {
    public class DoctorRepository
    {
-        private const string NOT_FOUND_ERROR = "Account with {0}:{1} can not be found!";
 
-        private DoctorFileHandler _doctorFileHandler;
+       private IHandleData<Doctor> _doctorFileHandler;
 
         private List<Doctor> _doctors = new List<Doctor>();
 
-        public DoctorRepository(DoctorFileHandler doctorFileHandler)
+        public DoctorRepository()
         {
-            _doctorFileHandler = doctorFileHandler;
+            _doctorFileHandler = new DoctorFileHandler(FilePathStorage.DOCTOR_FILE);
             _doctors = _doctorFileHandler.ReadAll().ToList();
         }
 
-        public List<Doctor> Doctors 
-        { 
-            get 
-            {
-                return _doctors; 
-            } 
-        }
-
-        // Vraca listu svih entiteta 
         public IEnumerable<Doctor> GetAll()
         {
             return _doctors;
         }
 
-
-        // Pokupi samo jedan entitet po njegovom ID-u
         public Doctor GetById(int id)
         {
-            try
-            {
-                {                                                                           
-                    return GetAll().SingleOrDefault(doctor => doctor.Id == id);           
-                }
-            }
-            catch (ArgumentException)
-            {
-                {
-                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
-                }
-            }
+            return GetAll().SingleOrDefault(doctor => doctor.Id == id);
         }
 
         public Doctor GetLoggedDoctor(string username)
         {
-            try
-            {
-                {                                                                           
-                    return GetAll().SingleOrDefault(doctor => doctor.Username.Equals(username));           
-                }
-            }
-            catch (ArgumentException)
-            {
-                {
-                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "username", username));
-                }
-            }
+            return GetAll().SingleOrDefault(doctor => doctor.Username.Equals(username));
         }
 
         public List<Doctor> GetDoctorsBySpecialization(Specialization specialization)

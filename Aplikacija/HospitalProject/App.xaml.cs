@@ -13,6 +13,7 @@ using Service;
 using HospitalProject.Service;
 using HospitalProject.FileHandler;
 using HospitalProject.Repository;
+using HospitalProject.View.DoctorView.Model;
 
 namespace HospitalProject
 {
@@ -24,6 +25,8 @@ namespace HospitalProject
         private static string _projectPath = System.Reflection.Assembly.GetExecutingAssembly().Location
             .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
         private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\doctors.csv";
+        
+        private string MEETINGS_FILE = _projectPath + "\\Resources\\Data\\meetings.csv";
         private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
         private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string EQUIPEMENT_FILE = _projectPath + "\\Resources\\Data\\equipement.csv";
@@ -51,6 +54,8 @@ namespace HospitalProject
         
         
         public AllergiesController AllergiesController { get; set; }
+        
+        public MeetingsController MeetingsController { get; set; }
         public RoomRenovationController RenovationController { get; set; }
 
         public DoctorController DoctorController { get; set; }
@@ -66,7 +71,6 @@ namespace HospitalProject
         public AppointmentController AppointmentControllerPatient { get; set; }
 
         public AnamnesisController AnamnesisController { get; set; }
-
 
         public MedicalRecordController MedicalRecordController { get; set; }    
 
@@ -98,87 +102,56 @@ namespace HospitalProject
         public App()
         {
 
-            var _allergiesFileHandler = new AllergiesFileHandler(ALLERGIES_FILE, CSV_DELIMITER);
-
             var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
             
             var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
-
-            var _appointmentFileHandler = new AppointmentFileHandler(APPOINTMENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
-
-            var _doctorFileHandler = new DoctorFileHandler(DOCTOR_FILE, CSV_DELIMITER);
-
-            var _anamnesisFileHandler = new AnamnesisFileHandler(ANAMNESIS_FILE, CSV_DELIMITER);
-
-            var _medicalRecordFileHandler = new MedicalRecordFileHandler(MEDICALRECORD_FILE, CSV_DELIMITER);
-
-            var _userFileHandler = new UserFileHandler(USER_FILE, CSV_DELIMITER);
-
-            var _prescriptionFileHandler = new PrescriptionFileHandler(PRESCRIPTION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
+           
+            var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
             var _noteFileHandler = new NoteFileHandler(NOTE_FILE, CSV_DELIMITER);
 
-            var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
+            var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
-            var _notificationFileHandler = new NotificationFileHandler(NOTIFICATION_FILE, CSV_DELIMITER);
+            var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
 
             var _customNotificationFileHandler = new CustomNotificationFileHandler(CUSTOM_NOTIFICATION_FILE, CSV_DELIMITER);
 
-            var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
-
-            var _questionsFileHandler = new QuestionsFileHandler(QUESTIONS_FILE, CSV_DELIMITER);
-
-            var _surveyFileHandler = new SurveyFileHandler(SURVEYS_FILE, CSV_DELIMITER);
-
-            var _surveyRealizationFileHandler = new SurveyRealizationFileHandler(SURVEY_REALIZATIONS_FILE, CSV_DELIMITER);
-
-            var _answerFileHandler = new AnswerFileHandler(ANSWERS_FILE, CSV_DELIMITER);
-
-            var _medicineReportFileHandler = new MedicineReportFileHandler(MEDICINE_REPORT_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
-
-            var _vacationRequestFileHandler = new VacationRequestFileHandler(VACATION_REQUEST_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
-
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
-            var _appointmentRepository = new AppointmentRepository(_appointmentFileHandler); 
+            var _appointmentRepository = new AppointmentRepository(); 
 
-            var _appointmentRepository_patient = new AppointmentRepository(_appointmentFileHandler);
-
-            var _patientFileHandler = new PatientFileHandler(PATIENT_FILE, CSV_DELIMITER, DATETIME_FORMAT);
-
-            var _allergiesRepository = new AllergiesRepository(_allergiesFileHandler);
+            var _allergiesRepository = new AllergiesRepository();
 
             var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
 
-            var _doctorRepository = new DoctorRepository(_doctorFileHandler);
+            var _doctorRepository = new DoctorRepository();
             
             var _roomRepository = new RoomRepository(ROOM_FILE, CSV_DELIMITER);
 
-            var _patientRepository = new PatientRepository(_patientFileHandler);
+            var _medicalRecordRepository = new MedicalRecordRepository(_allergiesRepository);
 
-            var _anamnesisRepository = new AnamnesisRepository(_anamnesisFileHandler);
+            var _patientRepository = new PatientRepository(_medicalRecordRepository);
 
-            var _medicalRecordRepository = new MedicalRecordRepository(_medicalRecordFileHandler, _allergiesRepository);
+            var _anamnesisRepository = new AnamnesisRepository();
 
-            var _prescriptionRepository = new PrescriptionRepository(_prescriptionFileHandler, _appointmentRepository);
+            var _prescriptionRepository = new PrescriptionRepository(_appointmentRepository);
 
-            var _notificationRepository = new NotificationRepository(_notificationFileHandler, _prescriptionRepository);
+            var _notificationRepository = new NotificationRepository(_prescriptionRepository);
 
             var _customNotificationRepository = new CustomNotificationRepository(_customNotificationFileHandler);
+            var _userRepository = new UserRepository();
 
-            var _userRepository = new UserRepository(_userFileHandler);
+            var _questionRepository = new QuestionRepository();
 
-            var _questionRepository = new QuestionRepository(_questionsFileHandler);
+            var _surveysRepository = new SurveyRepository(_questionRepository);
 
-            var _surveysRepository = new SurveyRepository(_surveyFileHandler,_questionRepository);
+            var _answerRepository = new AnswerRepository();
 
-            var _answerRepository = new AnswerRepository(_answerFileHandler);
+            var _surveyRealizationRepository = new SurveyRealizationRepository(_patientRepository, _surveysRepository, _answerRepository);
 
-            var _surveyRealizationRepository = new SurveyRealizationRepository(_surveyRealizationFileHandler, _patientRepository, _surveysRepository, _answerRepository);
+            var _medicineReportRepository = new MedicineReportRepository(_equipementRepository, _doctorRepository);
 
-            var _medicineReportRepository = new MedicineReportRepository(_medicineReportFileHandler, _equipementRepository, _doctorRepository);
-
-            var _vacationRequestRepository = new VacationRequestRepository(_vacationRequestFileHandler, _doctorRepository);
+            var _vacationRequestRepository = new VacationRequestRepository(_doctorRepository);
 
             var _noteRepository = new NoteRepository(_noteFileHandler, _anamnesisRepository);
 
@@ -189,7 +162,11 @@ namespace HospitalProject
             var _roomService = new RoomService(_roomRepository);
             
             var _doctorService = new DoctorService(_doctorRepository, _roomService);
-
+            
+            var _meetingsRepository = new MeetingsRepository(_meetingsFileHandler, _doctorService);
+            
+            var _meetingsService = new MeetingsService(_meetingsRepository);
+           
             var _patientService = new PatientService(_patientRepository);
 
             var _appointmentService = new AppointmentService(_appointmentRepository, _patientService, _doctorService, _roomService);
@@ -243,6 +220,8 @@ namespace HospitalProject
             AnamnesisController = new AnamnesisController(_anamnesisService);
 
             AllergiesController = new AllergiesController(_allergiesService);
+            
+            MeetingsController = new MeetingsController(_meetingsService);
 
             MedicalRecordController = new MedicalRecordController(_medicalRecordService);
 
@@ -270,6 +249,17 @@ namespace HospitalProject
 
         }
 
-       
+        public void ChangeLanguage(string currLang)
+        {
+            if (currLang.Equals("en-US"))
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            }
+            else
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");
+            }
+        }
+
     }
 }

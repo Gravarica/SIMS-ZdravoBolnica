@@ -17,7 +17,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for EditAppointmentview.xaml
     /// </summary>
-    public partial class EditAppointmentview : Window
+    public partial class EditAppointmentview : UserControl
     {
         public EditAppointmentview()
         {

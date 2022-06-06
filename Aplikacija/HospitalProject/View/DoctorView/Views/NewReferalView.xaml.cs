@@ -17,7 +17,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for NewReferalView.xaml
     /// </summary>
-    public partial class NewReferalView : Window
+    public partial class NewReferalView : UserControl
     {
         public NewReferalView()
         {

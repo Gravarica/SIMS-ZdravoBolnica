@@ -55,16 +55,14 @@ namespace HospitalProject.Service
 
         public string Create(Appointment appointment, DateTime startDate, DateTime endDate, int interval, string description, Equipement medicine)
         {
-            Prescription prescription;
             Allergies returnAllergen = AllergensValidation.CheckIfPatientIsAllergicToMedicine(medicalRecordService.GetById(appointment.Patient.MedicalRecordId).Allergies, medicine);
-            if(returnAllergen == null)
-            {
-                prescription = new Prescription(appointment, startDate, endDate, interval, description, medicine);
-                prescriptionRepository.Insert(prescription);
-                return null;
-            } 
+            if (returnAllergen != null) return returnAllergen.Name;
 
-            return returnAllergen.Name;
+            Prescription prescription = new Prescription(appointment, startDate, endDate, interval, description, medicine);
+            prescriptionRepository.Insert(prescription);
+
+            return null;
+
         }
 
         public void Delete(int prescriptionId)

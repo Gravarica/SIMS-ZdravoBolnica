@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="HospitalProject.View.Secretary.SecretaryV.RegisterV"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
+             xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DataContext="{d:DesignInstance Type=secretaryvm:RegisterVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Border Background="#FF9592F5" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
+
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Add new patient" Margin="0,5,0,1"  HorizontalAlignment="Center" FontSize="32"  FontWeight="Light" Foreground="Black"/>
+   
+            <Grid Grid.Row="1"  Margin="5,13,5,10" Grid.RowSpan="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="270"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Gender" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,10,0" Grid.Column="0" Grid.Row="0"  />
+                <Label Content="Jmbg" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,10,0" Grid.Column="0" Grid.Row="1" />
+                <Label Content="Date of brth:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,10,0" Grid.Column="0" Grid.Row="2" />
+                <Label Content="E-mail:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"/>
+                <Label Content="First name:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"/>
+                <Label Content="Last name:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"/>
+                <Label Content="Adress:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center"/>
+                <Label Content="Phone number:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center"/>
+                <Label Content="Password:" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center"/>
+                <Label Content="Username:" FontSize="16" FontFamily=" Miriam"  HorizontalAlignment="Left" Margin="10,0,10,0" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center"/>
+
+                <RadioButton GroupName="Search" FontSize="16" FontFamily="Miriam" Grid.Row="0" Grid.Column="1" Margin="100,10,0,10" IsChecked="{Binding Path=Female, Mode=TwoWay}"
+                >Female</RadioButton>
+                <RadioButton GroupName="Search" FontSize="16" FontFamily=" Miriam" Grid.Row="0" Grid.Column="1" Margin="340,10,0,10" IsChecked="{Binding Path=Male, Mode=TwoWay}"
+                >Male</RadioButton>
+                 <TextBox x:Name="TextBox" 
+                        
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" 
+                         Text="{Binding Jmbg}" Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" IsReadOnly="False">
+                </TextBox>
+                <DatePicker
+                    x:Name="DatePicker" 
+                    Grid.Row="2" Grid.Column="1"
+                    Margin="20,0,20,0" 
+                    VerticalAlignment="Center"
+                    SelectedDateFormat="Short" 
+                    SelectedDate="{Binding Date, Mode=OneWayToSource}">
+
+                </DatePicker>
+                
+                <TextBox x:Name="TextBo" Grid.Row="9" 
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" Text="{Binding UserName}" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBox>
+                <TextBox x:Name="TextB1"
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" 
+                         Grid.Row="3" Text="{Binding Email}" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBox>
+
+                <TextBox x:Name="TextBox1" 
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" 
+                         Grid.Row="4" Text="{Binding FirstName}" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBox>
+                <TextBox x:Name="TextBox2"
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" Text="{Binding LastName}" Grid.Row="5" Grid.Column="1" Margin="20,0,20,0"  Height="30"></TextBox>
+                <TextBox x:Name="TextBox3" 
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" Text="{Binding Adress}" Grid.Row="6" Grid.Column="1" Margin="20,0,20,0"  Height="30" ></TextBox>
+                <TextBox Text="{Binding PhoneNumber}" 
+                         
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" Grid.Row="7" Grid.Column="1" Margin="20,0,20,0"  Height="30"></TextBox>
+                <TextBox Text="{Binding Password}" 
+                         Background="{x:Null}" BorderBrush="#FFC4C4C5" Grid.Row="8" Grid.Column="1" Margin="20,0,20,0"  Height="30"></TextBox>
+
+                <Border Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" BorderThickness="0,0,2,0" />
+
+            </Grid>
+            <Button Grid.Row="3" Content="Save"
+                    FontSize="16" FontFamily="Arial" 
+                    HorizontalAlignment="Center"  Width="80"
+                Margin="0,10,0,30"  Command ="{Binding SaveCommand}" Grid.RowSpan="2"
+                    Foreground="black" BorderBrush="Black" Background="#FF6668D6"/>
+        </Grid>
+    </Border>
+</UserControl>

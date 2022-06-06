@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace HospitalProject.View.DoctorView.Model
 {
-    public class AnamnesisViewModel : ViewModelBase
+    public class AnamnesisViewModel : BaseViewModel
     {
         private Appointment showItem;
         private Anamnesis _anamnesis;
@@ -25,14 +25,16 @@ namespace HospitalProject.View.DoctorView.Model
         private RelayCommand cancelNewAnamnesis;
         private RelayCommand writePrescriptionCommand;
         private RelayCommand writeReferalCommand;
-
-        public AnamnesisViewModel(Appointment appointment, Window window)
+        private RelayCommand medicalRecordCommand;
+        private NewPrescriptionViewModel prescriptionViewModel;
+        public AnamnesisViewModel(Appointment appointment)
         {
             var app = System.Windows.Application.Current as App;
 
+            MainViewModel.Instance.AnamnesisVM = this;
             ShowItem = appointment;
             modalResult = false;
-            _window = window;
+            prescriptionViewModel = new NewPrescriptionViewModel(ShowItem);
 
             _anamnesisController = app.AnamnesisController;
 
@@ -96,7 +98,7 @@ namespace HospitalProject.View.DoctorView.Model
             _anamnesis = new Anamnesis(ShowItem, Description);
             _anamnesisController.Create(_anamnesis);
             ModalResult = true;
-            _window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AppVM;
         }
 
         public RelayCommand WritePrescriptionCommand
@@ -116,9 +118,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void WritePrescriptionCommandExecute()
         {
-            NewPrescriptionView view = new NewPrescriptionView();
-            view.DataContext = new NewPrescriptionViewModel(view, ShowItem);
-            view.ShowDialog();
+            MainViewModel.Instance.CurrentView = prescriptionViewModel;
         }
 
         public RelayCommand WriteReferalCommand
@@ -131,14 +131,34 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void WriteReferalCommandExecute()
         {
-            NewReferalView view = new NewReferalView();
-            view.DataContext = new NewReferalViewModel(ShowItem.Patient, view);
-            view.ShowDialog();
+            NewReferalViewModel vm = new NewReferalViewModel(ShowItem.Patient, this);
+            MainViewModel.Instance.CurrentView = vm;
         }
 
         private bool CanWriteReferalCommandExecute()
         {
             return true;
+        }
+
+        public RelayCommand MedicalRecordCommand
+        {
+            get
+            {
+                return medicalRecordCommand ?? (medicalRecordCommand= new RelayCommand(param => ExecuteShowMedicalCardCommand(),
+                    param => CanExecuteShowMedicalCardCommand()));
+            }
+        }
+
+        private bool CanExecuteShowMedicalCardCommand()
+        {
+            return true;
+        }
+
+        private void ExecuteShowMedicalCardCommand()
+        {
+            //MedicalCardView view = new MedicalCardView();
+            MedicalCardViewModel mv = new MedicalCardViewModel(ShowItem.Patient, ReturnFlag.ANAMNESIS_VIEW);
+            MainViewModel.Instance.CurrentView = mv;
         }
     }
 }

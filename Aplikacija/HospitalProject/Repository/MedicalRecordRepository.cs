@@ -11,22 +11,21 @@ namespace HospitalProject.Repository
 {
     public class MedicalRecordRepository
     {
-        private MedicalRecordFileHandler _medicalRecordFileHandler;
+        private IHandleData<MedicalRecord> _medicalRecordFileHandler;
         private AllergiesRepository _allergiesRepository;
-        private PatientFileHandler _patientFileHandler;
         private List<MedicalRecord> _medicalRecords;
 
         private int _medicalRecordMaxId;
 
-        public MedicalRecordRepository(MedicalRecordFileHandler medicalRecordFileHandler, AllergiesRepository allergiesRepository)
+        public MedicalRecordRepository(AllergiesRepository allergiesRepository)
         {
-            InstantiateLayers(medicalRecordFileHandler, allergiesRepository);
+            InstantiateLayers(allergiesRepository);
             InstantiateData();
         }
 
-        private void InstantiateLayers(MedicalRecordFileHandler medicalRecordFileHandler, AllergiesRepository allergiesRepository)
+        private void InstantiateLayers(AllergiesRepository allergiesRepository)
         {
-            _medicalRecordFileHandler=medicalRecordFileHandler;
+            _medicalRecordFileHandler=new MedicalRecordFileHandler(FilePathStorage.MEDICALRECORD_FILE);
 
             _allergiesRepository = allergiesRepository;
         }
@@ -58,7 +57,7 @@ namespace HospitalProject.Repository
         public MedicalRecord Insert(MedicalRecord medicalRecord)
         {
             _medicalRecordMaxId++;
-            _medicalRecordFileHandler.AppendLineToFile(medicalRecord);
+            _medicalRecordFileHandler.SaveOneEntity(medicalRecord);
             return medicalRecord;
         }
 
@@ -82,15 +81,10 @@ namespace HospitalProject.Repository
             //_medicalRecordFileHandler.Save(_medicalRecords);
         }
         
-        public void AddNewAllergiesToMedicalRecord(Allergies allergies, int PatientID)
+        public void AddNewAllergiesToMedicalRecord(Allergies allergy, Patient patient)
         {   
-            List<Patient> patients = _patientFileHandler.ReadAll().ToList();
-
-            Patient p = patients.SingleOrDefault(r => r.Id.Equals(PatientID));
-            int s = p.MedicalRecordId;
-            MedicalRecord updateMedicalRecord = GetById(s);
-            updateMedicalRecord.Allergies.Add(allergies);
-          
+            MedicalRecord updateMedicalRecord = GetById(patient.MedicalRecordId);
+            updateMedicalRecord.Allergies.Add(allergy);
         }
 
         private void BindAllergensForMedicalRecord()

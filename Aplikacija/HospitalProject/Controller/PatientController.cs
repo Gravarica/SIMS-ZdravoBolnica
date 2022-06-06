@@ -16,33 +16,44 @@ namespace Controller
 {
    public class PatientController
    {
-      private PatientService _patientService;
-      private UserService userService;
-      private AppointmentService appointmentService;
-      private MedicalRecordService _medicalRecordService;
-      private int id;
+       private PatientService _patientService;
+       private UserService _userService;
+       private AppointmentService _appointmentService;
+       private MedicalRecordService _medicalRecordService;
+      
         public PatientController(PatientService patientService, UserService userService, MedicalRecordService medicalRecordService, AppointmentService appointmentService)
         {
 
             var app = System.Windows.Application.Current as App;
+            
             _patientService = patientService;
             _medicalRecordService = medicalRecordService;
-            this.userService = userService;
-            this.appointmentService=appointmentService;
+            this._userService = userService;
+            this._appointmentService=appointmentService;
         }
 
 
         public Patient Create(Patient patient)
         {
-           userService.Create(new User(patient.Username, patient.Password, UserType.PATIENT, false, 0));
-          // MedicalRecord NewPatientMR = new MedicalRecord(id, patient.Id);
-          // _medicalRecordService.Create(NewPatientMR);
-            
-           return _patientService.Create(patient);
-
+            CreateNewUser(patient);
+            MedicalRecord NewMedicalRecord = SetPatientMedicalRecord(patient,new MedicalRecord(0, patient.Id));
+            return patient;
         }
 
+        private Patient CreateNewUser(Patient patient)
+        {
+            _userService.Create(new User(patient.Username, patient.Password, UserType.PATIENT, false, 0));
+            _patientService.Create(patient);
+            return patient;
+        }
+        
 
+        private MedicalRecord SetPatientMedicalRecord(Patient patient, MedicalRecord medicalRecord)
+        {
+            _medicalRecordService.Create(medicalRecord, patient);
+            return medicalRecord;
+        }
+        
         public Patient Get(int id)
       {
          return _patientService.Get(id);
@@ -55,9 +66,9 @@ namespace Controller
       
       public void Delete(int id)
       {
-            Patient P = Get(id);
+            Patient Patient = Get(id);
 
-            userService.Delete(P.Username);
+            _userService.Delete(Patient.Username);
             _patientService.Delete(id);
         }
       
@@ -73,7 +84,7 @@ namespace Controller
 
         public List<Patient> GetPatientsThatHadAppointmentWithDoctor(Doctor doctor)
         {
-            return appointmentService.GetAllPatientsThatHadAppointmentWithDoctor(doctor);
+            return _appointmentService.GetAllPatientsThatHadAppointmentWithDoctor(doctor);
         }
 
     }

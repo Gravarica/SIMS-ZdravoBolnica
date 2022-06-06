@@ -17,7 +17,7 @@ namespace HospitalProject.View.DoctorView.Views
     /// <summary>
     /// Interaction logic for ExaminationView.xaml
     /// </summary>
-    public partial class ExaminationView : Window
+    public partial class ExaminationView : UserControl
     {
         public ExaminationView()
         {

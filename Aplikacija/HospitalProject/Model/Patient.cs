@@ -6,43 +6,37 @@ namespace Model
 {
    public class Patient : User 
    {
-       private int id;
-       private BloodType bloodType;
-       private bool guest;
-        
+       private int _id;
+       private BloodType _bloodType;
+       private bool _guest;
+       public int MedicalRecordId { get; set; }
+       private List<Appointment> _appointments;
        
        public int Id
        {
-           get { return id; }
-           set
-           {
-               id = value;
-            
-           }
+           get{ return _id; }
+           set{ _id = value;}
        }
-
-        
+  
         public BloodType BloodType
        {
-           get { return bloodType; }
-           set { this.bloodType = value; OnPropertyChanged(nameof(BloodType)); }
+           get { return _bloodType; }
+           set { this._bloodType = value; OnPropertyChanged(nameof(BloodType)); }
        }
 
        public bool Guest 
        {
-           get { return guest; }
-           set { guest = value; OnPropertyChanged(nameof(Guest)); }
+           get { return _guest; }
+           set { _guest = value; OnPropertyChanged(nameof(Guest)); }
        }
 
-        public int MedicalRecordId { get; set; }
-
-        private List<Appointment> appointments;
+        
 
       public Patient(int id, int medicalRecordId,String username, String password, string lastName) : base(username, password, lastName)
         {
             Id = id;
             MedicalRecordId = medicalRecordId;
-            appointments = new List<Appointment>(); 
+            _appointments = new List<Appointment>(); 
         }
 
       public Patient(
@@ -71,11 +65,11 @@ namespace Model
           MedicalRecordId = medicalRecordId;
           Guest = guest;
           Gender = gender;
-          appointments = new List<Appointment>();
+          _appointments = new List<Appointment>();
           
       }
 
-        //kad se menja , ostaje ID
+        //update constructor
         public Patient(
             int medicalRecordId,
             bool guest,
@@ -99,7 +93,7 @@ namespace Model
         {   
             MedicalRecordId = medicalRecordId;
             Guest = false;
-            appointments = new List<Appointment>();
+            _appointments = new List<Appointment>();
         }
 
         public Patient(int id, int medicalRecordId,
@@ -108,13 +102,14 @@ namespace Model
             int jmbg) : base(firstName, lastName, jmbg)
         {
             Id = id;
-            this.bloodType = BloodType.a;
-            this.guest = true;
-            appointments = new List<Appointment>();
+            this._bloodType = BloodType.A_NEGATIVE;
+            this._guest = true;
+            _appointments = new List<Appointment>();
         }
+        
         public Patient(int id) { 
             Id = id;
-            appointments = new List<Appointment>();    
+            _appointments = new List<Appointment>();    
         }
 
         public Patient(
@@ -144,7 +139,7 @@ namespace Model
             Id = id;
             MedicalRecordId = medicalRecordId;
             Guest = guest;
-            appointments = new List<Appointment>();
+            _appointments = new List<Appointment>();
 
         }
 

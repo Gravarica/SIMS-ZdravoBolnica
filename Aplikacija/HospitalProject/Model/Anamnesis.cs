@@ -15,28 +15,24 @@ namespace HospitalProject.Model
         private string _description;
         private int _id;
 
-        public Anamnesis(int id, Appointment appointment, DateTime date, string description)
-        {
-            _id = id;
-            _app = appointment;
-            _date = date;
-            _description = description;
-        }
-
         public Anamnesis(int id, int appointmentId, DateTime date, string description)
         {
             _id = id;
-            _app = new Appointment();
-            _app.Id = appointmentId;
-            _date = date;
-            _description = description;
+            App = new Appointment();
+            App.Id = appointmentId;
+            InstantiateFields(date, description);
         }
 
         public Anamnesis(Appointment appointment, string description)
         {
-            _app = appointment;
-            _date = appointment.Date;
-            _description= description;
+            App = appointment;
+            InstantiateFields(appointment.Date, description);
+        }
+
+        private void InstantiateFields(DateTime date, string description)
+        {
+            Date = date;
+            Description= description;
         }
 
         public Anamnesis(int id)

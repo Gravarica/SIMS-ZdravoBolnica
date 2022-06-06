@@ -71,7 +71,7 @@ namespace HospitalProject.Service
             selectedRoom._roomType = oldSource._roomType;
 
             selectedDestinationRoom._number = oldDestination._number;
-           selectedDestinationRoom._floor = oldDestination._floor;
+            selectedDestinationRoom._floor = oldDestination._floor;
             selectedDestinationRoom._roomType = oldDestination._roomType;
 
 

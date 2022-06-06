@@ -14,23 +14,30 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    internal class NewAppointmentVM : BaseViewModel
+    public class NewAppointmentVM : BaseViewModel
     {
 
-        private AppointmentController appointmentController;
-        private DoctorController doctorController;
-        private PatientController patientController;
-        private RoomControoler roomControoler;
+        
         private DateTime startDate;
         private DateTime endDate;
         private Patient patient;
         private Doctor doctor;
         private ObservableCollection<Appointment> _generatedAppointments;
         private Appointment selectedItem;
+        
+        private AppointmentController appointmentController;
+        private DoctorController doctorController;
+        private PatientController patientController;
+        private RoomControoler roomControoler;
+        
+        private RelayCommand submitCommand;
+        private RelayCommand resetCommand;
+        private RelayCommand saveCommand;
+        private RelayCommand cancelCommand;
+        
         private ObservableCollection<Appointment> _appointmentItems;
-
+        
         private List<ComboBoxData<Patient>> patientComboBox = new List<ComboBoxData<Patient>>();
-
         private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
         private List<ComboBoxData<ExaminationType>> examinationTypeComboBox = new List<ComboBoxData<ExaminationType>>();
         public ObservableCollection<Appointment> GeneratedAppointments
@@ -46,10 +53,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
-        private RelayCommand submitCommand;
-        private RelayCommand resetCommand;
-        private RelayCommand saveCommand;
-        private RelayCommand cancelCommand;
 
         public NewAppointmentVM(ObservableCollection<Appointment> AppointmentItems)
         {
@@ -74,8 +77,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             FillComboData2();
         }
 
-        // PROPERTY DEFINITIONS
-
+        
         public List<ComboBoxData<Patient>> PatientComboBox
         {
 
@@ -113,7 +115,6 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             set
             {
                 startDate = value;
-                //OnPropertyChanged(nameof(StartDate));
             }
         }
 
@@ -149,11 +150,11 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             {
                 return doctor;
             }
-    set
+            set
             {
                 doctor = value;
                 OnPropertyChanged(nameof(DoctorData));
-}
+            }
         }
         public Appointment SelectedItem
         {
@@ -192,7 +193,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             DateOnly endDateOnly = new DateOnly(EndDate.Year, EndDate.Month, EndDate.Day);
             GeneratedAppointments = new ObservableCollection<Appointment>(appointmentController.GenerateAvailableAppointments(startDateOnly,
                                                                                                                               endDateOnly,
-                                                                                                                              doctor,
+                                                                                                                              DoctorData,
                                                                                                                               PatientData,
                                                                                                                               ExaminationType.GENERAL,
                                                                                                                               roomControoler.Get(3), 0));
@@ -217,8 +218,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             _generatedAppointments.Remove(SelectedItem);
         }
 
-        // INTERNAL PRIVATE METHODS
-
+        
         private void FillComboData()
         {
 
@@ -231,9 +231,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void FillComboData2()
         {
 
-            foreach (Doctor p in doctorController.GetAll())
+            foreach (Doctor doctor in doctorController.GetAll())
             {
-                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = p.FirstName + " " + p.LastName, Value = p });
+                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = doctor.FirstName + " " + doctor.LastName, Value = doctor });
             }
 
         }

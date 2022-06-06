@@ -12,21 +12,18 @@ namespace HospitalProject.Service
 {
     public class MedicalRecordService
     {
-
+        private PatientService _patientService;
         private AnamnesisService _anamnesisService;
         private AllergiesService _allergiesService;
-
         private MedicalRecordRepository _medicalRecordRepostiory;
 
-        private PatientService _patientService;
+       
 
         public MedicalRecordService(AllergiesService allergiesService,  AnamnesisService anamnesisService, MedicalRecordRepository medicalRecordRepostiory, PatientService patientService)
         {
             _allergiesService = allergiesService;
             _anamnesisService=anamnesisService;
-
             _medicalRecordRepostiory=medicalRecordRepostiory;
-
             _patientService=patientService;
         }
 
@@ -36,6 +33,20 @@ namespace HospitalProject.Service
             medicalRecord.Id = _medicalRecordRepostiory.GetMaxId();
             _patientService.SetPatientMedicalRecord(medicalRecord.Patient.Id, medicalRecord.Id);
             return _medicalRecordRepostiory.Insert(medicalRecord);
+        }
+
+        public MedicalRecord Create(MedicalRecord medicalRecord, Patient patient)
+        {
+            SetPatientMedicalRecord(medicalRecord, patient);
+            _medicalRecordRepostiory.Insert(medicalRecord);
+            return medicalRecord;
+        }
+
+        private MedicalRecord SetPatientMedicalRecord(MedicalRecord medicalRecord, Patient patient)
+        {
+            medicalRecord.Id = _medicalRecordRepostiory.GetMaxId() + 1;
+            medicalRecord.Patient = patient;
+            return medicalRecord;
         }
 
 
@@ -111,15 +122,9 @@ namespace HospitalProject.Service
         {
             _medicalRecordRepostiory.AddNewAnamnesisToMedicalRecord(anamnesis);
         }
-        public void AddNewAllergiesToMedicalRecord(Allergies allergies, int PatientID)
+        public void AddNewAllergiesToMedicalRecord(Allergies allergies, Patient patient)
         {
-            _medicalRecordRepostiory.AddNewAllergiesToMedicalRecord(allergies, PatientID);
-        }
-
-        private void BindMedicalRecordWithAllergies(MedicalRecord medicalRecord)
-        {
-            
-            medicalRecord.Allergies = (List<Allergies>)_allergiesService.GetAllergiesByMedicalRecord(medicalRecord.Patient.Id);
+            _medicalRecordRepostiory.AddNewAllergiesToMedicalRecord(allergies, patient);
         }
 
     }

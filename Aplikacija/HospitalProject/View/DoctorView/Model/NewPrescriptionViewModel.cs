@@ -20,6 +20,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private RelayCommand returnCommand;
         private RelayCommand saveCommand;
+        private AnamnesisViewModel returnVM;
 
         public ObservableCollection<Prescription> PatientPrescriptions { get; set; }
         private List<ComboBoxData<int>> intervals = new List<ComboBoxData<int>>();
@@ -35,9 +36,8 @@ namespace HospitalProject.View.DoctorView.Model
         private PrescriptionController prescriptionController;
         private EquipementController equipementController;
 
-        public NewPrescriptionViewModel(Window window, Appointment showItem)
+        public NewPrescriptionViewModel(Appointment showItem)
         {
-            _window = window;
             InstantiateControllers();
             InstantiateData(showItem);
         }
@@ -178,7 +178,7 @@ namespace HospitalProject.View.DoctorView.Model
 
         private void ReturnCommandExecute()
         {
-            _window.Close();
+            MainViewModel.Instance.CurrentView = MainViewModel.Instance.AnamnesisVM;
         }
 
         public RelayCommand SaveCommand
@@ -203,7 +203,7 @@ namespace HospitalProject.View.DoctorView.Model
             } 
             else
             {
-                _window.Close();
+                MainViewModel.Instance.CurrentView = MainViewModel.Instance.AnamnesisVM;
             }
             
         }

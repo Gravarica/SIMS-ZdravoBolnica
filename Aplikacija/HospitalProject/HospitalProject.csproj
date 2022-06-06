@@ -32,9 +32,15 @@
     <None Remove="View\DoctorView\Views\Icons\patientIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\treatmentIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\treatmentIcon2.png" />
+    <None Remove="View\Secretary\SecretaryV\Icons\university.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Update="View\Model\RoomView.xaml.cs">
       <DependentUpon>RoomView.cs.xaml</DependentUpon>
     </Compile>
@@ -57,10 +63,27 @@
     <Compile Update="View\WardenForms\Views\WardenEquipementView.xaml.cs">
       <DependentUpon>WardenEquipementViev.xaml</DependentUpon>
     </Compile>
+    <Compile Remove="View\Secretary\SecretaryV\DoctorAppointments.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\DoctorProfile.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\DoctorsList.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\DoctorsListVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\SecretaryMainView.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\DoctorAppointmentsVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\EditAppview.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\NewAppointment.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\PatientProfile.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\SecretaryView.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\SecretaryViewVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\PatientAllergies.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\AddPatientVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\AddPatient.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\EditProfile.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\PatientAllergiesVM.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
+    <Folder Include="View\Secretary\SecretaryV\Icons" />
 
   </ItemGroup>
 
@@ -121,7 +144,7 @@
   </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+        <PackageReference Include="MaterialDesignThemes" Version="4.6.0-ci191" />
         <PackageReference Include="Syncfusion.Grid.WPF" Version="20.1.0.52" />
         <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.1.0.52" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="20.1.0.52" />
@@ -167,4 +190,31 @@
     <PackageReference Include="Syncfusion.SfHeatMap.WPF" Version="20.1.0.52" />
     <PackageReference Include="Syncfusion.SfSmithChart.WPF" Version="20.1.0.52" />
 </ItemGroup>
+
+    <ItemGroup>
+      <Page Remove="View\Secretary\SecretaryV\DoctorAppointments.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\DoctorProfile.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\DoctorsList.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\SecretaryMainView.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\EditAppview.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\NewAppointment.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\PatientProfile.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\SecretaryView.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\PatientAllergies.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\AddPatient.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\EditProfile.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resource.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Localization\strings.en-US.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Localization\strings.sr-LATN-CS.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+    </ItemGroup>
 </Project>
