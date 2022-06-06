@@ -169,13 +169,17 @@ namespace HospitalProject.View.WardenForms.Views
             {
                 foreach (Equipement equipement in room.Equipment)
                 {
-                    _equipmentRelocationController.Create(new EquipmentRelocation(room, new Room(1), equipement,
-                        equipement.Quantity,
-                        new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month,
-                            ReorganisationEndDate.Day)));
+                    _equipmentRelocationController.Create(new EquipmentRelocation(room, new Room(1), equipement, equipement.Quantity,
+                        ConvertDateTimeToDateOnly(ReorganisationEndDate)));
                 }
             }
             
+        }
+
+        private DateOnly ConvertDateTimeToDateOnly(DateTime ReorganisationEndDate )
+        {
+            return new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month,
+                ReorganisationEndDate.Day);
         }
 
         private void SaveRoom(RoomCheckBoxModel room)
@@ -184,9 +188,8 @@ namespace HospitalProject.View.WardenForms.Views
             newRoom._floor = SourceRooms[0]._floor;
             newRoom = CreateRoom(newRoom);
             UpdateDataViewAdd(newRoom);
-            _roomRenovationController.Create( new RoomRenovation(new DateOnly(ReorganisationStartDate.Year, ReorganisationStartDate.Month, ReorganisationStartDate.Day), 
-                new DateOnly(ReorganisationEndDate.Year, ReorganisationEndDate.Month, ReorganisationEndDate.Day),
-                newRoom));
+            _roomRenovationController.Create( new RoomRenovation(ConvertDateTimeToDateOnly(ReorganisationStartDate), 
+                ConvertDateTimeToDateOnly(ReorganisationEndDate), newRoom));
         }
 
         private void SetViewToRoomControl()

@@ -168,18 +168,25 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
     {
         InitializeControllers();
         WasZero = false;
-        SelectedEquipment = selectedEquipment;
         int equipmentsId = selectedEquipment.Id;
+        InstatiateData(equipmentsId);
+        InitialiseCommands(selectedEquipment);
+    }
+
+    private void InstatiateData( int equipmentsId)
+    {
         GeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateEquipementRooms(equipmentsId));
         AllRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
         AllGeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
+    }
+
+    private void InitialiseCommands(Equipement selectedEquipment)
+    {
+        SelectedEquipment = selectedEquipment;
         RelocateEquipmentCommand = new RelayCommand( parm=> ExecuteEquipmentRelocation(selectedEquipment), param => CanExecuteRelocation());
         SearchQuantityCommand = new RelayCommand(o => ExecuteSearchQuantityCommand(), o => true);
     }
-    public WardenEquipemntRelocationViewModel()
-    {
-        
-    }
+    public WardenEquipemntRelocationViewModel() {}
 
     private void InitializeControllers()
     {
@@ -203,8 +210,14 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
 
     private void ScheduleEquipmentRelocation(Equipement selectedEquipment)
     {
-        equipmentRelocationController.Create(new EquipmentRelocation(new Room(SelectedRoom.RoomId),new Room(DestinationRoom.RoomId),selectedEquipment,Quantity,new DateOnly(RelocationDate.Year,RelocationDate.Month,RelocationDate.Day)));
+        equipmentRelocationController.Create(new EquipmentRelocation(new Room(SelectedRoom.RoomId),new Room(DestinationRoom.RoomId),selectedEquipment,Quantity,ConvertDateTimeToDateOnly(RelocationDate)));
 
+    }
+    
+    private DateOnly ConvertDateTimeToDateOnly(DateTime date )
+    {
+        return new DateOnly(date.Year, date.Month,
+            date.Day);
     }
 
     private void SetRoomEmpty()
