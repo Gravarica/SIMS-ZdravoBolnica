@@ -32,11 +32,16 @@ namespace HospitalProject.View.WardenForms.ViewModels
         public RoomRenovationViewModel(Room selectedRoom)
         {
             InitializeControllers();
+            InitialiseData(selectedRoom);
+            InitialiseCommands();
+
+        }
+
+        private void InitialiseData(Room selectedRoom)
+        {
             Room = selectedRoom;
             SearchStartDate = DateTime.Today;
             SearchEndDate = DateTime.Today;
-            InitialiseCommands();
-
         }
 
         private void InitialiseCommands()
@@ -141,9 +146,16 @@ namespace HospitalProject.View.WardenForms.ViewModels
         private void SearchCommandExecute()
         {
             GeneratedRenovationAppointments = new ObservableCollection<RoomRenovation>(
-                _roomRenovationController.GenerateAvailableRenovationAppointments(new DateOnly(SearchStartDate.Year,SearchStartDate.Month,SearchStartDate.Day), new DateOnly(SearchEndDate.Year,SearchEndDate.Month,SearchEndDate.Day), Room,
+                _roomRenovationController.GenerateAvailableRenovationAppointments(ConvertDateTimeToDateOnly(SearchStartDate), ConvertDateTimeToDateOnly(SearchEndDate), Room,
                     DaysDuration));
         }
+        
+        private DateOnly ConvertDateTimeToDateOnly(DateTime date )
+        {
+            return new DateOnly(date.Year, date.Month,
+                date.Day);
+        }
+
 
         private bool CanExecuteSearch()
         {
@@ -162,6 +174,11 @@ namespace HospitalProject.View.WardenForms.ViewModels
             _roomRenovationController.Create(SelectedRenovation);
             _generatedRenovationAppointments.Remove(SelectedRenovation);
 
+            ChangeMainViewToWardenRoomControl();
+        }
+
+        private void ChangeMainViewToWardenRoomControl()
+        {
             WardenRoomControl wrc = new WardenRoomControl();
             MainViewModel.Instance.MomentalView = wrc;
         }

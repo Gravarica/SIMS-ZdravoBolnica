@@ -7,32 +7,20 @@ using Model;
 
 namespace HospitalProject.FileHandler
 {
-    public class RoomRenovationFileHandler
+    public class RoomRenovationFileHandler : GenericFileHandler<RoomRenovation>
     {
-        private readonly string _path;
-
-        private readonly string _delimiter;
-
         private readonly string _datetimeFormat;
         
-
-        public RoomRenovationFileHandler(string path, string delimiter, string datetimeFormat)
+        public RoomRenovationFileHandler(string path) :base(path)
         {
-            _path = path;
-            _delimiter = delimiter;
-            _datetimeFormat = datetimeFormat;
+            _datetimeFormat=FormatStorage.ONLY_DATE_FORMAT;
         }
         
-        public IEnumerable<RoomRenovation> ReadAll()
-        {
-            return File.ReadAllLines(_path)                 
-                .Select(ConvertCSVFormatToRoomRenovation)   
-                .ToList();
-        }
 
-        private RoomRenovation ConvertCSVFormatToRoomRenovation(string CSVFormat)
+
+        protected override RoomRenovation ConvertCSVToEntity(string CSVFormat)
         {
-            string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
+            string[] tokens = CSVFormat.Split(CSV_DELIMITER.ToCharArray());
             return new RoomRenovation(DateOnly.Parse(tokens[0]),
                 DateOnly.Parse(tokens[1]),
                 int.Parse(tokens[2]),
@@ -40,9 +28,9 @@ namespace HospitalProject.FileHandler
                 int.Parse(tokens[4]));
         }
 
-        private string ConvertRoomRenovatoinToCSVFormat(RoomRenovation roomRenovation)
+        protected override string ConvertEntityToCSV(RoomRenovation roomRenovation)
         {
-            return string.Join(_delimiter,
+            return string.Join(CSV_DELIMITER,
                 roomRenovation.StartDate.ToString(_datetimeFormat),
                 roomRenovation.EndDate.ToString(_datetimeFormat),
                 roomRenovation.Room.Id,
@@ -50,23 +38,7 @@ namespace HospitalProject.FileHandler
                 roomRenovation.Id
             );
         }
-
-        public void AppandLineToFile(RoomRenovation roomRenovation)
-        {
-            string line = ConvertRoomRenovatoinToCSVFormat(roomRenovation);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
         
-        public void Save(IEnumerable<RoomRenovation> _renovations)
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (RoomRenovation roomRenovation in _renovations)
-                {
-                    file.WriteLine(ConvertRoomRenovatoinToCSVFormat(roomRenovation));
-                }
-            }
-        }
     }
 }
 

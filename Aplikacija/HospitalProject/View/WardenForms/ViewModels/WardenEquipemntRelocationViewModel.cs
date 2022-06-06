@@ -296,12 +296,19 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         if (RelocationDate != DateTime.Today)
         {
             ScheduleEquipmentRelocation(selectedEquipment);
+            ChangeMainViewToEquipmentView();
         }
         else
         {
             ExecuteEquipmentRelocationNow(selectedEquipment);
         }
         
+    }
+
+    private void ChangeMainViewToEquipmentView()
+    {
+        EquipementViewModel wardenEquipemntViewModel = new EquipementViewModel();
+        MainViewModel.Instance.MomentalView = wardenEquipemntViewModel;
     }
 
     private bool CanExecuteRelocation()

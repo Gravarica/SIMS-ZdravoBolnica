@@ -26,5 +26,10 @@ namespace HospitalProject.Controller
         {
             return noteService.GetNotesByPatient(id);
         }
+
+        public List<Note> GetAll()
+        {
+            return noteService.GetAll().ToList();
+        }
     }
 }

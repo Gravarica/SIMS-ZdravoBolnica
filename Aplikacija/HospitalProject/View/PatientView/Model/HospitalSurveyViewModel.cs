@@ -67,8 +67,15 @@ namespace HospitalProject.View.PatientView.Model
         {
             window = _window;
             InitializeControllers();
-            
+            InstantiateAnswersToNull();
 
+        }
+
+        private void InstantiateAnswersToNull()
+        {
+            Answer1 = null;
+            Answer2 = null;
+            Answer3 = null;
         }
 
         private void InitializeControllers()
@@ -729,7 +736,13 @@ namespace HospitalProject.View.PatientView.Model
 
         private bool CanRateCommandExecute()
         {
-            return DoesSurveyRealizationExists();
+            return DoesSurveyRealizationExists() && AreStarsClicked();
+            
+        }
+
+        private bool AreStarsClicked()
+        {
+            return Answer1 != null && Answer2 != null && Answer3 != null;
         }
 
         private bool DoesSurveyRealizationExists()
@@ -737,8 +750,8 @@ namespace HospitalProject.View.PatientView.Model
             List<SurveyRealization>_surveyRealizations = surveyRealizationController.GetAll().ToList();
             foreach(SurveyRealization surveyRealization in _surveyRealizations)
             {
-                if (surveyRealization.Survey.Id == survey.Id && surveyRealization.Patient == patientController.GetLoggedPatient(userController.GetLoggedUser().Username)) ;
-                return false;
+                if (surveyRealization.Survey.Id == survey.Id && surveyRealization.Patient == patientController.GetLoggedPatient(userController.GetLoggedUser().Username))
+                    return false;
             }
             return true;
         }

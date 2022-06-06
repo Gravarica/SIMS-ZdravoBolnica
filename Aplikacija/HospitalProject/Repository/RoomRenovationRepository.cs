@@ -11,15 +11,15 @@ public class RoomRenovationRepository
     private int _renovationsMaxId;
     private List<RoomRenovation> _renovations = new List<RoomRenovation>();
 
-    public RoomRenovationRepository(RoomRenovationFileHandler roomRenovationFileHandler)
+    public RoomRenovationRepository()
     {
-        InitialiseData(roomRenovationFileHandler);
+        InitialiseData();
         _renovationsMaxId = GetMaxId();
     }
 
-    private void InitialiseData(RoomRenovationFileHandler roomRenovationFileHandler)
+    private void InitialiseData()
     {
-        _renovationFileHandler = roomRenovationFileHandler;
+        _renovationFileHandler = new RoomRenovationFileHandler(FilePathStorage.ROOM_RENOVATION_FILE);
         _renovations = _renovationFileHandler.ReadAll().ToList();
     }
     private int GetMaxId() {
@@ -29,7 +29,7 @@ public class RoomRenovationRepository
     public RoomRenovation Insert(RoomRenovation roomRenovation)
     {
         roomRenovation.Id = ++_renovationsMaxId;
-        _renovationFileHandler.AppandLineToFile(roomRenovation);
+        _renovationFileHandler.AppendLineToFile(roomRenovation);
         _renovations.Add(roomRenovation);
         return roomRenovation;
     }
@@ -67,12 +67,5 @@ public class RoomRenovationRepository
         _renovationFileHandler.Save(_renovations);
     }
     
-    public void SetRenovationFinished(RoomRenovation renovation)
-    {
-        RoomRenovation updatedrRenovation = GetById(renovation.Id);
 
-        updatedrRenovation.IsDone = true;
-
-        _renovationFileHandler.Save(_renovations);
-    }
 }

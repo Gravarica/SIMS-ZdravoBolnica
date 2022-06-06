@@ -95,8 +95,7 @@ namespace HospitalProject.View.WardenForms.Views
         private void ExecuteRenovationComand()
         {
             
-            RoomRenovationViewModel roomRenovationViewModel =
-                new RoomRenovationViewModel(RoomConverter.ConvertRoomViewtoRoom((RoomViewModel)Rooms.SelectedItem));
+            RoomRenovationViewModel roomRenovationViewModel = new RoomRenovationViewModel(RoomConverter.ConvertRoomViewtoRoom((RoomViewModel)Rooms.SelectedItem));
             MainViewModel.Instance.MomentalView = roomRenovationViewModel;
         }
         
