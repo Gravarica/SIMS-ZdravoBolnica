@@ -24,27 +24,11 @@ namespace HospitalProject
     {
         private static string _projectPath = System.Reflection.Assembly.GetExecutingAssembly().Location
             .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
-        private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\doctors.csv";
-        
         private string MEETINGS_FILE = _projectPath + "\\Resources\\Data\\meetings.csv";
-        private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
-        private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string EQUIPEMENT_FILE = _projectPath + "\\Resources\\Data\\equipement.csv";
         private string ROOM_RENOVATION_FILE = _projectPath + "\\Resources\\Data\\roomRenovations.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
-        private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
-        private string ALLERGIES_FILE = _projectPath + "\\Resources\\Data\\allergy.csv";
-        private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
-        private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
-        private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
-        private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
         private string EQUIPMENT_RELOCATION_FILE = _projectPath + "\\Resources\\Data\\equipmentRelocations.csv";
-        private string QUESTIONS_FILE = _projectPath + "\\Resources\\Data\\questions.csv";
-        private string SURVEYS_FILE = _projectPath + "\\Resources\\Data\\surveys.csv";
-        private string SURVEY_REALIZATIONS_FILE = _projectPath + "\\Resources\\Data\\surveyRealizations.csv";
-        private string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
-        private string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
-        private string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
 
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
@@ -77,7 +61,9 @@ namespace HospitalProject
         public PrescriptionController PrescriptionController { get; set; }
 
         public NotificationController NotificationController { get; set; }
-        
+
+        public CustomNotificationController CustomNotificationController { get; set; }
+
         public EquipmentRelocationController EquipmentRelocationController{ get; set; }
 
         public QuestionController QuestionController { get; set; }
@@ -90,7 +76,9 @@ namespace HospitalProject
 
         public MedicineReportController MedicineReportController { get; set; }  
 
-        public VacationRequestController VacationRequestController { get; set; }    
+        public VacationRequestController VacationRequestController { get; set; }
+
+        public NoteController NoteController { get; set; }
 
 
         public App()
@@ -128,6 +116,8 @@ namespace HospitalProject
 
             var _notificationRepository = new NotificationRepository(_prescriptionRepository);
 
+            var _customNotificationRepository = new CustomNotificationRepository();
+
             var _userRepository = new UserRepository();
 
             var _questionRepository = new QuestionRepository();
@@ -141,6 +131,8 @@ namespace HospitalProject
             var _medicineReportRepository = new MedicineReportRepository(_equipementRepository, _doctorRepository);
 
             var _vacationRequestRepository = new VacationRequestRepository(_doctorRepository);
+
+            var _noteRepository = new NoteRepository(_anamnesisRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -181,14 +173,18 @@ namespace HospitalProject
             var _medicineReportService = new MedicineReportService(_medicineReportRepository);
 
             var _vacationRequestService = new VacationRequestService(_vacationRequestRepository);
-            
+
+            var _noteService = new NoteService(_noteRepository, _anamnesisService);
+
+            var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
+
+            var _customNotificationService = new CustomNotificationService(_customNotificationRepository);
+
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
             AllergiesController = new AllergiesController(_allergiesService);
 
             RenovationController = new RoomRenovationController(_roomRenovationService);
-
-            var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
 
             EquipementController = new EquipementController(_equipementService);
 
@@ -214,6 +210,8 @@ namespace HospitalProject
 
             NotificationController = new NotificationController(_notificationService);
 
+            CustomNotificationController = new CustomNotificationController(_customNotificationService);
+
             QuestionController = new QuestionController(_questionService);
 
             SurveyController = new SurveyController(_surveyService);
@@ -225,6 +223,8 @@ namespace HospitalProject
             VacationRequestController = new VacationRequestController(_vacationRequestService);
 
             MedicineReportController = new MedicineReportController(_medicineReportService);
+
+            NoteController = new NoteController(_noteService);
 
         }
 

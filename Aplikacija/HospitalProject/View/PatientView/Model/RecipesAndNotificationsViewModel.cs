@@ -1,5 +1,7 @@
 ﻿using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.View.DoctorView.Model;
+using HospitalProject.View.PatientView.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +18,21 @@ namespace HospitalProject.View.PatientView.Model
 
         private Window window;
 
-        public RelayCommand NotificationsViewCommand { get; set; }
+        public RelayCommand NotesViewCommand { get; set; }
 
         public RelayCommand RecipesViewCommand { get; set; }
 
+        public RelayCommand PrescriptionHistoryViewCommand { get; set; }
+
         private RelayCommand logoutCommand;
+
+        private RelayCommand makeCustomNotificationCommand;
 
         public RecipesViewModel RecipesVM { get; set; }
 
-        public NotificationsViewModel NotificationsVM { get; set; }
+        public NotesViewModel NotesVM { get; set; }
+
+        public MedicalCardViewModel MedicalCardVM { get; set; }
 
         private object _currentView;
 
@@ -52,23 +60,47 @@ namespace HospitalProject.View.PatientView.Model
 
             
 
-            NotificationsVM = new NotificationsViewModel();
+            NotesVM = new NotesViewModel();
             RecipesVM = new RecipesViewModel();
-            CurrentView = NotificationsVM;
+            MedicalCardVM = new MedicalCardViewModel();
+            CurrentView = NotesVM;
 
-            NotificationsViewCommand = new RelayCommand(o =>
+            NotesViewCommand = new RelayCommand(o =>
             {
-                CurrentView = NotificationsVM;
+                CurrentView = NotesVM;
             });
 
             RecipesViewCommand = new RelayCommand(o =>
             {
                 CurrentView = RecipesVM;
             });
+
+            PrescriptionHistoryViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = MedicalCardVM;
+            });
         }
 
+        public RelayCommand MakeCustomNotificationCommand
+        {
 
+            get
+            {
+                return makeCustomNotificationCommand ?? (makeCustomNotificationCommand = new RelayCommand(param => MakeCustomNotificationCommandExecute(), param => CanMakeCustomNotificationCommandExecute()));
+            }
 
+        }
 
+        private void MakeCustomNotificationCommandExecute()
+        {
+            CustomNotificationView cnvw = new CustomNotificationView();
+            cnvw.DataContext = new CustomNotificationViewModel(cnvw);
+            cnvw.Show(); 
+        }
+
+        private bool CanMakeCustomNotificationCommandExecute()
+        {
+            return true;
+        }
     }
 }

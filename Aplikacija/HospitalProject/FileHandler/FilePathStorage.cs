@@ -29,6 +29,8 @@ namespace HospitalProject.FileHandler
         public static string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
         public static string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
         public static string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
+        public static string CUSTOM_NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\customNotifications.csv";
+        public static string NOTE_FILE = _projectPath + "\\Resources\\Data\\notes.csv";
 
     }
 }

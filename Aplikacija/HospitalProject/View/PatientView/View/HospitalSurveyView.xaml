@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="HospitalSurveyView" Height="750" Width="430">
 
-    
-    <Grid Background="#FFFF99">
-        
+
+    <Grid Background="#FFE4B5">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
@@ -26,39 +26,122 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            
+
 
         </Grid.ColumnDefinitions>
-        
-        
-        <TextBlock Text="{Binding Question1.Text}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"
+
+
+        <TextBlock Text="{Binding Question1.Text}" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                    Width="350" Grid.Row="1"
                    TextAlignment="Center"/>
+        <Grid Grid.Row="2">
+            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+            <Canvas Canvas.Left="110" Canvas.Top="20">
+                    <Rectangle Width="200" Height="50" Fill="#FFE4B5" RadiusX="5" RadiusY="5" />
+                <Canvas Canvas.Left="5" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star1}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star1IsClickedCommand}" Opacity="0"></Button>
+                </Canvas>
+                <Canvas Canvas.Left="45" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star2}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star2IsClickedCommand}" Opacity="0"></Button>                
+                </Canvas>
+                <Canvas Canvas.Left="85" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star3}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star3IsClickedCommand}" Opacity="0"></Button>
+                </Canvas>
+                    <Canvas Canvas.Left="125" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star4}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z"/>
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star4IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                <Canvas Canvas.Left="165" Canvas.Top="20">
+                    <Path Stroke="#FFFF00" Fill="{Binding Star5}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star5IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+            </Canvas>
+        </Canvas>
+        </Grid>
 
-        <TextBox Grid.Row="2" Height="25" Width="200"
-                 HorizontalAlignment="Center"
-                 Foreground="Gray"
-                 Text="{Binding Answer1, Mode=OneWayToSource}"/>
-
-        <TextBlock Text="{Binding Question2.Text}" 
+    <TextBlock Text="{Binding Question2.Text}" 
                    Grid.Row="3"
-                   FontSize="30" HorizontalAlignment="Center" Width="350"
+                   FontSize="30" HorizontalAlignment="Center" Width="350" VerticalAlignment="Bottom"
                    TextAlignment="Center"/>
 
-        <TextBox Grid.Row="4" Height="25" Width="200"
-                 HorizontalAlignment="Center"
-                 Foreground="Gray"
-                 Text="{Binding Answer2, Mode=OneWayToSource}"/>
+        <Grid Grid.Row="4">
+            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Canvas Canvas.Left="110" Canvas.Top="20">
+                    <Rectangle Width="200" Height="50" Fill="#FFE4B5" RadiusX="5" RadiusY="5" />
+                    <Canvas Canvas.Left="5" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star6}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star6IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="45" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star7}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star7IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="85" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star8}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star8IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="125" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star9}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z"/>
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star9IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="165" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star10}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star10IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Grid>
 
         <TextBlock Text="{Binding Question3.Text}" 
                    Grid.Row="5"
-                   FontSize="30" HorizontalAlignment="Center" Width="350"
+                   FontSize="30" HorizontalAlignment="Center" Width="350" VerticalAlignment="Bottom"
                    TextAlignment="Center"/>
 
-        <TextBox Grid.Row="6" Height="25" Width="200"
-                 HorizontalAlignment="Center"
-                 Foreground="Gray"
-                 Text="{Binding Answer3, Mode=OneWayToSource}"/>
+        <Grid Grid.Row="6">
+            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                <Canvas Canvas.Left="110" Canvas.Top="20">
+                    <Rectangle Width="200" Height="50" Fill="#FFE4B5" RadiusX="5" RadiusY="5" />
+                    <Canvas Canvas.Left="5" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star11}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star11IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="45" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star12}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star12IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="85" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star13}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star13IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="125" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star14}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z"/>
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star14IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                    <Canvas Canvas.Left="165" Canvas.Top="20">
+                        <Path Stroke="#FFFF00" Fill="{Binding Star15}" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
+                        <Button Height="20" Width="25"
+                            Command="{Binding Star15IsClickedCommand}" Opacity="0"></Button>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Grid>
 
         <Button Content="Rate" Grid.Row="7" Height="30" Width="150" FontSize="18"
                 Command="{Binding RateCommand}"/>

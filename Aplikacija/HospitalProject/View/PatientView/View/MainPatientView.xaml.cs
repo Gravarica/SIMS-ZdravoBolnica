@@ -41,10 +41,10 @@ namespace HospitalProject.View.PatientView.View
 
         }
 
+        private void RowDefinition_IsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
 
-        
-
-
+        }
     }
 
 

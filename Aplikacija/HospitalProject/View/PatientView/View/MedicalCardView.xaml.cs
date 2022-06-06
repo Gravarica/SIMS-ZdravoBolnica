@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using HospitalProject.View.PatientView.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +18,14 @@ using System.Windows.Shapes;
 namespace HospitalProject.View.PatientView.View
 {
     /// <summary>
-    /// Interaction logic for NotificationsView.xaml
+    /// Interaction logic for MedicalCardView.xaml
     /// </summary>
-    public partial class NotificationsView : UserControl
+    public partial class MedicalCardView : UserControl
     {
-        public NotificationsView()
+        public MedicalCardView()
         {
             InitializeComponent();
+            
         }
     }
 }

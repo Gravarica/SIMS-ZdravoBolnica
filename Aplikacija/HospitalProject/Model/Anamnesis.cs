@@ -35,6 +35,11 @@ namespace HospitalProject.Model
             Description= description;
         }
 
+        public Anamnesis(int id)
+        {
+            _id = id;
+        }
+
         public Appointment App
         {
             get

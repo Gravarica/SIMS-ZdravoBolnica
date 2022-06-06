@@ -11,6 +11,17 @@
   <ItemGroup>
     <None Remove="Resources\Images\General\Account.png" />
     <None Remove="Resources\Images\General\Logo.png" />
+    <None Remove="Resources\Images\Patient\back_button.png" />
+    <None Remove="Resources\Images\Patient\calendar.png" />
+    <None Remove="Resources\Images\Patient\customer_rating.png" />
+    <None Remove="Resources\Images\Patient\desk.png" />
+    <None Remove="Resources\Images\Patient\doctor.png" />
+    <None Remove="Resources\Images\Patient\drugs.png" />
+    <None Remove="Resources\Images\Patient\hospital.png" />
+    <None Remove="Resources\Images\Patient\medicines.png" />
+    <None Remove="Resources\Images\Patient\office.png" />
+    <None Remove="Resources\Images\Patient\rating.png" />
+    <None Remove="Resources\Images\Patient\shelf.png" />
     <None Remove="View\DoctorView\Views\Icons\calendarIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\doctorIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\doctorIcon2.png" />
@@ -37,6 +48,18 @@
     <Compile Remove="Repository\PatientAllergiesRepository.cs" />
     <Compile Remove="FileHandler\PatientAllergiesFileHandler.cs" />
     <Compile Remove="Model\PatientAllergies.cs" />
+    <Resource Include="Resources\Images\Patient\back_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\desk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\office.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\shelf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Compile Update="View\WardenForms\Views\WardenEquipementView.xaml.cs">
       <DependentUpon>WardenEquipementViev.xaml</DependentUpon>
     </Compile>
@@ -67,6 +90,27 @@
   <ItemGroup>
     <Resource Include="Resources\Images\General\Account.png" />
     <Resource Include="Resources\Images\General\Logo.png" />
+    <Resource Include="Resources\Images\Patient\calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\customer_rating.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\doctor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\drugs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\hospital.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\medicines.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\Patient\rating.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\DoctorView\Views\Icons\calendarIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -102,7 +102,7 @@ namespace Model
             int jmbg) : base(firstName, lastName, jmbg)
         {
             Id = id;
-            this._bloodType = BloodType.a;
+            this._bloodType = BloodType.A_NEGATIVE;
             this._guest = true;
             _appointments = new List<Appointment>();
         }

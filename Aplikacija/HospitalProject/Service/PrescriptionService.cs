@@ -72,7 +72,6 @@ namespace HospitalProject.Service
 
 
         public Prescription GetById(int id) {
-
             var prescription = prescriptionRepository.GetById(id);
             SetAppointmentForPrescription(prescription);
             return prescription;
