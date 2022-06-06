@@ -9,30 +9,17 @@ using HospitalProject.Model;
 
 namespace HospitalProject.FileHandler
 {
-    public class EquipementFileHandler
+    public class EquipementFileHandler : GenericFileHandler<Equipement>
     {
-        private readonly string _path;
-
-        private readonly string _delimiter;
-
-        public EquipementFileHandler(string path, string delimiter)
-        {
-            _path = path;
-            _delimiter = delimiter;
-        }
+        
+        public EquipementFileHandler(string path) : base(path) {}
 
         
-        public IEnumerable<Equipement> ReadAll()
-        {
-            return File.ReadAllLines(_path)
-                   .Select(ConvertCSVFormatToEquipement)
-                   .ToList();
-        }
 
-        private Equipement ConvertCSVFormatToEquipement(string CSVFormat)
+        protected override Equipement ConvertCSVToEntity(string CSVFormat)
         {
             
-            string[] tokens = CSVFormat.Split(_delimiter.ToCharArray());
+            string[] tokens = CSVFormat.Split(CSV_DELIMITER.ToCharArray());
             if (tokens.Length == 4)
             {
                 return new Equipement(int.Parse(tokens[0]),
@@ -152,11 +139,11 @@ namespace HospitalProject.FileHandler
             return replacements;
         }
 
-        private string ConvertEquipementToCSVFormat(Equipement equipement)
+        protected override string ConvertEntityToCSV(Equipement equipement)
         {
             if (equipement.Alergens.Count == 0 && equipement.Replacements.Count == 0)
             {
-                return string.Join(_delimiter,
+                return string.Join(CSV_DELIMITER,
                     equipement.Id,
                     equipement.Quantity,
                     equipement.Name,
@@ -164,7 +151,7 @@ namespace HospitalProject.FileHandler
             }
             else if(equipement.Replacements.Count == 0)
             {
-                return string.Join(_delimiter,
+                return string.Join(CSV_DELIMITER,
                     equipement.Id,
                     equipement.Quantity,
                     equipement.Name,
@@ -174,7 +161,7 @@ namespace HospitalProject.FileHandler
             }
             else if (equipement.Alergens.Count == 0)
             {
-                return string.Join(_delimiter,
+                return string.Join(CSV_DELIMITER,
                     equipement.Id,
                     equipement.Quantity,
                     equipement.Name,
@@ -184,7 +171,7 @@ namespace HospitalProject.FileHandler
             }
             else
             {
-                return string.Join(_delimiter,
+                return string.Join(CSV_DELIMITER,
                     equipement.Id,
                     equipement.Quantity,
                     equipement.Name,
@@ -194,24 +181,7 @@ namespace HospitalProject.FileHandler
                 );
             }
             
-            
         }
-
-        public void AppendLineToFile(Equipement equipement)
-        {
-            string line = ConvertEquipementToCSVFormat(equipement);
-            File.AppendAllText(_path, line + Environment.NewLine);
-        }
-
-        public void Save(IEnumerable<Equipement> _equipements)
-        {
-            using (StreamWriter file = new StreamWriter(_path))
-            {
-                foreach (Equipement equipement in _equipements)
-                {
-                    file.WriteLine(ConvertEquipementToCSVFormat(equipement));
-                }
-            }
-        }
+        
     }
 }
