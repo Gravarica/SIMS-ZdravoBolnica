@@ -2,9 +2,9 @@
 2|05/10/2022|3|05/23/2022|05/30/2022|idem na more|False|APPROVED|moze
 3|05/11/2022|1|08/12/2022|08/31/2022|idem na more|False|PENDING|
 4|05/11/2022|1|10/20/2022|10/31/2022|noc vestica|True|PENDING|
-5|05/11/2022|1|09/11/2022|09/12/2022|proslava 9/11|False|DENIED|
+5|05/11/2022|1|09/11/2022|09/12/2022|proslava 9/11|False|DENIED|Ne mozes da ides zbog toga
 6|05/10/2022|1|05/11/2022|05/13/2022|Hocu da idem na more bu raz|False|PENDING|
-7|05/10/2022|1|05/20/2022|05/23/2022|Hocu na more|False|DENIED|
+7|05/10/2022|1|05/20/2022|05/23/2022|Hocu na more|False|DENIED|Potreban si tada za operaciju
 8|05/10/2022|1|05/14/2022|05/19/2022|Hocu 10 dana odmora|True|PENDING|
 9|05/12/2022|1|10/08/2022|10/09/2022|Nesto nesto nesto|False|APPROVED|
 10|05/13/2022|1|05/24/2022|05/27/2022|Hocu na more|True|PENDING|
@@ -12,3 +12,4 @@
 12|05/30/2022|3|06/01/2022|06/04/2022|hocu kuci|True|APPROVED|ok
 13|06/03/2022|1|06/25/2022|06/27/2022|adasdas|True|PENDING|
 14|06/03/2022|1|04/27/2023|05/12/2023|asdasd|True|PENDING|
+15|06/06/2022|1|06/09/2022|06/10/2022|Idem na svadbu|True|PENDING|

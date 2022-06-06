@@ -15,18 +15,17 @@ namespace HospitalProject.Repository
         private int _equipementMaxId;
         private List<Equipement> _equipements = new List<Equipement>();
 
-        public EquipementRepository(EquipementFileHandler equipementFileHandler, AllergiesRepository allergiesRepository)
+        public EquipementRepository( AllergiesRepository allergiesRepository)
         {
-            InitialiseData(equipementFileHandler,allergiesRepository);
+            _equipementFileHandler = new EquipementFileHandler(FilePathStorage.EQUIPEMENT_FILE);
+            InitialiseData(allergiesRepository);
             BindAllergensForMedicine();
             _equipementMaxId = GetMaxId(_equipements);
         }
 
-        private void InitialiseData(EquipementFileHandler equipementFileHandler,
-            AllergiesRepository allergiesRepository)
+        private void InitialiseData(AllergiesRepository allergiesRepository)
         {
             this.allergiesRepository = allergiesRepository;
-            _equipementFileHandler = equipementFileHandler;
             _equipements = _equipementFileHandler.ReadAll().ToList();
         }
 

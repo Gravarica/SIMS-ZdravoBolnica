@@ -162,7 +162,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
                         message += (er.Id.ToString()+",");
                     }
                     if(hasMessage){message = message.Remove(message.Length - 1,1);}
-                    MessageBox.Show("Sucsefful relocations ids:" + message, "Todayse relocations");
+                    MessageBox.Show("Sucsefful relocations ids:" + message, "Todays relocations");
                 }
                 Thread.Sleep(60*1000);
                 

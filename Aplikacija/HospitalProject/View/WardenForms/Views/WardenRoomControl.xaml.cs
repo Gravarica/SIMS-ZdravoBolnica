@@ -55,14 +55,10 @@ namespace HospitalProject.View.WardenForms.Views
         {
             InitializeComponent();
             DataContext = this;
-            var app = Application.Current as App;
-            _roomControoler = app.RoomController;
-            _appointmentController = app.AppointmentController;
-            _roomRenovationController = app.RenovationController;
+            InitialiseControllers();
             RoomItems = new ObservableCollection<RoomViewModel>(
                 RoomConverter.ConvertRoomListTORoomViewList(_roomControoler.GetAll().ToList()));
-            RenovationCommand = new RelayCommand(param => ExecuteRenovationComand(), param => CanExecuteRenovation());
-            RoomRelocationCommand = new RelayCommand(param => ExecuteRoomRelocationCommand(), param => true);
+            InitialiseCommands();
 
         }
 
@@ -70,19 +66,29 @@ namespace HospitalProject.View.WardenForms.Views
         {
             InitializeComponent();
             DataContext = this;
-            var app = Application.Current as App;
-            _roomControoler = app.RoomController;
-            _appointmentController = app.AppointmentController;
-            _roomRenovationController = app.RenovationController;
+            InitialiseControllers();
             RoomItems = rooms;
+            InitialiseCommands();
+
+        }
+
+        private void InitialiseCommands()
+        {
             RenovationCommand = new RelayCommand(param => ExecuteRenovationComand(), param => CanExecuteRenovation());
             RoomRelocationCommand = new RelayCommand(param => ExecuteRoomRelocationCommand(), param => true);
 
         }
 
+        private void InitialiseControllers()
+        {
+            var app = Application.Current as App;
+            _roomControoler = app.RoomController;
+            _appointmentController = app.AppointmentController;
+            _roomRenovationController = app.RenovationController;
+        }
+
         private void ExecuteRoomRelocationCommand()
         {
-            //ObservableCollection<Room> realRooms = new ObservableCollection<Room>(RoomConverter.ConvertRoomVievListTORoomList(RoomItems));
             RoomsReorganisation roomsReorganisation = new RoomsReorganisation(RoomItems);
             MainViewModel.Instance.MomentalView = roomsReorganisation;
         }
@@ -224,7 +230,7 @@ namespace HospitalProject.View.WardenForms.Views
                 EditRoom();
             }
         }
-
+        
         private void EditRoom()
         {
             try
@@ -259,21 +265,7 @@ namespace HospitalProject.View.WardenForms.Views
             }
             
         }
-
-
-
-        private void DeleteItem(object sender, RoutedEventArgs e)
-        {
-            if (Rooms.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please select an appointment", "Warning", MessageBoxButton.OK);
-            }
-            else
-            {
-                DeleteRoom();
-            }
-        }
-
+        
         private Room CreateRoom()
         {
             try

@@ -59,6 +59,18 @@ namespace HospitalProject.Service
             return _roomRepository.GetAllWithEquipment(equipmentId);
         }
 
+        private bool CheckEquipment(List<Equipement> equipements, int equipmentId)
+        {
+            foreach (Equipement eq in equipements)
+            {
+                if (equipmentId == eq.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void UpdateRoomsEquipment(int source, int destination, int equipmentId,int quantity)
         {
             Room selectedRoom = new Room(source);
@@ -76,25 +88,14 @@ namespace HospitalProject.Service
 
 
 
-            Boolean contains = false;
-            foreach (Equipement eq in oldDestination.Equipment)
-            {
-                
-                if (equipmentId == eq.Id)
-                {
-
-                    contains = true;
-                }
-                
-            }
-
+            Boolean contains = CheckEquipment(oldDestination.Equipment,equipmentId);
+            
             if (contains)
             {
                 foreach (Equipement eq in oldDestination.Equipment)
                 {
                     if (equipmentId == eq.Id)
                     {
-
                         eq.Quantity += quantity;
                     }
                     selectedDestinationRoom.Equipment.Add(eq);
@@ -119,10 +120,6 @@ namespace HospitalProject.Service
                 }
                 
             }
-
-            
-            
-             
             _roomRepository.Update(selectedRoom);
             _roomRepository.Update(selectedDestinationRoom);
 

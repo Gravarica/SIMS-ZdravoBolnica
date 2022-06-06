@@ -13,9 +13,9 @@ public class EquipmentRelocationRepository
     private List<EquipmentRelocation> relocations;
     private int relocationsMaxId;
 
-    public EquipmentRelocationRepository(EquipmentRelocationFileHandler relocationFileHandler)
+    public EquipmentRelocationRepository()
     {
-        this.relocationFileHandler = relocationFileHandler;
+        relocationFileHandler = new EquipmentRelocationFileHandler(FilePathStorage.EQUIPMENT_RELOCATION_FILE);
         InstantiateRelocationList();
     }
 

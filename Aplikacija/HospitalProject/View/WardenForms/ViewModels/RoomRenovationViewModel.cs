@@ -29,18 +29,20 @@ namespace HospitalProject.View.WardenForms.ViewModels
         public RelayCommand SearchCommand { get; set; }
 
 
-        public RoomRenovationViewModel(Room selectedRoom
-            //,ObservableCollection<RoomRenovation> roomRenovationItems
-            )
+        public RoomRenovationViewModel(Room selectedRoom)
         {
             InitializeControllers();
             Room = selectedRoom;
             SearchStartDate = DateTime.Today;
             SearchEndDate = DateTime.Today;
-            //_roomRenovationItems = roomRenovationItems;
-            SearchCommand = new RelayCommand( parm=> SearchCommandExecute(), param => CanExecuteSearch());
-            SubmitCommand = new RelayCommand( parm=> ExecuteSubmitComand(), param => CanExecuteSubmit());
+            InitialiseCommands();
 
+        }
+
+        private void InitialiseCommands()
+        {
+            SearchCommand = new RelayCommand( parm=> SearchCommandExecute(), param => CanExecuteSearch());
+            SubmitCommand = new RelayCommand( parm=> ExecuteSubmitComand(), param => CanExecuteSubmit());  
         }
 
         public RoomRenovationViewModel()
@@ -134,13 +136,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
             }
         }
 
-        // public RelayCommand SearchCommand
-        // {
-        //     get
-        //     {
-        //         return searchCommand ?? (submitCommand = new RelayCommand(param => SearchCommandExecute(), param => true));
-        //     }
-        // }
+
 
         private void SearchCommandExecute()
         {
