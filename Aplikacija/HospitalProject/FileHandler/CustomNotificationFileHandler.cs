@@ -8,61 +8,30 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class CustomNotificationFileHandler
+    public class CustomNotificationFileHandler : GenericFileHandler<CustomNotification>
     {
-        private string path;
-        private string delimiter;
 
-        public CustomNotificationFileHandler(string path, string delimiter)
+        public CustomNotificationFileHandler(string path) : base(path) {}
+
+        protected override string ConvertEntityToCSV(CustomNotification customNotification)
         {
-            this.path = path;
-            this.delimiter = delimiter;
+            return string.Join(CSV_DELIMITER,
+                customNotification.Id,
+                customNotification.PatientId,
+                customNotification.StartDate.ToString("MM/dd/yyyy HH:mm"),
+                customNotification.Interval,
+                customNotification.Text
+            );
         }
 
-        public IEnumerable<CustomNotification> ReadAll()
+        protected override CustomNotification ConvertCSVToEntity(string csv)
         {
-            return File.ReadAllLines(path).Select(ConvertCSVToCustomNotification).ToList();
-        }
-
-        private string ConvertCustomNotificationToCSV(CustomNotification customNotification)
-        {
-            return string.Join(delimiter,
-                               customNotification.Id,
-                               customNotification.PatientId,
-                               customNotification.StartDate.ToString("MM/dd/yyyy HH:mm"),
-                               customNotification.Interval,
-                               customNotification.Text
-                               );
-        }
-
-        private CustomNotification ConvertCSVToCustomNotification(string csv)
-        {
-            string[] tokens = csv.Split(delimiter);
+            string[] tokens = csv.Split(CSV_DELIMITER);
             return new CustomNotification(int.Parse(tokens[0]),
-                                          int.Parse(tokens[1]),   
-                                          DateTime.ParseExact(tokens[2], "MM/dd/yyyy HH:mm", null),
-                                          int.Parse(tokens[3]),
-                                          tokens[4]);
+                int.Parse(tokens[1]),
+                DateTime.ParseExact(tokens[2], "MM/dd/yyyy HH:mm", null),
+                int.Parse(tokens[3]),
+                tokens[4]);
         }
-
-        public void AppendLineToFile(CustomNotification customNotification)
-        {
-            string line = ConvertCustomNotificationToCSV(customNotification);
-            File.AppendAllText(path, line + Environment.NewLine);
-        }
-
-        public void Save(List<CustomNotification> customNotifications)
-        {
-            using (StreamWriter file = new StreamWriter(path))
-            {
-                foreach (CustomNotification customNotification in customNotifications)
-                {
-                    file.WriteLine(ConvertCustomNotificationToCSV(customNotification));
-                }
-            }
-        }
-
-
-
     }
 }

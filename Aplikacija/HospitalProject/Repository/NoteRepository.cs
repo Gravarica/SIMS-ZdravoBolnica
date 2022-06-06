@@ -10,14 +10,14 @@ namespace HospitalProject.Repository
 {
     public class NoteRepository
     {
-        private NoteFileHandler noteFileHandler;
+        private IHandleData<Note> noteFileHandler;
         private AnamnesisRepository anamnesisRepository;
         private List<Note> notes;
         private int noteMaxId;
 
-        public NoteRepository(NoteFileHandler noteFileHandler, AnamnesisRepository anamnesisRepository)
+        public NoteRepository(AnamnesisRepository anamnesisRepository)
         {
-            this.noteFileHandler = noteFileHandler;
+            this.noteFileHandler = new NoteFileHandler(FilePathStorage.NOTE_FILE);
             this.anamnesisRepository = anamnesisRepository;
             InstantiateNoteList();
         }
@@ -53,7 +53,7 @@ namespace HospitalProject.Repository
         {
             note.Id = ++noteMaxId;
             notes.Add(note);
-            noteFileHandler.AppendLineToFile(note);
+            noteFileHandler.SaveOneEntity(note);
         }
 
 

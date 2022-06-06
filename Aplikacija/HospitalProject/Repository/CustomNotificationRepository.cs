@@ -10,13 +10,13 @@ namespace HospitalProject.Repository
 {
     public class CustomNotificationRepository
     {
-        private CustomNotificationFileHandler customNotificationFileHandler;
+        private IHandleData<CustomNotification> customNotificationFileHandler;
         private List<CustomNotification> customNotifications;
         private int customNotificationMaxId;
 
-        public CustomNotificationRepository(CustomNotificationFileHandler customNotificationFileHandler)
+        public CustomNotificationRepository()
         {
-            this.customNotificationFileHandler = customNotificationFileHandler;
+            this.customNotificationFileHandler = new CustomNotificationFileHandler(FilePathStorage.CUSTOM_NOTIFICATION_FILE);
             InstantiateCustomNotificationList();
         }
 
@@ -46,7 +46,7 @@ namespace HospitalProject.Repository
         {
             customNotification.Id = ++customNotificationMaxId;
             customNotifications.Add(customNotification);
-            customNotificationFileHandler.AppendLineToFile(customNotification);
+            customNotificationFileHandler.SaveOneEntity(customNotification);
         }
 
 

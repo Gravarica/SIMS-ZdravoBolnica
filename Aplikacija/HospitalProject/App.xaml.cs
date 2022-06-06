@@ -24,29 +24,11 @@ namespace HospitalProject
     {
         private static string _projectPath = System.Reflection.Assembly.GetExecutingAssembly().Location
             .Split(new string[] { "bin" }, StringSplitOptions.None)[0];
-        private string DOCTOR_FILE = _projectPath + "\\Resources\\Data\\doctors.csv";
-        
         private string MEETINGS_FILE = _projectPath + "\\Resources\\Data\\meetings.csv";
-        private string PATIENT_FILE = _projectPath + "\\Resources\\Data\\patients.csv";
-        private string APPOINTMENT_FILE = _projectPath + "\\Resources\\Data\\appointments.csv";
         private string EQUIPEMENT_FILE = _projectPath + "\\Resources\\Data\\equipement.csv";
         private string ROOM_RENOVATION_FILE = _projectPath + "\\Resources\\Data\\roomRenovations.csv";
         private string ROOM_FILE = _projectPath + "\\Resources\\Data\\rooms.csv";
-        private string ANAMNESIS_FILE = _projectPath + "\\Resources\\Data\\anamneses.csv";
-        private string ALLERGIES_FILE = _projectPath + "\\Resources\\Data\\allergy.csv";
-        private string MEDICALRECORD_FILE = _projectPath + "\\Resources\\Data\\medicalrecords.csv";
-        private string USER_FILE = _projectPath + "\\Resources\\Data\\users.csv";
-        private string PRESCRIPTION_FILE = _projectPath + "\\Resources\\Data\\prescriptions.csv";
-        private string NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\notifications.csv";
         private string EQUIPMENT_RELOCATION_FILE = _projectPath + "\\Resources\\Data\\equipmentRelocations.csv";
-        private string QUESTIONS_FILE = _projectPath + "\\Resources\\Data\\questions.csv";
-        private string SURVEYS_FILE = _projectPath + "\\Resources\\Data\\surveys.csv";
-        private string SURVEY_REALIZATIONS_FILE = _projectPath + "\\Resources\\Data\\surveyRealizations.csv";
-        private string ANSWERS_FILE = _projectPath + "\\Resources\\Data\\answers.csv";
-        private string MEDICINE_REPORT_FILE = _projectPath + "\\Resources\\Data\\medicineReports.csv";
-        private string VACATION_REQUEST_FILE = _projectPath + "\\Resources\\Data\\vacationRequests.csv";
-        private string CUSTOM_NOTIFICATION_FILE = _projectPath + "\\Resources\\Data\\customNotifications.csv";
-        private string NOTE_FILE = _projectPath + "\\Resources\\Data\\notes.csv";
 
         private const string CSV_DELIMITER = "|";
         private const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm";
@@ -108,13 +90,9 @@ namespace HospitalProject
            
             var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
-            var _noteFileHandler = new NoteFileHandler(NOTE_FILE, CSV_DELIMITER);
-
             var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
             var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
-
-            var _customNotificationFileHandler = new CustomNotificationFileHandler(CUSTOM_NOTIFICATION_FILE, CSV_DELIMITER);
 
             var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
             
@@ -138,7 +116,8 @@ namespace HospitalProject
 
             var _notificationRepository = new NotificationRepository(_prescriptionRepository);
 
-            var _customNotificationRepository = new CustomNotificationRepository(_customNotificationFileHandler);
+            var _customNotificationRepository = new CustomNotificationRepository();
+
             var _userRepository = new UserRepository();
 
             var _questionRepository = new QuestionRepository();
@@ -153,7 +132,7 @@ namespace HospitalProject
 
             var _vacationRequestRepository = new VacationRequestRepository(_doctorRepository);
 
-            var _noteRepository = new NoteRepository(_noteFileHandler, _anamnesisRepository);
+            var _noteRepository = new NoteRepository(_anamnesisRepository);
 
             var _allergiesService = new AllergiesService(_allergiesRepository);
             
@@ -197,15 +176,15 @@ namespace HospitalProject
 
             var _noteService = new NoteService(_noteRepository, _anamnesisService);
 
+            var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
+
+            var _customNotificationService = new CustomNotificationService(_customNotificationRepository);
+
             EquipmentRelocationController = new EquipmentRelocationController(_equipmentRelocationService);
             
             AllergiesController = new AllergiesController(_allergiesService);
 
             RenovationController = new RoomRenovationController(_roomRenovationService);
-
-            var _notificationService = new NotificationService(_notificationRepository, _prescriptionService);
-
-            var _customNotificationService = new CustomNotificationService(_customNotificationRepository);
 
             EquipementController = new EquipementController(_equipementService);
 

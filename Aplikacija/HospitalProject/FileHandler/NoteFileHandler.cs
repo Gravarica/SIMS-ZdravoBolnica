@@ -8,59 +8,27 @@ using System.Threading.Tasks;
 
 namespace HospitalProject.FileHandler
 {
-    public class NoteFileHandler
+    public class NoteFileHandler : GenericFileHandler<Note>
     {
 
-        private string path;
-        private string delimiter;
+        public NoteFileHandler(string path) : base(path) { }
 
-        public NoteFileHandler(string path, string delimiter)
+        protected override string ConvertEntityToCSV(Note note)
         {
-            this.path = path;
-            this.delimiter = delimiter;
+            return string.Join(CSV_DELIMITER,
+                note.Id,
+                note.Anamnesis.Id,
+                note.Text
+            );
         }
 
-        public IEnumerable<Note> ReadAll()
+        protected override Note ConvertCSVToEntity(string csv)
         {
-            return File.ReadAllLines(path).Select(ConvertCSVToNote).ToList();
-        }
-
-        private string ConvertNoteToCSV(Note note)
-        {
-            return string.Join(delimiter,
-                               note.Id,
-                               note.Anamnesis.Id,
-                               note.Text
-                               );
-        }
-
-        private Note ConvertCSVToNote(string csv)
-        {
-            string[] tokens = csv.Split(delimiter);
+            string[] tokens = csv.Split(CSV_DELIMITER);
             return new Note(int.Parse(tokens[0]),
-                                    new Anamnesis(int.Parse(tokens[1])),
-                                    tokens[2]
-                                    );
+                new Anamnesis(int.Parse(tokens[1])),
+                tokens[2]
+            );
         }
-
-        public void AppendLineToFile(Note note)
-        {
-            string line = ConvertNoteToCSV(note);
-            File.AppendAllText(path, line + Environment.NewLine);
-        }
-
-        public void Save(List<Note> notes)
-        {
-            using (StreamWriter file = new StreamWriter(path))
-            {
-                foreach (Note note in notes)
-                {
-                    file.WriteLine(ConvertNoteToCSV(note));
-                }
-            }
-        }
-
-
-
     }
 }
