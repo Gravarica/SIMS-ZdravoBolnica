@@ -83,24 +83,20 @@ namespace HospitalProject
 
         public App()
         {
-
-            var _roomRenovationFileHandler = new RoomRenovationFileHandler(ROOM_RENOVATION_FILE, CSV_DELIMITER, ONLY_DATE_FORMAT);
             
-            var _equipementFileHandler = new EquipementFileHandler(EQUIPEMENT_FILE, CSV_DELIMITER);
            
             var _meetingsFileHandler = new MeetingsFileHandler(MEETINGS_FILE, CSV_DELIMITER, DATETIME_FORMAT);
 
-            var _equipmentRelocationFileHandler = new EquipmentRelocationFileHandler(EQUIPMENT_RELOCATION_FILE, CSV_DELIMITER);
 
-            var _roomRenovationRepository = new RoomRenovationRepository(_roomRenovationFileHandler);
+            var _roomRenovationRepository = new RoomRenovationRepository();
 
-            var _equipmentRelocationRepository = new EquipmentRelocationRepository(_equipmentRelocationFileHandler);
+            var _equipmentRelocationRepository = new EquipmentRelocationRepository();
             
             var _appointmentRepository = new AppointmentRepository(); 
 
             var _allergiesRepository = new AllergiesRepository();
 
-            var _equipementRepository = new EquipementRepository(_equipementFileHandler, _allergiesRepository);
+            var _equipementRepository = new EquipementRepository( _allergiesRepository);
 
             var _doctorRepository = new DoctorRepository();
             
