@@ -109,7 +109,12 @@ namespace HospitalProject.View.WardenForms.Views
             Equipement newMedicine = new Equipement(SelectedQuantity,SelectedName,EquipementType.MEDICINE,SelectedAllergies.ToList(),SelectedReplacements.ToList());
             MedicineItems.Add(newMedicine);
             _equipementController.Create(newMedicine);
-            EquipementViewModel wardenEquipemntViewModel = new EquipementViewModel();
+            ChangeMainViewToMedicinetView();
+        }
+
+        private void ChangeMainViewToMedicinetView()
+        {
+            MedicineViewModel wardenEquipemntViewModel = new MedicineViewModel();
             MainViewModel.Instance.MomentalView = wardenEquipemntViewModel;
         }
 

@@ -42,7 +42,7 @@ namespace HospitalProject.Service
             List<EquipmentRelocation> todaysRelocations = new List<EquipmentRelocation>();
             foreach (EquipmentRelocation er in allRelocations)
             {
-                if (er.Date == new DateOnly(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day))
+                if (er.Date == ConvertDateTimeToDateOnly(DateTime.Today))
                 {
                     todaysRelocations.Add(er);
                     roomService.UpdateRoomsEquipment(er.SourceRoom.Id,er.DestinationRoom.Id,er.Equipement.Id,er.Quantity);
@@ -50,6 +50,12 @@ namespace HospitalProject.Service
                 
             }
             return todaysRelocations;
+        }
+        
+        private DateOnly ConvertDateTimeToDateOnly(DateTime date )
+        {
+            return new DateOnly(date.Year, date.Month,
+                date.Day);
         }
     }
 }
