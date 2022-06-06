@@ -265,21 +265,7 @@ namespace HospitalProject.View.WardenForms.Views
             }
             
         }
-
-
-
-        private void DeleteItem(object sender, RoutedEventArgs e)
-        {
-            if (Rooms.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please select an appointment", "Warning", MessageBoxButton.OK);
-            }
-            else
-            {
-                DeleteRoom();
-            }
-        }
-
+        
         private Room CreateRoom()
         {
             try

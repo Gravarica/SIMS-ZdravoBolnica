@@ -270,24 +270,42 @@ namespace HospitalProject.View.WardenForms.Views
             bool valid = true;
             foreach (RoomCheckBoxModel room in DestinationRooms)
             {
-                if (room.RoomType == null)
-                {
-                    valid = false;
-                }
-
-                if (room.Number <= 0)
-                {
-                    valid = false;
-                }
-
-                if (reorganisationEndDate <= reorganisatoionStartDate)
-                {
-                    valid = false;
-                }
-                
+                valid = CheckRoomTypeValid(room);
+                valid = CheckRoomNumberValid(room);
+                valid = ChecDateValid(room);
             }
 
             return valid && CanExecuteInsertDestinationQuantityCommand();
+        }
+
+        private bool ChecDateValid(RoomCheckBoxModel room)
+        {
+            if (reorganisationEndDate <= reorganisatoionStartDate)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        
+        private bool CheckRoomNumberValid(RoomCheckBoxModel room)
+        {
+            if (room.Number <= 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        
+        private bool CheckRoomTypeValid(RoomCheckBoxModel room)
+        {
+            if (room.RoomType == null)
+            {
+                return false;
+            }
+
+            return true;
         }
         
 
