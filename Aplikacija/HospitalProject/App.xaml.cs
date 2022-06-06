@@ -234,6 +234,10 @@ namespace HospitalProject
             {
                 TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             }
+            else if (currLang.Equals("es-ES"))
+            {
+                TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("es-ES");
+            }
             else
             {
                 TranslationManager.Instance.CurrentCulture = new System.Globalization.CultureInfo("sr-LATN");

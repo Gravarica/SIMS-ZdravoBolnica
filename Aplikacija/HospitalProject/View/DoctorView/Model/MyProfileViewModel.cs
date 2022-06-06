@@ -72,6 +72,7 @@ namespace HospitalProject.View.DoctorView.Model
             languageComboBox = new List<ComboBoxData<string>>();
             languageComboBox.Add(new ComboBoxData<string>{ Name = "English(US)", Value = "en-US"});
             languageComboBox.Add(new ComboBoxData<string> { Name = "Srpski(LAT)", Value = "sr-LATN" });
+            languageComboBox.Add(new ComboBoxData<string> { Name = "Español(ES)", Value = "es-ES" });
         }
     }
 
