@@ -42,7 +42,7 @@
                     <Label FontSize="25" FontWeight="Heavy" Margin="283,38,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Insert name:" Grid.ColumnSpan="2"/>
                     <Label FontSize="25" FontWeight="Heavy" Margin="206,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="42" Width="204" Content="Insert Quantity:" Grid.Column="1"/>
                     <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Margin="185,22,29,25" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-                    <TextBox Text="{Binding SelectedName}" FontSize="20" BorderThickness="3" Grid.Row="1" Margin="248,22,358,25" Grid.ColumnSpan="2"/>
+                    <TextBox Text="{Binding SelectedName}" IsReadOnly="True" FontSize="20" BorderThickness="3" Grid.Row="1" Margin="248,22,358,25" Grid.ColumnSpan="2"/>
                     <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="241,34,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244" Grid.ColumnSpan="2"/>
                     <ListView  x:Name="SelectedSupstancessList" ItemsSource="{Binding SelectedAllergies}"   Grid.Row="2"  Margin="243,141,365,140" FontSize="20" Background="White" BorderThickness="2" Grid.ColumnSpan="2" >
                         <ListView.ItemTemplate>

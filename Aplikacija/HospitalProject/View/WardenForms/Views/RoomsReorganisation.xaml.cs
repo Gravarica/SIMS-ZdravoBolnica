@@ -308,15 +308,6 @@ namespace HospitalProject.View.WardenForms.Views
             return true;
         }
         
-
-        public void destinationRoomsQuantity_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            for(int i = 0; i < DestinationRoomsQuantity; i++)
-            {
-                string name = "newRoom" + i.ToString();
-                DestinationRooms.Add(new RoomCheckBoxModel(name));
-            }
-        }  
         
         private void AllSourceRoomCheckbox_CheckedAndUnchecked(object sender, RoutedEventArgs e)  
         {  
