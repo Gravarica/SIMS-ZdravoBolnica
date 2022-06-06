@@ -175,17 +175,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
                 OnPropertyChanged(nameof(EquipementType));
             }
         }
-
-        public EquipmentCheckBoxModel(int id, int quantity, string name, EquipementType equipementType, List<Allergies> alergens, List<Equipement> replacements)
-        {
-            this.id = id;
-            this.quantity = quantity;
-            this.name = name;
-            this.equipementType = equipementType;
-            this.alergens = alergens;
-            this.replacements = replacements;
-            IsChecked = false;
-        }
+        
 
         public EquipmentCheckBoxModel(Equipement eq)
         {

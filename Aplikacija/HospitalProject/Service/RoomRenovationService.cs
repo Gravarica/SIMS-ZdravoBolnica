@@ -75,20 +75,18 @@ namespace HospitalProject.Service
             searchEndDate, Room room,int duration)
         {
             List<RoomRenovation> availableRenovationAppointments = new List<RoomRenovation>();
-            List<RoomRenovation> allRenovations =
-                GenerateAllRenovationAppointments(searchStartDate, searchEndDate, room, duration);
+            List<RoomRenovation> allRenovations = GenerateAllRenovationAppointments(searchStartDate, searchEndDate, room, duration);
             foreach (RoomRenovation rr in allRenovations)
             {
                 if (_appointmentService.RoomHasAppointmentByDay(rr.StartDate, rr.EndDate, rr.Room)
-                    && RoomHasReservationsByDay(rr.StartDate, rr.EndDate, rr.Room)
-                    )
+                    && RoomHasReservationsByDay(rr.StartDate, rr.EndDate, rr.Room))
                 {
                     availableRenovationAppointments.Add(rr);
                 }
             }
-
             return availableRenovationAppointments;
         }
+        
 
         private bool RoomHasReservationsByDay(DateOnly startDate, DateOnly endDate, Room room)
         {
@@ -114,8 +112,7 @@ namespace HospitalProject.Service
             List<RoomRenovation> generatedRenovations = new List<RoomRenovation>();
             while (searchStartDate.AddDays(duration) <= searchEndDate)
             {
-                RoomRenovation renovation =
-                    new RoomRenovation(searchStartDate, searchStartDate.AddDays(duration), room);
+                RoomRenovation renovation = new RoomRenovation(searchStartDate, searchStartDate.AddDays(duration), room);
                 generatedRenovations.Add(renovation);
                 searchStartDate = searchStartDate.AddDays(1);
             }
