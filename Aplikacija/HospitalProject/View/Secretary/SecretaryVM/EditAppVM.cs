@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.Util;
 using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
@@ -14,6 +18,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private DateTime _endDate;
         private Patient _patient;
         private Doctor _doctor;
+        
         private Appointment _showItem;
         private Appointment _selectedItem;
         
@@ -22,9 +27,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private RelayCommand _cancelCommand;
         private RelayCommand _saveCommand;
         
+
         private AppointmentController _appointmentController;
         private RoomControoler _roomController;
-
         private ObservableCollection<Appointment> _generatedAppointments;
         public ObservableCollection<Appointment> GeneratedAppointments
         {
@@ -47,7 +52,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             DoctorData = _showItem.Doctor;
             PatientData = _showItem.Patient;
         }
-
+      
         private void InitializeControllers()
         {
             var app = System.Windows.Application.Current as App;
@@ -184,6 +189,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             SelectedItem.Id = _showItem.Id;
             _appointmentController.Update(SelectedItem);
             ShowItem.Date = SelectedItem.Date;
+            MessageBox.Show("Appointment updated!", "note", MessageBoxButton.OK);
         }
 
 

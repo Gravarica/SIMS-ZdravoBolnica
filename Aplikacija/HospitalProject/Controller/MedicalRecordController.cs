@@ -38,5 +38,16 @@ namespace HospitalProject.Controller
         {
             return _medicalRecordService.GetByPatient(patient);
         }
+
+        public void AddNewAllergiesToMedicalRecord(Allergies allergies, Patient patient)
+        {
+            _medicalRecordService.AddNewAllergiesToMedicalRecord(allergies, patient);
+        }
+        
+        public void RemoveAllergiesFromMedicalRecord(Allergies allergies, Patient patient)
+        {
+            _medicalRecordService.RemoveAllergiesFromMedicalRecord(allergies, patient);
+
+        }
     }
 }

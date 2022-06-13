@@ -127,5 +127,9 @@ namespace HospitalProject.Service
             _medicalRecordRepostiory.AddNewAllergiesToMedicalRecord(allergies, patient);
         }
 
+        public void RemoveAllergiesFromMedicalRecord(Allergies allergies, Patient patient)
+        {
+            _medicalRecordRepostiory.RemoveAllergiesFromMedicalRecord(allergies, patient);
+        }
     }
 }

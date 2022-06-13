@@ -6,8 +6,9 @@
            xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
         xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:PatientProfileVM}"
         mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
-    <Border Background="#FF9592F5" >
+             d:DesignHeight="582" d:DesignWidth="793">
+    <Border Background="#d3e2ff" >
+    
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -18,6 +19,12 @@
 
             </Grid.RowDefinitions>
 
+            <TextBlock FontWeight="UltraLight"
+                       Grid.Row="0" Grid.Column="0" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10" FontFamily="Global Serif"
+                       Text="{Binding Patient.FirstName}" FontSize="30" />
+            <TextBlock FontWeight="UltraLight"
+                       Grid.Row="0" Grid.Column="0" Width="221" HorizontalAlignment="Left" Margin="100,9,0,10" FontFamily="Global Serif"
+                       Text="{Binding Patient.LastName}" FontSize="30" />
 
 
             <Grid Grid.Row="1"  Margin="5,10,274,10" Grid.RowSpan="2">
@@ -41,59 +48,73 @@
                     <ColumnDefinition/>
 
                 </Grid.ColumnDefinitions>
-                <Label Content="Gender" FontSize="16" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Height="25" Width="120" />
-                <Label Content="Jmbg" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Height="27" Width="120"/>
-                <Label Content="Date of brth" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="2" Height="25" Width="120"/>
-                <Label Content="E-mail" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="120"/>
-                <Label Content="First name"  FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="120"/>
-                <Label Content="Last name" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Height="25" Width="120"/>
-                <Label Content="Adress" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Height="25" Width="120"/>
-                <Label Content="Phone number" FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Height="25" Width="120"/>
-                <Label Content="Username"  FontSize="16"  FontFamily=" Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Height="25" Width="120"/>
+                
+                <Label Content="Gender" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,10,0,0" Grid.Column="0" Grid.Row="0" Height="25" Width="120" />
+                <Label Content="Jmbg" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,10,0,0" Grid.Column="0" Grid.Row="1" Height="30" Width="120"/>
+                <Label Content="Date of birth" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,10,0,0" Grid.Column="0" Grid.Row="2" Height="25" Width="120"/>
+                <Label Content="E-mail" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="120"/>
+               <Label Content="Adress" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Phone number" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Height="25" Width="120"/>
+                <Label Content="Username"  FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" Height="25" Width="120"/>
 
-                <TextBlock
-                Grid.Row="0" Grid.Column="1" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10"
-                   Text="{Binding Patient.Gender}" FontSize="15" />
-                <TextBlock x:Name="TextBox" Text="{Binding Patient.Jmbg}" FontSize="15"  Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30">
+                <TextBlock FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam"
+                           Grid.Row="0" Grid.Column="1" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10"
+                           Text="{Binding Patient.Gender}"  />
+                <TextBlock x:Name="TextBox" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" Text="{Binding Patient.Jmbg}"  Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30">
                 </TextBlock>
                 <TextBlock x:Name="DatePicker" Grid.Row="2" Grid.Column="1" 
-                           Text="{Binding Patient.DateOfBirth}" VerticalAlignment="Center" FontSize="15"  Height="28" Margin="20,0,10,0"  >
+                           FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam"
+                           Text="{Binding Patient.DateOfBirth}" VerticalAlignment="Center"   Height="28" Margin="20,0,10,0"  >
 
                 </TextBlock>
-                <TextBlock x:Name="TextBo" Grid.Row="8" Text="{Binding Patient.Username}" FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
-                <TextBlock x:Name="TextB1" Grid.Row="3" Text="{Binding Patient.Email}" FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
+                <TextBlock x:Name="TextBo" Grid.Row="6" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" Text="{Binding Patient.Username}"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
+                <TextBlock x:Name="TextB1" Grid.Row="3" Text="{Binding Patient.Email}" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
 
-                <TextBlock x:Name="TextBox1" Grid.Row="4" Text="{Binding Patient.FirstName}" FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
-                <TextBlock  x:Name="TextBox2" Text="{Binding Patient.LastName}" FontSize="15"  Grid.Row="5" Grid.Column="1" Margin="20,6,20,7"/>
-                <TextBlock  x:Name="TextBox3" Text="{Binding Patient.Adress}" FontSize="15"  Grid.Row="6" Grid.Column="1" Margin="20,6,20,7"/>
-                <TextBlock Text="{Binding Patient.PhoneNumber}"  Grid.Row="7" FontSize="15"  Grid.Column="1" Margin="20,6,20,10"/>
+                <TextBlock  x:Name="TextBox3" Text="{Binding Patient.Adress}" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam"  Grid.Row="4" Grid.Column="1" Margin="20,6,20,7"/>
+                <TextBlock Text="{Binding Patient.PhoneNumber}"  Grid.Row="5" FontWeight="UltraLight" FontSize="17" FontFamily=" Miriam"  Grid.Column="1" Margin="20,6,20,10"/>
 
                 <Border Grid.Row="0" Grid.RowSpan="9" Grid.Column="0" BorderThickness="0,0,2,0" Margin="0,0,0,43" />
               
             </Grid>
             
-            <DataGrid Margin="450,13,100,116"
-                      FontSize="16"  FontFamily=" Miriam"
+            <DataGrid Margin="540,13,60,116"
+                      FontWeight="UltraLight" FontSize="17"   FontFamily=" Miriam"
+                      RowHeight="35"
                       AutoGenerateColumns="False"
+                      CanUserResizeColumns="False"
+                      
                 SelectionMode="Single"             
                 x:Name ="Patients_Copy"
                 IsReadOnly="True"
                 ItemsSource="{Binding MedicalRecord.Allergies}" 
                 SelectedItem="{Binding SelectedAllergy}"
-                Background="LightYellow" Grid.Row="1" Grid.RowSpan="2"
+                Background="#d3e2ff" Grid.Row="1" Grid.RowSpan="2"
              >
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="{Binding SelectedItem}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#5372ae"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
  
             
-            <Button Margin="400,367,200,0"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
+            <Button Margin="580,340,20,0"
+                    
+                    Style="{DynamicResource PrimaryButton}" 
+                    FontFamily="Miriam"
+                    Width="120" Height="35" FontSize="16" 
                     x:Name="Edit"
                     Content="Edit"
-                    FontSize="16" FontFamily="Miriam"
                     Command="{Binding EditProfile}" Grid.Row="2"
             />
         </Grid>

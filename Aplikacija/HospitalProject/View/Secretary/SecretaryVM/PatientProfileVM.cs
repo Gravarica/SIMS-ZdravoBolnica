@@ -49,6 +49,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(Patient));
             }
         }
+        
         public Allergies SelectedAllergy
         {
             get

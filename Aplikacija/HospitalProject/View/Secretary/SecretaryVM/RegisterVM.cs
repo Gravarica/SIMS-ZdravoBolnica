@@ -44,7 +44,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
-          
+            Female = true;
         }
 
         public bool Female
@@ -187,7 +187,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         }
 
-
+//generisi random broj kao sifru i kod guesta
+//izbrisi sa fronta
         public String Password
         {
             get
@@ -217,41 +218,62 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private void ExecuteSaveCommand()
         {
-
-               
-            if (_intValue == 1)
+            if ( Jmbg==0 || PhoneNumber == 0)
             {
-                _patientController.Create(new Patient(_id,
-                    _medicalrecordid,
-                    false,
-                    UserName, 
-                    Password,
-                    FirstName,
-                    LastName,
-                    Jmbg,
-                    PhoneNumber, 
-                    Email, 
-                    Adress, 
-                    Date,
-                    Gender.female));}
-            else if (_intValue == 2)
-            {
-                _patientController.Create(new Patient(_id,
-                    _medicalrecordid,
-                    false, 
-                    UserName,
-                    Password,
-                    FirstName,
-                    LastName,
-                    Jmbg,
-                    PhoneNumber, 
-                    Email, 
-                    Adress, 
-                    Date,
-                    Gender.male)); }
-         
+                MessageBox.Show("Jmbg and phone number must be integer number!", "warning", MessageBoxButton.OK);
+            }
+            else
+            { 
+                if (_intValue == 1)
+                         {
+                             _patientController.Create(new Patient(_id,
+                                 _medicalrecordid,
+                                 false,
+                                 UserName, 
+                                 Password,
+                                 FirstName,
+                                 LastName,
+                                 Jmbg,
+                                 PhoneNumber, 
+                                 Email, 
+                                 Adress, 
+                                 Date,
+                                 Gender.female));
+                             
+                             
+                         }
+                         else if (_intValue == 2)
+                         {
+                             _patientController.Create(new Patient(_id,
+                                 _medicalrecordid,
+                                 false, 
+                                 UserName,
+                                 Password,
+                                 FirstName,
+                                 LastName,
+                                 Jmbg,
+                                 PhoneNumber, 
+                                 Email, 
+                                 Adress, 
+                                 Date,
+                                 Gender.male)); }
+                      
+                         
+                         
+                         MessageBox.Show("Patient profile created!", "note", MessageBoxButton.OK);
+                         
+                         Adress = null;
+                         Email = null;
+                         UserName = null;
+                         FirstName = null;
+                         LastName = null;
+                         Jmbg = 0;
+                         PhoneNumber = 0;
+                         Female = true;
+                     }
+            }
 
-        }
+           
         
 
     }

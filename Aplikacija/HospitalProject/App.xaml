@@ -12,7 +12,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:HospitalProject.View.WardenForms.ViewModels"
              xmlns:views="clr-namespace:HospitalProject.View.WardenForms.Views"
-             
+             xmlns:secretaryVM="clr-namespace:HospitalProject.View.Secretary.SecretaryVM"
+             xmlns:secretaryV="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
+
 
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -23,6 +25,14 @@
                 <ResourceDictionary Source="Themes/MedicalCardButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/LoginButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/FormButtonTheme.xaml"/>
+                
+                <ResourceDictionary Source="Themes/MenuSecretary.xaml"/>
+                
+                <ResourceDictionary Source="Themes/SlideButton.xaml"/>
+                
+                <ResourceDictionary Source="Themes/SecretaryButtons.xaml"/> 
+
+
                 <!-- <ResourceDictionary Source="C:\Users\aleksa\Desktop\fax\SIMS\MaterialDesignInXamlToolkit-master\MaterialDesignThemes.Wpf\Themes\MaterialDesignTheme.ComboBox.xaml"/> -->
 
             </ResourceDictionary.MergedDictionaries>
@@ -127,12 +137,50 @@
                 <patientView:MakeNoteView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type secretaryVM:SecretaryMainViewVM}">
+                <secretaryV:SecretaryMainV/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type secretaryVM:DataBaseVM}">
+                <secretaryV:DataBaseV/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type secretaryVM:RegisterVM}">
+                <secretaryV:RegisterV/>
+            </DataTemplate>
+
+            
+            <DataTemplate DataType="{x:Type secretaryVM:RequestsVM}">
+                <secretaryV:RequestsV/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type secretaryVM:NewAppointmentsVM}">
+                    <secretaryV:NewAppointmentsV/>
+                </DataTemplate> 
+                
+            
+            <DataTemplate DataType="{x:Type secretaryVM:MeetingVM}">
+                <secretaryV:MeetingV/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type secretaryVM:EmergencyVM}">
+                <secretaryV:EmergencyV/>
+            </DataTemplate>
+            
+                 
+            <DataTemplate DataType="{x:Type secretaryVM:DemoVM}">
+                <secretaryV:DemoV/>
+            </DataTemplate>
+
             <Style x:Key="WinAll" TargetType="{x:Type Window}">
+                                
                 <Setter Property="FontFamily"
                         Value="Open Sans" />
                 <Setter Property="FontSize"
                         Value="14" />
             </Style>
+            
+                
         </ResourceDictionary>
     </Application.Resources>
 </Application>

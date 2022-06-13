@@ -13,7 +13,7 @@
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
         Title="Choose appointment" Height="406" Width="490">
-    <Border Background="#FF8F8CEC" >
+    <Border Background="#d3e2ff" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -27,16 +27,27 @@
 
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Choose one from the list" Margin="46,5,0,1"  HorizontalAlignment="Left" FontSize="32"  FontWeight="Light" Foreground="#FF3A338E" Grid.Column="1" Width="329"/>
+            <TextBlock Grid.Row="0" FontSize="30"   Foreground = "Black" Text="Choose one from the list" Margin="46,5,0,1"  HorizontalAlignment="Left"  FontFamily="Global Serif"  FontWeight="Light"  Grid.Column="1" Width="329"/>
 
 
-            <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"  Width="80"
+            <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"  Width="80" 
+                    Style="{DynamicResource PrimaryButton}"
             Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"/>
             <DataGrid x:Name="dataAppointment" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
-                SelectionMode="Single" AutoGenerateColumns="False" FontSize="15" 
-                FontStyle="Normal"
-                CanUserResizeRows="False" Background="LightYellow" Margin="0,0,38,0" Grid.Column="1" >
-
+                SelectionMode="Single" AutoGenerateColumns="False" FontSize="16" 
+                FontStyle="Normal" FontWeight="UltraLight"
+                CanUserResizeRows="False" Background="#d3e2ff" Margin="0,0,38,0" Grid.Column="1" >
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="{Binding SelectedItem}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#5372ae"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Id" Binding="{Binding AppointmentId}" Width="40"  CanUserResize="False" />

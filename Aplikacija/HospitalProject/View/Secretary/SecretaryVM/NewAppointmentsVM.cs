@@ -81,7 +81,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             FillComboData2();
 
         }
-
+  
         private void InstantiateControllers()
         {
             var app = System.Windows.Application.Current as App;

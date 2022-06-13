@@ -58,6 +58,7 @@ public class PreviewRequestVM : ViewModelBase
         public void ExecuteAcceptCommand()
          {
             _vacationRequestController.Accept(ThisVacationRequest);
+            MessageBox.Show("Request accepted!", "note", MessageBoxButton.OK);
          }
         
         public RelayCommand RejectCommand
@@ -81,6 +82,7 @@ public class PreviewRequestVM : ViewModelBase
             else
             {
                 _vacationRequestController.Reject(ThisVacationRequest);
+                MessageBox.Show("Request rejected!", "note", MessageBoxButton.OK);
             }
 
            

@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:PreviewRequestVM}"
         xmlns:converters="clr-namespace:HospitalProject.View.Converter"
-        d:DesignHeight="600" d:DesignWidth="800">
+        d:DesignHeight="582" d:DesignWidth="793">
     
     <UserControl.Resources>
         <converters:DateConverterForAnamnesis x:Key="DateConverter"/>
         <converters:NameConverter x:Key="NameConverter"/>
     </UserControl.Resources>
-    <Border Background="#FF9592F5" >
+    <Border Background="#d3e2ff" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -33,49 +33,59 @@
             </Grid.ColumnDefinitions>
             
             <Button Content="Accept"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6" 
+                    Grid.Row="6"
                     HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Height="30" Width="100"  FontFamily="Miriam"
+                    Style="{DynamicResource PrimaryButton}" 
+                    FontFamily="Miriam"
+                    
+                    Width="120" Height="35" FontSize="16"
                     Command="{Binding AcceptCommand}"   
-                    Grid.RowSpan="2" Margin="0,30,20,0" Grid.Column="2"/>
+                    Grid.RowSpan="2" Margin="0,55,50,0" Grid.Column="2"/>
 
             <Button Content="Reject"  FontFamily="Miriam"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917"
-                    Background="#FF6668D6" HorizontalAlignment="Right"
-                    Height="30"
-                    Width="100"
+                    Style="{DynamicResource PrimaryButton}" 
+                     HorizontalAlignment="Right"
+                    Grid.Row="6"
+                    Width="120" Height="35" FontSize="16"
                     Command="{Binding RejectCommand}" 
-                    Grid.RowSpan="2" Margin="0,60,20,0" Grid.Column="2"/>
+                    Grid.RowSpan="2" Margin="0,60,50,0" Grid.Column="2"/>
 
             
-                <Label Content="Doctor" FontSize="16"  FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Width="140"  />
-                <Label Content="Submission date" FontSize="16"  FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Width="140" />
-                <Label Content="Start date" FontSize="16"  FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="2" Width="140" />
-                <Label Content="End date" FontSize="16"   FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Width="140"/>
-                <Label Content="Urgent" FontSize="16"   FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"  Width="140"/>
-                <Label Content="Description" FontSize="16"  FontFamily="Miriam" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"  Width="140"/>
+            <TextBlock FontWeight="UltraLight"
+                       Grid.Row="0" Grid.Column="0" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10" FontFamily="Global Serif"
+                       Text="{Binding ThisVacationRequest.Doctor, Converter={StaticResource NameConverter}}" FontSize="30" />
+                <Label Content="Submission date" FontSize="16"  FontWeight="UltraLight"
+                   FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="15,10,0,0" Grid.Column="0" Grid.Row="1" Width="140" />
+                <Label Content="Start date" FontSize="16"  FontWeight="UltraLight"
+                       FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="15,10,0,0" Grid.Column="0" Grid.Row="2" Width="140" />
+                <Label Content="End date" FontSize="16"   FontWeight="UltraLight"
+                       FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Width="140"/>
+                <Label Content="Urgent" FontSize="16"   FontWeight="UltraLight"
+                       FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"  Width="140"/>
+                <Label Content="Description" FontSize="16" FontWeight="UltraLight"
+                       FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center"  Width="140"/>
 
-                <TextBlock
-                Grid.Row="0" Grid.Column="1" Width="221" HorizontalAlignment="Left" Margin="20,9,0,10"
-                   Text="{Binding ThisVacationRequest.Doctor, Converter={StaticResource NameConverter}}" FontSize="15" />
-                <TextBlock x:Name="TextBox" Text="{Binding ThisVacationRequest.SubmissionDate, Converter={StaticResource DateConverter}}" FontSize="15"  Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30">
-                </TextBlock>
+               <TextBlock x:Name="TextBox" FontSize="16"  FontWeight="UltraLight" Text="{Binding ThisVacationRequest.SubmissionDate, Converter={StaticResource DateConverter}}"   Grid.Row="1" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30">
+                
+               </TextBlock>
                 
                 <TextBlock x:Name="DatePicker" Grid.Row="2" Grid.Column="1" 
-                           Text="{Binding ThisVacationRequest.DateInterval.StartDate, Converter={StaticResource DateConverter}}"  VerticalAlignment="Center" FontSize="15"  Height="28" Margin="20,0,10,0"  >
+                           FontSize="16"  FontWeight="UltraLight"
+                           Text="{Binding ThisVacationRequest.DateInterval.StartDate, Converter={StaticResource DateConverter}}"  VerticalAlignment="Center"  Height="28" Margin="20,0,10,0"  >
 
                 </TextBlock>
                 
                 
-               <TextBlock x:Name="TextB1" Grid.Row="3" Text="{Binding ThisVacationRequest.DateInterval.EndDate, Converter={StaticResource DateConverter}}"  FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
+               <TextBlock x:Name="TextB1" Grid.Row="3" Text="{Binding ThisVacationRequest.DateInterval.EndDate, Converter={StaticResource DateConverter}}"  FontSize="16"  FontWeight="UltraLight" Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
 
-                <TextBlock x:Name="TextBox1" Grid.Row="4" Text="{Binding ThisVacationRequest.IsUrgent}" FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
-                <TextBlock x:Name="TextBox11" Grid.Row="5" Text="{Binding ThisVacationRequest.Description}" FontSize="15"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
+                <CheckBox x:Name="TextBox1" Grid.Row="4" IsChecked="{Binding ThisVacationRequest.IsUrgent}" IsEnabled="False"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" />
+                <TextBlock x:Name="TextBox11" Grid.Row="5" Text="{Binding ThisVacationRequest.Description}" FontSize="16"  FontWeight="UltraLight"  Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center" Height="30" ></TextBlock>
  <TextBox Grid.Row="7"
+          FontSize="17" FontWeight="UltraLight" FontFamily="Freight Sans"
                      Grid.ColumnSpan="2"
-                     Margin="10,50,10,50"
+                     Margin="15,50,10,50"
                      IsReadOnly="False"
-                     FontFamily="Miriam"
+                     Background="{x:Null}" BorderBrush="Black"
                      Text="{Binding ThisVacationRequest.SecretaryDescription}"/>
                 <Border Grid.Row="0" Grid.RowSpan="9" Grid.Column="0" BorderThickness="0,0,2,0" Margin="0,0,0,43" />
                 
