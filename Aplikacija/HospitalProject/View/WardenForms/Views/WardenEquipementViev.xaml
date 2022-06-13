@@ -27,7 +27,7 @@
             <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1449" Height="89" Margin="-75,6,0,0" BorderBrush="White" Grid.ColumnSpan="2" />
             <Button FontSize="16" Grid.Row="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}" Margin="40,35,1132,6" MaxWidth="500" Height="45" Background="White" Foreground="#FF272537" Grid.ColumnSpan="2" FontWeight="Medium"/>
             <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-88,198,0" Grid.RowSpan="2"/>
-            <Button FontSize="16" Grid.Column="1" Grid.Row="0" Content="Generate suples report" Command="{Binding EquipmentPdfCommand}" Margin="916,35,40,6" MaxWidth="500" Height="45" Background="White" Foreground="#FF272537" FontWeight="Medium"/>
+            <Button FontSize="16" Grid.Column="1" Grid.Row="0" Content="Generate suplies report" Command="{Binding EquipmentPdfCommand}" Margin="916,35,40,6" MaxWidth="500" Height="45" Background="White" Foreground="#FF272537" FontWeight="Medium"/>
 
         </Grid>
         <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="40,110,40,80" AutoGenerateColumns="False" 
