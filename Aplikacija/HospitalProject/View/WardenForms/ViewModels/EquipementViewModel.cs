@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
+using HospitalProject.View.WardenForms.Views;
 
 namespace HospitalProject.View.WardenForms.ViewModels
 {
@@ -13,6 +15,8 @@ namespace HospitalProject.View.WardenForms.ViewModels
         public ObservableCollection<Equipement> EquipementItems { get; set; }
         private EquipementController _equipementController;
         public RelayCommand EquipementRelocationCommand { get; set; }
+        public RelayCommand EquipmentPdfCommand { get; set; }
+        public event EventHandler OnRequestClose;
 
         public Equipement SelectedItem
         {
@@ -37,6 +41,14 @@ namespace HospitalProject.View.WardenForms.ViewModels
             var app = System.Windows.Application.Current as App;
             _equipementController = app.EquipementController;
             EquipementRelocationCommand = new RelayCommand(param => ExecuteEquipementRelocationComand(), param => CanExecuteRelocation());
+            EquipmentPdfCommand = new RelayCommand(param => ExecutePdf(), param => true);
+
+        }
+
+        private void ExecutePdf()
+        {
+            new PdfEquipmentSuplies();
+            OnRequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         private bool CanExecuteRelocation()

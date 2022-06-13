@@ -81,12 +81,18 @@
     <Compile Remove="View\Secretary\SecretaryV\AddPatient.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryV\EditProfile.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryVM\PatientAllergiesVM.cs" />
+
     <Compile Remove="View\Secretary\SecretaryVM\NewAppointmentVM.cs" />
     <Compile Remove="View\Secretary\SecretaryV\Icons\PdfV.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryV\PdfV.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryVM\PdvVM.cs" />
     <Compile Remove="View\Secretary\SecretaryVM\PdfViewModel.cs" />
     <Compile Remove="View\Secretary\SecretaryV\pdfView.xaml.cs" />
+    <None Remove="View\WardenForms\icons\medical-cotton-swab.png" />
+    <Resource Include="View\WardenForms\icons\medical-cotton-swab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+
   </ItemGroup>
 
   <ItemGroup>

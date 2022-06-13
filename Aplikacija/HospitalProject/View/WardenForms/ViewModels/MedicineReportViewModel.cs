@@ -36,7 +36,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
 
         public void InitialiseCommands()
         {
-            EditMedicineCommand = new RelayCommand(param => ExecuteEditMedicineCommand(), param => true);
+            EditMedicineCommand = new RelayCommand(param => ExecuteEditMedicineCommand(), param => CanExecuteExecuteEditMedicineCommand());
         }
 
         private void ExecuteEditMedicineCommand()
@@ -44,6 +44,12 @@ namespace HospitalProject.View.WardenForms.ViewModels
             EditMedicineView editMedicineView = new EditMedicineView(SelectedItem);
             MainViewModel.Instance.MomentalView = editMedicineView;
         }
+
+        private bool CanExecuteExecuteEditMedicineCommand()
+        {
+            return SelectedItem != null;
+        }
+        
 
         private void InstantiateData()
         {

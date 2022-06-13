@@ -178,6 +178,7 @@ public class WardenEquipemntRelocationViewModel : BaseViewModel
         GeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateEquipementRooms(equipmentsId));
         AllRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
         AllGeneratedRooms = new ObservableCollection<EquipmentRoomModel>(roomControoler.GenerateAllEquipementRooms(equipmentsId));
+        //RelocationDate = DateTime.Today;
     }
 
     private void InitialiseCommands(Equipement selectedEquipment)

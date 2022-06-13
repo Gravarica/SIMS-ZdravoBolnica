@@ -1,0 +1,55 @@
+﻿<Window x:Class="HospitalProject.View.WardenForms.Views.PdfEquipmentSuplies"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
+        mc:Ignorable="d"
+        Title="PdfEquipmentSuplies" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer>
+            <Grid  Name="print">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+
+                <StackPanel Orientation="Vertical" Grid.Row="0"  HorizontalAlignment="Center">
+                    <Label Content="ZdravoBolnica - Equipment suples" FontSize="28" Height="101" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="0,0,0,1"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Name="LabelDate" Content="Date:" FontSize="25"/>
+                        <Label  Grid.Column="1" Name="Date" Content="{Binding Today}" FontSize="25"/>
+                    </Grid>
+
+                </StackPanel>
+                <Grid Grid.Row = "2" Margin="100,10,100,50" >
+                    <DataGrid Margin="10,0,10,10" ItemsSource="{Binding EquipmentItems}"  AutoGenerateColumns="False" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Equipement id"  
+                                                Binding="{Binding Id}" MinWidth="150"/>
+                            <DataGridTextColumn Header="Type" MinWidth="150"
+                                                Binding="{Binding EquipementType}"/>
+                            <DataGridTextColumn Header="Name"  MinWidth="150"
+                                                Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Quantity"  MinWidth="150"
+                                                Binding="{Binding Quantity}"
+                            />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

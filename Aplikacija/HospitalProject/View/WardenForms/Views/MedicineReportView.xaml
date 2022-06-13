@@ -9,17 +9,20 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="152*"/>
-                <RowDefinition Height="731*"/>
+                <RowDefinition Height="83*"/>
+                <RowDefinition Height="799*"/>
             </Grid.RowDefinitions>
-            <Grid Background="#FFF3BF09"   Margin="0,83,0,0" Grid.RowSpan="2" >
+            <Grid Background="#FF272537"   Margin="0,1,0,0" Grid.Row="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="96*"/>
                     <RowDefinition Height="703*"/>
                 </Grid.RowDefinitions>
+                <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1476" Height="89" Margin="-75,8,0,0" BorderBrush="White" Grid.RowSpan="2" />
+                <Button FontSize="20" Grid.Column="0" Content="Edit medicine" Command="{Binding EditMedicineCommand}" Margin="1145,35,40,16" MaxWidth="200" Height="45" Background="White" Foreground="#FF272537" />
+                <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-88,1373,2" Grid.RowSpan="2"/>
 
             </Grid>
-            <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="32,66,48,193" AutoGenerateColumns="False" 
+            <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="40,110,40,80" AutoGenerateColumns="False" 
                 x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single" Grid.Row="1" 
                 ItemsSource="{Binding MedicineReportItems}"
                 SelectedItem="{Binding SelectedItem}">
@@ -37,8 +40,7 @@
                 </DataGrid.Columns>
 
             </DataGrid>
-            <Button Grid.Column="0" Grid.Row="0" Content="Edit medicine" Command="{Binding EditMedicineCommand}" Margin="1182,90,0,4" MaxWidth="200" Height="55" HorizontalAlignment="Left"/>
-            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1079,13,33,56" Content="Medicine reports"/>
+            <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1063,20,60,11" Content="Medicine reports" HorizontalContentAlignment="Center"/>
         </Grid>
 
     </Grid>

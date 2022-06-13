@@ -49,6 +49,10 @@ namespace HospitalProject.View.WardenForms.ViewModels
         public RelayCommand GradesCommand { get; set; }
         public WardenGradesViewModel WardenGradesViewModel { get; set; }
 
+        public Help HelpViewModel { get; set; }
+
+        public RelayCommand HelpCommand { get; set; }
+
 
 
         public object MomentalView
@@ -86,6 +90,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
             AddingMedicineView = new AddingMedicineView();
             MedicineReportViewModel = new MedicineReportViewModel();
             WardenGradesViewModel = new WardenGradesViewModel();
+            HelpViewModel = new Help();
         }
 
         private void InstaliseComamnds()
@@ -95,7 +100,13 @@ namespace HospitalProject.View.WardenForms.ViewModels
                     MomentalView = MedicineReportViewModel;
                 }
             );
-            
+
+            HelpCommand = new RelayCommand(o =>
+            {
+                MomentalView = HelpViewModel;
+            }
+           );
+
             MedicineViewCommand =new RelayCommand(o =>
                 {
                     MomentalView = MedicineViewModel;
