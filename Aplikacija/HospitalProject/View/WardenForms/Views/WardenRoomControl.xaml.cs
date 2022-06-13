@@ -195,8 +195,24 @@ namespace HospitalProject.View.WardenForms.Views
 
         private void AddEvent_Handler(object sender, RoutedEventArgs e)
         {
+            if(RoomNumber == 0)
+            {
+                MessageBox.Show("Insert rooms number", "Warning", MessageBoxButton.OK);
+            }
+            else if( TypeRoom == null)
+            {
+                MessageBox.Show("Select rooms type", "Warning", MessageBoxButton.OK);
+            }
+            else if (RoomFloor == 0)
+            {
+                MessageBox.Show("Insert rooms floor", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                UpdateDataViewAdd(CreateRoom());
+            }
 
-            UpdateDataViewAdd(CreateRoom());
+               
         }
         
         private void DeleteEvent_Handler(object sender, RoutedEventArgs e)
@@ -215,8 +231,12 @@ namespace HospitalProject.View.WardenForms.Views
         private void EditEvent_Handler(object sender, RoutedEventArgs e)
         {
             RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
-            
-            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+
+            if(selectedRoom == null)
+            {
+                MessageBox.Show("You didnt select a room", "Warning", MessageBoxButton.OK);
+            }
+            else  if (selectedRoom.TypeRoom.ToString() == "stockroom")
             {
                 MessageBox.Show("Stockroom cant be edited", "Warning", MessageBoxButton.OK);
             }
@@ -248,8 +268,11 @@ namespace HospitalProject.View.WardenForms.Views
         private void DeleteRoom()
         {
             RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
-            
-            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+            if(selectedRoom == null)
+            {
+                MessageBox.Show("You didnt select a room", "Warning", MessageBoxButton.OK);
+            }
+            else if (selectedRoom.TypeRoom.ToString() == "stockroom")
             {
                 MessageBox.Show("Stockroom cant be deleted", "Warning", MessageBoxButton.OK);
             }
@@ -268,6 +291,7 @@ namespace HospitalProject.View.WardenForms.Views
         
         private Room CreateRoom()
         {
+
             try
             {
                 return _roomControoler.Create(new Room(roomsEquipement,_id, _number, _floor, StringToRoomType(_roomType)));

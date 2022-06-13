@@ -75,6 +75,7 @@ public class WardenGradesViewModel : ViewModelBase
             selectedDocotr = value;
             OnPropertyChanged(nameof(SelectedDoctor));
             CalculateDoctorsAvg();
+            QuestionsVisibility = Visibility.Visible;
         }
     }
 
@@ -207,7 +208,14 @@ public class WardenGradesViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedCategory));
             SetVisibility();
             SetQuestionCategory();
-            QuestionsVisibility = Visibility.Visible;
+            if(SelectedCategory != Category.DOCTOR_SURVEY) {
+                QuestionsVisibility = Visibility.Visible;
+            }
+            else
+            {
+                QuestionsVisibility = Visibility.Hidden;
+            }
+            
         }
     }
 

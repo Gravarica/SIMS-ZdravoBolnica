@@ -37,11 +37,11 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Equipement id"  
                                                 Binding="{Binding Id}" MinWidth="150"/>
-                            <DataGridTextColumn Header="Quantity" MinWidth="150"
+                            <DataGridTextColumn Header="Type" MinWidth="150"
                                                 Binding="{Binding EquipementType}"/>
                             <DataGridTextColumn Header="Name"  MinWidth="150"
                                                 Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Type"  MinWidth="150"
+                            <DataGridTextColumn Header="Quantity"  MinWidth="150"
                                                 Binding="{Binding Quantity}"
                             />
 
