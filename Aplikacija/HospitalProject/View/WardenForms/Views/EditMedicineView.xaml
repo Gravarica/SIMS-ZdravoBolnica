@@ -8,8 +8,7 @@
             Width="1391" Height="883.04">
     <Grid>
         <Grid Height="883.04" Width="1391">
-            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30"  FontWeight="UltraBlack" BorderThickness="1" Margin="1101,14,12,798" Content="Adding medicine"/>
-            <Grid Background="#FFF3BF09"   Margin="0,83,0,1" >
+            <Grid Background="#FF272537"   Margin="0,83,0,1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="699*"/>
@@ -33,17 +32,17 @@
                         <RowDefinition Height="527*"/>
                     </Grid.RowDefinitions>
 
-                    <Border BorderBrush="Black" BorderThickness="2" Margin="-242,-48,-144,47" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="35,92,792,74">
-                            <TextBlock TextWrapping="Wrap" Text="{Binding DoctorsComment}"  Margin="21,137,20,19" Background="White" FontSize="20"/>
+                    <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="-242,-48,-144,47" Grid.RowSpan="3" Grid.ColumnSpan="2" CornerRadius="5,5,5,5">
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="41,205,892,85">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding DoctorsComment}" Background="White" FontSize="20"/>
                         </Border>
                     </Border>
 
-                    <Label FontSize="25" FontWeight="Heavy" Margin="283,38,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Insert name:" Grid.ColumnSpan="2"/>
-                    <Label FontSize="25" FontWeight="Heavy" Margin="206,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="42" Width="204" Content="Insert Quantity:" Grid.Column="1"/>
-                    <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Margin="185,22,29,25" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-                    <TextBox Text="{Binding SelectedName}" IsReadOnly="True" FontSize="20" BorderThickness="3" Grid.Row="1" Margin="248,22,358,25" Grid.ColumnSpan="2"/>
-                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="241,34,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244" Grid.ColumnSpan="2"/>
+                    <Label FontSize="25" FontWeight="Medium" Margin="283,38,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Insert name:" Grid.ColumnSpan="2" Foreground="White"/>
+                    <Label FontSize="25" FontWeight="Medium" Margin="206,40,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="42" Width="204" Content="Insert Quantity:" Grid.Column="1" Foreground="White"/>
+                    <TextBox Text="{Binding SelectedQuantity}"  BorderThickness="3" Margin="185,22,29,25" Grid.Row="1" Grid.Column="1" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding SelectedName}" IsReadOnly="True" FontSize="20" BorderThickness="3" Grid.Row="1" Margin="248,22,358,25" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label  Grid.Row="2" FontSize="25" FontWeight="Medium" Margin="241,34,0,0" HorizontalAlignment="Left" Content="Select supstancess:" VerticalAlignment="Top" Height="43" Width="244" Grid.ColumnSpan="2" Foreground="White"/>
                     <ListView  x:Name="SelectedSupstancessList" ItemsSource="{Binding SelectedAllergies}"   Grid.Row="2"  Margin="243,141,365,140" FontSize="20" Background="White" BorderThickness="2" Grid.ColumnSpan="2" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -62,7 +61,7 @@
 
 
                     </ComboBox>
-                    <Label  Grid.Row="2" FontSize="25" FontWeight="Heavy" Margin="175,31,0,0" HorizontalAlignment="Left" Content="Select replacements:" VerticalAlignment="Top" Height="43" Width="274" Grid.Column="1"/>
+                    <Label  Grid.Row="2" FontSize="25" FontWeight="Medium" Margin="175,31,0,0" HorizontalAlignment="Left" Content="Select replacements:" VerticalAlignment="Top" Height="43" Width="274" Grid.Column="1" Foreground="White"/>
                     <ListView x:Name="SelectedReplacementList" ItemsSource="{Binding SelectedReplacements}"   Grid.Row="2"  Margin="182,142,32,140" FontSize="20" Background="White" BorderThickness="2" Grid.Column="1">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -81,15 +80,19 @@
 
 
                     </ComboBox>
-                    <Border BorderBrush="Black" BorderThickness="2" Margin="502,32,-233,321" Grid.Column="1" Grid.Row="2" Background="#FFF3BF09"/>
-                    <Label FontSize="25" FontWeight="Heavy" Margin="-126,13,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="42" Width="258" Content="Doctors comment:" Grid.Row="1"/>
+                    <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="502,32,-233,321" Grid.Column="1" Grid.Row="2" Background="#FF272537" CornerRadius="5,5,5,5"/>
+                    <Label FontSize="25" FontWeight="Medium" Margin="-177,17,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="42" Width="265" Content="Doctors comment:" Grid.Row="1" HorizontalContentAlignment="Center" Foreground="White"/>
+                    <Border BorderBrush="White" Margin="99,-20,235,81" BorderThickness="0,0,1,0" Grid.RowSpan="3"/>
 
                 </Grid>
-                <Button Command="{Binding EditMedicineCommand}" Grid.Column="2" BorderThickness="3" Content="Edit" HorizontalAlignment="Left" Margin="62,241,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="30" FontWeight="Heavy" Height="98" Width="158"/>
+                <Button Command="{Binding EditMedicineCommand}" Grid.Column="2"  Content="Edit" HorizontalAlignment="Left" Margin="62,241,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="30" FontWeight="Heavy" Height="98" Width="158" Background="White" Foreground="#FF272537" BorderBrush="{x:Null}"/>
+                <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1407" Height="89" Margin="-8,7,0,0" BorderBrush="White" Grid.ColumnSpan="3" />
+                <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-85,260,0" Grid.RowSpan="2"/>
 
 
 
             </Grid>
+            <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1117,20,60,787" Content="Edit medicine" HorizontalContentAlignment="Center"/>
 
 
 

@@ -6,26 +6,29 @@
              xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
              xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="HospitalProject.View.WardenForms.Views.MedicineView"
              mc:Ignorable="d"
-             Width="1391" Height="883.04">
+             d:DesignHeight="883.04" d:DesignWidth="1391">
 
     <Grid Height="883.04" Width="1391">
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1220,9,11,804" Content="Medicine"/>
-        <Grid Background="#FFF3BF09"   Margin="0,83,0,0" >
+
+        <Grid Background="#FF272537"   Margin="0,83,0,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"></RowDefinition>
                 <RowDefinition Height="699*"/>
             </Grid.RowDefinitions>
-            <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1"  Margin="40,30,40,80" IsReadOnly="True" ItemsSource="{Binding Path=MedicineItems}" 
+            <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1407" Height="89" Margin="0,7,0,0" BorderBrush="White" />
+            <DataGrid Style="{StaticResource ResourceKey=grid1}" Grid.Row="1"  Margin="40,30,40,80" IsReadOnly="True" ItemsSource="{Binding MedicineItems}" 
                       SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Medicine id"  Width="*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Medicine id"  Width="*" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Quantity" Width="*" Binding="{Binding Quantity}"/>
                     <DataGridTextColumn Header="Name"  Width="*" Binding="{Binding Name}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding AddMedicineCommand}" Content="Add" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="58" Width="124" Margin="1222,35,0,0"/>
+            <Button Command="{Binding AddMedicineCommand}" Content="Add" FontSize="16" FontWeight="Medium" VerticalAlignment="Top" Height="45" Margin="1248,35,40,0" Background="White" Foreground="#FF272537" BorderBrush="{x:Null}"/>
+            <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-85,1373,1" Grid.RowSpan="2"/>
 
         </Grid>
+        <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1186,20,60,787" Content="Medicine"/>
 
 
 

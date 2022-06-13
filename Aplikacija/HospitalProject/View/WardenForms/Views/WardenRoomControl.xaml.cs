@@ -15,6 +15,7 @@ using HospitalProject.View.Converter;
 using HospitalProject.View.Model;
 using HospitalProject.View.WardenForms.ViewModels;
 using Model;
+using System.Windows.Controls.Primitives;
 
 namespace HospitalProject.View.WardenForms.Views
 {
@@ -194,8 +195,24 @@ namespace HospitalProject.View.WardenForms.Views
 
         private void AddEvent_Handler(object sender, RoutedEventArgs e)
         {
+            if(RoomNumber == 0)
+            {
+                MessageBox.Show("Insert rooms number", "Warning", MessageBoxButton.OK);
+            }
+            else if( TypeRoom == null)
+            {
+                MessageBox.Show("Select rooms type", "Warning", MessageBoxButton.OK);
+            }
+            else if (RoomFloor == 0)
+            {
+                MessageBox.Show("Insert rooms floor", "Warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                UpdateDataViewAdd(CreateRoom());
+            }
 
-            UpdateDataViewAdd(CreateRoom());
+               
         }
         
         private void DeleteEvent_Handler(object sender, RoutedEventArgs e)
@@ -214,8 +231,12 @@ namespace HospitalProject.View.WardenForms.Views
         private void EditEvent_Handler(object sender, RoutedEventArgs e)
         {
             RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
-            
-            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+
+            if(selectedRoom == null)
+            {
+                MessageBox.Show("You didnt select a room", "Warning", MessageBoxButton.OK);
+            }
+            else  if (selectedRoom.TypeRoom.ToString() == "stockroom")
             {
                 MessageBox.Show("Stockroom cant be edited", "Warning", MessageBoxButton.OK);
             }
@@ -247,8 +268,11 @@ namespace HospitalProject.View.WardenForms.Views
         private void DeleteRoom()
         {
             RoomViewModel selectedRoom = (RoomViewModel) Rooms.SelectedItem;
-            
-            if (selectedRoom.TypeRoom.ToString() == "stockroom")
+            if(selectedRoom == null)
+            {
+                MessageBox.Show("You didnt select a room", "Warning", MessageBoxButton.OK);
+            }
+            else if (selectedRoom.TypeRoom.ToString() == "stockroom")
             {
                 MessageBox.Show("Stockroom cant be deleted", "Warning", MessageBoxButton.OK);
             }
@@ -267,6 +291,7 @@ namespace HospitalProject.View.WardenForms.Views
         
         private Room CreateRoom()
         {
+
             try
             {
                 return _roomControoler.Create(new Room(roomsEquipement,_id, _number, _floor, StringToRoomType(_roomType)));
@@ -276,8 +301,57 @@ namespace HospitalProject.View.WardenForms.Views
                 throw;
             }
         }
+
+        private void Button_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Reorganisation;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -15;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Reorganise rooms";
+        }
+
+        private void Reorganisation_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+
+        private void Button_MouseEnter_1(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Deleter;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -45;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Delete selected  room";
+        }
+
+        private void Delete_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+
+        private void Renovation_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Renovation;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -20;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Renovate rooms";
+        }
+
+        private void Renovation_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+    }
     }
 
 
-}
+
 

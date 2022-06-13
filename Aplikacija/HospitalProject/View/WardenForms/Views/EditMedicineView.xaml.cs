@@ -122,6 +122,11 @@ namespace HospitalProject.View.WardenForms.Views
             SetMainViewToMedicineReportViewModel();
         }
 
+        // private bool CanExecuteEditMedicineCommand()
+        // {
+        //     r
+        // }
+
         private void SetMainViewToMedicineReportViewModel()
         {
             MedicineReportViewModel mrvm = new MedicineReportViewModel();

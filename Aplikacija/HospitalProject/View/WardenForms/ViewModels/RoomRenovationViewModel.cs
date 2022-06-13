@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
@@ -20,6 +21,8 @@ namespace HospitalProject.View.WardenForms.ViewModels
         private int daysDuration;
         private Room room;
 
+        private Visibility visableTermins;
+
         private ObservableCollection<RoomRenovation> _generatedRenovationAppointments;
         private ObservableCollection<RoomRenovation> _roomRenovationItems;
         private RoomRenovation selectedRenovation;
@@ -34,7 +37,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
             InitializeControllers();
             InitialiseData(selectedRoom);
             InitialiseCommands();
-
+            
         }
 
         private void InitialiseData(Room selectedRoom)
@@ -42,6 +45,7 @@ namespace HospitalProject.View.WardenForms.ViewModels
             Room = selectedRoom;
             SearchStartDate = DateTime.Today;
             SearchEndDate = DateTime.Today;
+            VisableTermins = Visibility.Hidden;
         }
 
         private void InitialiseCommands()
@@ -86,6 +90,19 @@ namespace HospitalProject.View.WardenForms.ViewModels
             {
                 searchStartDate = value;
                 OnPropertyChanged(nameof(SearchStartDate));
+            }
+        }
+        
+        public Visibility VisableTermins
+        {
+            get
+            {
+                return visableTermins;
+            }
+            set
+            {
+                visableTermins = value;
+                OnPropertyChanged(nameof(VisableTermins));
             }
         }
 
@@ -145,9 +162,12 @@ namespace HospitalProject.View.WardenForms.ViewModels
 
         private void SearchCommandExecute()
         {
+            VisableTermins = Visibility.Visible;
+            
             GeneratedRenovationAppointments = new ObservableCollection<RoomRenovation>(
                 _roomRenovationController.GenerateAvailableRenovationAppointments(ConvertDateTimeToDateOnly(SearchStartDate), ConvertDateTimeToDateOnly(SearchEndDate), Room,
                     DaysDuration));
+            
         }
         
         private DateOnly ConvertDateTimeToDateOnly(DateTime date )

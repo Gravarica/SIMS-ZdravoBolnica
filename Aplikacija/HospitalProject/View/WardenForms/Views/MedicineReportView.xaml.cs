@@ -8,4 +8,6 @@ public partial class MedicineReportView : UserControl
     {
         InitializeComponent();
     }
+
+   
 }

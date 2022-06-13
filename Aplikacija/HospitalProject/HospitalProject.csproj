@@ -79,6 +79,10 @@
     <Compile Remove="View\Secretary\SecretaryV\AddPatient.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryV\EditProfile.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryVM\PatientAllergiesVM.cs" />
+    <None Remove="View\WardenForms\icons\medical-cotton-swab.png" />
+    <Resource Include="View\WardenForms\icons\medical-cotton-swab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
