@@ -72,6 +72,7 @@ namespace HospitalProject.Repository
         {
             MedicalRecord updateMedicalRecord = GetById(medicalRecord.Id);
             updateMedicalRecord.Patient = medicalRecord.Patient;
+            updateMedicalRecord.Allergies = medicalRecord.Allergies;
         }
 
         public void AddNewAnamnesisToMedicalRecord(Anamnesis anamnesis)
@@ -85,7 +86,19 @@ namespace HospitalProject.Repository
         {   
             MedicalRecord updateMedicalRecord = GetById(patient.MedicalRecordId);
             updateMedicalRecord.Allergies.Add(allergy);
+            Update(updateMedicalRecord);
+            _medicalRecordFileHandler.Save(_medicalRecords);
+            
         }
+        public void RemoveAllergiesFromMedicalRecord(Allergies allergy, Patient patient)
+        {   
+            MedicalRecord updateMedicalRecord = GetById(patient.MedicalRecordId);
+            updateMedicalRecord.Allergies.Remove(allergy);
+            Update(updateMedicalRecord);
+            _medicalRecordFileHandler.Save(_medicalRecords);
+        }
+      
+        
 
         private void BindAllergensForMedicalRecord()
         {

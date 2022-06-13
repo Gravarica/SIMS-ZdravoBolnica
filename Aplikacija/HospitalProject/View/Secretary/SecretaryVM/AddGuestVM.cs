@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 using Controller;
 using HospitalProject.Core;
 using Model;
@@ -70,16 +72,31 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(param => ExecuteSaveCommand()));
+                return _saveCommand ?? (_saveCommand = new RelayCommand(param => ExecuteSaveCommand(), param =>CanExecute()));
             }
         }
 
         private void ExecuteSaveCommand()
         { 
-            Patient patient = _patientController.Create(new Patient(_id, _medicalRecordId, FirstName, LastName, Jmbg));
-            Patients.Add(patient);
+            if ( Jmbg==0)
+            {
+                MessageBox.Show("Jmbg must be integer number!", "warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                Patient patient = _patientController.Create(new Patient(_id, _medicalRecordId, FirstName, LastName, Jmbg));
+                Patients.Add(patient);
+                MessageBox.Show("Guest profile created!", "note", MessageBoxButton.OK);
+                FirstName = null;
+                LastName = null;
+                Jmbg = 0;
+            }
         }
 
+        private bool CanExecute()
+        {
+            return (Jmbg!=null && FirstName!= null && LastName!= null ) ;
+        }
 
     }
 }

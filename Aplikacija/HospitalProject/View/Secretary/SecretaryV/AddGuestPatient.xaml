@@ -3,63 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:AddGuestVM}"
+        xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV" 
+        xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:AddGuestVM}"
+   
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
-        TextElement.FontFamily="Roboto"
+        TextElement.FontFamily="Miriam"
         TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto" Height="600" Width="800">
-    <Border Background="#FF8F8CEC" >
+        TextOptions.TextRenderingMode="Auto" Height="582" Width="793">
+    <Border Background="#d3e2ff" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition/>
-                <RowDefinition Height="15.04"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                <RowDefinition  Height="*"/>
+                
 
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Create guest account" Margin="0,5,0,1"  HorizontalAlignment="Center" FontSize="32"  FontWeight="Light" Foreground="#FF3D2C6F" Width="284"/>
+            
+            <TextBlock Grid.Row="0" FontFamily= "Global Serif"
+                       Foreground = "Black"
+                       Text="Create guest account" Margin="150,20,0,1"  Grid.ColumnSpan="2" FontSize="30"   FontWeight="Light"  Width="284"/>
 
+ <Label Content="First name:" HorizontalAlignment="Left"
+        FontSize="17" FontWeight="UltraLight"
+        FontFamily="Freight Sans"
+        Margin="20,12,0,0" Grid.Column="0" Grid.Row="1" Width="140" Grid.ColumnSpan="2"  />
+                <Label Content="Last name:" 
+                       FontSize="17" FontWeight="UltraLight"
+                       FontFamily="Freight Sans" HorizontalAlignment="Left" Margin="20,12,0,0" Grid.Column="0" Grid.Row="2" Width="140" Grid.ColumnSpan="2" />
+                <Label Content="Jmbg:" FontSize="17" FontWeight="UltraLight"
+                       FontFamily="Miriam" HorizontalAlignment="Left" Margin="20,12,0,5" Grid.Column="0" Grid.Row="3" Width="140" />
+                <TextBox Grid.Row = "1" x:Name="TextBox1" 
+                         FontFamily="Freight Sans" FontSize="17" FontWeight="UltraLight"
+                         Text="{Binding FirstName}" Grid.Column="1" Margin="10,10,10,0" VerticalAlignment="Top"  Height="30" Background="{x:Null}" BorderBrush="Black" />
+                <TextBox x:Name="TextBox2" 
+                         FontSize="17" FontWeight="UltraLight" 
+                         FontFamily="Freight Sans" Text="{Binding LastName}" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10" Background="{x:Null}" BorderBrush="Black" VerticalAlignment="Top"  Height="30"/>
+                <TextBox x:Name="TextBox3"
+                         
+                         FontSize="17" FontWeight="UltraLight"
+                         FontFamily="Freight Sans"
+              
+                         Text="{Binding Jmbg}" Grid.Row="3" Grid.Column="1" Margin="10,10,10,10" Background="{x:Null}" BorderBrush="Black" VerticalAlignment="Top"  Height="30">
+                  
+                </TextBox>
+             
 
-            <Grid Grid.Row="2"  Margin="10,0,0,0">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="41*"/>
-                    <RowDefinition Height="47*"/>
-                    <RowDefinition Height="49*"/>
-                    <RowDefinition Height="0*"/>
-                    <RowDefinition Height="15*"/>
-                    <RowDefinition Height="53*"/>
-
-
-
-                </Grid.RowDefinitions>
-
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="83.07"/>
-                    <ColumnDefinition Width="167.93"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="20"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="First name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="0" Width="77" Grid.ColumnSpan="2"  />
-                <Label Content="Last name:" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1" Width="76" Grid.ColumnSpan="2" />
-                <Label Content="Jmbg:" HorizontalAlignment="Left" Margin="10,10,0,5" Grid.Column="0" Grid.Row="2" Width="47" />
-                <TextBox x:Name="TextBox1" Text="{Binding FirstName}" Grid.Column="2" Margin="10,0,10,0" VerticalAlignment="Top" Height="30" Background="{x:Null}" BorderBrush="#FFC4C4C5" />
-                <TextBox x:Name="TextBox2" Text="{Binding LastName}" Grid.Row="1" Grid.Column="2" Margin="10,2,10,10" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
-                <TextBox x:Name="TextBox3" Text="{Binding Jmbg}" Grid.Row="2" Grid.Column="2" Margin="10,4,10,10" Background="{x:Null}" BorderBrush="#FFC4C4C5"/>
-                <Border Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" BorderThickness="0,0,2,0"  Margin="0,0,10,10" Grid.ColumnSpan="2" />
+            <Button Grid.Column="1" Grid.Row="4" Content="Save"  HorizontalAlignment="Left"
+            Margin="216,0,0,20" 
+            FontFamily="Miriam"
+            Width="120" Height="35" FontSize="16"
+            Command="{Binding SaveCommand}" 
+            Style="{DynamicResource PrimaryButton}" 
+            BorderThickness="1"/>
 
             </Grid>
 
-
-            <Button Grid.Row="4" Content="Save"  HorizontalAlignment="Left"  Width="80"
-            Margin="210,5,0,10"  Command="{Binding SaveCommand}" Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
-
-        </Grid>
     </Border>
 </UserControl>

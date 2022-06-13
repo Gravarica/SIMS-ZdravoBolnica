@@ -6,14 +6,16 @@ using System.Windows;
 using HospitalProject.Controller;
 using HospitalProject.Core;
 using HospitalProject.Model;
-using Model;
-using HospitalProject.ValidationRules.DoctorValidation;
 using HospitalProject.View.Secretary.SecretaryV;
-using Syncfusion.Windows.Controls;
+using Model;
+using Syncfusion.ProjIO;
 
+using Syncfusion.ProjIO;
+using Syncfusion.UI.Xaml.Scheduler;
+using Task = System.Threading.Tasks.Task;
 namespace HospitalProject.View.Secretary.SecretaryVM;
 
-public class MeetingVM : BaseViewModel
+public class MeetingDemoVM: BaseViewModel
 {
     private int _id;
     private Doctor _selectedItemForRemoving;
@@ -32,44 +34,81 @@ public class MeetingVM : BaseViewModel
     public IList<Doctor> DoctorsForMeeting { get; set; }
     private List<TimeOnly> _timeList = new List<TimeOnly>();
 
-    public MeetingVM(ObservableCollection<Doctor> doctorsForMeeting)
-    {
-        var app = System.Windows.Application.Current as App;
-        _meetingsController = app.MeetingsController;
-        _doctorController = app.DoctorController;
-        Doctors = new List<Doctor>(_doctorController.GetAll().ToList());
-        DoctorsForMeeting = doctorsForMeeting;
-        FillTimeCB();
-    }
-    public RelayCommand StartDemo
-    {
-        get
-        {
-            return _startDemo ?? (_startDemo = new RelayCommand(param => StartDemoExecute(), param => CanStartDemoExecute()));
-        }
-    }
-    private void StartDemoExecute()
-    {
-       MeetingDemoV view = new MeetingDemoV();
-        view.DataContext = new MeetingDemoVM();
-        SecretaryMainViewVM.Instance.CurrentView = view;
-    }
-    private bool CanStartDemoExecute()
-    {
-        return true;
-    }
-
-    public MeetingVM()
+    private bool _isChecked;
+    
+    public System.Windows.Visibility _showLabel1;
+    public System.Windows.Visibility _showLabel2;
+    
+    public System.Windows.Visibility _showLabel3;
+    private RelayCommand _stopCommand;
+    public MeetingDemoVM()
     {
 
+        _showLabel1 = System.Windows.Visibility.Hidden;
+            
+        _showLabel2 = System.Windows.Visibility.Hidden;
+        
+        _showLabel3 = System.Windows.Visibility.Hidden;
+        IsChecked = true;
         var app = System.Windows.Application.Current as App;
         _meetingsController = app.MeetingsController;
         _doctorController = app.DoctorController;
         Doctors = new List<Doctor>(_doctorController.GetAll().ToList());
         DoctorsForMeeting = new ObservableCollection<Doctor>();
         FillTimeCB();
+        Task.Delay(3000);
+        Demo();
     }
 
+    public System.Windows.Visibility  ShowLabel1
+    {
+        get
+        {
+            return _showLabel1;
+        }
+        set
+        {
+            _showLabel1 = value;
+            OnPropertyChanged(nameof(ShowLabel1));
+        }
+    }
+
+    public System.Windows.Visibility  ShowLabel2
+    {
+        get
+        {
+            return _showLabel2;
+        }
+        set
+        {
+            _showLabel2 = value;
+            OnPropertyChanged(nameof(ShowLabel2));
+        }
+    }
+    public System.Windows.Visibility  ShowLabel3
+    {
+        get
+        {
+            return _showLabel3;
+        }
+        set
+        {
+            _showLabel3 = value;
+            OnPropertyChanged(nameof(ShowLabel3));
+        }
+    }
+    public bool IsChecked
+    {
+        get
+        {
+            return _isChecked;
+        }
+        set
+        {
+            _isChecked = value;
+            OnPropertyChanged(nameof(IsChecked));
+        }
+    }
     public Doctor SelectedItemForRemoving
     {
         get { return _selectedItemForRemoving; }
@@ -145,6 +184,7 @@ public class MeetingVM : BaseViewModel
         }
     }
 
+  
 
     public RelayCommand CreateMeeting
     {
@@ -176,26 +216,16 @@ public class MeetingVM : BaseViewModel
     }
     private bool CanExecuteCreateMeeting()
     {
-        //TimeFormatValidation
+        
         return DoctorsForMeeting.Count != 0;
     }
 
     private bool CanExecuteAddDoctor()
     {
-        return (SelectedItemForAdding!=null && DoctorAlreadyAdded());
+        return (SelectedItemForAdding!=null);
     }
     
-    private bool DoctorAlreadyAdded()
-    {
-        foreach (Doctor doctor in DoctorsForMeeting)
-        {
-            if (doctor.Id == SelectedItemForAdding.Id)
-            {
-                return false;
-            }
-        }
-        return true ;
-    }
+  
     private bool CanExecuteRemoveDoctor()
     {
         return SelectedItemForRemoving!=null;
@@ -204,10 +234,7 @@ public class MeetingVM : BaseViewModel
     private void ExecuteCreateMeetingCommand()
     {
         _meetingsController.Create(new Meetings( _id, 4 , DoctorsForMeeting.ToList(), CreateDateTime(), 60, IsWardenAdded ));
-        MessageBox.Show("Meeting created!", "note", MessageBoxButton.OK);
         DoctorsForMeeting.Clear();
-        IsWardenAdded = false;
-        
     }
     
     private void ExecuteAddDoctorCommand()
@@ -218,5 +245,73 @@ public class MeetingVM : BaseViewModel
     {
         DoctorsForMeeting.Remove(SelectedItemForRemoving);
     }
-  
+    public async  void Demo()
+    {
+            
+        await Task.Delay(2000);
+        ShowLabel1 = System.Windows.Visibility.Visible;
+        
+        await Task.Delay(2000);
+        SelectedItemForAdding = Doctors[1];
+        ExecuteAddDoctorCommand();
+        
+        await Task.Delay(2000);
+        
+        SelectedItemForAdding = Doctors[3];
+        await Task.Delay(2000);
+        ExecuteAddDoctorCommand();
+        
+        await Task.Delay(2000);
+        SelectedItemForAdding = Doctors[2];
+        await Task.Delay(2000);
+        ExecuteAddDoctorCommand();
+        
+            
+        await Task.Delay(2000);
+            
+        ShowLabel1 = System.Windows.Visibility.Hidden;
+            
+        await Task.Delay(1000);
+        ShowLabel2 = System.Windows.Visibility.Visible;
+        
+        SelectedItemForRemoving = DoctorsForMeeting[1];
+        await Task.Delay(2000);
+        ExecuteRemoveDoctorCommand();
+        
+        await Task.Delay(2000);
+
+        IsWardenAdded = true;
+        
+        await Task.Delay(2000);
+        
+        Time = TimeCB[1];
+
+        ShowLabel2 = System.Windows.Visibility.Hidden;
+        
+        await Task.Delay(2000);
+        
+        ShowLabel3 = System.Windows.Visibility.Visible;
+        Date =  new DateTime(2022, 10, 7, 10, 0, 0);
+        
+        await Task.Delay(2000);
+        MessageBox.Show("Meeting created!", "note", MessageBoxButton.OK);
+        DoctorsForMeeting.Clear();
+        IsWardenAdded = false;
+    }
+    public RelayCommand StopDemo
+    {
+        get
+        {
+            return _stopCommand ?? (_stopCommand = new RelayCommand(param => StopDemoExecute()));
+        }
+    }
+
+
+    private void StopDemoExecute()
+    {
+        
+        MeetingV view = new MeetingV();
+        view.DataContext = new MeetingVM();
+        SecretaryMainViewVM.Instance.CurrentView = view;
+    }
     }

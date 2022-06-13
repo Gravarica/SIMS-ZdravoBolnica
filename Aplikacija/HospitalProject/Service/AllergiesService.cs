@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HospitalProject.Model;
 using HospitalProject.Repository;
 
@@ -7,10 +8,15 @@ namespace HospitalProject.Service;
 public class AllergiesService
 {
     private AllergiesRepository _allergiesRepository;
+    private MedicalRecordRepository _medicalRecordRepository;
+    
+    private EquipementRepository _equipementRepository;
 
-    public AllergiesService(AllergiesRepository allergiesRepository)
+    public AllergiesService(AllergiesRepository allergiesRepository, MedicalRecordRepository medicalRecordRepository, EquipementRepository equipmentRepository)
     {
         _allergiesRepository = allergiesRepository;
+        _medicalRecordRepository = medicalRecordRepository;
+        _equipementRepository = equipmentRepository;
     }
 
 
@@ -32,8 +38,27 @@ public class AllergiesService
 
     public void Delete(int id)
     {
+        DeleteAllergenFromEquipment(GetById(id));
+        DeleteAllergenFromMedicalRecords(id);
         _allergiesRepository.Delete(id);
     }
+
+    private void DeleteAllergenFromMedicalRecords(int allergenID) {
+        
+        foreach (MedicalRecord medicalRecord in _medicalRecordRepository.GetAll())
+        {
+            _medicalRecordRepository.RemoveAllergiesFromMedicalRecord(GetById(allergenID), medicalRecord.Patient );
+        }
+    }
+
+    private void DeleteAllergenFromEquipment(Allergies allergen)
+    {
+        foreach (Equipement medicine in _equipementRepository.GetAllMedicine().ToList())
+        {
+            _equipementRepository.RemoveAllergiesFromMedicine(allergen);
+        }
+    }
+    
 
     public void Update(Allergies allergies)
     {

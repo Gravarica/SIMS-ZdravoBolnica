@@ -33,6 +33,8 @@
     <None Remove="View\DoctorView\Views\Icons\treatmentIcon.png" />
     <None Remove="View\DoctorView\Views\Icons\treatmentIcon2.png" />
     <None Remove="View\Secretary\SecretaryV\Icons\university.png" />
+    <None Remove="Themes\FreightSanBookSC.otf" />
+    <None Remove="Resources\Images\556668.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,11 +81,16 @@
     <Compile Remove="View\Secretary\SecretaryV\AddPatient.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryV\EditProfile.xaml.cs" />
     <Compile Remove="View\Secretary\SecretaryVM\PatientAllergiesVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\NewAppointmentVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\Icons\PdfV.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\PdfV.xaml.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\PdvVM.cs" />
+    <Compile Remove="View\Secretary\SecretaryVM\PdfViewModel.cs" />
+    <Compile Remove="View\Secretary\SecretaryV\pdfView.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Resources\Images\Doctor\" />
-    <Folder Include="View\Secretary\SecretaryV\Icons" />
 
   </ItemGroup>
 
@@ -203,6 +210,11 @@
       <Page Remove="View\Secretary\SecretaryV\PatientAllergies.xaml" />
       <Page Remove="View\Secretary\SecretaryV\AddPatient.xaml" />
       <Page Remove="View\Secretary\SecretaryV\EditProfile.xaml" />
+      <Page Remove="Themes\MenuButtonxaml.xaml" />
+      <Page Remove="Themes\SelectedRow.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\Icons\PdfV.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\PdfV.xaml" />
+      <Page Remove="View\Secretary\SecretaryV\pdfView.xaml" />
     </ItemGroup>
 
     <ItemGroup>

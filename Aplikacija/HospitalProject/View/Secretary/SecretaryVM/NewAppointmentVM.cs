@@ -14,7 +14,7 @@ using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
-    public class NewAppointmentVM : BaseViewModel
+    public class NewAppointmentssVM : BaseViewModel
     {
 
         
@@ -51,10 +51,9 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 _generatedAppointments = value;
                 OnPropertyChanged(nameof(GeneratedAppointments));
             }
-        }
+        
 
-
-        public NewAppointmentVM(ObservableCollection<Appointment> AppointmentItems)
+        public NewAppointmentssVM(ObservableCollection<Appointment> AppointmentItems)
         {
             _appointmentItems = AppointmentItems;
             InitializeControllers();

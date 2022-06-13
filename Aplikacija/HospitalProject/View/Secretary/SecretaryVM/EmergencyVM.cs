@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
@@ -23,8 +24,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private Specialization _specialization;
       
         
-        private RelayCommand _addGuest;
-        private RelayCommand _search;
+        private RelayCommand _addGuest; 
+        public RelayCommand SearchCommand { get; set; }
         private RelayCommand _createEmergency;
 
         public ObservableCollection<Patient> Patients { get; set; }
@@ -42,15 +43,21 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             var app = System.Windows.Application.Current as App; 
             Patients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
+            AllPatients = new ObservableCollection<Patient>(app.PatientController.GetAll().ToList());
+
             InitializeControllers();
             FillComboData();
         }
+
+        public ObservableCollection<Patient> AllPatients { get; set; }
 
         private void InitializeControllers()
         {
             var app = System.Windows.Application.Current as App;
             _appointmentController = app.AppointmentController;
             _roomController = app.RoomController;
+            SearchCommand = new RelayCommand(o => ExecuteSearchQuantityCommand(), o => true);
+
         }
 
         public Patient SelectedItem
@@ -255,5 +262,31 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
+        private void ExecuteSearchQuantityCommand()
+        {
+            if ( FindJmbg==0)
+            {
+                MessageBox.Show("Jmbg must be integer number!", "warning", MessageBoxButton.OK);
+            }
+            else
+            {
+                Patients.Clear();
+                foreach (Patient patient in AllPatients)
+                {
+                    if (FindJmbg == patient.Jmbg)
+                    {
+                        Patients.Add(patient);
+                    }
+
+
+                }
+
+                if (string.IsNullOrEmpty(FindJmbg.ToString())
+                    == true)
+                {
+                    Patients = AllPatients;
+                }
+            }
+        }
     }
 }

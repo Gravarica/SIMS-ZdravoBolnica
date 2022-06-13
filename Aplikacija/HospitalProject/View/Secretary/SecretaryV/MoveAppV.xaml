@@ -10,8 +10,8 @@
         TextElement.FontSize="14"
         TextElement.FontFamily="Roboto"
         TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto" Height="600" Width="800">
-    <Border Background="#FF8F8CEC" >
+        TextOptions.TextRenderingMode="Auto" Height="682" Width="793">
+    <Border Background="#d3e2ff" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -25,18 +25,34 @@
 
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Choose one from the list" Margin="46,5,0,1"  HorizontalAlignment="Left" FontSize="32"  FontWeight="Light" Foreground="#FF3A338E" Grid.Column="1" Width="329"/>
+            <TextBlock Grid.Row="0" FontFamily="Global Serif"
+                       FontSize="30"  Margin="0,20,0,0" 
+                       Text="Choose one from the list" HorizontalAlignment="Center"  FontWeight="Light" Foreground="#FF3A338E" Grid.Column="1" Width="329"/>
 
 
-            <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"  Width="80"
+            <Button Grid.Row="2" Content="OK"  HorizontalAlignment="Left"
+                    
+                    Style="{DynamicResource PrimaryButton}" 
+                    FontFamily="Miriam"
+                    Width="80" Height="35" FontSize="16" 
             Margin="337,20,0,14"  Command="{Binding SaveCommand}" Grid.Column="1"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"/>
-            <DataGrid x:Name="dataAppointment" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
+                 />
+            <DataGrid x:Name="dataAppointment" FontWeight="UltraLight" Grid.Row="1" ItemsSource="{Binding BestAppointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
                 SelectionMode="Single" AutoGenerateColumns="False" FontSize="16" 
                 FontStyle="Normal"
                 FontFamily="Miriam"
-                CanUserResizeRows="False" Background="#FFBCC1E8" Margin="0,0,38,0" Grid.Column="1" >
-
+                CanUserResizeRows="False" Background="#d3e2ff" Margin="0,0,38,0" Grid.Column="1" >
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="{Binding SelectedItem}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#5372ae"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Appointments date" Binding="{Binding Appointment.Date}" Width="*"  CanUserResize="False" />

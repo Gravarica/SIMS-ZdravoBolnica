@@ -76,11 +76,12 @@ namespace HospitalProject.FileHandler
                 return null;
             }
 
+             
             string CSVOutput = allergens.ElementAt(0).Id.ToString();
 
             for(int i = 1; i < allergens.Count; i++)
             {
-                CSVOutput = ALLERGY_CSV + allergens.ElementAt(i).Id.ToString(); 
+                CSVOutput = CSVOutput + ALLERGY_CSV + allergens.ElementAt(i).Id.ToString(); 
             }
 
             return CSVOutput;

@@ -3,13 +3,17 @@ using HospitalProject.Core;
 using HospitalProject.View.Secretary.SecretaryV;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.View.Secretary.SecretaryV;
+using Model;
 
 namespace HospitalProject.View.Secretary.SecretaryVM
 {
@@ -23,79 +27,88 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         public RelayCommand MeetingCommand { get; set; }
         public RelayCommand NewAppointmentCommand { get; set; }
         public RelayCommand RequestsCommand { get; set; }
-        
-        public RegisterV RegisterV { get; set; }
-        public NewAppointmentsV NewAppointmentsV { get; set; }
-        public DataBaseV DataBaseV { get; set; }
-        public RequestsV RequestsV { get; set; }
-        public EmergencyV EmergencyV { get; set; }
-        public MeetingV MeetingV { get; set; }
-        
-        
+        public RelayCommand StartDemo { get; set; }
+        public RegisterVM RegisterVM { get; set; }
+        public NewAppointmentsVM NewAppointmentsVM { get; set; }
+        public DataBaseVM DataBaseVM { get; set; }
+        public RequestsVM RequestsVM { get; set; }
+        public EmergencyVM EmergencyVM { get; set; }
+        public MeetingVM MeetingVM { get; set; }
+
         private Window Window;
         private object currentView;
         private static SecretaryMainViewVM _instance; 
         
-        UserController _userController;
+        private UserController _userController;
         
+        private EquipementController _equipmentController;
+        private AllergiesController _allergiesController;
+        private PatientController _patientController;
+        private DoctorController _doctorController;
+        private MeetingsController _meetingsController;
+        
+
         public static SecretaryMainViewVM Instance => _instance;
     
         public SecretaryMainViewVM(Window window)
         {
             NewViews();
             NewCommands();
-
+            
             var app = System.Windows.Application.Current as App;
+           
             _userController = app.UserController;
              _instance = this;
              
             Window = window;
-            CurrentView = DataBaseV;
+            CurrentView = DataBaseVM;
         }
+
 
         private void NewViews()
         {
             //DashBoard = new DashBoardV();
-            RegisterV = new RegisterV();
-            DataBaseV = new DataBaseV();
-            EmergencyV = new EmergencyV();
-            NewAppointmentsV = new NewAppointmentsV();
-            MeetingV  = new MeetingV();
-            RequestsV = new RequestsV();
+            RegisterVM = new RegisterVM();
+            DataBaseVM = new DataBaseVM();
+            EmergencyVM = new EmergencyVM();
+            NewAppointmentsVM = new NewAppointmentsVM();
+            MeetingVM  = new MeetingVM();
+            RequestsVM = new RequestsVM();
         }
 
         private void NewCommands()
         {
             RegisterCommand = new RelayCommand(o =>
                 {
-                    CurrentView = RegisterV;
+                    CurrentView = RegisterVM;
                 }
             );
             MeetingCommand = new RelayCommand(o =>
                 {
-                    CurrentView = MeetingV;
+                    CurrentView = MeetingVM;
                 }
             ); 
             DataBaseCommand = new RelayCommand(o =>
                 {
-                    CurrentView = DataBaseV;
+                    
+                    CurrentView = DataBaseVM;
                 }
             );
             EmergencyCommand = new RelayCommand(o =>
                 {
-                    CurrentView = EmergencyV;
+                    CurrentView = EmergencyVM;
                 }
             );
             NewAppointmentCommand = new RelayCommand(o =>
             {
-                CurrentView = NewAppointmentsV;
+                CurrentView = NewAppointmentsVM;
             });
              
             RequestsCommand = new RelayCommand(o =>
             {
-                CurrentView = RequestsV;
+                CurrentView = RequestsVM;
             });
-
+           
         }
         
             

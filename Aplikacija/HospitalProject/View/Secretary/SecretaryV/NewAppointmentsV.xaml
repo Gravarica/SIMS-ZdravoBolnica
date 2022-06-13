@@ -6,42 +6,84 @@
             xmlns:local="clr-namespace:HospitalProject.View.Secretary.SecretaryV"
              xmlns:secretaryvm="clr-namespace:HospitalProject.View.Secretary.SecretaryVM" d:DataContext="{d:DesignInstance Type=secretaryvm:NewAppointmentsVM}"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="582" d:DesignWidth="793">
 
-    <Grid Background="#FF9592F5">
+    <Grid Background="#d3e2ff">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="300*"/>
-                <RowDefinition Height="57*"/>
-            </Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    
+                    <RowDefinition />
+                    
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+            <Label Grid.Column="0"  FontFamily="Global Serif"
+                   Margin="0,20,0,0" 
+                   FontSize="30" 
+                   Content="All scheduled appointments"  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Grid.ColumnSpan="2" Width="400" Height="52" />
 
-            <DataGrid x:Name="dataAppointment" Grid.Row="2" ItemsSource="{Binding Appointments}" SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
-                      FontSize="16"  FontFamily="Miriam"   
+
+            <DataGrid x:Name="dataAppointment" FontWeight="UltraLight"
+                      Grid.Row="1" ItemsSource="{Binding Appointments}" 
+                      SelectedItem="{Binding SelectedItem}"  IsReadOnly="True" 
+                      FontSize="16"  RowHeight="35"
+                      FontFamily="Freight Sans" 
                       SelectionMode="Single" AutoGenerateColumns="False" 
                               FontStyle="Normal"
-                              CanUserResizeRows="False" Background="#FFBCC1E8" Margin="10,0,10,86" Grid.RowSpan="2" >
-
+                              CanUserResizeRows="False" Background="#d3e2ff" Margin="30,20,40,0"  >
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Foreground" Value="{Binding SelectedItem}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#5372ae"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"  CanUserResize="False"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"  CanUserResize="False"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"  CanUserResize="False" />
                     <DataGridTextColumn Header="Doctor" Binding="{Binding Doctor.FirstName}" Width="*"  CanUserResize="False"/>
                     <DataGridTextColumn Header="Patient" Binding="{Binding Patient.FirstName}" Width="150"  CanUserResize="False"/>
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button 
+                                        Margin="0,0,0,0"
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        Style="{StaticResource RoundButton}"
+                                                
+                                >
+                                    <Image 
+                                        Width="19" Height="19"
+                                        Source="C:\Users\Kristina Petković\Desktop\faks\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\Secretary\SecretaryV\Icons\deletee.png"/>
+
+
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
 
             </DataGrid>
 
             <Button x:Name="NewAppointmemt"
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
-                    Content="New Appointment" HorizontalAlignment="Left" Margin="67,18,0,18" Width="150" Height="50" Grid.Row="3" Command="{Binding NewAppointmentCommand}"/>
-            <Button Grid.Row="3" 
-                    Foreground="#FFEEEF16"  Background="#FF6668D6"
-                    x:Name="Delete" Content="Delete"  HorizontalAlignment="Left" Width="150" Height="50"  Command="{Binding DeleteCommand}" BorderBrush="Red" Margin="587,18,0,18"/>
+                    
+                    Style="{DynamicResource PrimaryButton}" 
+                    FontFamily="Miriam"
+                    Width="120" Height="35" FontSize="16" 
+                    Content="New" HorizontalAlignment="Left" Margin="30,18,0,18" 
+                    Grid.Row="3" Command="{Binding NewAppointmentCommand}"/>
+           
             <Button x:Name="UpdateExamination" 
-                    Foreground="#FFEEEF16" BorderBrush="#FFEDF917" Background="#FF6668D6"
-                    Content="Edit"  HorizontalAlignment="Center" Margin="0,18,0,18" Width="150" Height="50"  Grid.Row="3" Command="{Binding EditAppointmentCommand}" />
+                    
+                    Style="{DynamicResource PrimaryButton}" 
+                    FontFamily="Miriam"
+                    Width="120" Height="35" FontSize="16" 
+                    Content="Edit"  HorizontalAlignment="Center" Margin="580,18,0,18" Grid.Row="3" Command="{Binding EditAppointmentCommand}" />
 
         </Grid>
 

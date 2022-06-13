@@ -13,11 +13,14 @@ public class AllergiesRepository
       
         private List<Allergies> _allergies;
         private IHandleData<Allergies> _allergiesFileHandler;
+        
+        private IHandleData<MedicalRecord> _medicalRecordFileHandler;
         private int _allergiesMaxId;
 
         public AllergiesRepository()
         {
             _allergiesFileHandler = new AllergiesFileHandler(FilePathStorage.ALLERGIES_FILE);
+            _medicalRecordFileHandler = new MedicalRecordFileHandler(FilePathStorage.MEDICALRECORD_FILE);
             _allergies = _allergiesFileHandler.ReadAll().ToList();
             _allergiesMaxId = GetMaxId();
 
@@ -65,6 +68,7 @@ public class AllergiesRepository
             if (!allergy.Matches(id)) return;
             _allergies.Remove(allergy);
             _allergiesFileHandler.Save(_allergies);
+            
         }
 
 }

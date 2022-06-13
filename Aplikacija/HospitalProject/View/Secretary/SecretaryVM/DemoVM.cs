@@ -1,52 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using Controller;
 using HospitalProject.Controller;
 using HospitalProject.Core;
+using HospitalProject.Model;
 using HospitalProject.ValidationRules.DoctorValidation;
-using HospitalProject.View.Secretary.SecretaryV;
+using HospitalProject.View.Model;
 using HospitalProject.View.Util;
 using Model;
 
-namespace HospitalProject.View.Secretary.SecretaryVM
+using System.Threading.Tasks;
+using HospitalProject.View.Secretary.SecretaryV;
+using Syncfusion.ProjIO;
+using Syncfusion.UI.Xaml.Scheduler;
+using Task = System.Threading.Tasks.Task;
+
+namespace HospitalProject.View.Secretary.SecretaryVM;
+
+public  class DemoVM : BaseViewModel
 {
-    public class AddNewAppointmentVM : BaseViewModel
-    {
-
-
+      
         private DateTime _startDate;
         private DateTime _endDate;
         private Patient _patient;
         private Doctor _doctor;
         private Appointment _selectedItem;
-        private int _priority = 0;
-        private int _flagOnOff = 0;
-
-        
+        private bool _priority;
+        private bool _isChecked;
         private AppointmentController _appointmentController; 
         private DoctorController _doctorController;
         private PatientController _patientController;
-        
+        private string _fullName;
         private RelayCommand _submitCommand;
         private RelayCommand _resetCommand;
         private RelayCommand _saveCommand;
         private RelayCommand _cancelCommand;
-        private RelayCommand _startDemo;
 
+        private RelayCommand _stopCommand;
         private List<ComboBoxData<Doctor>> _doctorComboBox = new List<ComboBoxData<Doctor>>();
         private List<ComboBoxData<Patient>> _patientComboBox = new List<ComboBoxData<Patient>>();
-        
-        
+        public System.Windows.Visibility _showLabel1;
+        public System.Windows.Visibility _showLabel2;
         private ObservableCollection<Appointment> _generatedAppointments;
         private ObservableCollection<Appointment> _appointmentItems;
 
-        public AddNewAppointmentVM(ObservableCollection<Appointment> AppointmentItems)
+        public DemoVM()
         {
-            _appointmentItems = AppointmentItems;
+            _showLabel1 = System.Windows.Visibility.Hidden;
+            
+            _showLabel2 = System.Windows.Visibility.Hidden;
+            IsChecked = true;
             InitializeControllers();
             InitializeData();
+            Task.Delay(3000);
+            Demo();
         }
 
         private void InitializeControllers()
@@ -58,8 +69,10 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         }
 
         private void InitializeData()
-        {
+        {   
             FillComboData();
+            AppointmentItems = new ObservableCollection<Appointment>(_appointmentController.GetAll().ToList());
+
         }
 
         private void FillComboData()
@@ -92,6 +105,18 @@ namespace HospitalProject.View.Secretary.SecretaryVM
             }
         }
 
+        public ObservableCollection<Appointment> AppointmentItems
+        {
+            get
+            {
+                return _appointmentItems;
+            }
+            set
+            {
+                _appointmentItems = value;
+                OnPropertyChanged(nameof(AppointmentItems));
+            }
+        }
 
         public List<ComboBoxData<Doctor>> DoctorComboBox
         {
@@ -172,7 +197,7 @@ namespace HospitalProject.View.Secretary.SecretaryVM
                 OnPropertyChanged(nameof(DoctorData));
             }
         }
-
+    
         public Appointment SelectedItem
         {
             get
@@ -190,35 +215,40 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return _submitCommand ?? (_submitCommand = new RelayCommand(param => SubmitCommandExecute(), param => CanSubmitCommandExecute()));
+                return _submitCommand ?? (_submitCommand = new RelayCommand(param => SubmitCommandExecute()));
             }
         }
-        public RelayCommand StartDemo
+
+        public RelayCommand StopDemo
         {
             get
             {
-                return _startDemo ?? (_startDemo = new RelayCommand(param => StartDemoExecute(), param => CanStartDemoExecute()));
+                return _stopCommand ?? (_stopCommand = new RelayCommand(param => StopDemoExecute()));
             }
         }
 
-        private bool CanSubmitCommandExecute()
+        private void StopDemoExecute()
         {
-            return NewAppointmentValidation.IsStartBeforeEnd(StartDate, EndDate) &&
-                   NewAppointmentValidation.IsDateAfterNow(StartDate, EndDate) &&
-                   (_priority == 1 || _priority == 2);
-        }
-
-        private bool CanStartDemoExecute()
-        {
-            return true;
-        }
-        
-        private void StartDemoExecute()
-        {
-            DemoV view = new DemoV();
-            view.DataContext = new DemoVM();
+            SelectedItem = null; //ne moze da se execute
+            AddNewAppointmentV view = new AddNewAppointmentV();
+            view.DataContext = new AddNewAppointmentVM(AppointmentItems);
             SecretaryMainViewVM.Instance.CurrentView = view;
         }
+
+
+        public bool IsChecked
+        {
+            get
+            {
+                return _isChecked;
+            }
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
+
         private void SubmitCommandExecute()
         {
             DateOnly startDateOnly = new DateOnly(StartDate.Year, StartDate.Month, StartDate.Day);
@@ -233,15 +263,8 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         private void GenerateAppointmentsForPriority(DateOnly startDateOnly, DateOnly endDateOnly)
         {
             
-            if (_priority == 1)
-            {
                 GeneratedAppointments = new ObservableCollection<Appointment>(DoctorIsPriority(startDateOnly, endDateOnly, DoctorData, PatientData));
-            }
-            else if (_priority == 2)
-            {
-                GeneratedAppointments = new ObservableCollection<Appointment>(DateIsPriority(startDateOnly, endDateOnly, PatientData));
-            }
-            
+       
         }
         
 
@@ -265,15 +288,20 @@ namespace HospitalProject.View.Secretary.SecretaryVM
 
         private bool CanSaveCommandExecute()
         {
-            return SelectedItem != null;
+            return (SelectedItem != null);
         }
 
-        public virtual void SaveCommandExecute()
+        public async void SaveCommandExecute()
         {
-            _appointmentItems.Add(_appointmentController.Create(SelectedItem));
-            
-            _generatedAppointments.Remove(SelectedItem);
-            MessageBox.Show("New appointment scheduled!", "note", MessageBoxButton.OK);
+           
+            Appointment demo = _appointmentController.Create(SelectedItem);
+                
+               await Task.Delay(1000);
+                            
+               _generatedAppointments.Remove(SelectedItem);
+                            
+               await Task.Delay(2000);
+       
         }
 
       
@@ -282,57 +310,96 @@ namespace HospitalProject.View.Secretary.SecretaryVM
         {
             get
             {
-                return (_priority == 1) ? true : false;
+                return _priority;
             }
             set
             {
-                _priority = 1;
-                OnPropertyChanged(nameof(FlagForValue2));
+                _priority = true;
 
             }
         }
 
-        public bool FlagOff
+        public string FullName
         {
             get
             {
-                return (_priority == 0) ? true : false;
+                return _fullName;
             }
             set
             {
-                _priority = 0;
-                OnPropertyChanged(nameof(FlagOn));
-
+                _fullName = value;
+                OnPropertyChanged(nameof(FullName));
             }
         }
-
-        public bool FlagOn
+    
+        public System.Windows.Visibility  ShowLabel1
         {
             get
             {
-                return (_priority == 1) ? true : false;
+                return _showLabel1;
             }
             set
             {
-                _priority = 0;
-                OnPropertyChanged(nameof(FlagOff));
-
+                _showLabel1 = value;
+                OnPropertyChanged(nameof(ShowLabel1));
             }
         }
 
-        public bool FlagForValue2
+        public System.Windows.Visibility  ShowLabel2
         {
             get
             {
-                return (_priority == 2) ? true : false;
+                return _showLabel2;
             }
             set
             {
-                _priority = 2;
-                OnPropertyChanged(nameof(FlagForValue1));
-
+                _showLabel2 = value;
+                OnPropertyChanged(nameof(ShowLabel2));
             }
         }
-    }
+        public async  void Demo()
+        {
+            
+            await Task.Delay(2000);
+            ShowLabel1 = System.Windows.Visibility.Visible;
+            DoctorData = _doctorController.Get(1); 
+            await Task.Delay(2000);
 
+            PatientData = _patientController.Get(3);
+            FullName = PatientData.FirstName + " " + PatientData.LastName;
+            
+            await Task.Delay(2000);
+            
+            ShowLabel1 = System.Windows.Visibility.Hidden;
+            
+            await Task.Delay(1000);
+            ShowLabel2 = System.Windows.Visibility.Visible;
+            
+            await Task.Delay(2000);
+           StartDate = new DateTime(2022, 10, 7, 10, 0, 0);
+            await Task.Delay(2000);
+           EndDate  = new DateTime(2022, 10, 10, 10, 0, 0);
+           await Task.Delay(2000);
+           
+           FlagForValue1 = true;
+              
+            await Task.Delay(2000);
+            
+           SubmitCommandExecute();
+           
+           ShowLabel2 = System.Windows.Visibility.Hidden;
+           await Task.Delay(1000);
+           
+           SelectedItem = GeneratedAppointments[1];
+           await Task.Delay(1000);
+
+           SaveCommandExecute();
+
+        }
 }
+    
+          
+          
+  
+      
+

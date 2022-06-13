@@ -130,7 +130,7 @@ namespace HospitalProject
 
             var _noteRepository = new NoteRepository(_anamnesisRepository);
 
-            var _allergiesService = new AllergiesService(_allergiesRepository);
+            var _allergiesService = new AllergiesService(_allergiesRepository, _medicalRecordRepository, _equipementRepository);
             
             var _equipementService = new EquipementService(_equipementRepository);
 
