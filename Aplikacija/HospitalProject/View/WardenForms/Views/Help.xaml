@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="HospitalProject.View.WardenForms.Views.Help"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
+             mc:Ignorable="d" 
+              d:DesignHeight="883.04" d:DesignWidth="1391">
+    <Grid>
+        <Grid Background="#FF272537"   Margin="0,86,0,0" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="96*"/>
+                <RowDefinition Height="703*"/>
+            </Grid.RowDefinitions>
+            <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White" BorderThickness="0,1,0,0" Width="1467" Height="89" Margin="-75,4,0,0" BorderBrush="White" />
+            <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-88,1299,0" Grid.RowSpan="2"/>
+            <Border BorderBrush="White" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="300,0,300,75">
+                <Label Content="Controls:" FontSize="30" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,31,0,0" Width="165" Height="59" BorderBrush="White" BorderThickness="0,0,0,1"/>
+            </Border>
+            <Label Content="Rooms View:" HorizontalAlignment="Left" Margin="457,154,0,0" Grid.Row="1" VerticalAlignment="Top" Width="481" BorderBrush="White" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Control + R" HorizontalAlignment="Left" Margin="814,154,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Equipment View:" HorizontalAlignment="Left" Margin="457,222,0,0" Grid.Row="1" VerticalAlignment="Top" Width="481" BorderBrush="White" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Control + E" HorizontalAlignment="Left" Margin="814,222,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Medicine View:" HorizontalAlignment="Left" Margin="457,290,0,0" Grid.Row="1" VerticalAlignment="Top" Width="481" BorderBrush="White" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Control + M" HorizontalAlignment="Left" Margin="814,290,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Medicine Reports View:" HorizontalAlignment="Left" Margin="457,361,0,0" Grid.Row="1" VerticalAlignment="Top" Width="481" BorderBrush="White" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Control + N" HorizontalAlignment="Left" Margin="814,361,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Survey Grades View:" HorizontalAlignment="Left" Margin="457,431,0,0" Grid.Row="1" VerticalAlignment="Top" Width="481" BorderBrush="White" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label Content="Control + G" HorizontalAlignment="Left" Margin="814,431,0,0" Grid.Row="1" VerticalAlignment="Top" Width="174" Foreground="White" FontSize="20" BorderThickness="0,0,0,1" Height="66" VerticalContentAlignment="Bottom"/>
+            <Label  HorizontalAlignment="Left" Margin="694,139,0,0" Grid.Row="1" VerticalAlignment="Top" Width="56" BorderBrush="White" Foreground="White" FontSize="20" Height="400" VerticalContentAlignment="Bottom" BorderThickness="1,0,0,0"/>
+
+        </Grid>
+        <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1236,20,60,787" Content="Help"/>
+
+    </Grid>
+</UserControl>

@@ -16,16 +16,23 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="WardenWindow" Height="900" Width="1600">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding RoomViewCommand}" Key="R" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding EquipementCommand}" Key="E" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding MedicineViewCommand}" Key="M" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding MedicineReportCommand}" Key="N" Modifiers="Control"></KeyBinding>
+        <KeyBinding Command="{Binding GradesCommand}" Key="G" Modifiers="Control"></KeyBinding>
+    </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>
-           <ResourceDictionary.MergedDictionaries>
-               <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
-               <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datepicker.xaml" />
-               <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
-               <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.ComboBox.xaml" /> -->
-               <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" /> -->
-           </ResourceDictionary.MergedDictionaries>
-            <Style BasedOn="{StaticResource MaterialDesignDatePicker}" TargetType="{x:Type DatePicker}" /> 
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.datepicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
+                <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.ComboBox.xaml" /> -->
+                <!-- <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" /> -->
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource MaterialDesignDatePicker}" TargetType="{x:Type DatePicker}" />
             <!-- <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}" />  -->
             <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="{x:Type Button}" />
         </ResourceDictionary>
@@ -44,14 +51,27 @@
                     <RowDefinition Height="65"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF272537" >
-                    <RadioButton  Style="{StaticResource MenuButtonTheme}" Height="60"  Content="Rooms" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}" Checked="RadioButton_Checked" ClickMode="Release" BorderThickness="0,1,1,1" RenderTransformOrigin="0.5,0.5" />
-                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Equipement" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding EquipementCommand}" />
-                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineViewCommand}" />
-                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Medicine reports" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding MedicineReportCommand}" />
-                    <RadioButton Style="{StaticResource MenuButtonTheme}" Height="60" Content="Grades" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding GradesCommand}" />
+                <StackPanel Grid.Row="1" Grid.Column="0" Background="#FF272537" Margin="0,27,0,0"  >
+                    <Button x:Name="Rooms"   Height="83" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding RoomViewCommand}"  ClickMode="Release" BorderThickness="0,1,0,0" RenderTransformOrigin="0.5,0.5" MouseEnter="RadioButton_MouseEnter" MouseLeave="Rooms_MouseLeave" BorderBrush="White" Background="#FF272537" Click="Rooms_Click" >
+                        <Image Source="C:\Users\aleksa\Desktop\fax\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\WardenForms\icons\rooms.png" Stretch="None"/>
+                    </Button>
+                    <Button  x:Name="Equipment"  Height="80"  FontSize="20" Foreground="{x:Null}"  Width="210" Command="{Binding EquipementCommand}" MouseEnter="Equipment_MouseEnter" MouseLeave="Equipment_MouseLeave" Background="{x:Null}" BorderBrush="White" BorderThickness="0,0,0,0" Click="Equipment_Click" >
+                        <Image Source="icons/medical-cotton-swab.png" Stretch="None"/>
+                    </Button>
+                    <Button x:Name="Medicine"  Height="80"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="{x:Null}"  Width="210" Command="{Binding MedicineViewCommand}" MouseEnter="Medicine_MouseEnter" MouseLeave="Medicine_MouseLeave" BorderBrush="White" Background="#FF272537" BorderThickness="0,0,0,0" Click="Medicine_Click" >
+                        <Image Source="C:\Users\aleksa\Desktop\fax\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\WardenForms\icons\medicine.png" Stretch="None" />
+                    </Button>
+                    <Button x:Name="MedicineReports"  Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="{x:Null}"  Width="210" Command="{Binding MedicineReportCommand}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseEnter="MedicineReports_MouseEnter" MouseLeave="MedicineReports_MouseLeave" Background="#FF272537" BorderBrush="White" BorderThickness="0,0,0,0" Click="MedicineReports_Click" >
+                        <Image Source="C:\Users\aleksa\Desktop\fax\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\WardenForms\icons\repot.png" Stretch="None"/>
+                    </Button>
+                    <Button x:Name="Grades" Height="80"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Foreground="#FFF3BF09"  Width="210" Command="{Binding GradesCommand}" MouseEnter="Grades_MouseEnter" MouseLeave="Grades_MouseLeave" Background="#FF272537" BorderBrush="White" BorderThickness="0,0,0,0" MouseLeftButtonDown="Grades_MouseLeftButtonDown" Click="Grades_Click" >
+                        <Image Source="C:\Users\aleksa\Desktop\fax\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\WardenForms\icons\thumbs-up-down-outline.png" Stretch="None"/>
+                    </Button>
+                    <Button x:Name="Help" Command="{Binding HelpCommand}"  Margin="0,200,0,0" Height="80" Background="#FF272537" BorderBrush="White" BorderThickness="0,0,0,0" MouseEnter="Button_MouseEnter" MouseLeave="Help_MouseLeave" Click="Help_Click" >
+                        <Image Source="C:\Users\aleksa\Desktop\fax\SIMS\SIMS-ZdravoBolnica\Aplikacija\HospitalProject\View\WardenForms\icons\help-circle-outline.png" Stretch="None"></Image>
+                    </Button>
 
-                    
+
                 </StackPanel>
                 <ContentControl BorderThickness="15" Margin="209,2,0,0" Content="{Binding MomentalView}" BorderBrush="#FFF2FF00" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
             </Grid>
@@ -60,7 +80,14 @@
         <TextBlock Text="Zdravo Hospital"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
-            Foreground="#FFF3BF09"
-            FontSize="22" Margin="14,16,0,0"/>
+            Foreground="White"
+            FontSize="25" Margin="20,30,0,0" Width="175"/>
+
+        <Popup x:Name="popup_warden"
+                       AllowsTransparency="True">
+            <Grid>
+                <lm:HelpPopupLeft x:Name="Helper"></lm:HelpPopupLeft>
+            </Grid>
+        </Popup>
     </Grid>
 </Window>

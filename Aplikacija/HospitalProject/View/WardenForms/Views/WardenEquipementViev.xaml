@@ -12,17 +12,25 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="152*"/>
-            <RowDefinition Height="731*"/>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="787*"/>
         </Grid.RowDefinitions>
-        <Grid Background="#FFF3BF09"   Margin="0,83,0,0" Grid.RowSpan="2" >
+        <Grid Background="#FF272537"   Margin="0,2,0,0" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="216*"/>
+                <ColumnDefinition Width="1175*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="96*"/>
                 <RowDefinition Height="703*"/>
             </Grid.RowDefinitions>
+            <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Left" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1449" Height="89" Margin="-75,6,0,0" BorderBrush="White" Grid.ColumnSpan="2" />
+            <Button FontSize="16" Grid.Row="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}" Margin="40,35,1132,6" MaxWidth="500" Height="45" Background="White" Foreground="#FF272537" Grid.ColumnSpan="2" FontWeight="Medium"/>
+            <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-88,198,0" Grid.RowSpan="2"/>
+            <Button FontSize="16" Grid.Column="1" Grid.Row="0" Content="Generate suples report" Command="{Binding EquipmentPdfCommand}" Margin="916,35,40,6" MaxWidth="500" Height="45" Background="White" Foreground="#FF272537" FontWeight="Medium"/>
 
         </Grid>
-        <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="40,30,40,80" AutoGenerateColumns="False" 
+        <DataGrid Style="{StaticResource ResourceKey=grid1}" Margin="40,110,40,80" AutoGenerateColumns="False" 
                   x:Name ="Rooms" IsReadOnly="True"   SelectionMode="Single"
                   ItemsSource="{Binding EquipementItems}"
                   SelectedItem="{Binding SelectedItem}" Grid.Row="1" >
@@ -40,7 +48,6 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Grid.Column="0" Grid.Row="0" Content="Equipment relocation" Command="{Binding EquipementRelocationCommand}" Margin="1182,90,0,4" MaxWidth="200" Height="55" HorizontalAlignment="Left"/>
-        <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1170,13,33,56" Content="Equipment"/>
+        <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1155,20,60,9" Content="Equipment"/>
     </Grid>
 </UserControl>

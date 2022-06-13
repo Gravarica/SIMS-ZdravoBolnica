@@ -20,6 +20,7 @@ using HospitalProject.Core;
 using HospitalProject.Model;
 using HospitalProject.View.WardenForms.ViewModels;
 using Syncfusion.UI.Xaml.Diagram;
+using System.Windows.Controls.Primitives;
 
 namespace HospitalProject.View.WardenForms.Views
 {
@@ -209,9 +210,102 @@ namespace HospitalProject.View.WardenForms.Views
                 }
             }
         }
-        
-        
 
-        
+        private void ddlSupstances_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = ddlSupstances;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = -42;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Select medicines allergies";
+        }
+
+        private void ddlSupstances_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
+
+        private void SelectedSupstancessList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = SelectedSupstancessList;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = 0;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Selected medicines allergies";
+        }
+
+        private void SelectedSupstancessList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
+
+        private void TextBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = InsertName;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = -45;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Insert medicines name";
+        }
+
+        private void TextBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
+
+        private void InsertQuantity_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = InsertQuantity;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = -45;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Insert medicines quantity";
+        }
+
+        private void InsertQuantity_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
+
+        private void ddlReplacements_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = ddlReplacements;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = -42;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Select medicines replacements";
+        }
+
+        private void ddlReplacements_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
+
+        private void SelectedReplacementList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.PlacementTarget = SelectedReplacementList;
+            popup_add_medicene_help.Placement = PlacementMode.Relative;
+            popup_add_medicene_help.HorizontalOffset = -205;
+            popup_add_medicene_help.VerticalOffset = 0;
+            popup_add_medicene_help.IsOpen = true;
+            PopupAdd.PopupText.Text = "Selected medicines replacements";
+        }
+
+        private void SelectedReplacementList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popup_add_medicene_help.Visibility = Visibility.Collapsed;
+            popup_add_medicene_help.IsOpen = false;
+        }
     }
-}
+    }
+

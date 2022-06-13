@@ -11,12 +11,12 @@ using HospitalProject.View.WardenForms.ViewModels;
 
 namespace Model
 {
-   public class Room
+   public class Room : ViewModelBase
    {
       public int _id { get; set; }
       public int _number{ get; set; }
       public int _floor{ get; set; }
-      public RoomType _roomType { get; set; }
+      public RoomType _roomType;
       
       private System.Collections.Generic.List<Equipement> equipment;
 
@@ -39,8 +39,7 @@ namespace Model
       }
 
       private System.Collections.Generic.List<Appointment> appointments;
-      
-      
+
       
 
         public Room(int id, int n, int f,RoomType rt) { 
@@ -48,6 +47,12 @@ namespace Model
             _number = n;
             _floor = f;
             _roomType = rt;
+        }
+
+        public Room(Room room)
+        {
+           _number = room._number;
+           _roomType = room.RoomType;
         }
 
         public Room()
@@ -197,6 +202,7 @@ namespace Model
             set
             {
                 _id = value;
+                OnPropertyChanged(nameof(Id));
             }
         }
         public int Number 
@@ -208,6 +214,7 @@ namespace Model
             set
             {
                 _number = value;
+                OnPropertyChanged(nameof(Number));
             }
         }
 
@@ -215,7 +222,15 @@ namespace Model
 
         public RoomType RoomType
         {
-            get; set;
+           get
+           {
+              return _roomType;
+           }
+           set
+           {
+              _roomType = value;
+              OnPropertyChanged(nameof(RoomType));
+           }
         }
 
         public Room(RoomCheckBoxModel rcbm)

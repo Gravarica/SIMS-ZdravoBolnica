@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HospitalProject.View.WardenForms.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="883.04" d:DesignWidth="1391">
     <Grid>
@@ -12,10 +13,14 @@
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="463*"/>
             </Grid.RowDefinitions>
-            <Grid Background="#FFF3BF09"   Margin="0,83,0,1" Grid.RowSpan="2" >
+            <Grid Background="#FF272537"   Margin="0,83,0,1" Grid.RowSpan="2" >
 
-                <Label FontSize="20" FontWeight="Heavy" Margin="56,74,0,0" HorizontalAlignment="Left" Content="Select source rooms:" VerticalAlignment="Top" Height="43" Width="268"/>
-                <ComboBox x:Name="sourceRoomsBox" HorizontalAlignment="Left" Margin="56,128,0,0" VerticalAlignment="Top" Width="350" Height="40"
+                <Border BorderBrush="White" BorderThickness="1,1,1,2" Margin="35,421,900,80" CornerRadius="5,5,5,5"/>
+
+                <Border BorderThickness="1,1,1,1" BorderBrush="White"  Margin="35,50,917,441" CornerRadius="5,5,5,5"/>
+
+                <Label FontSize="20" FontWeight="Medium" Margin="74,82,0,0" HorizontalAlignment="Left" Content="Select source rooms:" VerticalAlignment="Top" Height="43" Width="350" HorizontalContentAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="sourceRoomsBox" HorizontalAlignment="Left" Margin="75,131,0,0" VerticalAlignment="Top" Width="350" Height="40"
                           SelectionChanged="AllSourceRoomCheckbox_CheckedAndUnchecked" ItemsSource="{Binding AllRooms}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -39,49 +44,77 @@
 
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
+
                 </ComboBox>
 
 
-                <Label FontSize="20" FontWeight="Heavy" Margin="56,221,0,0" HorizontalAlignment="Left" Content="Insert destionation rooms Quantity:" VerticalAlignment="Top" Height="43" Width="448"/>
-                <DatePicker SelectedDate="{Binding Path = ReorganisationStartDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="64,494,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
-                <DatePicker SelectedDate="{Binding Path = ReorganisationEndDate, Mode=OneWayToSource}" FontSize="20" HorizontalAlignment="Left" Margin="69,615,0,0" VerticalAlignment="Top" Width="286" Height="42"/>
-                <TextBox x:Name="destinationRoomsQuantityBox" Text="{Binding DestinationRoomsQuantity}" BorderThickness="3" Grid.Row="0" Margin="135,280,1145,475"/>
+                <Label FontSize="20" FontWeight="Medium" Margin="60,221,0,0" HorizontalAlignment="Left" Content="Insert destionation rooms Quantity:" VerticalAlignment="Top" Height="43" Width="365" Foreground="White"/>
+                <Border Margin="145,483,1016,256"  BorderBrush="#FF272537" Background="White">
+                    <DatePicker 
+                         
+                         materialDesign:HintAssist.Hint="Pick Date"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        SelectedDate="{Binding ReorganisationStartDate, Mode=OneWayToSource}" FontSize="20" VerticalAlignment="Center" Height="55" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Margin="13,0,26,0"/>
+                </Border>
+                <!--<Border  Margin="120,621,1000,118" CornerRadius="5,5,5,5" BorderBrush="#FF272537" Background="White">-->
+                <DatePicker
+                     materialDesign:TextFieldAssist.UnderlineCornerRadius="5,5,5,5"
+                          materialDesign:HintAssist.Hint="Pick Date"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        materialDesign:CalendarAssist.IsHeaderVisible="True"
+                        SelectedDate="{Binding ReorganisationEndDate, Mode=OneWayToSource}" FontSize="20" VerticalAlignment="Top" Height="40" RenderTransformOrigin="0.454,0.645" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Margin="145,621,1016,0" Background="White"/>
+                <!--</Border>-->
+                <TextBox x:Name="destinationRoomsQuantityBox" Text="{Binding DestinationRoomsQuantity}" FontSize="20" BorderThickness="3" Grid.Row="0" Margin="70,272,1210,472" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                <Label FontSize="20" FontWeight="Heavy" Margin="73,430,0,0" HorizontalAlignment="Left" Content="Starting Date:" VerticalAlignment="Top" Height="42" Width="268"/>
-                <Label FontSize="20" FontWeight="Heavy" Margin="61,569,0,0" HorizontalAlignment="Left" Content="Ending Date:" VerticalAlignment="Top" Height="42" Width="268"/>
-                <Button Command = "{Binding InsertDestinationQuantityCommand}" Content="Insert" HorizontalAlignment="Left" Margin="264,279,0,0" VerticalAlignment="Top" Height="45" Width="68" RenderTransformOrigin="0.308,0.333"/>
-                <Button Command = "{Binding CommitReorganisationCommand}" FontSize="25" Content="Commit" HorizontalAlignment="Left" Margin="946,582,0,0" VerticalAlignment="Top" Height="70" Width="173"/>
-                <ComboBox  x:Name="DestinationRoomsComboBox" ItemsSource="{Binding DestinationRooms}" HorizontalAlignment="Left" Margin="670,116,0,0" VerticalAlignment="Top" Width="214" Height="40">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <Label FontSize="20" FontWeight="Medium" Margin="178,434,0,0" HorizontalAlignment="Left" Content="Starting Date:" VerticalAlignment="Top" Height="42" Width="160" HorizontalContentAlignment="Center" Foreground="White" VerticalContentAlignment="Center"/>
+                <Label FontSize="20" FontWeight="Medium" Margin="185,578,0,0" HorizontalAlignment="Left" Content="Ending Date:" VerticalAlignment="Top" Height="42" Width="135" HorizontalContentAlignment="Center" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="295,277,900,423" Background="#FF272537" CornerRadius="5,5,5,5">
+                    <Button Command = "{Binding InsertDestinationQuantityCommand}" Content="Insert" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Height="45" Width="100" RenderTransformOrigin="0.473,0.492" Background="White" BorderBrush="{x:Null}" Foreground="#FF272537"/>
+                </Border>
+                <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1500" Height="86" Margin="0,7,0,0" BorderBrush="White" />
+                <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-85,1374,-1"/>
 
             </Grid>
-            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1017,3,22,90" Content="Rooms reorganisation"/>
-            <Grid  Margin="805,153,57,250" Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=DestinationRoomsComboBox}" RenderTransformOrigin="0.505,0.495">
+            <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="985,15,60,90" Content="Rooms reorganisation"/>
+            <Label FontSize="20" FontWeight="Medium" Margin="653,359,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="424" Content="Insert number:" Grid.Row="1" BorderBrush="White" BorderThickness="0,0,0,1" Foreground="White"/>
+            <Grid   Margin="555,148,57,110"  RenderTransformOrigin="0.505,0.495" Grid.RowSpan="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="245*"/>
                     <RowDefinition Height="78*"/>
                 </Grid.RowDefinitions>
-                <ComboBox Text="{Binding RoomType}" Margin="53,66,238,130" RenderTransformOrigin="0.5,0.5">
-                    <ComboBoxItem Content="operation"/>
-                    <ComboBoxItem Content="stationary"/>
-                    <ComboBoxItem Content="relaxation"/>
-                    <ComboBoxItem Content="meeting"/>
-                    <ComboBoxItem Content="examination"/>
-                </ComboBox>
-                <TextBox Text="{Binding Number}" Margin="58,218,233,58" Grid.RowSpan="2"/>
+                <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="-21,-17,83,-30" Grid.RowSpan="2" CornerRadius="5,5,5,5">
+                    <Label FontSize="20" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Top" Height="58" Width="414" Content="Select type:" Margin="120,209,0,0" BorderThickness="0,0,0,1" BorderBrush="White" Foreground="White"/>
+                </Border>
+
+                <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="60,38,227,59" Grid.RowSpan="2" CornerRadius="5,5,5,5">
+                    <Label Name="NameLabel" Content="{Binding RoomName, Mode=TwoWay}" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="178" FontSize="25" FontWeight="Medium" Foreground="White" BorderBrush="White" BorderThickness="0,0,0,1" Height="64"/>
+                </Border>
+
+                <ComboBox x:Name="RoomTypesBox" SelectedItem="{Binding SelectedRoomType, Mode=TwoWay}" ItemsSource="{Binding RoomTypes}" Margin="321,186,268,238" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="337,46,265,19" Grid.Row="1" Background="#FF272537" MinWidth="120" MaxWidth="400" CornerRadius="5,5,5,5">
+                    <Button  Command = "{Binding NextRoomCommand}" Content="Next" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Width="100" Height="45" Background="White" Foreground="#FF272537" BorderBrush="{x:Null}"/>
+                </Border>
+                <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="598,237,-15,93" Background="#FF272537" CornerRadius="5,5,5,5">
+                    <Button Command = "{Binding CommitReorganisationCommand}" FontSize="25" Content="Commit" HorizontalAlignment="Center" VerticalAlignment="Center" Height="66" Width="124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" Foreground="#FF272537"/>
+                </Border>
+                <Border BorderBrush="White" BorderThickness="1,1,1,1" Margin="100,47,502,18" Grid.Row="1" Background="#FF272537" MinWidth="120" MaxWidth="400" CornerRadius="5,5,5,5">
+                    <Button  Command = "{Binding PreviousCommand}" Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Width="100" Height="45" Background="White" Foreground="#FF272537"/>
+                </Border>
+                <TextBox x:Name="nmbr" Text="{Binding SelectedRoomNumber}" Margin="324,361,265,65" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20">
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="-0.791"/>
+                            <RotateTransform Angle="0.696"/>
+                            <TranslateTransform Y="-1.228"/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
 
             </Grid>
-            <Label FontSize="20" FontWeight="Heavy" Margin="685,221,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="164" Content="Select type:" Grid.Row="1"/>
-            <Label FontSize="20" FontWeight="Heavy" Margin="683,383,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="204" Content="Insert number:" Grid.Row="1"/>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="19,505,903,98"/>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="564,130,116,95"/>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="20,133,906,436"/>
 
     </Grid>
 </UserControl>

@@ -12,76 +12,82 @@
                 <RowDefinition Height="152*"/>
                 <RowDefinition Height="731*"/>
             </Grid.RowDefinitions>
-            <Grid Background="#FFF3BF09"   Margin="0,83,0,0" Grid.RowSpan="2" >
+            <Grid Background="#FF272537"   Margin="0,83,0,0" Grid.RowSpan="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="96*"/>
                     <RowDefinition Height="703*"/>
                 </Grid.RowDefinitions>
-                <Border BorderBrush="White" BorderThickness="1" Margin="477,11,359,18" Grid.Row="1" Background="#FF272537"/>
+                <Border BorderBrush="White" BorderThickness="0,0,1,0" Margin="48,41,999,0" Height="722" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="460,76,376,49" Background="#FF272537" Grid.RowSpan="2" CornerRadius="5,5,5,5"/>
 
-                <ComboBox FontSize="20" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedCategory }" HorizontalAlignment="Left" Margin="107,155,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" Height="40">
-
-                </ComboBox>
-                <Border BorderBrush="White" BorderThickness="1" Margin="477,64,359,516" Grid.Row="1" Background="#FF272537">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding SelectedQuestion.Text}" FontSize="20" Foreground="White" Margin="0,1,0,-2"/>
+                <ComboBox FontSize="20" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedCategory}" Margin="73,107,1069,0" Grid.Row="1" VerticalAlignment="Top" Height="40"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="460,42,376,538" Grid.Row="1" Background="#FF272537" CornerRadius="5,5,5,5">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding SelectedQuestion.Text}" FontSize="20" Foreground="White"/>
                 </Border>
-                <Label Content="Choose syrvey type:" FontWeight="Heavy" HorizontalAlignment="Left" Margin="106,103,0,0" Grid.Row="1" VerticalAlignment="Top" Width="215" FontSize="20" Height="41"/>
-                <Label Content="Question:" HorizontalAlignment="Left" Margin="479,18,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="25" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="529,597,423,38" Grid.Row="1"/>
-                <Label Content="Grade 5 :" HorizontalAlignment="Left" Margin="560,607,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding Grade5}" HorizontalAlignment="Left" Margin="760,607,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="times " HorizontalAlignment="Left" Margin="850,607,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="529,521,423,114" Grid.Row="1"/>
-                <Label Content="Grade 4 :" HorizontalAlignment="Left" Margin="560,531,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding Grade4}" HorizontalAlignment="Left" Margin="760,531,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="times " HorizontalAlignment="Left" Margin="850,531,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="529,445,423,190" Grid.Row="1"/>
-                <Label Content="Grade 3 :" HorizontalAlignment="Left" Margin="560,455,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding Grade3}" HorizontalAlignment="Left" Margin="760,455,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="times " HorizontalAlignment="Left" Margin="850,455,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="529,369,423,266" Grid.Row="1"/>
-                <Label Content="Grade 2 :" HorizontalAlignment="Left" Margin="560,379,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding Grade2}" HorizontalAlignment="Left" Margin="760,379,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="times " HorizontalAlignment="Left" Margin="850,379,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="530,293,422,342" Grid.Row="1"/>
-                <Label Content="Grade 1 :" HorizontalAlignment="Left" Margin="548,303,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding Grade1}" HorizontalAlignment="Left" Margin="757,303,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White" RenderTransformOrigin="0.392,0.216"/>
-                <Label Content="times " HorizontalAlignment="Left" Margin="853,304,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
-                <Border BorderBrush="White" BorderThickness="1" Margin="530,212,422,423" Grid.Row="1"/>
-                <Label Content="Avrage grade :" HorizontalAlignment="Left" Margin="548,222,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
-                <Label Content="{Binding AvgGrade }" HorizontalAlignment="Left" Margin="791,222,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White" RenderTransformOrigin="0.392,0.216"/>
-                <ComboBox FontSize="20" ItemsSource="{Binding QuestionsItems}"  SelectedItem="{Binding SelectedQuestion}" HorizontalAlignment="Left" Margin="105,437,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" Height="40">
+                <Label Content="Choose syrvey type:" FontWeight="Medium" HorizontalAlignment="Left" Margin="73,66,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" FontSize="20" Height="41" BorderThickness="0,0,0,1" HorizontalContentAlignment="Center" Foreground="White"/>
+                <Label Content="Question:" HorizontalAlignment="Left" Margin="462,83,0,0" VerticalAlignment="Top" Width="168" FontSize="25" Height="41" Foreground="White" Grid.RowSpan="2"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="512,566,440,69" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Grade 5 :" HorizontalAlignment="Left" Margin="543,576,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding Grade5}" HorizontalAlignment="Left" Margin="743,576,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="times " HorizontalAlignment="Left" Margin="833,576,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="512,490,440,145" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Grade 4 :" HorizontalAlignment="Left" Margin="543,500,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding Grade4}" HorizontalAlignment="Left" Margin="743,500,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="times " HorizontalAlignment="Left" Margin="833,500,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="512,414,440,221" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Grade 3 :" HorizontalAlignment="Left" Margin="543,424,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding Grade3}" HorizontalAlignment="Left" Margin="743,424,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="times " HorizontalAlignment="Left" Margin="833,424,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="512,338,440,297" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Grade 2 :" HorizontalAlignment="Left" Margin="543,348,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding Grade2}" HorizontalAlignment="Left" Margin="743,348,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="times " HorizontalAlignment="Left" Margin="833,348,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="513,262,439,373" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Grade 1 :" HorizontalAlignment="Left" Margin="531,272,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding Grade1}" HorizontalAlignment="Left" Margin="740,272,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White" RenderTransformOrigin="0.392,0.216"/>
+                <Label Content="times " HorizontalAlignment="Left" Margin="836,273,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White"/>
+                <Border BorderBrush="White" BorderThickness="1" Margin="513,181,439,454" Grid.Row="1" CornerRadius="5,5,5,5"/>
+                <Label Content="Avrage grade :" HorizontalAlignment="Left" Margin="531,191,0,0" Grid.Row="1" VerticalAlignment="Top" Width="168" FontSize="20" Height="41" Foreground="White"/>
+                <Label Content="{Binding AvgGrade}" HorizontalAlignment="Left" Margin="741,191,0,0" Grid.Row="1" VerticalAlignment="Top" Width="102" FontSize="20" Height="41" Foreground="White" RenderTransformOrigin="0.392,0.216"/>
+                <ComboBox Visibility="{Binding QuestionsVisibility}" FontSize="20" ItemsSource="{Binding QuestionsItems}"  SelectedItem="{Binding SelectedQuestion}" HorizontalAlignment="Left" Margin="73,468,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" Height="40">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Label  Content="{Binding Text}"/>
 
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
+                  
                 </ComboBox>
-                <Border BorderBrush="Black" BorderThickness="1" Margin="31,76,964,0" Height="452" VerticalAlignment="Top" Grid.Row="1"/>
-                <Label Content="Choose a question:" FontWeight="Heavy" HorizontalAlignment="Left" Margin="111,387,0,0" Grid.Row="1" VerticalAlignment="Top" Width="202" FontSize="20" Height="41"/>
-                <Border Visibility="{Binding Visable }" BorderBrush="Black" BorderThickness="1" Margin="1069,53,38,0" Height="192" VerticalAlignment="Top" Grid.Row="1">
-                    <Label Visibility="{Binding Visable }" Content="Doctors avrage grade:" Margin="28,24,0,103" HorizontalAlignment="Left" FontSize="20" FontWeight="Heavy" Width="232"/>
+                <Label Visibility="{Binding QuestionsVisibility}" Content="Choose a question:" FontWeight="Medium" HorizontalAlignment="Left" Margin="73,428,0,0" VerticalAlignment="Top" Width="250" FontSize="20" Height="40" BorderThickness="0,0,0,1" HorizontalContentAlignment="Center" Grid.Row="1" Foreground="White"/>
+                <Border Visibility="{Binding Visable}" BorderBrush="White" Margin="1073,191,72,0" Height="65" VerticalAlignment="Top" Grid.Row="1" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5">
+                    
+                    <Label Visibility="{Binding Visable}" Content="Doctors avrage grade:"  HorizontalAlignment="Center" FontSize="20" FontWeight="Medium" Width="232" BorderThickness="2,2,2,2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
                 </Border>
-                <TextBlock Visibility="{Binding Visable, StringFormat={}{0:N2} }" HorizontalAlignment="Left" Margin="1146,143,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding DoctorsAvg}" VerticalAlignment="Top" FontSize="30" Height="73" Width="136"/>
-                <Label Visibility="{Binding Visable }" Content="Choose a docotr:" FontWeight="Heavy" HorizontalAlignment="Left" Margin="111,234,0,0" Grid.Row="1" VerticalAlignment="Top" Width="215" FontSize="20" Height="41"/>
-                <ComboBox FontSize="20" Visibility="{Binding Visable }" ItemsSource="{Binding DoctorItems}"  SelectedItem="{Binding SelectedDoctor}" HorizontalAlignment="Left" Margin="111,283,0,0" Grid.Row="1" VerticalAlignment="Top" Width="249" Height="40">
+                <Border Visibility="{Binding Visable}" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="5,5,5,5" Margin="1092,256,90,326" Grid.Row="1">
+                    
+                    <Label Visibility="{Binding Visable, StringFormat=\{0:N2\}}" Grid.Row="1" VerticalAlignment="Center" FontSize="45" Content="{Binding DoctorsAvg}" Height="88" FontWeight="Heavy" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Margin="10,0,10,0"/>
+                </Border>
+
+                <Label Visibility="{Binding Visable}" Content="Choose a docotr:" FontWeight="Medium" HorizontalAlignment="Left" Margin="73,246,0,0" Grid.Row="1" VerticalAlignment="Top" Width="250" FontSize="20" Height="42" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White"/>
+                <ComboBox FontSize="20" Visibility="{Binding Visable}" ItemsSource="{Binding DoctorItems}"  SelectedItem="{Binding SelectedDoctor}" Margin="73,288,1069,0" Grid.Row="1" VerticalAlignment="Top" Height="40">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Content="{Binding FirstName}"></Label>
-                                <Label Grid.Column="1" Content="{Binding LastName}"></Label>
+                                <Label Grid.Column="0" Content="{Binding FirstName}"/>
+                                <Label Grid.Column="1" Content="{Binding LastName}"/>
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Label FontWeight="Bold" FontSize ="30" HorizontalAlignment="Center" VerticalAlignment="Top"  Foreground="White" BorderThickness="0,1,0,0" Width="1407" Height="89" Margin="0,7,0,0" BorderBrush="White" />
+                <Label Content="" BorderBrush="White" BorderThickness="1,0,0,0" Margin="0,-85,1373,1" Grid.RowSpan="2"/>
 
             </Grid>
-            <Label Grid.Row="0" Foreground="#FFF3BF09" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1243,13,3,56" Content="Grades"/>
+            <Label Grid.Row="0" Foreground="White" FontSize="30" FontWeight="Heavy" BorderThickness="1" Margin="1203,20,60,56" Content="Grades"/>
         </Grid>
 
     </Grid>

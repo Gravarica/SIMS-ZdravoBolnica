@@ -33,7 +33,7 @@ namespace HospitalProject.View.WardenForms.Views
     {
         public ObservableCollection<RoomViewModel> RoomItems { get; set; }
         public ObservableCollection<Room> SourceRooms { get; set; }
-        public ObservableCollection<RoomCheckBoxModel> DestinationRooms { get; set; }
+        public ObservableCollection<Room> DestinationRooms { get; set; }
         
         public ObservableCollection<RoomCheckBoxModel> AllRooms { get; set; }
 
@@ -42,11 +42,26 @@ namespace HospitalProject.View.WardenForms.Views
         private EquipmentRelocationController _equipmentRelocationController;
 
         private int destinationRoomsQuantity;
+        private string roomName;
         
         public RelayCommand InsertDestinationQuantityCommand { get; set; }
         public RelayCommand CommitReorganisationCommand { get; set; }
         
+        public RelayCommand NextRoomCommand { get; set; }
+        public RelayCommand PreviousCommand { get; set; }
+
+        private Room selectedRoom;
+
+        private int selectedRoomNum;
+
         
+
+        private int selectedRoomNumber;
+        private RoomType selectedRoomType;
+
+        public List<RoomType> RoomTypes { get; set; }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -55,9 +70,60 @@ namespace HospitalProject.View.WardenForms.Views
         
         private DateTime reorganisatoionStartDate;
         private DateTime reorganisationEndDate;
+
+
+        public int SelectedRoomNumber
+        {
+            get
+            {
+                return selectedRoomNumber;
+            }
+            set
+            {
+                selectedRoomNumber = value;
+                OnPropertyChanged(nameof(SelectedRoomNumber));
+            }
+        }
+        
+        public RoomType SelectedRoomType
+        {
+            get
+            {
+                return selectedRoomType;
+            }
+            set
+            {
+                selectedRoomType = value;
+                OnPropertyChanged(nameof(SelectedRoomType));
+            }
+        }
+
+        public Room SelectedRoom
+        {
+            get
+            {
+                return selectedRoom;
+            }
+            set
+            {
+                selectedRoom = value;
+                OnPropertyChanged(nameof(SelectedRoom));
+            }
+        }
         
         
-        
+        public int SelectedRoomNum
+        {
+            get
+            {
+                return selectedRoomNum;
+            }
+            set
+            {
+                selectedRoomNum = value;
+                OnPropertyChanged(nameof(SelectedRoomNum));
+            }
+        }
         public DateTime ReorganisationStartDate
         {
             get
@@ -68,6 +134,19 @@ namespace HospitalProject.View.WardenForms.Views
             {
                 reorganisatoionStartDate = value;
                 OnPropertyChanged(nameof(ReorganisationStartDate));
+            }
+        }
+        
+        public string RoomName
+        {
+            get
+            {
+                return roomName;
+            }
+            set
+            {
+                roomName = value;
+                OnPropertyChanged(nameof(RoomName));
             }
         }
         
@@ -123,14 +202,89 @@ namespace HospitalProject.View.WardenForms.Views
             InitializeCollections();
             LoadRooms(rooms);
             InstantiateCommands();
+            SelectedRoomNum = 0;
+            SetRoomTypes();
             
+
+        }
+
+        private void SetRoomTypes()
+        {
+            RoomTypes = new List<RoomType>();
+            RoomTypes.Add(RoomType.examination);
+            RoomTypes.Add(RoomType.meeting);
+            RoomTypes.Add(RoomType.operation);
+            RoomTypes.Add(RoomType.relaxation);
+            RoomTypes.Add(RoomType.stationary);
         }
 
         private void InstantiateCommands()
         {
             InsertDestinationQuantityCommand = new RelayCommand(o => ExecuteInsertDestinationQuantityCommand(), o => CanExecuteInsertDestinationQuantityCommand());
             CommitReorganisationCommand = new RelayCommand(o => ExecuteCommitReorganisationCommand(), o => CanExecuteCommit());
+            NextRoomCommand = new RelayCommand(o => ExecuteNextRoomCommand(),o => CanExecuteNextCommand());
+            PreviousCommand = new RelayCommand(o => ExecutePreviousCommand(), o => CanExecuteReviousCommand());
+
         }
+
+        private void ExecutePreviousCommand()
+        {
+            DestinationRooms[SelectedRoomNum].RoomType = SelectedRoomType;
+            DestinationRooms[SelectedRoomNum].Number = SelectedRoomNumber;
+            
+            
+            SelectedRoomNum -= 1;
+            nmbr.Text = DestinationRooms[SelectedRoomNum].Number.ToString();
+            RoomTypesBox.SelectedItem = DestinationRooms[SelectedRoomNum].RoomType;
+            SelectedRoomType =  DestinationRooms[SelectedRoomNum].RoomType;
+            SelectedRoomNumber = DestinationRooms[SelectedRoomNum].Number;
+            int i = SelectedRoomNum + 1;
+            NameLabel.Content = "New Room " + i ;
+            
+        }
+
+        private void ExecuteNextRoomCommand()
+        {
+            DestinationRooms[SelectedRoomNum].RoomType = SelectedRoomType;
+            DestinationRooms[SelectedRoomNum].Number = SelectedRoomNumber;
+            
+            
+            
+            SelectedRoomNum += 1;
+            if (DestinationRooms[SelectedRoomNum].Number.ToString() != null)
+            {
+                nmbr.Text = DestinationRooms[SelectedRoomNum].Number.ToString();
+                SelectedRoomNumber = DestinationRooms[SelectedRoomNum].Number;
+            }
+            else
+            {
+                nmbr.Text = ""; 
+            }
+
+            if (DestinationRooms[SelectedRoomNum].RoomType != null)
+            {
+                RoomTypesBox.SelectedItem = DestinationRooms[SelectedRoomNum].RoomType;
+                SelectedRoomType =  DestinationRooms[SelectedRoomNum].RoomType;
+            }
+            
+            int i = SelectedRoomNum + 1;
+            NameLabel.Content = "New Room " + i ;
+            
+        }
+
+        private bool CanExecuteNextCommand()
+        {
+            return SelectedRoomNum < (DestinationRooms.Count-1);
+
+        }
+        
+        private bool CanExecuteReviousCommand()
+        {
+            return SelectedRoomNum > 0;
+
+        }
+        
+        
 
         private void LoadRooms(ObservableCollection<RoomViewModel> rooms)
         {
@@ -148,13 +302,15 @@ namespace HospitalProject.View.WardenForms.Views
         private void InitializeCollections()
         {
             SourceRooms = new ObservableCollection<Room>();
-            DestinationRooms = new ObservableCollection<RoomCheckBoxModel>();
+            DestinationRooms = new ObservableCollection<Room>();
             AllRooms = new ObservableCollection<RoomCheckBoxModel>();
         }
 
         private void ExecuteCommitReorganisationCommand()
         {
-            foreach (RoomCheckBoxModel room in DestinationRooms)
+            DestinationRooms[SelectedRoomNum].RoomType = SelectedRoomType;
+            DestinationRooms[SelectedRoomNum].Number = SelectedRoomNumber;
+            foreach (Room room in DestinationRooms)
             {
                 SaveRoom(room);
             }
@@ -182,7 +338,7 @@ namespace HospitalProject.View.WardenForms.Views
                 ReorganisationEndDate.Day);
         }
 
-        private void SaveRoom(RoomCheckBoxModel room)
+        private void SaveRoom(Room room)
         {
             Room newRoom = new Room(room);
             newRoom._floor = SourceRooms[0]._floor;
@@ -238,9 +394,13 @@ namespace HospitalProject.View.WardenForms.Views
             DestinationRooms.Clear();
             for(int i = 0; i < DestinationRoomsQuantity; i++)
             {
-                string name = "New Room " + i.ToString();
-                DestinationRooms.Add(new RoomCheckBoxModel(name));
+                
+                DestinationRooms.Add(new Room());
             }
+            int s = SelectedRoomNum + 1;
+            NameLabel.Content = "New Room " + s ;
+            SelectedRoom = DestinationRooms[0];
+
         }
         
         
@@ -262,13 +422,14 @@ namespace HospitalProject.View.WardenForms.Views
 
         private bool CanExecuteInsertDestinationQuantityCommand()
         {
+           
             return DestinationRoomsQuantity>0;
         }
 
         private bool CanExecuteCommit()
         {
             bool valid = true;
-            foreach (RoomCheckBoxModel room in DestinationRooms)
+            foreach (Room room in DestinationRooms)
             {
                 valid = CheckRoomTypeValid(room);
                 valid = CheckRoomNumberValid(room);
@@ -278,7 +439,7 @@ namespace HospitalProject.View.WardenForms.Views
             return valid && CanExecuteInsertDestinationQuantityCommand();
         }
 
-        private bool ChecDateValid(RoomCheckBoxModel room)
+        private bool ChecDateValid(Room room)
         {
             if (reorganisationEndDate <= reorganisatoionStartDate)
             {
@@ -288,7 +449,7 @@ namespace HospitalProject.View.WardenForms.Views
             return true;
         }
         
-        private bool CheckRoomNumberValid(RoomCheckBoxModel room)
+        private bool CheckRoomNumberValid(Room room)
         {
             if (room.Number <= 0)
             {
@@ -298,7 +459,7 @@ namespace HospitalProject.View.WardenForms.Views
             return true;
         }
         
-        private bool CheckRoomTypeValid(RoomCheckBoxModel room)
+        private bool CheckRoomTypeValid(Room room)
         {
             if (room.RoomType == null)
             {

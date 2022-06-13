@@ -15,6 +15,7 @@ using HospitalProject.View.Converter;
 using HospitalProject.View.Model;
 using HospitalProject.View.WardenForms.ViewModels;
 using Model;
+using System.Windows.Controls.Primitives;
 
 namespace HospitalProject.View.WardenForms.Views
 {
@@ -276,8 +277,57 @@ namespace HospitalProject.View.WardenForms.Views
                 throw;
             }
         }
+
+        private void Button_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Reorganisation;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -15;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Reorganise rooms";
+        }
+
+        private void Reorganisation_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+
+        private void Button_MouseEnter_1(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Deleter;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -45;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Delete selected  room";
+        }
+
+        private void Delete_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+
+        private void Renovation_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.PlacementTarget = Renovation;
+            popup_top.Placement = PlacementMode.Relative;
+            popup_top.HorizontalOffset = -20;
+            popup_top.VerticalOffset = 36;
+            popup_top.IsOpen = true;
+            PopupTop.PopupText.Text = "Renovate rooms";
+        }
+
+        private void Renovation_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popup_top.Visibility = Visibility.Collapsed;
+            popup_top.IsOpen = false;
+        }
+    }
     }
 
 
-}
+
 

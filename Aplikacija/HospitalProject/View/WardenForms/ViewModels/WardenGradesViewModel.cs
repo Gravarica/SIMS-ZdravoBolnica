@@ -45,7 +45,11 @@ public class WardenGradesViewModel : ViewModelBase
 
     private double doctorsAvg;
 
+    private Visibility questionsVisibility;
+
     private Visibility visable = Visibility.Hidden;
+    
+    
 
     public ObservableCollection<Question> QuestionsItems
     {
@@ -84,6 +88,19 @@ public class WardenGradesViewModel : ViewModelBase
         {
             visable = value;
             OnPropertyChanged(nameof(Visable));
+        }
+    } 
+    
+    public Visibility QuestionsVisibility
+    {
+        get
+        {
+            return questionsVisibility;
+        }
+        set
+        {
+            questionsVisibility = value;
+            OnPropertyChanged(nameof(QuestionsVisibility));
         }
     } 
 
@@ -190,6 +207,7 @@ public class WardenGradesViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedCategory));
             SetVisibility();
             SetQuestionCategory();
+            QuestionsVisibility = Visibility.Visible;
         }
     }
 
@@ -265,6 +283,7 @@ public class WardenGradesViewModel : ViewModelBase
         SurveyRealisationItems =
             new ObservableCollection<SurveyRealization>(_surveyRealizationController.GetAll().ToList());
         DoctorItems = new ObservableCollection<Doctor>(_doctorController.GetAll().ToList());
+        QuestionsVisibility = Visibility.Hidden;
     }
 
     private void ExecuteSelectedQuestionChangeCommand()
